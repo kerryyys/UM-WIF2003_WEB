@@ -11,7 +11,7 @@ const PositionTab = ({
   positionType,
   content,
   buttonType,
-  seekpage,
+  seekPage,
 }) => (
   <div
     style={{
@@ -37,7 +37,7 @@ const PositionTab = ({
     >
       {content}
     </p>
-    <Link to={seekpage}>
+    <Link to={seekPage}>
       <button
         style={{
           color: color,

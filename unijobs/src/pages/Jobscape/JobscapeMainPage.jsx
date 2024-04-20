@@ -16,9 +16,6 @@ import PositionFreelance from "../../assets/icons/jobscape/freelancer.svg";
 import WorkRecruit from "../../assets/icons/jobscape/recruit1.svg";
 import WorkFreelance from "../../assets/icons/jobscape/freelance1.svg";
 import WorkMutual from "../../assets/icons/jobscape/mutual.svg";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import SeekTalentPage from "./SeekTalentPage";
-import SeekJobPage from "./SeekJobPage";
 
 const JobscapeMainPage = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -71,15 +68,11 @@ const JobscapeMainPage = () => {
             value={selectedCategory}
             onChange={handleCategoryChange}
           />
-          <SearchButton handleClick={handleClick} src={searchbtn} />
+          <SearchButton handleClick={handleClick} bgColor={"#80D1D5"} src={searchbtn} />
         </div>
       </div>
 
-      <SmallTitle
-        title="Popular Categories"
-        fontWeight="bold"
-        fontSize="24px"
-      />
+      <SmallTitle title="Popular Categories" fontWeight="700" fontSize="24px" />
       <CategoryTab />
       <div
         style={{
@@ -88,7 +81,6 @@ const JobscapeMainPage = () => {
           marginTop: "5%",
         }}
       >
-        <Router>
           <PositionTab
             bgImg={PositionRecruit}
             color="#FDFAF3"
@@ -99,7 +91,7 @@ const JobscapeMainPage = () => {
             positionType="I AM A RECRUITER!"
             content="Are you a skilled and passionate freelancer looking for exciting opportunities to showcase your talent? We are actively seeking talented individuals to join our freelance network and collaborate on a variety of projects across different industries."
             buttonType="Recruiting"
-            seekPage={SeekTalentPage} // Specify the destination page
+            seekPage="/SeekTalentPage"
             style={{ width: "50%", margin: 0, padding: 0 }}
           />
           <PositionTab
@@ -112,10 +104,9 @@ const JobscapeMainPage = () => {
             positionType="I AM A FREELANCE!"
             content="Are you a freelancer looking for exciting opportunities to showcase your skills and connect with clients? Look no further! Our platform is a hub for talented freelancers like you to find projects, collaborate with clients, and grow your freelance business."
             buttonType="Seeking"
-            seekPage={SeekJobPage} // Specify the destination page
+            seekPage="/SeekJobPage" 
             style={{ width: "50%", margin: 0, padding: 0 }}
           />
-        </Router>
       </div>
 
       <SmallTitle title="How It Works?" fontWeight="bold" fontSize="24px" />

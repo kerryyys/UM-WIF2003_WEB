@@ -1,0 +1,71 @@
+.CollaboratorTab {
+  display: flex; /* Ensure the tab layout is a flex container */
+  align-items: center; /* Align items vertically */
+  justify-content: space-between; /* Distribute space between items */
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  margin-bottom: 2%;
+  transition: box-shadow 0.3s ease;
+}
+
+.CollaboratorTab:hover {
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.LeftContent {
+  display: flex;
+  align-items: center;
+}
+
+.ProfilePic {
+  width: 10vw;
+  height: 20vh;
+  border-radius: 50%;
+  margin: 5px 15px 0 10px;
+}
+
+.CollaboratorName {
+  margin: 10px 0 0;
+  color: #2d4877;
+  font-weight: 700;
+}
+
+.ratingStar {
+  margin: -5px 0 15px;
+}
+
+.Filters {
+  display: flex;
+}
+
+.FilterBadge {
+  margin-right: 5px;
+  background-color: #80d1d5 !important; /* Override bootstrap background color */
+  color: #fdfaf3 !important; /* Override bootstrap text color */
+  border-radius: 5px;
+}
+
+.button {
+    background-color: #2d4877;
+    color: #fdfaf3;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin: 0 5%;
+}
+
+.button:hover {
+    background-color: #80d1d5;
+    border-color: #80d1d5;
+}
+
+.ViewFilters{
+    margin-top: 15px;
+}
+.Biography {
+    margin-top: 10px;
+    color: #2D4877;
+    font-size: 16px;
+    font-weight: 400;
+}
