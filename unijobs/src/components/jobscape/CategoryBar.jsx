@@ -21,6 +21,7 @@ const CategoryBar = ({ categories, handleCategoryChange }) => {
           marginRight: "2px",
           backgroundColor: "#FFFFFF",
           border: "1px solid #2D4877", 
+          borderRadius:"0",
           fontSize: "16px",
           color: selectedCategory ? "#2D4877" : "#808080",
         }}

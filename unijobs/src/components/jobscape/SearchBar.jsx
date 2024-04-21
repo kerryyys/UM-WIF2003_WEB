@@ -7,7 +7,7 @@ const SearchBar = ({ placeholder, handleChange }) => (
     placeholder={placeholder}
     onChange={handleChange}
     style={{
-      width: "25%",
+      width: "35%",
       height: "5%",
       padding: "12.5px",
       marginRight: "2px",

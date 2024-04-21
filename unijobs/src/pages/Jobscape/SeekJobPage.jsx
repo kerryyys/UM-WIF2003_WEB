@@ -73,7 +73,8 @@ const SeekJobPage = () => {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            margin: "10px",
+            marginLeft:"25%" 
+            // as the bar run away, i use marginLeft to make it center
           }}
         >
           <SearchBar

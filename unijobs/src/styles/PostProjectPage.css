@@ -2,28 +2,28 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: #2D4877;
+  color: #2d4877;
   padding-bottom: 5%;
 }
 
-.header{
-    width: 62%;
-    display: flex;
-    padding-top: 5%;
+.header {
+  width: 62%;
+  display: flex;
+  padding-top: 5%;
 }
 .BackButton {
-    margin-top: 4%;
+  margin-top: 4%;
   margin-right: 30%;
   text-decoration: none;
   font-size: 24px;
-  color: #2D4877;
+  color: #2d4877;
 }
 
 .FormContainer {
   width: 62%;
   margin-top: 20px;
   padding: 2%;
-  border: 1px solid #2D4877;
+  border: 1px solid #2d4877;
   border-radius: 10px;
 }
 
@@ -51,32 +51,32 @@ select {
 }
 
 select {
-  color: grey; 
+  color: grey;
 }
 
-.SkillsContainer button{
-    width: 10%;
-    padding: 5px;
-    margin-top: 2px;
-    background-color: #2D4877;
-    color: #fdfaf3;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+.SkillsContainer button {
+  width: 10%;
+  padding: 5px;
+  margin-top: 2px;
+  background-color: #2d4877;
+  color: #fdfaf3;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
-.SkillsContainer .XBtn{
-    width: 5%;
-    padding: 0;
-    margin-left: 5px;
+.SkillsContainer .XBtn {
+  width: 5%;
+  padding: 0;
+  margin-left: 5px;
 }
 
 .SkillsContainer button:hover {
-    background-color: #0056b3;
+  background-color: #0056b3;
 }
 
 #deadline {
-    margin-left: 2%;
+  margin-left: 2%;
 }
 
 textarea {
@@ -87,7 +87,7 @@ textarea {
   width: 30%;
   padding: 10px;
   margin-left: 35%;
-  background-color: #2D4877;
+  background-color: #2d4877;
   color: white;
   border: none;
   border-radius: 4px;

@@ -55,7 +55,7 @@ const JobscapeMainPage = () => {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            margin: "10px",
+            marginLeft:"30%"
           }}
         >
           <SearchBar
@@ -68,7 +68,11 @@ const JobscapeMainPage = () => {
             value={selectedCategory}
             onChange={handleCategoryChange}
           />
-          <SearchButton handleClick={handleClick} bgColor={"#80D1D5"} src={searchbtn} />
+          <SearchButton
+            handleClick={handleClick}
+            bgColor={"#80D1D5"}
+            src={searchbtn}
+          />
         </div>
       </div>
 
@@ -81,32 +85,32 @@ const JobscapeMainPage = () => {
           marginTop: "5%",
         }}
       >
-          <PositionTab
-            bgImg={PositionRecruit}
-            color="#FDFAF3"
-            hoverColor="#2D4877"
-            paddingLeft="10%"
-            paddingRight="5%"
-            textAlign="left"
-            positionType="I AM A RECRUITER!"
-            content="Are you a skilled and passionate freelancer looking for exciting opportunities to showcase your talent? We are actively seeking talented individuals to join our freelance network and collaborate on a variety of projects across different industries."
-            buttonType="Recruiting"
-            seekPage="/SeekTalentPage"
-            style={{ width: "50%", margin: 0, padding: 0 }}
-          />
-          <PositionTab
-            bgImg={PositionFreelance}
-            color="#2D4877"
-            hoverColor="#FDFAF3"
-            paddingLeft="5%"
-            paddingRight="10%"
-            textAlign="right"
-            positionType="I AM A FREELANCE!"
-            content="Are you a freelancer looking for exciting opportunities to showcase your skills and connect with clients? Look no further! Our platform is a hub for talented freelancers like you to find projects, collaborate with clients, and grow your freelance business."
-            buttonType="Seeking"
-            seekPage="/SeekJobPage" 
-            style={{ width: "50%", margin: 0, padding: 0 }}
-          />
+        <PositionTab
+          bgImg={PositionRecruit}
+          color="#FDFAF3"
+          hoverColor="#2D4877"
+          paddingLeft="10%"
+          paddingRight="5%"
+          textAlign="left"
+          positionType="I AM A RECRUITER!"
+          content="Are you a skilled and passionate freelancer looking for exciting opportunities to showcase your talent? We are actively seeking talented individuals to join our freelance network and collaborate on a variety of projects across different industries."
+          buttonType="Recruiting"
+          seekPage="/SeekTalentPage"
+          style={{ width: "50%", margin: 0, padding: 0 }}
+        />
+        <PositionTab
+          bgImg={PositionFreelance}
+          color="#2D4877"
+          hoverColor="#FDFAF3"
+          paddingLeft="5%"
+          paddingRight="10%"
+          textAlign="right"
+          positionType="I AM A FREELANCE!"
+          content="Are you a freelancer looking for exciting opportunities to showcase your skills and connect with clients? Look no further! Our platform is a hub for talented freelancers like you to find projects, collaborate with clients, and grow your freelance business."
+          buttonType="Seeking"
+          seekPage="/SeekJobPage"
+          style={{ width: "50%", margin: 0, padding: 0 }}
+        />
       </div>
 
       <SmallTitle title="How It Works?" fontWeight="bold" fontSize="24px" />
