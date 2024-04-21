@@ -1,0 +1,76 @@
+.ProjectTab {
+  display: flex; /* Ensure the tab layout is a flex container */
+  align-items: center; /* Align items vertically */
+  justify-content: space-between; /* Distribute space between items */
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  margin-bottom: 2%;
+  transition: box-shadow 0.3s ease;
+}
+
+.ProjectTab:hover{
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+}
+.LeftContent {
+  display: flex;
+  align-items: center;
+}
+
+.CompanyLogo {
+  width: 50%;
+  height: 50%;
+  border-radius: 50%;
+  margin: -12px 15px 0 10px;
+}
+
+.ProjectTitle {
+  margin: 10px 0 3px;
+  color: #2d4877;
+  font-weight: 700;
+}
+
+.CompanyInfo {
+  margin: 0 0 15px 0;
+  color: #bcbcbc;
+}
+
+.CompanyName {
+  color: #000000;
+  font-weight: 700;
+}
+
+.Category {
+  color: #80d1d5;
+}
+
+.Filters {
+  display: flex;
+}
+
+.FilterBadge {
+  margin-right: 5px;
+  background-color: #80d1d5 !important; /* Override bootstrap background color */
+  color: #fdfaf3 !important; /* Override bootstrap text color */
+  border-radius: 5px;
+}
+
+.RightContent {
+  align-items: end;
+}
+
+.SaveIcon {
+  cursor: pointer;
+  color: #2d4877;
+  border: 1px solid #2d4877;
+  padding: 9%;
+  border-radius: 50%;
+  margin: 10px 0 50%;
+}
+
+.TimePosted {
+  margin: 0 20px 0 0;
+  font-size: 12px;
+  color: #bcbcbc;
+}

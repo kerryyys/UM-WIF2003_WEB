@@ -1,0 +1,19 @@
+.NavBigTab {
+  display: inline-block;
+  align-content: center;
+  width: 60vw;
+  height: 30vh;
+  background-size: cover;
+  background-position: center;
+  text-align: center;
+  color: white;
+  text-decoration: none;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 80px;
+  transition: background-color 0.3s ease;
+}
+
+.TabText {
+  pointer-events: none;
+}

@@ -20,8 +20,8 @@ const StatusTab = ({ numArray, typeArray }) => (
     <div
       style={{
         display: "flex",
-        justifyContent: "space-between", // Changed from "space-around" to "space-between"
-        width: "60%", // Adjusted the width to 80% to leave space on both sides
+        justifyContent: "space-between", 
+        width: "60%", 
       }}
     >
       {numArray.map((num, index) => (

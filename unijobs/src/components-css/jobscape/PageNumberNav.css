@@ -1,0 +1,34 @@
+.PageNumberNav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 3% 0;
+}
+
+.Arrow {
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.PageNumbers {
+  display: flex;
+  align-items: center;
+}
+
+.PageNumber {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 5px;
+  cursor: pointer;
+  background-color: #FDFAF3;
+  color: #2D4877;
+}
+
+.PageNumber.CurrentPage {
+  background-color: #2D4877;
+  color: #FDFAF3;
+}
