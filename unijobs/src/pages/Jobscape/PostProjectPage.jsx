@@ -141,7 +141,7 @@ const PostProjectPage = () => {
               {requiredSkills.map((skill, index) => (
                 <div key={index} className="Skill">
                   {skill}
-                  <button
+                  <button className="XBtn"
                     type="button"
                     onClick={() => handleSkillsRemove(index)}
                   >
@@ -155,7 +155,7 @@ const PostProjectPage = () => {
                 value={newSkill}
                 onChange={(e) => setNewSkill(e.target.value)}
               />
-              <button type="button" onClick={handleAddSkill}>
+              <button className="AddBtn" type="button" onClick={handleAddSkill}>
                 Add
               </button>
             </div>

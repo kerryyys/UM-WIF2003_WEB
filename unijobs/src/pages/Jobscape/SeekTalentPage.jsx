@@ -22,7 +22,7 @@ const SeekTalentPage = () => {
       </div>
       <div
         className="NavBigTab"
-        style={{ display: "flex", justifyContent: "center", marginLeft:"20%"}}
+        style={{ display: "flex", justifyContent: "center", marginLeft:"11%"}}
       >
         <NavBigTab
           backgroundImage={postProject}

@@ -1,0 +1,57 @@
+.jobs-list-item {
+  display: flex;
+  color: #2d4777;
+  background-color: #fdfaf3;
+  height: auto;
+  width: 300px;
+  border-radius: 10px;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  margin-right: 20px;
+}
+
+.jobs-list-item .job-title {
+  font-weight: bold;
+  margin: 10px 0px 10px 0px;
+}
+.jobs-list-item .job-texts {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+.jobs-list-item .job-texts p {
+  white-space: nowrap;
+  overflow: visible;
+}
+.jobs-list-item .job-texts .company-name {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 75px;
+}
+.jobs-list-item .job-more-btn {
+  padding: 15px;
+  color: white;
+  width: 100%;
+  height: auto;
+  border-radius: 10px 10px 0px 0px;
+  background-color: #2d4777;
+  border: none;
+}
+.jobs-list-item .job-more-btn:active {
+  background-color: #223559 !important;
+}
+.jobs-list-item .job-more-btn:hover {
+  background-color: #2d4777;
+}
+.jobs-list-item .completed {
+  background-color: #80d1d5;
+}
+.jobs-list-item .completed:hover {
+  background-color: #80d1d5;
+}
+.jobs-list-item .completed:active {
+  background-color: #69acaf !important;
+}
