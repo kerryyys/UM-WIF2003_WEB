@@ -16,11 +16,12 @@ const ReviewProjectPage = () => {
 
   return (
     <div className="ReviewProjectPage">
-      <div className="header">
+      <div className="Reviewheader">
         <Link to="/SeekTalentPage" className="BackButton">
           &lt; BACK
         </Link>
-        <SmallTitle className="ReviewTitle"
+        <SmallTitle
+          className="ReviewTitle"
           title="Review Your Recent Project"
           fontWeight="700"
           fontSize="36px"
