@@ -45,17 +45,16 @@ const JobscapeMainPage = () => {
         style={{
           width: "100vw",
           height: "75vh",
-          marginTop: "5px",
+          marginTop: "8%",
           backgroundImage: `url(${BackgroundImage})`,
         }}
       >
         <JobscapeHeader text1="Jobs" text2="Talents!" />
-        <div
+        <div className="search-bar"
           style={{
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            marginLeft:"30%"
           }}
         >
           <SearchBar

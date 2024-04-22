@@ -27,7 +27,7 @@ const ReviewForm = ({ onClose, onReviewSubmit }) => {
   return (
     <div className="ReviewForm">
       <p className="rate1">Rate The Project!</p>
-      <p>Project Satisfaction</p>
+      <p className="projectheader">Project Satisfaction</p>
       <Rating
         initialRating={satisfactionRating}
         onClick={(value) => setSatisfactionRating(value)}
