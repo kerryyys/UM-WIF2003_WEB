@@ -1,6 +1,4 @@
-import React, { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBookmark } from "@fortawesome/free-regular-svg-icons";
+import React from "react";
 import { Badge } from "react-bootstrap";
 import "../../components-css/jobscape/ProjectTab.css";
 
@@ -12,28 +10,8 @@ const ProjectTab = ({
   filters,
   timePosted,
 }) => {
-  const [saved, setSaved] = useState(false);
-
-  const handleSaveClick = () => {
-    setSaved(!saved);
-  };
-
-  const [hovered, setHovered] = useState(false);
-
-  const handleMouseEnter = () => {
-    setHovered(true);
-  };
-
-  const handleMouseLeave = () => {
-    setHovered(false);
-  };
-
   return (
-    <div
-      className="ProjectTab"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
+    <div className="ProjectTab">
       {/* Left side content */}
       <div className="LeftContent">
         {/* Larger company logo */}
@@ -49,10 +27,7 @@ const ProjectTab = ({
           <div className="Filters">
             {Array.isArray(filters) &&
               filters.map((filter, index) => (
-                <Badge
-                  key={index}
-                  className="FilterBadge"
-                >
+                <Badge key={index} className="FilterBadge">
                   {filter}
                 </Badge>
               ))}

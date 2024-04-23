@@ -14,7 +14,7 @@ const Notification = ({ message, onClose }) => (
 );
 
 const PostProjectPage = () => {
-    const [showNotification, setShowNotification] = useState(false);
+  const [showNotification, setShowNotification] = useState(false);
   const [projectTitle, setProjectTitle] = useState("");
   const [projectDescription, setProjectDescription] = useState("");
   const [projectCategory, setProjectCategory] = useState("");
@@ -27,10 +27,89 @@ const PostProjectPage = () => {
   const [contactInformation, setContactInformation] = useState("");
   const [additionalNotes, setAdditionalNotes] = useState("");
   const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [validationMessages, setValidationMessages] = useState({
+    projectTitle: "",
+    projectDescription: "",
+    projectCategory: "",
+    projectType: "",
+    projectDuration: "",
+    requiredSkills: "",
+    projectBudget: "",
+    deadline: "",
+    contactInformation: "",
+    additionalNotes: "",
+    agreedToTerms: "",
+  });
+
+  const validateFields = () => {
+    const messages = {};
+    let isValid = true;
+
+    if (!projectTitle) {
+      messages.projectTitle = "Project Title is required";
+      isValid = false;
+    }
+    if (!projectDescription) {
+      messages.projectDescription = "Project Description is required";
+      isValid = false;
+    }
+    if (!projectCategory) {
+      messages.projectCategory = "Project Category is required";
+      isValid = false;
+    }
+    if (!projectType) {
+      messages.projectType = "Project Type is required";
+      isValid = false;
+    }
+    if (!projectDuration) {
+      messages.projectDuration = "Project Duration is required";
+      isValid = false;
+    }
+    if (requiredSkills.length === 0) {
+      messages.requiredSkills = "At least one Required Skill is required";
+      isValid = false;
+    }
+    if (!projectBudget) {
+      messages.projectBudget = "Project Budget is required";
+      isValid = false;
+    }
+    if (!deadline) {
+      messages.deadline = "Deadline for Completion is required";
+      isValid = false;
+    }
+    if (!additionalNotes) {
+      messages.additionalNotes = "Additional Notes is required";
+      isValid = false;
+    }
+    if (!agreedToTerms) {
+      messages.agreedToTerms = "You must agree to the terms and conditions";
+      isValid = false;
+    }
+
+    // Validate contact information
+    const contactRegex = /^\d{10}$/; // Assumes a 10-digit phone number
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (
+      !contactInformation ||
+      (!contactRegex.test(contactInformation) &&
+        !emailRegex.test(contactInformation))
+    ) {
+      messages.contactInformation =
+        "Please enter a valid phone number or email address.";
+      isValid = false;
+    }
+
+    setValidationMessages(messages);
+    return isValid;
+  };
+
 
   const handleSkillsChange = (e) => {
-    const value = e.target.value;
-    setRequiredSkills((prevSkills) => [...prevSkills, value]);
+    const value = e.target.value.trim();
+    // Allow only words for skills
+    if (/^[a-zA-Z]+$/.test(value) || value === "") {
+      setNewSkill(value);
+    }
   };
 
   const handleSkillsRemove = (index) => {
@@ -48,19 +127,41 @@ const PostProjectPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (!validateFields()) {
+      return; // Stop submission if validation fails
+    }
+
     // Logic to submit project details
     setShowNotification(true);
-    // Reset form fields or perform other actions
-  };
 
+    // Reset form fields
+    setProjectTitle("");
+    setProjectDescription("");
+    setProjectCategory("");
+    setProjectType("");
+    setProjectDuration("");
+    setRequiredSkills([]);
+    setNewSkill("");
+    setProjectBudget("");
+    setDeadline("");
+    setContactInformation("");
+    setAdditionalNotes("");
+    setAgreedToTerms(false);
+  };
   
   return (
     <div className="PostProjectPage">
-      <div className="header">
-        <Link to="/SeekTalentPage" className="BackButton">
+      <div className="PostHeader">
+        <Link to="/SeekTalentPage" className="PostBackButton">
           &lt; BACK
         </Link>
-        <SmallTitle title="Project Details" fontWeight="700" fontSize="36px" />
+        <SmallTitle
+          className="SmallTitle"
+          title="Project Details"
+          fontWeight="700"
+          fontSize="36px"
+        />
       </div>
       <div className="FormContainer">
         <p>
@@ -84,6 +185,11 @@ const PostProjectPage = () => {
               value={projectTitle}
               onChange={(e) => setProjectTitle(e.target.value)}
             />
+            {validationMessages.projectTitle && (
+              <span className="ErrorMessage">
+                {validationMessages.projectTitle}
+              </span>
+            )}
           </div>
           <div className="FormRow">
             <label htmlFor="projectDescription">Project Description:</label>
@@ -92,6 +198,11 @@ const PostProjectPage = () => {
               value={projectDescription}
               onChange={(e) => setProjectDescription(e.target.value)}
             />
+            {validationMessages.projectDescription && (
+              <span className="ErrorMessage">
+                {validationMessages.projectDescription}
+              </span>
+            )}
           </div>
           <div className="FormRow">
             <label htmlFor="projectCategory">Project Category:</label>
@@ -106,6 +217,11 @@ const PostProjectPage = () => {
               <option value="Content Writing">Content Writing</option>
               <option value="Education & Training">Education & Training</option>
             </select>
+            {validationMessages.projectCategory && (
+              <span className="ErrorMessage">
+                {validationMessages.projectCategory}
+              </span>
+            )}
           </div>
           <div className="FormRow">
             <label htmlFor="projectType">Project Type:</label>
@@ -121,6 +237,11 @@ const PostProjectPage = () => {
               </option>
               <option value="Graphic Design">Graphic Design</option>
             </select>
+            {validationMessages.projectType && (
+              <span className="ErrorMessage">
+                {validationMessages.projectType}
+              </span>
+            )}
           </div>
           <div className="FormRow">
             <label htmlFor="projectDuration">Project Duration:</label>
@@ -134,14 +255,20 @@ const PostProjectPage = () => {
               <option value="Long Term">Long Term</option>
               <option value="OnGoing">OnGoing</option>
             </select>
+            {validationMessages.projectDuration && (
+              <span className="ErrorMessage">
+                {validationMessages.projectDuration}
+              </span>
+            )}
           </div>
           <div className="FormRow">
             <label>Required Skills:</label>
             <div className="SkillsContainer">
               {requiredSkills.map((skill, index) => (
-                <div key={index} className="Skill">
-                  {skill}
-                  <button className="XBtn"
+                <div key={index} className="SkillBox">
+                  <div>{skill}</div>
+                  <button
+                    className="XBtn"
                     type="button"
                     onClick={() => handleSkillsRemove(index)}
                   >
@@ -153,12 +280,17 @@ const PostProjectPage = () => {
                 type="text"
                 placeholder="Add skill"
                 value={newSkill}
-                onChange={(e) => setNewSkill(e.target.value)}
+                onChange={handleSkillsChange}
               />
               <button className="AddBtn" type="button" onClick={handleAddSkill}>
                 Add
               </button>
             </div>
+            {validationMessages.requiredSkills && (
+              <span className="ErrorMessage">
+                {validationMessages.requiredSkills}
+              </span>
+            )}
           </div>
           <div className="FormRow">
             <label htmlFor="projectBudget">Project Budget:</label>
@@ -169,10 +301,15 @@ const PostProjectPage = () => {
             >
               <option value="">Select budget...</option>
               <option value="RM1K">RM1,000 - RM3,000</option>
-              <option value="RM3K">RM3,00 - RM5,000</option>
+              <option value="RM3K">RM3,000 - RM5,000</option>
               <option value="RM5K">RM5,001 - RM8,000</option>
               <option value="RM8K">RM8,001 - RM10,000</option>
             </select>
+            {validationMessages.projectBudget && (
+              <span className="ErrorMessage">
+                {validationMessages.projectBudget}
+              </span>
+            )}
           </div>
           <div className="FormRow">
             <label htmlFor="deadline">Deadline for Completion:</label>
@@ -182,6 +319,11 @@ const PostProjectPage = () => {
               value={deadline}
               onChange={(e) => setDeadline(e.target.value)}
             />
+            {validationMessages.deadline && (
+              <span className="ErrorMessage">
+                {validationMessages.deadline}
+              </span>
+            )}
           </div>
           <div className="FormRow">
             <label htmlFor="contactInformation">Contact Information:</label>
@@ -190,7 +332,13 @@ const PostProjectPage = () => {
               id="contactInformation"
               value={contactInformation}
               onChange={(e) => setContactInformation(e.target.value)}
+              pattern="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$|^[\d\s()-]+$"
             />
+            {validationMessages.contactInformation && (
+              <span className="ErrorMessage">
+                {validationMessages.contactInformation}
+              </span>
+            )}
           </div>
           <div className="FormRow">
             <label htmlFor="additionalNotes">Additional Notes:</label>
@@ -199,6 +347,11 @@ const PostProjectPage = () => {
               value={additionalNotes}
               onChange={(e) => setAdditionalNotes(e.target.value)}
             />
+            {validationMessages.additionalNotes && (
+              <span className="ErrorMessage">
+                {validationMessages.additionalNotes}
+              </span>
+            )}
           </div>
           <div className="FormRow">
             <label htmlFor="termsCheckbox">
@@ -210,6 +363,11 @@ const PostProjectPage = () => {
               />
               By selecting this, you agree to our terms and conditions.
             </label>
+            {validationMessages.agreedToTerms && (
+              <span className="ErrorMessage">
+                {validationMessages.agreedToTerms}
+              </span>
+            )}
           </div>
           <button type="submit" className="SubmitButton">
             Submit
