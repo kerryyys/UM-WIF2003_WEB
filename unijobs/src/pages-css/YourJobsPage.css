@@ -1,0 +1,47 @@
+.your-jobs-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #2d4777;
+}
+.your-jobs-container .your-jobs-title {
+  font-weight: bold;
+}
+.your-jobs-container .back-btn {
+  align-self: flex-start;
+  background-color: transparent;
+  border: none;
+  color: #2d4777;
+  transition: transform 0.3s;
+}
+.your-jobs-container .back-btn a {
+  text-decoration: none;
+  color: #2d4777;
+}
+.your-jobs-container .back-btn .bi-chevron-left {
+  margin-right: 5px;
+}
+.your-jobs-container .back-btn:hover {
+  transform: scale(1.1);
+  background-color: transparent;
+  color: #2d4777;
+}
+.your-jobs-container .back-btn:active {
+  background-color: transparent !important;
+  color: #223559 !important;
+}
+.your-jobs-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.your-jobs-header .notif-bell {
+  position: absolute;
+  right: 8vw;
+}
+.your-jobs-header .bell {
+  cursor: pointer;
+  font-size: 24px;
+}

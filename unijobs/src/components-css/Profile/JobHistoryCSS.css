@@ -1,0 +1,37 @@
+.job-history-card {
+    width: 100%;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2%;
+}
+
+.avatar-column {
+    flex: 0 0 auto;
+}
+
+.info-column {
+    flex: 1;
+}
+
+.company-column {
+    margin-right: 20px;
+}
+
+.status-column {
+    color: #2D4777;
+    font-size: large;
+    font-weight: bold;
+    margin-left: 40px;
+}
+
+.JobHistoryContent {
+    margin-top: 20px;
+}
+
+.see-more {
+    font-style: italic;
+    color: #858585;
+}

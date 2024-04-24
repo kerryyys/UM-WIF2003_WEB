@@ -20,11 +20,11 @@ const FilterTab = ({ filterTitle, filterTypes }) => {
   };
 
   return (
-    <Container style={{marginBottom:"15px"}}>
+    <Container style={{ marginBottom: "15px" }}>
       <Row>
         <Col>
           <hr style={{ width: "100%", margin: "0 0 5px" }} />
-          <p style={{ fontSize: "16px", fontWeight:"600", margin: "15px 0" }}>
+          <p style={{ fontSize: "16px", fontWeight: "600", margin: "15px 0" }}>
             {filterTitle}
           </p>
 

@@ -67,7 +67,19 @@
   padding: 9%;
   border-radius: 50%;
   margin: 10px 0 50%;
+  transition: color 0.3s ease, background-color 0.3s ease; /* Include background-color in the transition */
 }
+
+.SaveIcon.saved {
+  color: #fdfaf3; /* Change color based on saved state */
+  background-color: #2d4877; /* Change background color based on saved state */
+}
+
+.SaveIcon:hover {
+  color: #fdfaf3; /* Change color on hover */
+  background-color: #2d4877; /* Change background color on hover */
+}
+
 
 .TimePosted {
   margin: 0 20px 0 0;

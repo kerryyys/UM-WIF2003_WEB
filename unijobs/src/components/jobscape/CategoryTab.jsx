@@ -44,7 +44,7 @@ const CategoryTabComponent = () => {
       <CategoryTab categoryImg={creative} categoryType="Creative & Design" />
       <CategoryTab
         categoryImg={writing}
-        categoryType="Writing & Content Creation"
+        categoryType="Content Creation"
       />
       <CategoryTab categoryImg={education} categoryType="Education & Training" />
     </CategoryTabsContainer>

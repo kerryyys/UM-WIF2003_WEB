@@ -1,0 +1,48 @@
+.review-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 60px 20px 60px;
+}
+.review-container p {
+  margin-top: 20px;
+  margin-bottom: 0;
+}
+.review-container .bi {
+  font-size: 48px;
+  margin: 0px 15px 0px 15px;
+}
+.review-container .bi-emoji-frown-fill {
+  color: #e82a2a;
+}
+.review-container .bi-emoji-neutral-fill {
+  color: #efe60e;
+}
+.review-container .bi-emoji-smile-fill {
+  color: #b7e82a;
+}
+.review-container .bi-emoji-heart-eyes-fill {
+  color: #17ff66;
+}
+.review-container .project-feedback,
+.review-container .person-feedback {
+  text-align: center;
+  font-weight: 300;
+}
+.review-footer {
+  display: flex;
+  justify-content: space-between;
+}
+.review-footer .feedback-from {
+  display: flex;
+  align-items: center;
+}
+.review-footer .feedback-from p {
+  margin-bottom: 0;
+  margin-right: 20px;
+}
+.review-footer .feedback-from img {
+  width: 50px;
+  height: auto;
+  margin-right: 10px;
+}

@@ -1,0 +1,97 @@
+.job-details-page-container .back-btn {
+  align-self: flex-start;
+  background-color: transparent;
+  border: none;
+  color: #2d4777;
+  transition: transform 0.3s;
+}
+.job-details-page-container .back-btn a {
+  text-decoration: none;
+  color: #2d4777;
+}
+.job-details-page-container .back-btn .bi-chevron-left {
+  margin-right: 5px;
+}
+.job-details-page-container .back-btn:hover {
+  transform: scale(1.1);
+  background-color: transparent;
+  color: #2d4777;
+}
+.job-details-page-container .back-btn:active {
+  background-color: transparent !important;
+  color: #223559 !important;
+}
+.job-details-body {
+  padding: 0vh 8vw 0vh 8vw;
+}
+.job-title-block {
+  display: flex;
+  margin-bottom: 20px;
+}
+.job-title-block img {
+  width: 50px;
+  height: auto;
+  margin-right: 10px;
+}
+.job-title-block .title-texts {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  width: 100%;
+}
+.job-title-block .title-texts p {
+  margin-bottom: 0;
+}
+.title-right .bookmark {
+  margin-bottom: 10px;
+}
+.title-right {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+}
+.title-right .bi {
+  color: #2d4777;
+}
+.job-details-body .Filters {
+  margin-bottom: 20px;
+}
+.job-details-body .job-desc,
+.job-details-body .duration,
+.job-details-body .deadline,
+.job-details-body .budget,
+.job-details-body li,
+.job-details-body .contact,
+.job-details-body .additional,
+.job-details-body .big-deadline {
+  font-weight: 300;
+}
+.job-details-body .button-group {
+}
+.job-details-body .button-group .accept {
+  color: white;
+  background-color: #2d4777;
+  border: none;
+  margin-right: 10px;
+}
+.job-details-body .button-group .accept:active {
+  background-color: #223559;
+}
+.job-details-body .button-group .chat {
+  color: #2d4777;
+  background-color: transparent;
+  border: 1px solid #2d4777;
+}
+.job-details-body .button-group .chat:active {
+  border: 1px solid #223559;
+  color: #223559;
+}
+
+.button-group .to-job-list {
+  text-align: end;
+}
+.button-group .to-job-list .to-job-list-btn {
+  background-color: transparent;
+  border: none;
+  color: #2d4777;
+}

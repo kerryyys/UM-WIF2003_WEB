@@ -10,6 +10,7 @@ const SearchButton = ({ handleClick, bgColor, src }) => (
       padding: "6px 10px",
       borderRadius: "0 10px 10px 0",
       border: "1px solid #2D4877",
+      marginLeft:"0",
       backgroundColor: bgColor,
     }}
   >

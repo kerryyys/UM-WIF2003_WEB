@@ -1,0 +1,21 @@
+.experience-item {
+    align-items: flex-start;
+    margin-bottom: 20px; 
+    font-size: 18px;
+}
+
+.title-and-icon {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+}
+
+.work-case-icon {
+    width: 25px; 
+    margin-right: 10px; 
+}
+
+.details {
+    margin-left: 35px;
+    font-size: smaller;
+}

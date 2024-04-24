@@ -1,0 +1,10 @@
+.completed-jobs-container {
+  width: 100%;
+  margin-bottom: 8vh;
+  margin-top: 4vh;
+}
+.completed-jobs-container .jobs-list {
+  display: flex;
+  overflow-x: auto;
+  justify-content: space-evenly;
+}

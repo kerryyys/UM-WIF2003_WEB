@@ -1,0 +1,88 @@
+.accepted-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5vh 5vw;
+}
+.accepted-container h3 {
+  color: #2d4777;
+}
+.accepted-footer {
+  display: flex;
+  justify-content: center;
+}
+.accepted-footer .to-job-list-btn {
+  color: white;
+  background-color: #2d4777;
+  border: none;
+  margin-right: 10px;
+}
+.accepted-footer .understood-btn {
+  color: #2d4777;
+  background-color: transparent;
+  border: 1px solid #2d4777;
+}
+.accepted-footer .understood-btn:active {
+  background-color: #2d4777 !important;
+  border: 1px solid #223559;
+  color: #223559;
+}
+.drop-file-input {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  border: 2px dashed #81aaf5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.drop-file-input input {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.drop-file-input:hover,
+.drop-file-input.dragover {
+  opacity: 0.6;
+}
+
+.drop-file-bg {
+  text-align: center;
+  font-weight: 300;
+}
+.drop-file-bg img {
+  width: 150px;
+  height: auto;
+}
+.drop-file-preview {
+  margin-top: 10px;
+}
+.drop-file-preview p {
+  margin-right: 20px;
+  margin-bottom: 0px;
+  font-weight: 300;
+}
+.drop-file-preview-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+.drop-file-preview-item {
+  margin-top: 10px;
+  margin-right: 10px;
+  color: white;
+  border-radius: 10px;
+  display: flex;
+  background-color: #2d4777;
+  width: fit-content;
+  padding: 10px;
+}
+.drop-file-preview .bi {
+  cursor: pointer;
+}
