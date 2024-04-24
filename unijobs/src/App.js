@@ -11,6 +11,10 @@ import ReviewProjectPage from './pages/Jobscape/ReviewProjectPage';
 import YourJobsPage from './pages/Jobscape/YourJobsPage';
 import JobDetailsPage from './pages/Jobscape/JobDetailsPage';
 import FavoritePage from './pages/General/FavoritePage';
+import Profile from "./pages/Profile/Profile";
+import EditProfile from "./pages/Profile/EditProfile"
+import AddNewExperience from "./pages/Profile/AddNewExperience";
+import JobHistoryDetails from "./pages/Profile/JobHistoryDetails"
 import Footer from './components/Footer';
 import './App.css';
 
@@ -38,6 +42,10 @@ function App() {
         <Route path="/YourJobs" element={<YourJobsPage />} />
         <Route path="/SeekJobPage/job-details" element={<JobDetailsPage />} />
         <Route path="/Favorite" element={<FavoritePage />} />
+        <Route path="/Profile" element={<Profile />} />
+        <Route path="/EditProfile" element={<EditProfile />} />
+        <Route path="/AddNewExperience" element={<AddNewExperience />} />
+        <Route path="/JobHistoryDetails" element={<JobHistoryDetails />} />
       </Routes>
       <Footer />
     </Router>

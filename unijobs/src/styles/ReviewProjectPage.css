@@ -1,10 +1,9 @@
 .ReviewProjectPage {
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: auto;
   width: 100%;
   padding-top: 5%;
-  overflow-x: hidden; /* Prevent page scrolling */
 }
 
 .ReviewBackBtn {

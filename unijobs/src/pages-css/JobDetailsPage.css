@@ -67,8 +67,6 @@
   font-weight: 300;
 }
 .job-details-body .button-group {
-  display: flex;
-  justify-content: center;
 }
 .job-details-body .button-group .accept {
   color: white;
@@ -87,4 +85,13 @@
 .job-details-body .button-group .chat:active {
   border: 1px solid #223559;
   color: #223559;
+}
+
+.button-group .to-job-list {
+  text-align: end;
+}
+.button-group .to-job-list .to-job-list-btn {
+  background-color: transparent;
+  border: none;
+  color: #2d4777;
 }

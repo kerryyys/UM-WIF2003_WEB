@@ -26,9 +26,6 @@ export default function JobAcceptedModal(props) {
         </div>
       </Modal.Body>
       <Modal.Footer className="border- accepted-footer">
-        <Link to="/YourJobs">
-          <Button className="to-job-list-btn">Go to Job List</Button>
-        </Link>
         <Button className="understood-btn" onClick={props.onHide}>
           Understood
         </Button>

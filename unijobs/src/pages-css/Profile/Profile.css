@@ -1,0 +1,17 @@
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px; /* Adjust the spacing between sections */
+}
+
+.section-header h6 {
+  margin-right: 10px; /* Adjust the spacing between h6 and hr */
+}
+
+.section-header hr {
+  flex: 1;
+  color: #BCBCBC;
+  border: none; /* Remove default border */
+  border-top: 3px solid #BCBCBC;
+}

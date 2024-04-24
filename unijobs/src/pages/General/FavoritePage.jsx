@@ -2,7 +2,6 @@ import "../../pages-css/FavoritePage.css";
 import { Button, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import DellLogo from "../../assets/icons/jobscape/DellLogo.svg";
-import CollaboratorTab from "../../components/jobscape/CollaboratorTab";
 import WeddingLogo from "../../assets/icons/jobscape/WeddingLogo.svg";
 import ProjectTab from "../../components/jobscape/ProjectTab";
 import profile1 from "../../assets/icons/jobscape/profile1.svg";

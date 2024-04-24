@@ -129,23 +129,34 @@ export default function JobDetailsPage(props) {
           Additional Information: <br />
           <span className="additional">{jobDetails.additionalInfo}</span>
         </p>
-        <div className="button-group">
-          {jobAccepted ? (
-            <Button className="accept" onClick={handleUploadClick}>
-              Upload Work
-            </Button>
-          ) : (
-            <>
-              <Button className="accept" onClick={handleAcceptClick}>
-                Accept Job
+        <Container className="button-group">
+          <Row className="button-row">
+            <Col></Col>
+            <Col>
+              {jobAccepted ? (
+                <Button className="accept" onClick={handleUploadClick}>
+                  Upload Work
+                </Button>
+              ) : (
+                <>
+                  <Button className="accept" onClick={handleAcceptClick}>
+                    Accept Job
+                  </Button>
+                </>
+              )}
+              <Button className="chat">
+                <i className="bi bi-chat-dots" /> Chat with Requester
               </Button>
-            </>
-          )}
-
-          <Button className="chat">
-            <i className="bi bi-chat-dots" /> Chat with Requester
-          </Button>
-        </div>
+            </Col>
+            <Col className="to-job-list">
+              <Link to="/YourJobs">
+                <Button className="to-job-list-btn">
+                  Go to Job List <i className="bi bi-chevron-double-right" />
+                </Button>
+              </Link>
+            </Col>
+          </Row>
+        </Container>
       </div>
       <JobAcceptedModal
         show={showAcceptedModal}
