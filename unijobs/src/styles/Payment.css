@@ -1,0 +1,1194 @@
+.background {
+  background-image: url('../assets/images/Payment/Background1.png');
+  background-size: cover; /* Ensure the entire image is visible */
+  background-repeat: no-repeat; /* Prevent image repetition */
+  background-position: center; /* Center the image */
+  min-height: 100vh; /* Set minimum height to fill the viewport */
+  display: flex; /* Display flex to center content vertically */
+  justify-content: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically */
+}
+
+.App-header {
+  background-image: url('../assets/images/Payment/Background1.png');
+  background-size: cover;
+  background-repeat: no-repeat; 
+  background-position: center; 
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  font-family: 'Lato', sans-serif;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.choose {
+  cursor: pointer;
+  
+}
+
+.choose:hover {
+  cursor: pointer;
+  color: #2D4777;
+  font-weight: bold;
+}
+
+.split-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.c {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.titleCVV {
+  font-family: 'Lato', sans-serif;
+  font-weight: bold;
+  margin-top: 40px;
+  margin-left: -70px;
+  font-size: 20px;
+}
+
+.LeftContainerr {
+  display: inline-block;
+  margin-right: 20px;
+  margin-left: 45px;
+  font-family: 'Lato', sans-serif;
+  margin-bottom: 10px;  
+  margin-top: 15px;
+}
+
+.RightContainer {
+  background-color: #2D4777;
+  border-radius: 50px;
+  height: 640px;
+  margin-top: 30px;
+  margin-right: 70px;
+}
+
+.title {
+  font-family: 'Lato', sans-serif;
+  font-weight: bold;
+  margin-top: 40px;
+  margin-left: 50px;
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+.PaymentBigtitle {
+  font-family: 'Lato', sans-serif;
+  font-weight: bold;
+  margin-top: 40px;
+  margin-left: 50px;
+  font-size: 35px;
+  margin-bottom: 30px;
+}
+
+.titleRight {
+  font-family: 'Lato', sans-serif;
+  font-weight: bold;
+  margin-top: 30px;
+  margin-left: 40px;
+  font-size: 25px;
+  color: #fff;
+}
+
+.lineRight {
+  width: 500px;
+  margin-left: 30px;
+  margin-right: 30px;
+}
+
+.line {
+  width: 600px;
+  margin-left: 50px;
+}
+
+.input-container {
+  margin-left: 50px;
+  border-radius: 8px;
+  padding-left: 10px;
+  height: 30px;
+  width: 77.5%;
+  font-family: 'Lato', sans-serif;
+  border: #2D4777 solid 2px;
+}
+
+.input-container1 {
+  margin-left: 50px;
+  border-radius: 8px;
+  padding-left: 10px;
+  height: 30px;
+  width: 30%;
+  font-family: 'Lato', sans-serif;
+  margin-top: 5px;
+  border: #2D4777 solid 2px;
+
+}
+
+.input-container2 {
+  margin-left: 50px;
+  border-radius: 8px;
+  padding-left: 10px;
+  height: 30px;
+  width: 30%;
+  margin-top: 5px;
+  font-family: 'Lato', sans-serif;
+  border: #2D4777 solid 2px;
+
+}
+
+.discount-container{
+  margin-left: 40px;
+  border-radius: 8px;
+  padding-left: 10px;
+  height: 40px;
+  width: 60%;
+  border: none;
+  margin-top: 20px;
+  font-family: 'Lato', sans-serif;
+  margin-bottom: 20px;
+  border: #2D4777 solid 2px;
+
+}
+
+.buttonApply {
+  margin-left: 20px;
+  border-radius: 5px;
+  padding-left: 10px;
+  height: 40px;
+  width: 18%;
+  border: none;
+  margin-top: 20px;
+  font-family: 'Lato', sans-serif;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.buttonApply:hover {
+  margin-left: 20px;
+  border-radius: 5px;
+  padding-left: 10px;
+  height: 40px;
+  width: 18%;
+  border: none;
+  margin-top: 20px;
+  font-family: 'Lato', sans-serif;
+  font-weight: bold;
+  background-color: #000;
+  color: #fff;
+}
+
+
+.buttonPay {
+  margin-top: 40px;
+  margin-left: 50px;
+  border-radius: 8px;
+  padding: 10px 10px 10px 10px;
+  width: 550px;
+  font-family: 'Lato', sans-serif;
+  cursor: pointer;
+  color: #2D4777;
+  font-weight: bolder;
+  font-size: 20px;
+  border: #2D4777 solid 2px;
+
+}
+
+.buttonPay:hover {
+  margin-top: 40px;
+  margin-left: 50px;
+  border-radius: 8px;
+  padding: 10px 10px 10px 10px;
+  width: 550px;
+  font-family: 'Lato', sans-serif;
+  cursor: pointer;
+  color: #fff;
+  background-color: #2D4777;
+  font-weight: bold;
+  border: #fff solid 2px;
+  font-size: 20px;
+}
+
+
+.reminder {
+  font-family: 'Lato',sans-serif;
+  font-size: 11px;
+  margin-left: 50px;
+  margin-top: 40px;
+  color: gray;
+}
+
+.ewallet {
+  width: 250px; 
+  margin-left: 50px;
+  padding: 10px 10px 10px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  font-size: 16px;
+  appearance: none; 
+  outline: none; 
+  margin-top: 10px;
+  font-family: 'Lato',sans-serif;
+}
+
+.ewallet option:first-child {
+  color: #aaa;
+}
+
+.ewallet option {
+  color: #333;
+  padding-top: 40px;
+}
+
+.ewallet:hover,
+.ewallet:focus {
+  border: 2px solid #2D4777 ;
+  width: 250px; 
+  margin-left: 50px;
+  padding: 10px 10px 10px 10px;
+  font-size: 16px;
+  appearance: none; 
+  outline: none; 
+  margin-top: 10px;
+  font-family: 'Lato',sans-serif;
+  margin-bottom: -1.2px;
+}
+
+.selectedEwallet {
+  margin-left: 50px;
+  font-family: 'Lato',sans-serif;
+  padding-top: 20px;
+}
+
+.App-header .redirect {
+  color: black;
+  text-align: center;
+  font-size: 30px;
+  margin-top: 20px;
+}
+
+.cardSuccessful {
+  background-color: #2D4777;
+  padding: 20px;
+  width: 500px;
+  height: 450px;
+  margin: 0 auto;
+  border: none;
+  border-radius: 30px;
+  margin-top: 30px;
+  align-items: center;
+}
+
+.successMsg {
+  font-family: 'Lato',sans-serif;
+  margin-top: 30px;
+  font-size: 27px;
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+}
+
+.tick {
+  width: 150px;
+  height: 140px;
+  margin-top: 40px;
+ }
+
+.buttonSuccessful {
+  margin-top: 20px;
+  border-radius: 12px;
+  padding: 10px 10px 10px 10px;
+  width: 300px;
+  font-family: 'Lato', sans-serif;
+  cursor: pointer;
+  color: #2D4777;
+  font-weight: bold;
+  font-size: 18px;
+  border: none;
+}
+
+.buttonSuccessful:hover {
+  margin-top: 20px;
+  border-radius: 12px;
+  padding: 10px 10px 10px 10px;
+  width: 300px;
+  font-family: 'Lato', sans-serif;
+  cursor: pointer;
+  color: #fff;
+  background-color: #000;
+  border: none;
+  font-weight: bold;
+}
+
+ .cardContainer {
+  display: flex;
+  justify-content: space-between; 
+}
+
+.picFpx {
+  width: 50px;
+  height: 25px;
+  margin-left: 5px;
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+.picEwallet {
+  width: 27px;
+  height: 27px;
+  margin-right: 10px;
+  margin-left: -40px;
+  cursor: pointer;
+}
+
+.picCard {
+  width: 70px;
+  height: 25px;
+  margin-left: -40px;
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+.fpxWord {
+  padding-top: 30px;
+  font-family: 'Lato',sans-serif;
+  font-weight: bold;
+}
+
+.cardWord {
+  padding-top: 43px;
+  font-family: 'Lato',sans-serif;
+  font-weight: bold;
+}
+
+.cardEwallet {
+  font-family: 'Lato',sans-serif;
+  font-weight: bold;
+}
+
+.parallel {
+  display: flex;
+  justify-content: space-between; 
+}
+
+.another {
+  cursor: pointer;
+  margin-left: 40px;
+  text-decoration: underline;
+  font-size: 16px;
+  text-align: center;
+  color: #fff;
+  font-family: 'Lato',sans-serif;
+}
+
+.another:hover {
+  color: #2D4777;
+  font-weight: bold;
+  font-family: 'Lato',sans-serif;
+}
+
+.another1 {
+  cursor: pointer;
+  text-decoration: underline;
+  font-size: 15px;
+  text-align: center;
+  color: #2D4777;
+  margin-top: 30px;
+  font-family: 'Lato',sans-serif;
+}
+
+.another1:hover {
+  color: #2D4777;
+  font-weight: bold;
+  font-family: 'Lato',sans-serif;
+}
+
+.pic-Container{
+  display: flex;
+  justify-content: space-between;
+}
+
+.fpxTitle {
+  color: black;
+  font-family: 'Lato',sans-serif;
+  margin-top: 3px;
+  font-weight: bold;  
+}
+
+.cardFPX {
+  background-color: white;
+  padding: 20px;
+  border-radius: 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 500px;
+  height: 330px;
+  margin: 0 auto; /* Center the card */
+  border: none;
+  margin-top: 30px  
+}
+
+.redirect {
+  color: black;
+  text-align: center;
+  font-size: 30px;
+  margin-top: 300px;
+}
+
+.mobile {
+  color: black;
+  font-family: 'Lato',sans-serif;
+  text-align: center;
+  font-size: 20px;
+}
+
+.pin {
+  color: black;
+  font-family: 'Lato',sans-serif;
+  text-align: center;
+  font-size: 20px;
+}
+
+.mobileinput {
+  border-radius: 15px;
+  padding: 10px 10px 10px 10px;
+  font-family: 'Lato',sans-serif;
+  width: 200px;
+  text-align: center;
+  margin-left: -110px;
+  margin-top: -20px;
+  border-color: #2D4777;
+}
+
+.pininput {
+  border-radius: 15px;
+  padding: 10px 10px 10px 10px;
+  font-family: 'Lato',sans-serif;
+  width: 200px;
+  text-align: center;
+  margin-left: -100px;
+  margin-bottom: 30px;
+  margin-top: -20px;
+  border-color: #2D4777;
+
+}
+.titleLink {
+  color: black;
+  font-family: 'Lato',sans-serif;
+  font-weight: bold;
+}
+
+.photo {
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  margin-left: 50px;
+  margin-bottom: 100px;
+  cursor: pointer;
+  margin-top: 60px;
+}
+
+.cardinput {
+  border-radius: 6px;
+  padding: 10px; /* Adjust padding for all sides */
+  font-family: 'Lato', sans-serif;
+  width: 60%; /* Make width 100% to fill container */
+  margin: 10px 0; 
+  border-color: #2D4777;
+  box-sizing: border-box; 
+}
+
+.cardinput1 {
+  border-radius: 6px;
+  padding: 10px; /* Adjust padding for all sides */
+  font-family: 'Lato', sans-serif;
+  width: 60%; /* Make width 100% to fill container */
+  margin: 10px 0; 
+  border-color: #2D4777;
+  box-sizing: border-box;
+  margin-left: 55px; 
+}
+
+.cardinput2 {
+  border-radius: 6px;
+  padding: 10px; /* Adjust padding for all sides */
+  font-family: 'Lato', sans-serif;
+  width: 60%; /* Make width 100% to fill container */
+  margin: 10px 0; 
+  border-color: #2D4777;
+  box-sizing: border-box;
+  margin-left: 40px; 
+}
+
+.cardinput3 {
+  border-radius: 6px;
+  padding: 10px; /* Adjust padding for all sides */
+  font-family: 'Lato', sans-serif;
+  width: 60%; /* Make width 100% to fill container */
+  margin: 10px 0; 
+  border-color: #2D4777;
+  box-sizing: border-box;
+  margin-left: 10px; 
+}
+
+.cardinput4 {
+  border-radius: 6px;
+  padding: 10px; /* Adjust padding for all sides */
+  font-family: 'Lato', sans-serif;
+  width: 60%; /* Make width 100% to fill container */
+  margin: 10px 0; 
+  border-color: #2D4777;
+  box-sizing: border-box;
+  margin-left: 70px; 
+}
+
+.cardCard {
+  background-color: white;
+  padding: 20px;
+  border-radius: 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 800px;
+  height: 500px;
+  margin: 0 auto; /* Center the card */
+  border: none;
+  margin-top: 30px
+}
+
+.cardVar {
+  color: #2D4777;
+  margin-right: 100px;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.button1 {
+  border-radius: 30px;
+  padding: 10px 40px 10px 40px;
+  font-weight: bold;
+  border: black 1px solid;
+  color: #2D4777;
+  font-family: 'Lato',sans-serif;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 15px;
+  margin-top: 50px;
+  width: 250px;
+}
+
+.button1:hover {
+  border: white 1px solid;
+  font-size: 18px;
+  background-color: #2D4777;
+  color: #fff;
+  border-color: #fff;
+  font-family: 'Lato',sans-serif;
+  text-decoration: none;
+  width: 250px;
+}
+
+.button2 {
+  border-radius: 30px;
+  padding: 10px 40px 10px 40px;
+  font-weight: bold;
+  border: black 1px solid;
+  color: #2D4777;
+  font-family: 'Lato',sans-serif;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 14px;
+  margin-left: 20px;
+  margin-right: 50px;
+  margin-top: 300px;
+}
+
+.button2:hover {
+  border: white 1px solid;
+  font-size: 16px;
+  background-color: #2D4777;
+  color: #fff;
+  border-color: #fff;
+  font-family: 'Lato',sans-serif;
+  text-decoration: none;
+}
+
+.button3 {
+  border-radius: 30px;
+  padding: 10px 40px 10px 40px;
+  font-weight: bold;
+  border: black 1px solid;
+  color: #2D4777;
+  font-family: 'Lato',sans-serif;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 14px;
+  margin-left: 50px;
+  margin-top: 300px;
+}
+
+.button3:hover {
+  border: white 1px solid;
+  font-size: 16px;
+  background-color: #2D4777;
+  color: #fff;
+  border-color: #fff;
+  font-family: 'Lato',sans-serif;
+  text-decoration: none;
+  
+}
+
+.button4-CTN {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.cardInvoiceList {
+  background-color: #D9D9D9;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 1200px;
+  height: 40px;
+  margin: 0 auto; /* Center the card */
+  border: none;
+  margin-top: 30px;
+}
+
+.invoiceTitle{
+  display: flex;
+  justify-content:space-between;
+  font-family: 'Lato',sans-serif;
+  color: #000;
+  font-weight: bold;
+  padding-left: 200px;
+  padding-right: 230px;
+  font-size: 22px;
+}
+
+.invoiceTitle2{
+  margin-top: 50px;
+  display: flex;
+  justify-content:space-between;
+  font-family: 'Lato',sans-serif;
+  color: #000;
+  font-weight: bold;
+  padding-left: 150px;
+  padding-right: 240px;
+  font-size: 22px;
+}
+
+.invoiceDesc {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Lato',sans-serif;
+  color: black;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.invoiceDesc2 {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Lato',sans-serif;
+  color: #2D4777;
+}
+
+.invoiceDesc2 p {
+  margin: 0;
+  margin-top: 10px;
+  font-family: 'Lato', sans-serif;
+  color: black;
+}
+
+.invoiceDesc2 p span {
+  font-weight: bold;
+  margin-left: 5px;
+  font-family: 'Lato', sans-serif;
+  color: #2D4777;
+  font-size: 22px;
+}
+
+.descColumn {
+  width: 1100px; 
+  font-family: 'Lato',sans-serif;
+  color: #2D4777;
+  font-size: 22px;
+  padding-left: 38px;
+}
+.priceColumn {
+  width: 300px; 
+  font-family: 'Lato',sans-serif;
+  color: #2D4777;
+  font-size: 22px;
+  padding-left: -80px;
+}
+
+.descContent {
+  font-family: 'Lato', sans-serif;
+  width: 300px;
+  padding-left: 40px;
+  margin-top: 45px;
+  margin-bottom: 45px;
+  color: #fff;
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: center;
+}
+
+.taskName {
+  min-width: 370px; 
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: #fff;
+}
+
+.taskPrice {
+  flex-grow: 1; 
+  color: #fff;
+  flex-shrink: 0;
+  font-size: 18px;
+}
+
+.taskDesc {
+  flex-grow: 1; 
+  color: #fff;
+  flex-shrink: 0;
+  font-size: 18px;
+}
+
+.INV {
+  font-family: 'Lato', sans-serif;
+  width: 1200px;
+  height: 60px;
+  padding: 20px; /* Consolidate padding properties */
+  margin: 25px 0; /* Adjust top and bottom margin */
+  margin-left: 70px;
+  color: #fff;
+  background-color: #2D4777;
+  display: flex;
+  justify-content: space-between; /* Distribute space evenly between elements */
+  align-items: center;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+.INV p {
+  margin: 0; /* Remove default margins from paragraphs */
+  padding-left: 110px;
+}
+
+.INVName {
+  width: 200px; /* Set specific width for INVName */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin-right: auto; 
+    font-size: 18px;
+}
+
+.INVPrice {
+  width: calc(33.333% - 50px); 
+  flex-grow: 1; 
+  flex-shrink: 1; 
+  font-size: 18px;
+  margin-left: auto; 
+}
+
+.INVDesc {
+  width: calc(10.333% - 50px); 
+  flex-grow: 1; 
+  flex-shrink: 1; 
+  font-size: 18px;
+  
+  margin-left: auto; 
+}
+
+
+
+.priceContent{
+  font-family: 'Lato',sans-serif;
+  color: #fff;
+  width: 120px; 
+  margin-left: 100px;
+}
+
+.back {
+  padding-top: 30px;
+  padding-left: 30px;
+  cursor: pointer;
+  font-family: 'Lato',sans-serif;
+}
+
+.cardPendingPayment {
+  background-color: #D9D9D9;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  height: 100px;
+  margin: 0 auto; /* Center the card */
+  border: none;
+  margin-left: 50px;
+  margin-top: 50px;
+  font-family: 'Lato',sans-serif;
+}
+
+.paymentHistory {
+  padding-top: 50px;
+  padding-left: 55px;
+  font-family: 'Lato',sans-serif;
+  font-size: 30px;
+}
+
+.pendingTitle {
+  font-family: 'Lato',sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  color: #2D4777;
+  margin-top: -2px;
+}
+
+.pendingDesc {
+  font-family: 'Lato',sans-serif;
+  font-size: 14px;
+  color: #2D4777;
+}
+
+.pendingPrice {
+  font-family: 'Lato',sans-serif;
+  color: #2D4777;
+  font-weight: bolder;
+}
+
+.buttonDown {
+  border-radius: 30px;
+  padding: 10px 40px 10px 40px;
+  font-weight: bold;
+  border: black 1px solid;
+  color: #2D4777;
+  font-family: 'Lato',sans-serif;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 15px;
+  width: 150px;
+  margin-bottom: 50px;
+}
+
+.buttonDown:hover {
+  border: white 1px solid;
+  font-size: 18px;
+  background-color: #2D4777;
+  color: #fff;
+  border-color: #fff;
+  font-family: 'Lato',sans-serif;
+  text-decoration: none;
+  width: 180px;
+}
+
+.buttonView {
+  border-radius: 30px;
+  padding: 10px 40px 10px 40px;
+  font-weight: bold;
+  border: black 1px solid;
+  color: #2D4777;
+  font-family: 'Lato',sans-serif;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 15px;
+  width: 232px;
+  margin-bottom: 50px;
+  margin-left: 20px;
+}
+
+.buttonView:hover {
+  border: white 1px solid;
+  font-size: 18px;
+  background-color: #2D4777;
+  color: #fff;
+  border-color: #fff;
+  font-family: 'Lato',sans-serif;
+  text-decoration: none;
+  width: 270px;
+}
+
+.invoiceHolder {
+  margin-top: 30px;
+  margin-left: 50px;
+  background-color: #2D4777;
+  font-family: 'Lato',sans-serif;
+  width: 600px;
+  height: 280px;
+  border-radius: 40px;
+  padding-left: 40px;
+  padding-top: 30px;
+  font-size: 30px;
+  color: #fff;
+  font-weight: bold;
+}
+
+.invoiceDetails {
+  width: 500px;
+  height: 280px;
+  background-color: #2D4777;
+  border-radius: 40px;
+  padding-left: 40px;
+  padding-top: 30px;
+  color: #fff;
+  font-family: 'Lato',sans-serif;
+  margin-right: 70px;
+  margin-top: 30px;
+}
+
+.invoiceAmount {
+  color: black;
+  background-color: #fff;
+  border-radius: 30px;
+  padding-left: 30px;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  width: 260px;
+  height: 100px;
+  font-family: 'Lato',sans-serif;
+}
+
+.Amount {
+  font-family: 'Lato',sans-serif;
+  font-weight: bold;
+  font-size: 20px;
+  margin-top: 10px;
+  margin-bottom: 25px;
+}
+
+.Amount span {
+  font-family: 'Lato',sans-serif;
+  color: #2D4777;
+  font-size: 35px;
+
+}
+
+.date {
+  margin-top: -21px;
+  font-size: 12px;
+}
+
+.name {
+  margin-top: 0px;
+  font-family: 'Lato',sans-serif;
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: -10px;
+}
+
+.location {
+  font-family: 'Lato',sans-serif;
+  margin-top: -10px;
+}
+
+.cardInvoiceDesc {
+  background-color: #D9D9D9;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 600px;
+  height: 400px;
+  margin-left: 50px;
+  border: none;
+  margin-top: 30px;
+}
+
+.tnc {
+  margin-top: 50px;
+  font-family: 'Lato',sans-serif;
+  padding-left: 50px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.tncDesc {
+  font-family: 'Lato',sans-serif;
+  padding-left: 50px;
+  font-size: 12px;
+}
+
+.tncDesc2 {
+  font-family: 'Lato',sans-serif;
+  padding-left: 50px;
+  font-size: 12px;
+}
+
+.totalAmt {
+  font-family: 'Lato', sans-serif;
+  font-weight: bold;
+  padding-right: 70px;
+  padding-top: 10px;
+  font-size: 28px;
+  padding-left: 35px;
+  position: relative; /* Add positioning */
+}
+
+.greatTotal {
+  font-size: 45px;
+  font-family: 'Lato', sans-serif;
+  font-weight: bold;
+  color: #2D4777;
+  padding-top: 20px; /* Adjust padding-top */
+  padding-right: 70px; /* Adjust padding-right */
+  position: relative; /* Add positioning */
+  top: 20px; /* Adjust the vertical position */
+}
+
+.cardInvoiceNo {
+  background-color: #D9D9D9;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 1210px;
+  height: 40px;
+  margin: 0 auto; /* Center the card */
+  border: none;
+  margin-top: 40px;
+  margin-left: 50px;
+}
+
+.backPic {
+  width: 40px;
+  height: 30px;
+  padding-left: 20px;
+  padding-top: 50px;
+  cursor: pointer;
+}
+
+.photobank {
+  width: 110px;
+  height: 35px;
+  padding-left: 20px;
+  cursor: pointer;
+  margin-top: 33px;
+}
+
+.button {
+  border-radius: 30px;
+  padding: 10px 40px 10px 40px;
+  font-weight: bold;
+  border: black 1px solid;
+  color: #2D4777;
+  font-family: 'Lato',sans-serif;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 15px;
+  width: 150px;
+}
+
+.button:hover {
+  border: white 1px solid;
+  font-size: 18px;
+  background-color: #2D4777;
+  color: #fff;
+  border-color: #fff;
+  font-family: 'Lato',sans-serif;
+  text-decoration: none;
+  width: 160px;
+}
+
+.automatedContainer {
+  border-radius: 10px;
+  width: 400px;
+  background-color: #2D4777;
+  height: fit-content;
+  padding-left: 20px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-right: 20px;
+  margin-left: 50px;
+  margin-top: 20px;
+  margin-bottom: 40px;
+  cursor: pointer;
+  font-family: 'Lato',sans-serif;
+}
+
+.automatedContainer:hover {
+  border-radius: 10px;
+  width: 400px;
+  background-color: #152545;
+  height: fit-content;
+  padding-left: 20px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-right: 20px;
+  margin-left: 50px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.automatedContainer p {
+  color: #fff;
+  
+}
+
+.automatedContainer p span {
+  color: #fff;
+  margin-left: 40px;
+}
+
+.linkedWord {
+  margin-left: 55px;
+  font-family: 'Lato',sans-serif;
+  font-size: 13px;
+  margin-bottom: -10px;
+  margin-top: 30px;
+}
+
+.automatedContainer {
+  display: flex;
+  align-items: center; /* Optional: Align items vertically */
+  font-family: 'Lato',sans-serif;
+}
+
+.BankName {
+  width: 200px; /* Adjust as needed */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis; /* Optional: Show ellipsis if text overflows */
+}
+
+.AccNumHashed {
+  flex-grow: 1; 
+  color: #fff;
+}
+
+.buttonPayHis {
+  border-radius: 30px;
+  padding: 10px 40px 10px 40px;
+  font-weight: bold;
+  border: black 1px solid;
+  color: #2D4777;
+  font-family: 'Lato',sans-serif;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 15px;
+  width: 150px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.buttonPayHis:hover {
+  border: white 1px solid;
+  font-size: 15px;
+  background-color: #2D4777;
+  color: #fff;
+  border-color: #fff;
+  font-family: 'Lato',sans-serif;
+  text-decoration: none;
+  width: 150px;
+}
