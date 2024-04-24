@@ -9,7 +9,6 @@
   flex-direction: column;
   align-items: center;
   flex-shrink: 0;
-  margin-right: 20px;
   padding-bottom: 1%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -25,7 +24,7 @@
 .content .PDetails {
   width: 50%;
   color: #2d4777;
-  font-weight: 300;
+  font-weight: 500;
   font-size: 16px;
 }
 

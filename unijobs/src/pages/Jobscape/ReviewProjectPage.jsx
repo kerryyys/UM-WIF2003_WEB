@@ -1,4 +1,3 @@
-// ReviewProjectPage.js
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import SmallTitle from "../../components/jobscape/SmallTitle";
@@ -13,6 +12,78 @@ const ReviewProjectPage = () => {
   const handleReviewFormSubmit = () => {
     setShowNotification(true);
   };
+
+  const inProgressProjects = [
+    {
+      projectTitle: "E-commerce Website",
+      due: "16 May 2024",
+      budget: "RM 8,000",
+      collaborator: "Peter Lim",
+    },
+    {
+      projectTitle: "Photography Session",
+      due: "16 May 2024",
+      budget: "RM 8,000",
+      collaborator: "Peter Lim",
+    },
+    {
+      projectTitle: "Online Banking App",
+      due: "16 May 2024",
+      budget: "RM 8,000",
+      collaborator: "Peter Lim",
+    },
+    {
+      projectTitle: "Grab",
+      due: "16 May 2024",
+      budget: "RM 8,000",
+      collaborator: "Peter Lim",
+    },
+    {
+      projectTitle: "E-commerce Website",
+      due: "16 May 2024",
+      budget: "RM 8,000",
+      collaborator: "Peter Lim",
+    },
+  ];
+
+  const completedProjects = [
+    {
+      projectTitle: "Shopping Cart App",
+      due: "16 May 2024",
+      budget: "RM 8,000",
+      collaborator: "Peter Lim",
+    },
+    {
+      projectTitle: "Planting Session",
+      due: "16 May 2024",
+      budget: "RM 8,000",
+      collaborator: "Peter Lim",
+    },
+    {
+      projectTitle: "Mental Health App",
+      due: "16 May 2024",
+      budget: "RM 8,000",
+      collaborator: "Peter Lim",
+    },
+    {
+      projectTitle: "E-commerce Website",
+      due: "16 May 2024",
+      budget: "RM 8,000",
+      collaborator: "Peter Lim",
+    },
+    {
+      projectTitle: "E-commerce Website",
+      due: "16 May 2024",
+      budget: "RM 8,000",
+      collaborator: "Peter Lim",
+    },
+    {
+      projectTitle: "E-commerce Website",
+      due: "16 May 2024",
+      budget: "RM 8,000",
+      collaborator: "Peter Lim",
+    },
+  ];
 
   return (
     <div className="ReviewProjectPage">
@@ -31,52 +102,22 @@ const ReviewProjectPage = () => {
       <div className="InProgress">
         <SmallTitle title="In Progress" fontWeight="400" fontSize="32px" />
         <div className="InProgressList">
-          {/* shld be can scroll horizontally */}
-          <InProgressProjectTab
-            projectTitle="E-commerce Website "
-            due="16 May 2024"
-            budget="RM 8,000"
-            collaborator="Peter Lim"
-          />
-          <InProgressProjectTab
-            projectTitle="E-commerce Website "
-            due="16 May 2024"
-            budget="RM 8,000"
-            collaborator="Peter Lim"
-          />
-          <InProgressProjectTab
-            projectTitle="E-commerce Website "
-            due="16 May 2024"
-            budget="RM 8,000"
-            collaborator="Peter Lim"
-          />
+          {inProgressProjects.map((project, index) => (
+            <InProgressProjectTab key={index} {...project} />
+          ))}
         </div>
       </div>
 
       <div>
         <SmallTitle title="Completed" fontWeight="400" fontSize="32px" />
         <div className="CompletedProjectList">
-          <CompletedProjectTab
-            projectTitle="E-commerce Website "
-            due="16 May 2024"
-            budget="RM 8,000"
-            collaborator="Peter Lim"
-            onReviewSubmit={handleReviewFormSubmit} // Pass handleReviewFormSubmit
-          />
-          <CompletedProjectTab
-            projectTitle="E-commerce Website "
-            due="16 May 2024"
-            budget="RM 8,000"
-            collaborator="Peter Lim"
-            onReviewSubmit={handleReviewFormSubmit} // Pass handleReviewFormSubmit
-          />
-          <CompletedProjectTab
-            projectTitle="E-commerce Website "
-            due="16 May 2024"
-            budget="RM 8,000"
-            collaborator="Peter Lim"
-            onReviewSubmit={handleReviewFormSubmit} // Pass handleReviewFormSubmit
-          />
+          {completedProjects.map((project, index) => (
+            <CompletedProjectTab
+              key={index}
+              {...project}
+              onReviewSubmit={handleReviewFormSubmit} 
+            />
+          ))}
         </div>
       </div>
 

@@ -15,6 +15,7 @@ const Notification = ({ message, onClose }) => (
 
 const PostProjectPage = () => {
   const [showNotification, setShowNotification] = useState(false);
+  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const [projectTitle, setProjectTitle] = useState("");
   const [projectDescription, setProjectDescription] = useState("");
   const [projectCategory, setProjectCategory] = useState("");
@@ -132,7 +133,7 @@ const PostProjectPage = () => {
       return; // Stop submission if validation fails
     }
 
-    // Logic to submit project details
+    setIsFormSubmitted(true);
     setShowNotification(true);
 
     // Reset form fields
@@ -148,6 +149,15 @@ const PostProjectPage = () => {
     setContactInformation("");
     setAdditionalNotes("");
     setAgreedToTerms(false);
+    
+  };
+
+  const handleNotificationClose = () => {
+    setShowNotification(false);
+    if (isFormSubmitted) {
+      setIsFormSubmitted(false);
+      window.location.pathname = "/SeekTalentPage";
+    }
   };
   
   return (
@@ -377,7 +387,7 @@ const PostProjectPage = () => {
         {showNotification && (
           <Notification
             message="Your project details have been successfully submitted!"
-            onClose={() => setShowNotification(false)}
+            onClose={handleNotificationClose}
           />
         )}
       </div>
