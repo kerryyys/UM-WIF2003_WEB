@@ -1,27 +1,57 @@
 .ReviewProjectPage {
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   height: 100vh;
   width: 100%;
   padding-top: 5%;
   overflow-x: hidden; /* Prevent page scrolling */
 }
 
-.Reviewheader {
+.ReviewBackBtn {
   width: 65%;
+  margin: 0 auto; /* Center the ReviewBackBtn */
   display: flex;
-  align-items: center;
-  margin-bottom: 15px;
 }
 
-.BackButton {
+.BackBtn {
+  align-items: flex-start;
+  background-color: transparent;
+  border: none;
+  color: #2d4777;
+  transition: transform 0.3s;
+}
+
+.BackBtn a {
   text-decoration: none;
-  color: #2d4877;
-  margin-right: 18%;
-  margin-bottom: 2%;
-  font-size: 24px;
+  color: #2d4777;
+}
+.BackBtn .bi-chevron-left {
+  margin-right: 5px;
+}
+.BackBtn:hover {
+  transform: scale(1.1);
+  background-color: transparent;
+  color: #2d4777;
+}
+.BackBtn:active {
+  background-color: transparent !important;
+  color: #223559 !important;
+}
+.BackBtn:hover {
+  transform: scale(1.1);
+  background-color: transparent;
+  color: #2d4777;
+}
+.BackBtn:active {
+  background-color: transparent !important;
+  color: #223559 !important;
+}
+
+.Reviewheader {
+  width: 65%;
+  margin: 0 auto; /* Center the Reviewheader */
+  text-align: center;
+  margin-bottom: 15px;
 }
 
 .InProgressList,
@@ -29,7 +59,7 @@
   display: flex;
   overflow-x: auto;
   justify-content: left;
-  width: 68vw; /* Adjust as needed */
+  width: 70vw; /* Adjust as needed */
   margin: 0 auto 40px;
   border-radius: 10px;
   padding: 0 20px; /* Add padding to avoid sticking to edges */
@@ -39,7 +69,7 @@
 .CompletedProjectTab {
   flex: 0 0 auto;
   width: 300px; /* Fixed width for each tab */
-  margin-right: 20px; /* Adjust spacing between tabs */
+  margin-right: 35px; /* Adjust spacing between tabs */
 }
 
 /* Hide the scrollbar */

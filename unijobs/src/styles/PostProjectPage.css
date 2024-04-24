@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   color: #2d4877;
   padding-bottom: 5%;
 }
@@ -15,19 +16,50 @@
 }
 
 .PostHeader {
-  width: 62%;
+  width: 65%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.PostBackBtn {
+  width: 65%;
+  margin: 0 auto; /* Center the ReviewBackBtn */
   display: flex;
-  padding-top: 5%;
 }
 
-.PostBackButton {
-  margin-top: 4%;
-  margin-right: 25%;
+.BackBtn {
+  align-items: flex-start;
+  background-color: transparent;
+  border: none;
+  color: #2d4777;
+  transition: transform 0.3s;
+}
+
+.BackBtn a {
   text-decoration: none;
-  font-size: 24px;
-  color: #2d4877;
+  color: #2d4777;
 }
-
+.BackBtn .bi-chevron-left {
+  margin-right: 5px;
+}
+.BackBtn:hover {
+  transform: scale(1.1);
+  background-color: transparent;
+  color: #2d4777;
+}
+.BackBtn:active {
+  background-color: transparent !important;
+  color: #223559 !important;
+}
+.BackButton:hover {
+  transform: scale(1.1);
+  background-color: transparent;
+  color: #2d4777;
+}
+.BackButton:active {
+  background-color: transparent !important;
+  color: #223559 !important;
+}
 
 .FormContainer {
   width: 62%;

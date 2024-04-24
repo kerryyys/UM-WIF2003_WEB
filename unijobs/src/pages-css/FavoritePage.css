@@ -1,0 +1,27 @@
+.favorite-container .back-btn {
+  align-self: flex-start;
+  background-color: transparent;
+  border: none;
+  color: #2d4777;
+  transition: transform 0.3s;
+  padding: 0;
+}
+.favorite-container .back-btn a {
+  text-decoration: none;
+  color: #2d4777;
+}
+.favorite-container .back-btn .bi-chevron-left {
+  margin-right: 5px;
+}
+.favorite-container .back-btn:hover {
+  transform: scale(1.1);
+  background-color: transparent;
+  color: #2d4777;
+}
+.favorite-container .back-btn:active {
+  background-color: transparent !important;
+  color: #223559 !important;
+}
+.favorite-container .favorite-title {
+  color: #2d4777;
+}

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import "../../styles/PostProjectPage.css";
 import SmallTitle from "../../components/jobscape/SmallTitle";
 import "../../components-css/jobscape/Notification.css";
@@ -14,6 +15,7 @@ const Notification = ({ message, onClose }) => (
 );
 
 const PostProjectPage = () => {
+  const navigate = useNavigate();
   const [showNotification, setShowNotification] = useState(false);
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const [projectTitle, setProjectTitle] = useState("");
@@ -162,10 +164,15 @@ const PostProjectPage = () => {
   
   return (
     <div className="PostProjectPage">
+      <div className="PostBackBtn">
+        <Button className="BackBtn" onClick={() => navigate(-1)}>
+          <p>
+            <i className="bi-chevron-left" />
+            Back
+          </p>
+        </Button>
+      </div>
       <div className="PostHeader">
-        <Link to="/SeekTalentPage" className="PostBackButton">
-          &lt; BACK
-        </Link>
         <SmallTitle
           className="SmallTitle"
           title="Project Details"

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import SmallTitle from "../../components/jobscape/SmallTitle";
 import InProgressProjectTab from "../../components/jobscape/InProgressProjectTab";
 import CompletedProjectTab from "../../components/jobscape/CompletedProjectTab";
@@ -7,6 +8,7 @@ import "../../components-css/jobscape/Notification.css";
 import "../../styles/ReviewProjectPage.css";
 
 const ReviewProjectPage = () => {
+  const navigate = useNavigate();
   const [showNotification, setShowNotification] = useState(false);
 
   const handleReviewFormSubmit = () => {
@@ -87,10 +89,16 @@ const ReviewProjectPage = () => {
 
   return (
     <div className="ReviewProjectPage">
+      <div className="ReviewBackBtn">
+        <Button className="BackBtn" onClick={() => navigate(-1)}>
+          <p>
+            <i className="bi-chevron-left" />
+            Back
+          </p>
+        </Button>
+      </div>
+
       <div className="Reviewheader">
-        <Link to="/SeekTalentPage" className="BackButton">
-          &lt; BACK
-        </Link>
         <SmallTitle
           className="ReviewTitle"
           title="Review Your Recent Project"
@@ -115,7 +123,7 @@ const ReviewProjectPage = () => {
             <CompletedProjectTab
               key={index}
               {...project}
-              onReviewSubmit={handleReviewFormSubmit} 
+              onReviewSubmit={handleReviewFormSubmit}
             />
           ))}
         </div>

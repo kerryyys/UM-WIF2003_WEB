@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import "../../App.css";
+import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import JobscapeHeader from "../../components/jobscape/JobscapeHeader";
 import SearchBar from "../../components/jobscape/SearchBar";
 import CategoryBar from "../../components/jobscape/CategoryBar";
@@ -22,10 +23,62 @@ const JobscapeMainPage = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const categories = [
     "Web Developer",
-    "Graphic Designer",
-    "Content Creator",
-    "Data Analyst",
-    "Project Manager",
+    "Graphic Design",
+    "Content Creation",
+    "Data Analysis",
+    "Project Management",
+  ];
+
+  const positionTabs = [
+    {
+      bgImg: PositionRecruit,
+      color: "#FDFAF3",
+      hoverColor: "#2D4877",
+      paddingLeft: "10%",
+      paddingRight: "5%",
+      textAlign: "left",
+      positionType: "I AM A RECRUITER!",
+      content:
+        "Are you a skilled and passionate freelancer looking for exciting opportunities to showcase your talent? We are actively seeking talented individuals to join our freelance network and collaborate on a variety of projects across different industries.",
+      buttonType: "Recruiting",
+      seekPage: "/SeekTalentPage",
+      style: { width: "50%", margin: 0, padding: 0 },
+    },
+    {
+      bgImg: PositionFreelance,
+      color: "#2D4877",
+      hoverColor: "#FDFAF3",
+      paddingLeft: "5%",
+      paddingRight: "10%",
+      textAlign: "right",
+      positionType: "I AM A FREELANCE!",
+      content:
+        "Are you a freelancer looking for exciting opportunities to showcase your skills and connect with clients? Look no further! Our platform is a hub for talented freelancers like you to find projects, collaborate with clients, and grow your freelance business.",
+      buttonType: "Seeking",
+      seekPage: "/SeekJobPage",
+      style: { width: "50%", margin: 0, padding: 0 },
+    },
+  ];
+
+  const workTabs = [
+    {
+      workImg: WorkRecruit,
+      workType: "Recruiter",
+      content:
+        "Employers post job opportunities or projects, specifying their requirements and preferences.",
+    },
+    {
+      workImg: WorkFreelance,
+      workType: "Freelancer",
+      content:
+        "Browse available projects, submit proposals to employers based on their skills and expertise.",
+    },
+    {
+      workImg: WorkMutual,
+      workType: "Mutual Satisfaction",
+      content:
+        "Freelancers collaborate with employers to complete projects, ensuring mutual satisfaction and success.",
+    },
   ];
 
   const handleSearchChange = (event) => {
@@ -50,7 +103,8 @@ const JobscapeMainPage = () => {
         }}
       >
         <JobscapeHeader text1="Jobs" text2="Talents!" />
-        <div className="search-bar"
+        <div
+          className="search-bar"
           style={{
             display: "flex",
             alignItems: "center",
@@ -73,43 +127,34 @@ const JobscapeMainPage = () => {
             src={searchbtn}
           />
         </div>
+        {/* Floating button for Your Jobs */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: "20px",
+          }}
+        >
+          <Link to="/YourJobs">
+            <Button
+              className="floating-your-jobs-btn"
+              style={{ backgroundColor: "#ffffff", color: "#2D4877" }}
+            >
+              Your Jobs <i className="bi bi-exclamation-circle-fill" />
+            </Button>
+          </Link>
+        </div>
       </div>
 
       <SmallTitle title="Popular Categories" fontWeight="700" fontSize="24px" />
       <CategoryTab />
       <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          marginTop: "5%",
-        }}
+        style={{ display: "flex", justifyContent: "center", marginTop: "5%" }}
       >
-        <PositionTab
-          bgImg={PositionRecruit}
-          color="#FDFAF3"
-          hoverColor="#2D4877"
-          paddingLeft="10%"
-          paddingRight="5%"
-          textAlign="left"
-          positionType="I AM A RECRUITER!"
-          content="Are you a skilled and passionate freelancer looking for exciting opportunities to showcase your talent? We are actively seeking talented individuals to join our freelance network and collaborate on a variety of projects across different industries."
-          buttonType="Recruiting"
-          seekPage="/SeekTalentPage"
-          style={{ width: "50%", margin: 0, padding: 0 }}
-        />
-        <PositionTab
-          bgImg={PositionFreelance}
-          color="#2D4877"
-          hoverColor="#FDFAF3"
-          paddingLeft="5%"
-          paddingRight="10%"
-          textAlign="right"
-          positionType="I AM A FREELANCE!"
-          content="Are you a freelancer looking for exciting opportunities to showcase your skills and connect with clients? Look no further! Our platform is a hub for talented freelancers like you to find projects, collaborate with clients, and grow your freelance business."
-          buttonType="Seeking"
-          seekPage="/SeekJobPage"
-          style={{ width: "50%", margin: 0, padding: 0 }}
-        />
+        {positionTabs.map((tab, index) => (
+          <PositionTab key={index} {...tab} />
+        ))}
       </div>
 
       <SmallTitle title="How It Works?" fontWeight="bold" fontSize="24px" />
@@ -121,28 +166,14 @@ const JobscapeMainPage = () => {
           margin: "0 18% 3%",
         }}
       >
-        <WorkTab
-          workImg={WorkRecruit}
-          workType="Recruiter"
-          content="Employers post job opportunities or projects, specifying their requirements and preferences."
-        />
-        <WorkTab
-          workImg={WorkFreelance}
-          workType="Freelancer"
-          content="Browse available projects, submit proposals to employers based on their skills and expertise."
-        />
-        <WorkTab
-          workImg={WorkMutual}
-          workType="Mutual Satisfaction"
-          content="Freelancers collaborate with employers to complete projects, ensuring mutual satisfaction and success."
-        />
+        {workTabs.map((tab, index) => (
+          <WorkTab key={index} {...tab} />
+        ))}
       </div>
       <StatusTab
         numArray={[330, 473, 562, 298]}
         typeArray={["Projects", "Recruiters", "Freelancers", "Satisfaction"]}
       />
-
-      {/* footer */}
     </>
   );
 };
