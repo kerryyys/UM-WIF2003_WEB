@@ -13,6 +13,7 @@
   border: none;
   color: #2d4777;
   transition: transform 0.3s;
+  margin-top: 3vh;
 }
 .your-jobs-container .back-btn a {
   text-decoration: none;

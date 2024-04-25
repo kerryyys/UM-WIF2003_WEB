@@ -131,7 +131,7 @@ const ReviewProjectPage = () => {
 
       {showNotification && (
         <div className="overlay">
-          <div className="notification">
+          <div className="post-project-notification">
             <p>Your review has been successfully submitted!</p>
             <button onClick={() => setShowNotification(false)}>Close</button>
           </div>

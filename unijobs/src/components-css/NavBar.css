@@ -54,5 +54,17 @@
   font-family: var(--brand-font);
   font-size: 1.5em;
 }
-
+.navbar-style .navbar-profile-pic {
+  position: absolute;
+  right: 8vw;
+  top: 0.5vh;
+  cursor: pointer;
+  width: 50px;
+}
+.navbar-style .navbar-sign-out-btn {
+  text-wrap: nowrap;
+  background-color: white;
+  border: none;
+  color: #2d4877;
+}
 /* Navigation Item */

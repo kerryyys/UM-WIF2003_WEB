@@ -11,21 +11,21 @@
   z-index: 9999; /* Ensure the overlay appears on top of other content */
 }
 
-.notification {
-  display: flex; 
-  flex-direction: column; 
+.post-project-notification {
+  display: flex;
+  flex-direction: column;
   align-items: center;
   background-color: white;
   padding: 20px;
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5)
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
-.notification p {
+.post-project-notification p {
   margin: 0;
 }
 
-.notification button {
+.post-project-notification button {
   margin-top: 10px;
   padding: 5px 10px;
   width: fit-content;

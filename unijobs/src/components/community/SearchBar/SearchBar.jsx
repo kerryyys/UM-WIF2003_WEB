@@ -8,7 +8,7 @@ function SearchBar() {
         <input className="search-bar" type="text" placeholder="Search..." />
         <input className="search-bar" type="text" placeholder="Category" />
         <button type="button" className="btn-search">
-          X
+          <i className="bi bi-search"></i>
         </button>
       </div>
     </div>

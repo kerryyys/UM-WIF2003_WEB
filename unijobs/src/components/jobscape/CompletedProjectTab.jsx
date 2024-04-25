@@ -39,7 +39,7 @@ const CompletedProjectTab = ({
           <div className="RateBtn" onClick={handleRateBtnClick}>
             Rate
           </div>
-          <Link to="/payment" className="PayBtn">
+          <Link to="/card" className="PayBtn">
             Pay
           </Link>
         </div>
