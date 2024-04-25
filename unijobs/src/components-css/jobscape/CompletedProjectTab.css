@@ -13,22 +13,22 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.content {
+.CompletedProjectTab .content {
   display: flex;
   flex-direction: row;
   padding: 10px;
   margin-bottom: 25%;
 }
 
-.content .DetailsType,
-.content .Details {
+.CompletedProjectTab .content .DetailsType,
+.CompletedProjectTab .content .Details {
   width: 50%;
   color: #2d4777;
   font-weight: 500;
   font-size: 16px;
 }
 
-.Details div {
+.CompletedProjectTab .Details div {
   width: 90%;
   height: auto;
   text-align: center;
@@ -38,7 +38,7 @@
   font-weight: 700;
 }
 
-.TabBtn {
+.CompletedProjectTab .TabBtn {
   position: absolute;
   bottom: 0;
   display: flex;
@@ -52,14 +52,14 @@
   text-align: center;
 }
 
-.RateBtn {
+.CompletedProjectTab .RateBtn {
   width: 50%;
   background-color: #2d4777;
   border-radius: 10px 0 0 10px;
   padding: 10px;
 }
 
-.PayBtn {
+.CompletedProjectTab .PayBtn {
   width: 50%;
   color: #fdfaf3;
   background-color: #80d1d5;
@@ -67,7 +67,7 @@
   text-decoration: none;
   padding: 10px;
 }
-.PayBtn:hover,
-.RateBtn:hover {
+.CompletedProjectTab .PayBtn:hover,
+.CompletedProjectTab .RateBtn:hover {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }

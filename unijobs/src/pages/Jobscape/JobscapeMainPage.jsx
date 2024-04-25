@@ -98,7 +98,6 @@ const JobscapeMainPage = () => {
         style={{
           width: "100vw",
           height: "75vh",
-          marginTop: "8%",
           backgroundImage: `url(${BackgroundImage})`,
         }}
       >

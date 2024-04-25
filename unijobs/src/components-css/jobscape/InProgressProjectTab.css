@@ -13,22 +13,22 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.content {
+.InProgressProjectTab .content {
   display: flex;
   flex-direction: row;
   padding: 10px;
   margin-bottom: 15%;
 }
 
-.content .DetailsType,
-.content .PDetails {
+.InProgressProjectTab .content .DetailsType,
+.InProgressProjectTab .content .PDetails {
   width: 50%;
   color: #2d4777;
   font-weight: 500;
   font-size: 16px;
 }
 
-.content .PDetails div {
+.InProgressProjectTab .content .PDetails div {
   width: 90%;
   height: auto;
   text-align: center;
@@ -38,7 +38,7 @@
   font-weight: 700;
 }
 
-.MoreBtn {
+.InProgressProjectTab .MoreBtn {
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -53,6 +53,6 @@
   padding: 10px;
 }
 
-.MoreBtn:hover {
+.InProgressProjectTab .MoreBtn:hover {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
