@@ -1,6 +1,7 @@
 // src/components/NewsFeed/NewsFeedItem.js
 import React from "react";
 import Controls from "./Controls";
+import ImageGallery from "./ImageGallery";
 
 function NewsFeedItem({ img, name, title, time, content, images }) {
   return (
@@ -18,7 +19,9 @@ function NewsFeedItem({ img, name, title, time, content, images }) {
         </div>
       </div>
       <div className="news-feed-item-content">{content}</div>
-      <div className="news-feed-item-gallery"></div>
+      <div className="news-feed-item-gallery">
+        <ImageGallery images={images} />
+      </div>
       <Controls />
     </div>
   );

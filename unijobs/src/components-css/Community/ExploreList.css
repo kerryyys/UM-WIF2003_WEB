@@ -1,11 +1,5 @@
 .explore-list {
-  display: inline-flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
   gap: 15px;
-
   width: 80%;
   padding: 20px;
   border-radius: 15px;
@@ -22,9 +16,6 @@
 }
 
 .explore-company-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   gap: 0;
 }
 

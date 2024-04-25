@@ -37,7 +37,7 @@ function ExploreItem({ companyImg, companyName }) {
 
 function ExploreList({ exploreListData }) {
   return (
-    <div className="explore-list">
+    <div className="explore-list d-inline-flex flex-column flex-wrap justify-content-center align-items-center">
       {exploreListData.map((data, index) => (
         <ExploreItem
           key={index} // Assuming each data item has a unique 'id'

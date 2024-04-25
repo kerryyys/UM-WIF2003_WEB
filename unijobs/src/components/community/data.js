@@ -52,9 +52,9 @@ export const newsFeedList = [
       "Whether it's logos, brochures, or digital paintings, my artwork aims to communicate and connect. I'm grateful for the collaborations that have pushed my boundaries and the clients who have trusted my vision. 🖌️👁️\n\n" +
       "Each project is a story told through colors and shapes. If you're looking to enhance your visual identity, let's make something beautiful together! 💌🌟",
     images: {
-      img1: "https://images.unsplash.com/photo-1568910746982-7e583a7fae0b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHx8",
+      img1: "https://images.unsplash.com/photo-1498462440456-0dba182e775b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c3BsYXNofGVufDB8fDB8fHww",
       img2: "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzfHx8ZW58MHx8fHx8",
-      img3: "https://images.unsplash.com/photo-1504203718868-2307b1f8ea03?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw4fHx8ZW58MHx8fHx8",
+      img3: "https://images.unsplash.com/photo-1533167649158-6d508895b680?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8c3BsYXNofGVufDB8fDB8fHww",
     },
   },
   {
@@ -84,8 +84,8 @@ export const newsFeedList = [
       "Every small action counts. If you're passionate about environmental change, get involved today. Let's work together for a sustainable future!",
     images: {
       img1: "https://images.unsplash.com/photo-1551033406-611cf9a28f67?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHx8",
-      img2: "https://images.unsplash.com/photo-1547483238-9b649c666c89?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzfHx8ZW58MHx8fHx8",
-      img3: "https://images.unsplash.com/photo-1560849931-fb853281f796?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw4fHx8ZW58MHx8fHx8",
+      img2: "https://images.unsplash.com/photo-1611496855431-6501b335c67f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fHNwbGFzaHxlbnwwfHwwfHx8MA%3D%3D",
+      img3: "https://images.unsplash.com/photo-1611496855431-6501b335c67f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fHNwbGFzaHxlbnwwfHwwfHx8MA%3D%3D",
     },
   },
   {
@@ -100,7 +100,9 @@ export const newsFeedList = [
     images: {
       img1: "https://images.unsplash.com/photo-1514790193030-c89d266d5a9d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHx8",
       img2: "https://images.unsplash.com/photo-1542903660-eedba2cda473?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzfHx8ZW58MHx8fHx8",
-      img3: "https://images.unsplash.com/photo-1581091870628-2cdfb9f1f1f0?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw4fHx8ZW58MHx8fHx8",
+      img3: "https://images.unsplash.com/photo-1504060765228-f97d1772ff9e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHNwbGFzaHxlbnwwfHwwfHx8MA%3D%3D",
+      img4: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8c3BsYXNofGVufDB8fDB8fHww",
+      img5: "https://plus.unsplash.com/premium_photo-1664124381855-3131b9a386d8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8c3BsYXNofGVufDB8fDB8fHww"
     },
   },
 ];
