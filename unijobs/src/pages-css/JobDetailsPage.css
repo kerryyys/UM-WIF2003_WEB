@@ -1,4 +1,5 @@
 .job-details-page-container .back-btn {
+  margin-top: 3vh;
   align-self: flex-start;
   background-color: transparent;
   border: none;
@@ -42,15 +43,15 @@
 .job-title-block .title-texts p {
   margin-bottom: 0;
 }
-.title-right .bookmark {
+.job-details-page-container .title-right .bookmark {
   margin-bottom: 10px;
 }
-.title-right {
+.job-details-page-container .title-right {
   display: flex;
   flex-direction: column;
   align-items: end;
 }
-.title-right .bi {
+.job-details-page-container .title-right .bi {
   color: #2d4777;
 }
 .job-details-body .Filters {
@@ -67,6 +68,7 @@
   font-weight: 300;
 }
 .job-details-body .button-group {
+  display: block;
 }
 .job-details-body .button-group .accept {
   color: white;
@@ -87,10 +89,10 @@
   color: #223559;
 }
 
-.button-group .to-job-list {
+.job-details-page-container .button-group .to-job-list {
   text-align: end;
 }
-.button-group .to-job-list .to-job-list-btn {
+.job-details-page-container .button-group .to-job-list .to-job-list-btn {
   background-color: transparent;
   border: none;
   color: #2d4777;

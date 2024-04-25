@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -50,13 +50,20 @@ function ScrollToTopOnNavigation() {
 }
 
 function App() {
+  const [loggedIn, setLoggedIn] = useState(true);
+  const handleLoginClick = () => {
+    setLoggedIn(!loggedIn);
+  };
   return (
     <Router>
       <ScrollToTopOnNavigation />
-      <NavBar />
+      <NavBar loggedIn={loggedIn} />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/Login" element={<Login />} />
+        <Route
+          path="/Login"
+          element={<Login handleLoginClick={handleLoginClick} />}
+        />
         <Route path="/Register" element={<Register />} />
         <Route path="/ForgotP" element={<ForgotP />} />
         <Route path="/EnterCode" element={<EnterCode />} />

@@ -7,7 +7,7 @@ import "../../components-css/jobscape/Notification.css";
 
 const Notification = ({ message, onClose }) => (
   <div className="overlay">
-    <div className="notification">
+    <div className="post-project-notification">
       <p>{message}</p>
       <button onClick={onClose}>Close</button>
     </div>
@@ -106,7 +106,6 @@ const PostProjectPage = () => {
     return isValid;
   };
 
-
   const handleSkillsChange = (e) => {
     const value = e.target.value.trim();
     // Allow only words for skills
@@ -151,7 +150,6 @@ const PostProjectPage = () => {
     setContactInformation("");
     setAdditionalNotes("");
     setAgreedToTerms(false);
-    
   };
 
   const handleNotificationClose = () => {
@@ -161,7 +159,7 @@ const PostProjectPage = () => {
       window.location.pathname = "/SeekTalentPage";
     }
   };
-  
+
   return (
     <div className="PostProjectPage">
       <div className="PostBackBtn">
