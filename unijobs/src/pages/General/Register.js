@@ -1,5 +1,8 @@
 import '../../styles/General.css';
 import React, { useState } from 'react';
+import google from '../../assets/images/General/logos_facebook.png';
+import facebook from '../../assets/images/General/flat-color-icons_google.png';
+import sideBackground from '../../assets/images/General/LOGIN.png';
 
 function Register() {
     const [fullName, setFullName] = useState('');
@@ -30,8 +33,9 @@ function Register() {
         );
     return (
         <div className="background">
-            <form onSubmit={handleSubmit} className="form2-container">
-                <h2 className="title">Create Account</h2>
+             <img className='flower-pic' src={sideBackground}></img>
+            <form onSubmit={handleSubmit} className="login-form2-container">
+                <h2 className="login-title">Create Account</h2>
                 <div className="login-options">
                     <hr className="hr-left" />
                     <p className="normal-text">Signup with</p>
@@ -39,11 +43,11 @@ function Register() {
                 </div>
                 <div className="button-group">
                     <button className="facebook-button">
-                        <img src="/img/logos_facebook.png" alt="Facebook Logo" />
+                        <img src={facebook} alt="Facebook Logo" />
                         Facebook
                     </button>
                     <button className="facebook-button">
-                        <img src="/img/flat-color-icons_google.png" alt="Google Logo" />
+                        <img src={google} alt="Google Logo" />
                         Google
                     </button>
                 </div>
@@ -52,19 +56,23 @@ function Register() {
                     <p className="normal-text">Or</p>
                     <hr className="hr-right" />
                 </div>
-                <div className="input-container">
+
+                <div className="login-input-container">
                     <input
                         className="usernameInput"
-                        type="text"
+                        type="textt"
                         placeholder="Full Name"
                         value={fullName}
-                        onChange={(e) => setFullName(e.target.value)}
+                        onChange={(e) => setEmail(e.target.value)}
                         required
                     />
-                    {renderErrorMessage('fullName')}
+                    {renderErrorMessage('email')}
                 </div>
+
+                
+
                 {/* Email Input */}
-                <div className="input-container">
+                <div className="login-input-container">
                     <input
                         className="usernameInput"
                         type="email"
@@ -76,7 +84,7 @@ function Register() {
                     {renderErrorMessage('email')}
                 </div>
                 {/* Password Input */}
-                <div className="input-container">
+                <div className="login-input-container">
                     <input
                         className="usernameInput"
                         type="password"

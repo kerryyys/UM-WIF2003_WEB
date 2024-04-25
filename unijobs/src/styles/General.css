@@ -21,21 +21,37 @@
     transform: rotate(360deg);
   }
 }
+.flower-pic {
+  width: 100%;
+  height: 800px;
+}
 
 .background {
-  background-image: url(http://localhost:3000/img/LOGIN.png);
+  background-image: url('/src/assets/images/General/LOGIN.png');
   background-size: cover; /* Ensure the entire image is visible */
   background-repeat: no-repeat; /* Prevent image repetition */
   background-position: center; /* Center the image */
   min-height: 100vh; /* Set minimum height to fill the viewport */
   display: flex; /* Display flex to center content vertically */
-  justify-content: center; /* Center content horizontally */
+  justify-content: center; /* Center content horizontally */  
   align-items: center; /* Center content vertically */
   color: white; /* Set text color to white (optional) */
 }
 
 .background1 {
-  background-image: url(http://localhost:3000/img/Background1.png);
+  background-image: url('/src/assets/images/General/Background1.png');
+  background-size: cover; /* Ensure the entire image is visible */
+  background-repeat: no-repeat; /* Prevent image repetition */
+  background-position: center; /* Center the image */
+  min-height: 100vh; /* Set minimum height to fill the viewport */
+  display: flex; /* Display flex to center content vertically */
+  justify-content: center; /* Center content horizontally */  
+  align-items: center; /* Center content vertically */
+  color: white; /* Set text color to white (optional) */
+}
+
+.background12 {
+  background-image: url('/src/assets/images/General/LOGIN.png');
   background-size: cover; /* Ensure the entire image is visible */
   background-repeat: no-repeat; /* Prevent image repetition */
   background-position: center; /* Center the image */
@@ -47,8 +63,12 @@
 }
 
 .background1 .hi {
-  margin-left: 10px;
-  background-color: white;
+  margin-left: 80px;
+  background-color: transparent;
+
+}
+
+.logo-home-box{
 }
 
 .button-container input[type="submit"] {
@@ -74,21 +94,13 @@
   color: #2D4777;
 }
 
-.form-container {
+.login-form-container {
   width: 350px; /* Adjust width */
-  height: 470px; /* Adjust height */
-  padding: 20px;
-  background-color: #2D4777;
-  border-radius: 30px;
-  position: absolute; /* Position the form absolutely */
-  top: 40px; /* Adjust the position on the y-axis */
-  left: 167px; /* Adjust the position on the x-axis */
-}
-
-.form2-container {
-  width: 350px; /* Adjust width */
-  height: 500px; /* Adjust height */
-  padding: 20px;
+  height: 530px; /* Adjust height */
+  margin-top: 100px;
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
   background-color: #2D4777;
   border-radius: 30px;
   position: absolute; /* Position the form absolutely */
@@ -96,7 +108,21 @@
   left: 167px; /* Adjust the position on the x-axis */
 }
 
-.title {
+.login-form2-container {
+  width: 350px; /* Adjust width */
+  height: 550px; /* Adjust height */
+  margin-top: 100px;
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: #2D4777;
+  border-radius: 30px;
+  position: absolute; /* Position the form absolutely */
+  top: 20px; /* Adjust the position on the y-axis */
+  left: 167px; /* Adjust the position on the x-axis */
+}
+
+.login-title {
   color: white; /* White color */
   font-weight: bold; /* Bold */
   font-family: 'Lato', sans-serif; /* Lato font */
@@ -123,11 +149,11 @@
   margin-top: 50px;
 }
 
-.input-container {
+.login-input-container {
   position: relative;
   margin-bottom: 10px;
   margin-left: 20px;
-  margin-right: 20px;
+  margin-right: 10px;
   height: 35px;
 }
 
@@ -136,7 +162,7 @@
 }
 
 
-.input-container label {
+.login-input-container label {
   position: absolute;
   top: 0;
   left: 0;
@@ -145,7 +171,7 @@
   transition: top 0.2s, font-size 0.2s, color 0.2s; /* Add transition for smooth animation */
 }
 
-.input-container input {
+.login-input-container input {
   width: 95%;
   padding: 10px;
   border: none;
@@ -156,8 +182,8 @@
   font-size: inherit; /* Inherit font size from label */
 }
 
-.input-container input:focus + label,
-.input-container input:not(:placeholder-shown) + label {
+.login-input-container input:focus + label,
+.login-input-container input:not(:placeholder-shown) + label {
   top: -20px; /* Move label up when input is focused or has content */
   font-size: 14px; /* Decrease font size when label moves up */
   color: white; /* Change color when label moves up */
@@ -350,7 +376,7 @@
 
 .forgot-container {
   width: 350px; /* Adjust width */
-  height: 300px; /* Adjust height */
+  height: 350px; /* Adjust height */
   padding: 20px;
   background-color: #2D4777;
   border-radius: 30px;
@@ -420,7 +446,7 @@
   background-color: white;
   color: black;
   padding: 15px 20px;
-  border-radius: 15px;
+  border-radius: 25px;
   align-items: center; /* Center vertically */
   justify-content: center; /* Center horizontally */
   transition: opacity 0.5s;
@@ -433,17 +459,18 @@
 }
 
 .notification-logo {
-  margin-left: 100px;
+  margin-left: 80px;
   margin-right: auto; 
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 
-.container {
+/* .container {
   display: grid;
-  grid-template-columns: 0.4fr 1.2fr; /* Two columns with equal width */
+  grid-template-columns: 0.4fr 1.2fr; 
   width: 100%;
-  height: 290px; /* Adjust height as needed */
-}
+  height: 290px;
+} */
 
 .grid-item p{
   background-color: #FFFFFF; /* Background color for grid items */

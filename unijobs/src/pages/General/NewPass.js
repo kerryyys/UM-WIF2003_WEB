@@ -1,6 +1,7 @@
 import '../../styles/General.css';
 import React, { useState } from 'react';
 import Notification from '../../pages/General/Notification';
+import sideBackground from '../../assets/images/General/LOGIN.png';
 
 function EnterCode() {
     const [password, setPassword] = useState('');
@@ -38,12 +39,13 @@ function EnterCode() {
 
     return (
         <div className="background">
+            <img className='flower-pic' src={sideBackground}></img>
             <form onSubmit={handleSubmit} className="forgot-container">
-                <h2 className="title">Reset Password</h2>
+                <h2 className="login-title">Reset Password</h2>
                 <p className="transparent-text">
                     Set the new password for your account so you can login and access all features.
                 </p>
-                <div className="input-container">
+                <div className="login-input-container">
                     <input
                         className="usernameInput"
                         type="password"
@@ -53,7 +55,7 @@ function EnterCode() {
                         required
                     />
                 </div>
-                <div className="input-container">
+                <div className="login-input-container">
                     <input
                         className="usernameInput"
                         type="password"

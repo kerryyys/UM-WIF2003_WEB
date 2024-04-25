@@ -1,5 +1,6 @@
 import '../../styles/General.css';
 import React, { useState, useRef, useEffect } from 'react';
+import sideBackground from '../../assets/images/General/LOGIN.png';
 
 function EnterCode() {
     const [codes, setCodes] = useState(['', '', '', '']);
@@ -46,8 +47,9 @@ function EnterCode() {
 
     return (
         <div className="background">
+            <img className='flower-pic' src={sideBackground}></img>
             <form onSubmit={handleSubmit} className="forgot-container">
-                <h2 className="title">Enter Verification Code</h2>
+                <h2 className="login-title">Enter Verification Code</h2>
                 <p className="transparent-text">
                     Enter the 4-digit verification code sent to your email.
                 </p>

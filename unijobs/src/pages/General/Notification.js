@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../../styles/General.css';
+import ticking from '../../assets/images/General/Successmark.png';
 
 function Notification({ message }) {
     const [show, setShow] = useState(true);
@@ -14,7 +15,7 @@ function Notification({ message }) {
 
     return (
         <div className="notification show">
-            <img src="/img/Successmark.png" alt="Success Tick" className="notification-logo" />
+            <img src={ticking} alt="Success Tick" className="notification-logo" />
             <p className="title2">{message}</p> {/* Display the message passed from props */}
         </div>
     );
