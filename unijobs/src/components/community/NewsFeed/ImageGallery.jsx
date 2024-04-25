@@ -1,5 +1,5 @@
 import React from 'react';
-import ImageItem from './ImageItem'; // Import ImageItem if it's in a different file
+import ImageItem from './ImageItem'; // Assuming ImageItem is properly imported
 import { Button } from 'react-bootstrap';
 import '../../../components-css/Community/ImageGallery.css';
 
@@ -9,9 +9,9 @@ function ImageGallery({ images }) {
   const scroll = (direction) => {
     const { current } = scrollContainer;
     if (direction === 'left') {
-      current.scrollBy({ left: -300, behavior: 'smooth' }); // Adjust scroll step as needed
+      current.scrollBy({ left: -300, behavior: 'smooth' });
     } else {
-      current.scrollBy({ left: 300, behavior: 'smooth' }); // Adjust scroll step as needed
+      current.scrollBy({ left: 300, behavior: 'smooth' });
     }
   };
 

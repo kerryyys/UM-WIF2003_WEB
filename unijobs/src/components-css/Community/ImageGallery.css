@@ -1,6 +1,6 @@
 .news-feed-item-gallery-container {
-    width: 100%;
-    overflow: hidden;
+  width: 100%;
+  overflow: hidden;
   position: relative;
   display: flex;
   align-items: center;
@@ -12,12 +12,12 @@
   flex-direction: row;
   gap: 10px;
   overflow-x: auto;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+  -ms-overflow-style: none; /* Hide scrollbar for IE 10+ */
 }
 
 .news-feed-item-gallery::-webkit-scrollbar {
-  display: none; /* Safari and Chrome */
+  display: none; /* Hide scrollbar for Chrome, Safari */
 }
 
 .gallery-scroll-btn {
@@ -36,6 +36,7 @@
 }
 
 div.image-item > img {
-    max-width: auto;
-    max-height: 300px;
+  width: 300px; /* Fixed width for all images */
+  height: 300px; /* Fixed height for all images */
+  object-fit: cover; /* Ensure images cover the space without distorting */
 }

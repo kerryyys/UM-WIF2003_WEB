@@ -58,7 +58,7 @@ export const newsFeedList = [
     },
   },
   {
-    img: "https://www.w3schools.com/howto/img_avatar3.png",
+    img: "https://www.w3schools.com/howto/img_avatar.png",
     name: "Tom Sawyer",
     title: "Marketing Specialist",
     time: "3 days ago",
@@ -74,7 +74,7 @@ export const newsFeedList = [
     },
   },
   {
-    img: "https://www.w3schools.com/howto/img_avatar4.png",
+    img: "https://www.w3schools.com/howto/img_avatar.png",
     name: "Rachel Green",
     title: "Environmental Activist",
     time: "5 days ago",
@@ -89,7 +89,7 @@ export const newsFeedList = [
     },
   },
   {
-    img: "https://www.w3schools.com/howto/img_avatar5.png",
+    img: "https://www.w3schools.com/howto/img_avatar.png",
     name: "Chris Fox",
     title: "AI Developer",
     time: "1 week ago",

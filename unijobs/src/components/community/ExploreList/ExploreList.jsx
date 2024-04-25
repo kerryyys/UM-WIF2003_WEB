@@ -21,7 +21,7 @@ function FollowButton() {
 
 function ExploreItem({ companyImg, companyName }) {
   return (
-    <div class="explore-item px-4">
+    <div className="explore-item px-4 d-inline-flex flex-row justify-content-center align-items-center">
       <img
         src={companyImg}
         alt="company"
