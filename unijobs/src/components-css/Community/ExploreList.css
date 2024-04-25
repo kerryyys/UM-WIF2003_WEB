@@ -39,23 +39,18 @@
   font-size: 1.2rem;
 }
 
-img {
+.explore-item-company-img {
   max-width: 65px !important;
 }
 
-/* Custom Follow Button */
-.btn {
+.btn-followed,
+.btn-not-followed {
   width: 100px;
   border-radius: 10px;
   padding: 10px;
   font-size: 1rem;
   cursor: pointer;
-  
 }
-
-.btn:checked {
-  transition: 0.5s;
-} 
 
 .btn-followed {
   background-color: #0d6efd;

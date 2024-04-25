@@ -17,8 +17,8 @@ function NewsFeedItem({ img, name, title, time, content, images }) {
           <p className="time">{time}</p>
         </div>
       </div>
-      <div className="content">{content}</div>
-      <div className="gallery"></div>
+      <div className="news-feed-item-content">{content}</div>
+      <div className="news-feed-item-gallery"></div>
       <Controls />
     </div>
   );

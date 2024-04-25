@@ -12,7 +12,7 @@
   border-radius: 15px;
 }
 
-.content {
+.news-feed-item-content {
   white-space: pre-wrap; /* or 'pre-line' depending on your needs */
 }
 

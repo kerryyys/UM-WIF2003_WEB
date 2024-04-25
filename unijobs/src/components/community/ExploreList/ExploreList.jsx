@@ -25,7 +25,7 @@ function ExploreItem({ companyImg, companyName }) {
       <img
         src={companyImg}
         alt="company"
-        class="img-fluid rounded-circle mx-auto d-block company-img"
+        className="img-fluid rounded-circle mx-auto d-block explore-item-company-img"
       ></img>
       <div class="explore-company-container">
         <p class="company-name text-center">{companyName}</p>

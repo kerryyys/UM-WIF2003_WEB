@@ -57,13 +57,13 @@ p.label {
 }
 
 /* Horizontal Line */
-hr {
+.profile-card-line {
   width: 100%;
   border: 1px solid var(--primary-color);
   margin: 10px 0px;
 }
 
 /* Icon */
-i {
+.profile-card-icon {
   margin-right: 20px;
 }
