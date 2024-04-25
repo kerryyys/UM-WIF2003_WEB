@@ -23,7 +23,7 @@ function Fpx() {
           <div className="LeftContainer">
             <p className="PaymentBigtitle">Payment</p>
             <hr className = 'line'></hr>
-            <p className='title'>Linked payment method:</p>
+            <p className='titleLinked'>Linked payment method: </p>
 
             <div onClick={() => window.location.href = '/redirect'} className='automatedContainer'>
     <p className='BankName'>Hong Leong Bank</p>
@@ -36,25 +36,25 @@ function Fpx() {
 </div>
 
 <hr className = 'line'></hr>
-            <p className="title">Pay With:</p>
+            <p className="titleLinked">Pay With:</p>
 
             <div className="LeftContainerr">
     
-            <img className='picFpx' src={fpxPic} alt="FPX Logo" /><label className='choose' onClick={() => window.location.href = '/fpx'}  htmlFor="creditCard"> Online Banking FPX</label>
+            <img className='picFpx' src={fpxPic} alt="FPX Logo" /><label className='choose-payment-method' onClick={() => window.location.href = '/fpx'}  htmlFor="creditCard"> Online Banking FPX</label>
       </div>
 
       <div className="LeftContainerr">
       
-      <img className='picEwallet' src={ewalletPic} alt="E-Wallet Logo" /> <label className='choose' onClick={() => window.location.href = '/ewallet'} htmlFor="debitCard" >E- Wallet</label>
+      <img className='picEwallet' src={ewalletPic} alt="E-Wallet Logo" /> <label className='choose-payment-method' onClick={() => window.location.href = '/ewallet'} htmlFor="debitCard" >E- Wallet</label>
       </div>
 
       <div className="LeftContainerr">
        
-      <img className='picCard' src={cardPic} alt="Credit / Debit Card Logo" /> <label onClick={() => window.location.href = '/'} className='choose' htmlFor="paypal" > Credit / Debit Card</label>
+      <img className='picCard' src={cardPic} alt="Credit / Debit Card Logo" /> <label onClick={() => window.location.href = '/card'} className='choose-payment-method' htmlFor="paypal" > Credit / Debit Card</label>
       </div>
 
       <div>
-      <p className='title'>Choose Preferred Bank</p>
+      <p className='titleLinked'>Choose Preferred Bank</p>
       <select className='ewallet' value={selectedWallet} onChange={handleWalletChange}>
         <option value="" disabled hidden>Select Bank</option>
         <option value="AFFIN BANK BERHAD">AFFIN BANK BERHAD</option>
@@ -81,23 +81,24 @@ function Fpx() {
           <div className="RightContainer">
           <div>
                 <p className='titleRight'>Service Summary</p>
-                <hr className = 'lineRight'></hr>
+                <hr className = 'lineRightBox'></hr>
             </div>
                      <div>
   <p className='descContent'>
     <span className='taskName'>Complete 10 survey form</span>
     <span className='taskPrice'>RM 100.00</span>
   </p>
+  
 </div>
-
-            <hr className = 'lineRight'></hr>
-            <form onSubmit={handleSubmit}>
-        <input className='discount-container'
+        
+      <hr className = 'lineRightBox'></hr>
+      <form onSubmit={handleSubmit}>
+        <input className='dis'
           type="text"
           placeholder="Gift or discount code"
-        /> <span> <button className='buttonApply'>Apply</button> </span>
+        /> <span className='buttonApply'>Apply</span>
       </form>
-      <hr className = 'lineRight'></hr>
+      <hr className = 'lineRightBox'></hr>
 
       <div>
       <div>
@@ -116,7 +117,7 @@ function Fpx() {
 
             </div>
 
-            <hr className = 'lineRight'></hr>
+            <hr className = 'lineRightBox'></hr>
 
             <div>
   <p className='descContent'>

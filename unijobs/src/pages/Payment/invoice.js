@@ -5,7 +5,8 @@ import back from '../../assets/images/Payment/left.png';
 function Invoice() {
   return (
     <>
-    <img className='backPic' onClick={() => window.location.href = '/invoiceList'} src={back}></img>
+    
+<img className='LeftPic'  onClick={() => window.location.href = '/successful'} src={back}></img>
 
     <div className='cardContainer'>
       <div className='invoiceHolder'>Mr. Wu</div>
@@ -17,8 +18,8 @@ function Invoice() {
           <p className='Amount'>RM <span>30</span></p>
           <p className='date'>July 26, 2024</p>
           </div>
-          <p>Invoice To: </p>
-          <p className='name'>Howard</p>
+          <p className='invoiceWord'>Invoice To: </p>
+          <p className='Invoicename'>Howard</p>
           <p>012-3456789</p>
           <p className='location'>Sabah, Malaysia</p>
         </div>
@@ -58,8 +59,8 @@ function Invoice() {
     <p class="priceContent">RM 50.00</p>
 </div>
            
+</div>
 
-        </div>
     <p className='totalAmt'>TOTAL AMOUNT: </p>
     <p className='greatTotal'>RM 290.00</p>
     </div>

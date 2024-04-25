@@ -6,8 +6,8 @@ import back from '../../assets/images/Payment/left.png';
 function InvoiceList() {
   return (
     <>
-    <img className='backPic' onClick={() => window.location.href = '/successful'} src={back}></img>
 
+<img className='LeftPic'  onClick={() => window.location.href = '/successful'} src={back}></img>
 
     <div className='invoiceTitle'>
     <p>STATUS</p>

@@ -1,5 +1,6 @@
 import '../../styles/General.css';
 import React, { useState } from 'react';
+import sideBackground from '../../assets/images/General/LOGIN.png';
 
 function ForgotPassword() {
     const [email, setEmail] = useState('');
@@ -24,12 +25,13 @@ function ForgotPassword() {
         );
     return (
         <div className="background">
+             <img className='flower-pic' src={sideBackground}></img>
             <form onSubmit={handleSubmit} className="forgot-container">
-                <h2 className="title">Forgot Password</h2>
+                <h2 className="login-title">Forgot Password</h2>
                 <p className="transparent-text">
                 Enter your email for the verification process, we will send 4 digits code to your email.
                 </p>
-                <div className="input-container">
+                <div className="login-input-container">
                     <input
                         className="usernameInput"
                         type="email"

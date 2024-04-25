@@ -1,6 +1,10 @@
 import '../../styles/General.css';
 import React, { useState } from 'react';
 import Notification from '../../pages/General/Notification';
+import google from '../../assets/images/General/logos_facebook.png';
+import facebook from '../../assets/images/General/flat-color-icons_google.png';
+import sideBackground from '../../assets/images/General/LOGIN.png';
+
 
 function App() {
     const [username, setUsername] = useState('');
@@ -42,20 +46,24 @@ function App() {
         );
     return (
         <div className="background">
-            <form onSubmit={handleSubmit} className="form-container">
-                <h2 className="title">Login Now</h2>
-                <div className="input-container">
+            <img className='flower-pic' src={sideBackground}></img>
+            <form onSubmit={handleSubmit} className="login-form-container">
+                <h2 className="login-title">Login Now</h2>
+
+                <div className="login-input-container">
                     <input className='usernameInput'
-                        type="text"
                         placeholder='Username'
+                        type="textt"
                         name="uname"
                         value={username}
-                        onChange={(e) => setUsername(e.target.value)}
+                        onChange={(e) => setPassword(e.target.value)}
                         required
                     />
-                    {renderErrorMessage('uname')}
+                    {renderErrorMessage('pass')}
                 </div>
-                <div className="input-container">
+
+           
+                <div className="login-input-container">
                     <input className='usernameInput'
                         placeholder='Password'
                         type="password"
@@ -66,6 +74,7 @@ function App() {
                     />
                     {renderErrorMessage('pass')}
                 </div>
+
                 <div className="radio-container">
                     <input
                         type="radio"
@@ -106,11 +115,11 @@ function App() {
                 </div>
                 <div className="button-group">
                     <button className="facebook-button">
-                        <img src="/img/logos_facebook.png" alt="Facebook Logo" />
+                        <img src={facebook} alt="Facebook Logo" />
                         Facebook
                     </button>
                     <button className="facebook-button">
-                        <img src="/img/flat-color-icons_google.png" alt="Google Logo" />
+                        <img src={google} alt="Google Logo" />
                         Google
                     </button>
                 </div>

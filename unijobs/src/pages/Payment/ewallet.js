@@ -23,7 +23,7 @@ function Ewallet() {
           <div className="LeftContainer">
             <p className="PaymentBigtitle">Payment</p>
             <hr className = 'line'></hr>
-            <p className='title'>Linked payment method:</p>
+            <p className='titleLinked'>Linked payment method:</p>
 
             <div onClick={() => window.location.href = '/redirect'} className='automatedContainer'>
     <p className='BankName'>Grab Pay</p>
@@ -36,24 +36,26 @@ function Ewallet() {
 </div>
 
 <hr className = 'line'></hr>
-            <p className="title">Pay With:</p>
-            <div className="LeftContainerr">
-    
-            <img className='picFpx' src={fpxPic} alt="FPX Logo" /><label className='choose' onClick={() => window.location.href = '/fpx'}  htmlFor="creditCard"> Online Banking FPX</label>
-  </div>
+<p className="titleLinked">Pay With:</p>
 
-  <div className="LeftContainerr">
-  
-  <img className='picEwallet' src={ewalletPic} alt="E-Wallet Logo" /><label className='choose' onClick={() => window.location.href = '/ewallet'} htmlFor="debitCard" >E- Wallet</label>
-  </div>
+<div className="LeftContainerr">
 
-  <div className="LeftContainerr">
-   
-  <img className='picCard' src={cardPic} alt="Credit / Debit Card Logo" /><label onClick={() => window.location.href = '/'} className='choose' htmlFor="paypal" > Credit / Debit Card</label>
-  </div>
+<img className='picFpx' src={fpxPic} alt="FPX Logo" /><label className='choose-payment-method' onClick={() => window.location.href = '/fpx'}  htmlFor="creditCard"> Online Banking FPX</label>
+</div>
+
+<div className="LeftContainerr">
+
+<img className='picEwallet' src={ewalletPic} alt="E-Wallet Logo" /> <label className='choose-payment-method' onClick={() => window.location.href = '/ewallet'} htmlFor="debitCard" >E- Wallet</label>
+</div>
+
+<div className="LeftContainerr">
+
+<img className='picCard' src={cardPic} alt="Credit / Debit Card Logo" /> <label onClick={() => window.location.href = '/card'} className='choose-payment-method' htmlFor="paypal" > Credit / Debit Card</label>
+</div>
+
 
       <div>
-      <p className='title'>Choose Preferred E-Wallet</p>
+      <p className='titleLinked'>Choose Preferred E-Wallet</p>
       <select className='ewallet' value={selectedWallet} onChange={handleWalletChange}>
         <option value="">Select E-Wallet</option>
         <option value="Touch N Go">Touch N Go</option>
@@ -76,7 +78,7 @@ function Ewallet() {
           <div className="RightContainer">
           <div>
                 <p className='titleRight'>Service Summary</p>
-                <hr className = 'lineRight'></hr>
+                <hr className = 'lineRightBox'></hr>
             </div>
             <div>
   <p className='descContent'>
@@ -85,14 +87,14 @@ function Ewallet() {
   </p>
 </div>
 
-            <hr className = 'lineRight'></hr>
-            <form onSubmit={handleSubmit}>
-        <input className='discount-container'
+      <hr className = 'lineRightBox'></hr>
+      <form onSubmit={handleSubmit}>
+        <input className='dis'
           type="text"
           placeholder="Gift or discount code"
-        /> <span> <button className='buttonApply'>Apply</button> </span>
+        /> <span className='buttonApply'>Apply</span>
       </form>
-      <hr className = 'lineRight'></hr>
+      <hr className = 'lineRightBox'></hr>
 
       <div>
       <div>
@@ -111,7 +113,7 @@ function Ewallet() {
 
             </div>
 
-            <hr className = 'lineRight'></hr>
+            <hr className = 'lineRightBox'></hr>
 
             <div>
   <p className='descContent'>

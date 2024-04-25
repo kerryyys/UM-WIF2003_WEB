@@ -31,7 +31,7 @@ function Card() {
           <div className="LeftContainer">
             <p className="PaymentBigtitle">Payment</p>
             <hr className = 'line'></hr>
-            <p className='title'>Linked payment method:</p>
+            <p className='titleLinked'>Linked payment method:</p>
 
             <div onClick={() => window.location.href = '/redirect'} className='automatedContainer'>
     <p className='BankName'>VISA</p>
@@ -44,24 +44,27 @@ function Card() {
 </div>
 
             <hr className = 'line'></hr>
-            <p className="title">Pay With:</p>
-            <div className="LeftContainerr">
-            <img className='picFpx' src={fpxPic} alt="FPX Logo" /><label className='choose' onClick={() => window.location.href = '/fpx'}  htmlFor="creditCard"> Online Banking FPX</label>
-      </div>
+            <p className="titleLinked">Pay With:</p>
 
-      <div className="LeftContainerr">
-      
-      <img className='picEwallet' src={ewalletPic} alt="E-Wallet Logo" /><label className='choose' onClick={() => window.location.href = '/ewallet'} htmlFor="debitCard" >E- Wallet</label>
-      </div>
+<div className="LeftContainerr">
 
-      <div className="LeftContainerr">
-       
-      <img className='picCard' src={cardPic} alt="Credit / Debit Card Logo" /> <label onClick={() => window.location.href = '/'} className='choose' htmlFor="paypal" > Credit / Debit Card</label>
-      </div>
+<img className='picFpx' src={fpxPic} alt="FPX Logo" /><label className='choose-payment-method' onClick={() => window.location.href = '/fpx'}  htmlFor="creditCard"> Online Banking FPX</label>
+</div>
 
-      <p className='title'>Card Number</p>
+<div className="LeftContainerr">
+
+<img className='picEwallet' src={ewalletPic} alt="E-Wallet Logo" /> <label className='choose-payment-method' onClick={() => window.location.href = '/ewallet'} htmlFor="debitCard" >E- Wallet</label>
+</div>
+
+<div className="LeftContainerr">
+
+<img className='picCard' src={cardPic} alt="Credit / Debit Card Logo" /> <label onClick={() => window.location.href = '/card'} className='choose-payment-method' htmlFor="paypal" > Credit / Debit Card</label>
+</div>
+
+
+      <p className='titleLinked'>Card Number</p>
       <form onSubmit={handleSubmit}>  
-        <input className='input-container'
+        <input className='cardNo-inputCTN'
           type="text"
           value={cardNumber}
           onChange={handleChange}
@@ -72,20 +75,20 @@ function Card() {
 
       <div className='split-container'>
       <div className='c'>
-        <p className='title'>Expiration Date</p>
+        <p className='titleLinked'>Expiration Date</p>
         <form onSubmit={handleSubmit}>
           <input
-            className='input-container1'
+            className='inputCTN1'
             type="text"
             placeholder="MM/YY"
           />
         </form>
       </div>
       <div className='c'>
-        <p className='title'>CVV</p>
+        <p className='titleLinked'>CVV</p>
         <form onSubmit={handleSubmit}>
           <input
-            className='input-container2'
+            className='inputCTN2'
             type="text"
             placeholder="123"
             maxlength="3"
@@ -94,17 +97,17 @@ function Card() {
       </div>
     </div>
 
-    <p className='title'>Owner Name</p>
+    <p className='titleLinked'>Owner Name</p>
       <form onSubmit={handleSubmit}>
-        <input className='input-container'
+        <input className='cardNo-inputCTN'
           type="text"
           placeholder="David Teo"
         />
       </form>
 
-    <p className='title'>Country</p>
+    <p className='titleLinked'>Country</p>
       <form onSubmit={handleSubmit}>
-        <input className='input-container'
+        <input className='cardNo-inputCTN'
           type="text"
           value={country}
           placeholder="Malaysia"
@@ -123,7 +126,7 @@ function Card() {
           <div className="RightContainer">
             <div>
                 <p className='titleRight'>Service Summary</p>
-                <hr className = 'lineRight'></hr>
+                <hr className = 'lineRightBox'></hr>
             </div>
             <div>
   <p className='descContent'>
@@ -132,14 +135,15 @@ function Card() {
   </p>
 </div>
 
-            <hr className = 'lineRight'></hr>
-            <form onSubmit={handleSubmit}>
-        <input className='discount-container'
+            
+      <hr className = 'lineRightBox'></hr>
+      <form onSubmit={handleSubmit}>
+        <input className='dis'
           type="text"
           placeholder="Gift or discount code"
-        /> <span> <button className='buttonApply'>Apply</button> </span>
+        /> <span className='buttonApply'>Apply</span>
       </form>
-      <hr className = 'lineRight'></hr>
+      <hr className = 'lineRightBox'></hr>
 
       <div>
       <div>
@@ -158,7 +162,7 @@ function Card() {
 
             </div>
 
-            <hr className = 'lineRight'></hr>
+            <hr className = 'lineRightBox'></hr>
 
             <div>
   <p className='descContent'>
