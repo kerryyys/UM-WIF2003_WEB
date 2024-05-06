@@ -1,4 +1,4 @@
-import "../../styles/General.css";
+import "../../pages-css/General/General.css";
 import img1 from "../../assets/images/General/img1.png";
 import img2 from "../../assets/images/General/img2.png";
 import img3 from "../../assets/images/General/img3.png";

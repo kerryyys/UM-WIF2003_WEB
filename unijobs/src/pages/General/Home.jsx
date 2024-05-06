@@ -1,8 +1,8 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
-import "../../styles/General.css";
-import logo from './../../assets/images/General/logo.png'
+import "../../pages-css/General/General.css";
+import logo from "./../../assets/images/General/logo.png";
 
 function Home() {
   return (
@@ -28,7 +28,7 @@ function Home() {
           </div>
         </div>
       </div>
-      <img className="logo-home-box" src={logo} alt="Logo"/>
+      <img className="logo-home-box" src={logo} alt="Logo" />
     </div>
   );
 }

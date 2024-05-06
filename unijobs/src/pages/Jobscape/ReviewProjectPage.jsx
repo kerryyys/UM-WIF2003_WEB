@@ -5,7 +5,7 @@ import SmallTitle from "../../components/jobscape/SmallTitle";
 import InProgressProjectTab from "../../components/jobscape/InProgressProjectTab";
 import CompletedProjectTab from "../../components/jobscape/CompletedProjectTab";
 import "../../components-css/jobscape/Notification.css";
-import "../../styles/ReviewProjectPage.css";
+import "../../pages-css/Jobscape/ReviewProjectPage.css";
 
 const ReviewProjectPage = () => {
   const navigate = useNavigate();

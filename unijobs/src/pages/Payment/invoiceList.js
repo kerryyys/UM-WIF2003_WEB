@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "../../styles/Payment.css";
+import "../../pages-css/Payment/Payment.css";
 import back from "../../assets/images/Payment/left.png";
 import { Button } from "react-bootstrap";
 

@@ -1,4 +1,4 @@
-import "../../styles/General.css";
+import "../../pages-css/General/General.css";
 import React, { useState } from "react";
 import google from "../../assets/images/General/logos_facebook.png";
 import facebook from "../../assets/images/General/flat-color-icons_google.png";
