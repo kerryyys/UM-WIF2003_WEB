@@ -6,12 +6,12 @@ import img3 from "../../assets/images/General/img3.png";
 function AboutUs() {
   return (
     <div>
-      <h2 className="title3">About Us</h2>
-      <div className="aboutUs-container">
-        <div className="grid-item">
+      <h2 className="login-title3">About Us</h2>
+      <div className="login-aboutUs-container">
+        <div className="login-grid-item">
           <img src={img1} alt="img1" />
         </div>
-        <div className="grid-item1">
+        <div className="login-grid-item1">
           <p>
             At UniJobs, our mission is to empower university students by
             providing them with opportunities to unleash their potential and
@@ -24,10 +24,10 @@ function AboutUs() {
             world.
           </p>
         </div>
-        <div className="grid-item">
+        <div className="login-grid-item">
           <img src={img2} alt="img2" />
         </div>
-        <div className="grid-item2">
+        <div className="login-grid-item2">
           <p>
             Our vision at UniJobs is to create a thriving community where
             university students can thrive, grow, and make a difference. We
@@ -38,10 +38,10 @@ function AboutUs() {
             inspire the next generation of leaders, thinkers, and change-makers.
           </p>
         </div>
-        <div className="grid-item">
+        <div className="login-grid-item">
           <img src={img3} alt="img3" />
         </div>
-        <div className="grid-item3">
+        <div className="login-grid-item3">
           <p>
             Empowerment: We believe in empowering university students to take
             control of their futures and pursue their passions with confidence
@@ -65,7 +65,7 @@ function AboutUs() {
           </p>
         </div>
       </div>
-      <div className="textfield"></div>
+      <div className="login-textfield"></div>
     </div>
   );
 }

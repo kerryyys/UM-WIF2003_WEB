@@ -49,19 +49,19 @@ function EnterCode() {
     );
 
   return (
-    <div className="background">
-      <img className="flower-pic" src={sideBackground}></img>
-      <form onSubmit={handleSubmit} className="forgot-container">
+    <div className="login-background">
+      <img className="login-flower-pic" src={sideBackground}></img>
+      <form onSubmit={handleSubmit} className="login-forgot-container">
         <h2 className="login-title">Enter Verification Code</h2>
-        <p className="transparent-text">
+        <p className="login-transparent-text">
           Enter the 4-digit verification code sent to your email.
         </p>
         {/* Code Inputs */}
-        <div className="code-inputs">
+        <div className="login-code-inputs">
           {codes.map((value, index) => (
             <input
               key={index}
-              className="codeInput"
+              className="login-codeInput"
               type="text"
               maxLength="1"
               value={value}
@@ -72,7 +72,7 @@ function EnterCode() {
           ))}
         </div>
         {renderErrorMessage("code")}
-        <div className="button-container1">
+        <div className="login-button-container1">
           <input
             onClick={() => (window.location.href = "/NewPass")}
             type="submit"

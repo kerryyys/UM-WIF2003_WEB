@@ -6,20 +6,20 @@ import logo from "./../../assets/images/General/logo.png";
 
 function Home() {
   return (
-    <div className="background1">
-      <div className="hi">
-        <p className="welcome-text">Welcome to</p>
-        <p className="logo-text">UniJobs</p>
-        <p className="welcome-text">Best Platform for University Freelancers</p>
+    <div className="login-background1">
+      <div className="login-hi">
+        <p className="login-welcome-text">Welcome to</p>
+        <p className="login-logo-text">UniJobs</p>
+        <p className="login-welcome-text">Best Platform for University Freelancers</p>
         <div className="login-options">
-          <div className="button-container3">
+          <div className="login-button-container3">
             <input
               onClick={() => (window.location.href = "/Login")}
               type="submit"
               value="Login"
             />
           </div>
-          <div className="button-container3">
+          <div className="login-button-container3">
             <input
               onClick={() => (window.location.href = "/Register")}
               type="submit"

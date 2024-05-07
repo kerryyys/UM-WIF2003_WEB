@@ -38,34 +38,34 @@ function Register() {
       <div className="error">{errorMessages.message}</div>
     );
   return (
-    <div className="background">
-      <img className="flower-pic" src={sideBackground}></img>
+    <div className="login-background">
+      <img className="login-flower-pic" src={sideBackground}></img>
       <form onSubmit={handleSubmit} className="login-form2-container">
         <h2 className="login-title">Create Account</h2>
         <div className="login-options">
-          <hr className="hr-left" />
-          <p className="normal-text">Signup with</p>
-          <hr className="hr-right" />
+          <hr className="login-hr-left" />
+          <p className="login-normal-text">Signup with</p>
+          <hr className="login-hr-right" />
         </div>
-        <div className="button-group">
-          <button className="facebook-button">
+        <div className="login-button-group">
+          <button className="login-facebook-button">
             <img src={google} alt="Facebook Logo" />
             Facebook
           </button>
-          <button className="facebook-button">
+          <button className="login-facebook-button">
             <img src={facebook} alt="Google Logo" />
             Google
           </button>
         </div>
         <div className="login-options">
-          <hr className="hr-left" />
-          <p className="normal-text">Or</p>
-          <hr className="hr-right" />
+          <hr className="login-hr-left" />
+          <p className="login-normal-text">Or</p>
+          <hr className="login-hr-right" />
         </div>
 
         <div className="login-input-container">
           <input
-            className="usernameInput"
+            className="login-usernameInput"
             type="textt"
             placeholder="Full Name"
             value={fullName}
@@ -78,7 +78,7 @@ function Register() {
         {/* Email Input */}
         <div className="login-input-container">
           <input
-            className="usernameInput"
+            className="login-usernameInput"
             type="email"
             placeholder="Email"
             value={email}
@@ -90,7 +90,7 @@ function Register() {
         {/* Password Input */}
         <div className="login-input-container">
           <input
-            className="usernameInput"
+            className="login-usernameInput"
             type="password"
             placeholder="Password"
             value={password}
@@ -99,7 +99,7 @@ function Register() {
           />
           {renderErrorMessage("password")}
         </div>
-        <div className="radio-container">
+        <div className="login-radio-container">
           <input
             type="radio"
             id="recruiter"
@@ -119,18 +119,18 @@ function Register() {
           />
           <label htmlFor="freelance">Freelancer</label>
         </div>
-        <div className="button-container1">
+        <div className="login-button-container1">
           <input
             type="submit"
             value="Create Account"
             onClick={() => (window.location.href = "/Login")}
           />
         </div>
-        <div className="normal-text">
+        <div className="login-normal-text">
           Already a member?{" "}
           <span
             onClick={() => (window.location.href = "/Login")}
-            className="sign-up"
+            className="login-sign-up"
           >
             Login now
           </span>
