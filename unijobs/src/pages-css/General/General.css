@@ -21,12 +21,12 @@
     transform: rotate(360deg);
   }
 }
-.flower-pic {
+.login-flower-pic {
   width: 100%;
   height: 800px;
 }
 
-.background1 {
+.login-background1 {
   background-color: #fff !important;
   background-size: cover; /* Ensure the entire image is visible */
   background-repeat: no-repeat; /* Prevent image repetition */
@@ -38,7 +38,7 @@
   color: white; /* Set text color to white (optional) */
 }
 
-.background12 {
+.login-background12 {
   background-image: url("/src/assets/images/General/LOGIN.png");
   background-size: cover; /* Ensure the entire image is visible */
   background-repeat: no-repeat; /* Prevent image repetition */
@@ -50,15 +50,13 @@
   color: white; /* Set text color to white (optional) */
 }
 
-.background1 .hi {
+.login-background1 .hi {
   margin-left: 80px;
   background-color: transparent;
 }
 
-.logo-home-box {
-}
 
-.button-container input[type="submit"] {
+.login-button-container input[type="submit"] {
   width: 90%;
   padding: 10px;
   margin-left: 20px;
@@ -74,7 +72,7 @@
   text-align: center;
 }
 
-.button-container input[type="submit"]:hover {
+.login-button-container input[type="submit"]:hover {
   background-color: white; /* Button background color on hover */
   font-family: "Lato", sans-serif;
   color: #2d4777;
@@ -117,7 +115,7 @@
   margin-top: 15px;
 }
 
-.title2 {
+.login-title2 {
   color: Black; /* White color */
   font-weight: bold; /* Bold */
   font-family: "Lato", sans-serif; /* Lato font */
@@ -126,7 +124,7 @@
   margin-top: 15px;
 }
 
-.title3 {
+.login-title3 {
   color: Black; /* White color */
   font-weight: bold; /* Bold */
   font-family: "Lato", sans-serif; /* Lato font */
@@ -143,7 +141,7 @@
   height: 35px;
 }
 
-.usernameInput {
+.login-usernameInput {
   padding-left: 50px;
 }
 
@@ -174,7 +172,7 @@
   color: white; /* Change color when label moves up */
 }
 
-.checkbox-container {
+.login-checkbox-container {
   display: flex;
   align-items: center;
   margin-bottom: 20px;
@@ -182,7 +180,7 @@
   margin-top: 10px;
 }
 
-.checkbox-container input[type="checkbox"] {
+.login-checkbox-container input[type="checkbox"] {
   margin-right: 10px;
   width: 17px; /* Adjust width */
   height: 17px;
@@ -190,16 +188,26 @@
   margin-top: 12px;
 }
 
-.remember-label {
+.login-checkbox-container label {
+  color: white; /* Change to your desired text color */
+  font-family: "Lato", sans-serif;
+}
+
+/* Adjust the position of the text after the checkbox */
+.login-checkbox-container label {
+  margin-top: 8px; /* Adjust the top margin as needed */
+}
+
+.login-remember-label {
   color: rgba(255, 255, 255, 0.7); /* White color with 78% transparency */
   font-family: "Lato", sans-serif; /* Inter font */
 }
 
-.usernameInput::placeholder {
+.login-usernameInput::placeholder {
   color: rgba(255, 255, 255, 0.7); /* White color with 78% transparency */
 }
 
-.forgot-password {
+.login-forgot-password {
   margin-top: 10px; /* Adjust margin as needed */
   font-family: "Lato", sans-serif; /* Lato font */
   color: #ffc107; /* FFC107 color code */
@@ -209,7 +217,7 @@
   cursor: pointer;
 }
 
-.facebook-button {
+.login-facebook-button {
   display: flex;
   margin-left: auto;
   margin-right: auto;
@@ -223,30 +231,30 @@
   padding: 7px 25px; /* Apply padding */
 }
 
-.facebook-button img {
+.login-facebook-button img {
   margin-right: 10px; /* Adjust margin as needed */
 }
 
-.button-group {
+.login-button-group {
   display: flex; /* Use flexbox to create a horizontal layout */
   justify-content: space-between; /* Distribute items evenly along the main axis */
 }
 
-.hr-left {
+.login-hr-left {
   flex-grow: 0.5; /* Grow to fill available space */
   border-top: 1px solid white;
   margin-left: 50px;
   margin-right: 20px;
 }
 
-.hr-right {
+.login-hr-right {
   flex-grow: 0.5; /* Grow to fill available space */
   border-top: 1px solid white;
   margin-left: 20px;
   margin-right: 50px;
 }
 
-.hRules {
+.login-hRules {
   margin-left: 20px;
   margin-right: 20px;
   margin-top: -100px;
@@ -260,7 +268,7 @@
   margin-top: 15px;
 }
 
-.normal-text {
+.login-normal-text {
   text-align: center; /* Center the text horizontally */
   font-weight: regular; /* Apply bold font weight */
   color: white; /* Set the color of "Not a member?" to white */
@@ -268,7 +276,7 @@
   font-family: "Lato", sans-serif; /* Lato font */
 }
 
-.transparent-text {
+.login-transparent-text {
   text-align: left; /* Center the text horizontally */
   font-weight: regular; /* Apply bold font weight */
   color: rgba(255, 255, 255, 0.8);
@@ -278,14 +286,14 @@
   margin-bottom: 20px;
 }
 
-.sign-up {
+.login-sign-up {
   color: #ffc107; /* Set the color of "Sign up now" to yellow */
   text-decoration: underline; /* Underline "Sign up now" */
   font-family: "Lato", sans-serif;
   cursor: pointer;
 }
 
-.button-container1 input[type="submit"] {
+.login-button-container1 input[type="submit"] {
   width: 90%;
   padding: 10px;
   margin-left: 20px;
@@ -302,13 +310,13 @@
   text-align: center;
 }
 
-.button-container1 input[type="submit"]:hover {
+.login-button-container1 input[type="submit"]:hover {
   background-color: white; /* Button background color on hover */
   font-family: "Lato", sans-serif;
   color: #2d4777;
 }
 
-.button-container2 input[type="submit"] {
+.login-button-container2 input[type="submit"] {
   width: 90%;
   padding: 10px;
   margin-left: 20px;
@@ -325,13 +333,13 @@
   text-align: center;
 }
 
-.button-container2 input[type="submit"]:hover {
+.login-button-container2 input[type="submit"]:hover {
   background-color: white; /* Button background color on hover */
   font-family: "Lato", sans-serif;
   color: #2d4777;
 }
 
-.button-container3 input[type="submit"] {
+.login-button-container3 input[type="submit"] {
   width: 200px;
   padding: 10px;
   margin-right: 30px;
@@ -347,13 +355,13 @@
   text-align: center;
 }
 
-.button-container3 input[type="submit"]:hover {
+.login-button-container3 input[type="submit"]:hover {
   background-color: #80d1d6; /* Button background color on hover */
   font-family: "Lato", sans-serif;
   color: black;
 }
 
-.forgot-container {
+.login-forgot-container {
   width: 350px; /* Adjust width */
   height: 350px; /* Adjust height */
   padding: 20px;
@@ -364,20 +372,20 @@
   left: 167px; /* Adjust the position on the x-axis */
   margin-top: 100px;
 }
-.aboutUs-container {
+.login-aboutUs-container {
   display: grid;
   grid-template-columns: 0.4fr 1.2fr;
   width: 100%;
   height: 290px;
 }
-.code-inputs {
+.login-code-inputs {
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
   margin-top: 30px;
 }
 
-.codeInput {
+.login-codeInput {
   width: 50px;
   height: 50px;
   font-size: 24px;
@@ -390,23 +398,22 @@
   border-radius: 5px;
 }
 
-.radio-container {
+.login-radio-container {
   margin-top: 20px;
   margin-left: 20px;
   font-family: "Lato", sans-serif;
   color: #fff;
 }
 
-.radio-container input[type="radio"] {
+.login-radio-container input[type="radio"] {
   margin-right: 5px;
 }
 
-.radio-container label {
+.login-radio-container label {
   margin-right: 15px;
 }
 
-/* Assuming you saved the CSS in App.css */
-.logo-text {
+.login-logo-text {
   font-size: 70px;
   color: #2d4777;
   font-family: "Lato", sans-serif;
@@ -415,7 +422,7 @@
   margin-bottom: 20px;
 }
 
-.welcome-text {
+.login-welcome-text {
   font-size: 30px;
   color: #2d4777;
   font-family: "Lato", sans-serif;
@@ -423,7 +430,7 @@
   margin-bottom: 20px;
 }
 
-.notification {
+.login-notification {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -439,30 +446,24 @@
   width: 300px;
 }
 
-.notification.show {
+.login-notification.show {
   opacity: 1;
 }
 
-.notification-logo {
+.login-notification-logo {
   margin-left: 80px;
   margin-right: auto;
   margin-top: 20px;
   margin-bottom: 20px;
 }
 
-/* .container {
-  display: grid;
-  grid-template-columns: 0.4fr 1.2fr; 
-  width: 100%;
-  height: 290px;
-} */
 
-.grid-item p {
+.login-grid-item p {
   background-color: #ffffff; /* Background color for grid items */
   width: 100%;
 }
 
-.grid-item1 {
+.login-grid-item1 {
   background-color: #fdfaf3; /* Background color for grid items */
   max-width: max-content;
   padding-left: 50px;
@@ -474,7 +475,7 @@
   margin: 0;
 }
 
-.grid-item2 {
+.login-grid-item2 {
   background-color: #80d1d5;
   max-width: max-content;
   padding-left: 50px;
@@ -486,7 +487,7 @@
   margin: 0;
 }
 
-.grid-item3 {
+.login-grid-item3 {
   background-color: #fdfaf3; /* Background color for grid items */
   max-width: max-content;
   padding-left: 50px;
@@ -498,7 +499,7 @@
   margin: 0;
 }
 
-.textfield {
+.login-textfield {
   margin-top: 200px;
   background-color: #fff;
   height: 350px;
@@ -507,21 +508,21 @@
   justify-content: space-between;
 }
 
-.aboutfield {
+.login-aboutfield {
   padding-left: 50px;
   padding-top: 15px;
   height: 200px;
   width: 100%;
 }
 
-.contactfield {
+.login-contactfield {
   padding-top: 15px;
   height: 200px;
   width: 1500px;
   padding-right: 50px;
 }
 
-.big-text {
+.login-big-text {
   text-align: left; /* Center the text horizontally */
   font-weight: bold; /* Apply bold font weight */
   color: white;
@@ -530,7 +531,7 @@
   margin-bottom: 50px;
 }
 
-.small-text {
+.login-small-text {
   text-align: left; /* Center the text horizontally */
   color: white;
   font-family: "Lato", sans-serif; /* Lato font */
@@ -539,7 +540,7 @@
   margin-bottom: 30px;
 }
 
-.big-text2 {
+.login-big-text2 {
   text-align: left; /* Center the text horizontally */
   color: #9fcdfe;
   font-family: "Lato", sans-serif; /* Lato font */
@@ -548,7 +549,7 @@
   margin-bottom: 30px;
 }
 
-.new-textfield {
+.login-new-textfield {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -567,6 +568,6 @@
   margin-bottom: 30px;
 }
 
-.text {
+.login-text {
   color: white;
 }

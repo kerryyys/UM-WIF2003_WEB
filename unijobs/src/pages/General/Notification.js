@@ -14,9 +14,9 @@ function Notification({ message }) {
   }, []);
 
   return (
-    <div className="notification show">
-      <img src={ticking} alt="Success Tick" className="notification-logo" />
-      <p className="title2">{message}</p>{" "}
+    <div className="login-notification show">
+      <img src={ticking} alt="Success Tick" className="login-notification-logo" />
+      <p className="login-title2">{message}</p>{" "}
       {/* Display the message passed from props */}
     </div>
   );

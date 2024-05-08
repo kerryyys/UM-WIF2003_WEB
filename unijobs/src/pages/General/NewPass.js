@@ -41,17 +41,17 @@ function EnterCode() {
     );
 
   return (
-    <div className="background">
-      <img className="flower-pic" src={sideBackground}></img>
-      <form onSubmit={handleSubmit} className="forgot-container">
+    <div className="login-background">
+      <img className="login-flower-pic" src={sideBackground}></img>
+      <form onSubmit={handleSubmit} className="login-forgot-container">
         <h2 className="login-title">Reset Password</h2>
-        <p className="transparent-text">
+        <p className="login-transparent-text">
           Set the new password for your account so you can login and access all
           features.
         </p>
         <div className="login-input-container">
           <input
-            className="usernameInput"
+            className="login-usernameInput"
             type="password"
             placeholder="Password"
             value={password}
@@ -61,7 +61,7 @@ function EnterCode() {
         </div>
         <div className="login-input-container">
           <input
-            className="usernameInput"
+            className="login-usernameInput"
             type="password"
             placeholder="New Password"
             value={newPassword}
@@ -74,7 +74,7 @@ function EnterCode() {
           <Notification message="Password Reset Successfully!" />
         )}{" "}
         {/* Conditionally render the notification */}
-        <div className="button-container2">
+        <div className="login-button-container2">
           <input type="submit" value="Reset Password" onClick={handleClick} />
         </div>
       </form>
