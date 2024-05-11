@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Col, Container, Row } from "react-bootstrap";
 
-const FilterTab = ({ filterTitle, filterTypes }) => {
+const FilterTab = ({ filterTitle, filterTypes, onFilterChange }) => {
   const [filterState, setFilterState] = useState(() => {
     // Initialize filter state based on the filterTypes array
     const initialState = {};
@@ -13,12 +13,18 @@ const FilterTab = ({ filterTitle, filterTypes }) => {
 
   const handleCheckboxChange = (event) => {
     const { name, checked } = event.target;
+    console.log("name: " + name);
     setFilterState((prevFilters) => ({
       ...prevFilters,
       [name]: checked,
     }));
   };
-
+  // For debugging - test filter are checked or not
+  useEffect(() => {
+    console.log(
+      "filterState from filterTab comp: " + JSON.stringify(filterState)
+    );
+  }, [filterState]);
   return (
     <Container style={{ marginBottom: "15px" }}>
       <Row>
