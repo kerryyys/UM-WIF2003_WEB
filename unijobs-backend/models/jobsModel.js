@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+// CINCAI WRITE ONE, IGNORE ALL
 const jobSchema = mongoose.Schema(
   {
     requester: { type: String, required: true },

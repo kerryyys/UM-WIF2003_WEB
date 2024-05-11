@@ -4,6 +4,7 @@ import mongoose, { mongo } from "mongoose";
 import { Job } from "./models/jobsModel.js";
 const app = e();
 
+// IN CASE ANYONE IS HERE, IGNORE THESE, THESE ARE JUST CODE FOR MY LEARNING
 app.use(e.json());
 
 app.post("/jobs", async (req, res) => {

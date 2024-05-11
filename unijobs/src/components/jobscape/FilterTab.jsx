@@ -2,29 +2,29 @@ import React, { useEffect, useState } from "react";
 import { Form, Col, Container, Row } from "react-bootstrap";
 
 const FilterTab = ({ filterTitle, filterTypes, onFilterChange }) => {
-  const [filterState, setFilterState] = useState(() => {
-    // Initialize filter state based on the filterTypes array
-    const initialState = {};
-    filterTypes.forEach((filter, index) => {
-      initialState[`filter${index + 1}`] = false;
-    });
-    return initialState;
-  });
+  // I commented these because I think no need to use it here
+  // const [filterState, setFilterState] = useState(() => {
+  //   // Initialize filter state based on the filterTypes array
+  //   const initialState = {};
+  //   filterTypes.forEach((filter, index) => {
+  //     initialState[filter] = false;
+  //   });
+  //   return initialState;
+  // });
 
+  const [filterState, setFilterState] = useState([]); // Can ignore line 15:
   const handleCheckboxChange = (event) => {
     const { name, checked } = event.target;
     console.log("name: " + name);
-    setFilterState((prevFilters) => ({
-      ...prevFilters,
-      [name]: checked,
-    }));
+    onFilterChange(name, checked);
   };
-  // For debugging - test filter are checked or not
+  // For debugging - test filter are checked or not, can ignore
   useEffect(() => {
     console.log(
       "filterState from filterTab comp: " + JSON.stringify(filterState)
     );
   }, [filterState]);
+
   return (
     <Container style={{ marginBottom: "15px" }}>
       <Row>
@@ -40,8 +40,8 @@ const FilterTab = ({ filterTitle, filterTypes, onFilterChange }) => {
                 <Form.Check
                   type="checkbox"
                   label={filter}
-                  name={`filter${index + 1}`}
-                  checked={filterState[`filter${index + 1}`]}
+                  name={filter}
+                  checked={filterState[filter]}
                   onChange={handleCheckboxChange}
                 />
               </Form.Group>
