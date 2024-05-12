@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import "../../styles/PostProjectPage.css";
+import "../../pages-css/Jobscape/PostProjectPage.css";
 import SmallTitle from "../../components/jobscape/SmallTitle";
 import "../../components-css/jobscape/Notification.css";
 

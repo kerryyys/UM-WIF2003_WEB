@@ -1,4 +1,4 @@
-import "../../components-css/InProgressJobsList.css";
+import "../../components-css/jobscape/InProgressJobsList.css";
 import JobsListItem from "./JobsListItem";
 
 export default function JobsListItemList() {

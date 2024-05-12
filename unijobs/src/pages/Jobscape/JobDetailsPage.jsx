@@ -1,4 +1,4 @@
-import "../../pages-css/JobDetailsPage.css";
+import "../../pages-css/Jobscape/JobDetailsPage.css";
 import { Button, Container, Row, Col, Badge } from "react-bootstrap";
 import dellImg from "../../assets/icons/jobscape/DellLogo.svg";
 import { useState } from "react";

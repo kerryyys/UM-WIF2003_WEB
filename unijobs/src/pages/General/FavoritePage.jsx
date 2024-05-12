@@ -1,4 +1,4 @@
-import "../../pages-css/FavoritePage.css";
+import "../../pages-css/General/FavoritePage.css";
 import { Button, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import DellLogo from "../../assets/icons/jobscape/DellLogo.svg";

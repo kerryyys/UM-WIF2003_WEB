@@ -1,4 +1,4 @@
-import "../../components-css/CompletedJobsList.css";
+import "../../components-css/jobscape/CompletedJobsList.css";
 import JobsListItem from "./JobsListItem";
 
 export default function CompletedJobsList() {

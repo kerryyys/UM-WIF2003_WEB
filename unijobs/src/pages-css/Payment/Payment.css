@@ -1,5 +1,5 @@
 .background {
-  background-image: url("../assets/images/Payment/Background1.png");
+  background-image: url("../../assets/images/Payment/Background1.png");
   background-size: cover; /* Ensure the entire image is visible */
   background-repeat: no-repeat; /* Prevent image repetition */
   background-position: center; /* Center the image */
@@ -10,7 +10,7 @@
 }
 
 .App-header {
-  background-image: url("../assets/images/Payment/Background1.png");
+  background-image: url("../../assets/images/Payment/Background1.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

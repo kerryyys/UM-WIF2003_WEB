@@ -1,4 +1,4 @@
-import "../../pages-css/YourJobsPage.css";
+import "../../pages-css/Jobscape/YourJobsPage.css";
 import { Container, Col, Row, Button } from "react-bootstrap";
 import InProgressJobs from "../../components/jobscape/JobsListItem";
 import InProgressJobsList from "../../components/jobscape/InProgressJobsList";

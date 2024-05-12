@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "../../components-css/JobsListItem.css";
+import "../../components-css/jobscape/JobsListItem.css";
 import { Container, Col, Row, Button } from "react-bootstrap";
 import userImg from "../../assets/icons/jobscape/user.svg";
 import CompletedReviewModal from "./CompletedReviewModal";
