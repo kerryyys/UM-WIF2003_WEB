@@ -12,7 +12,7 @@ const SearchBar = ({ placeholder, handleChange }) => (
       padding: "12.5px",
       marginRight: "2px",
       borderRadius: "10px 0 0 10px",
-      border: "1px solid #2D4877", 
+      border: "1px solid #2D4877",
       color: "#2D4877",
       backgroundColor: "#FFFFFF",
       fontSize: "16px",

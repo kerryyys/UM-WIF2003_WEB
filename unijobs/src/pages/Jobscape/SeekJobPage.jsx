@@ -30,9 +30,9 @@ const SeekJobPage = () => {
       try {
         const response = await axios.get("http://localhost:5050/projects");
         // response is an array of Objects
-        console.log(
-          "Axios response.data: " + JSON.stringify(response.data.data)
-        );
+        // console.log(
+        //   "Axios response.data: " + JSON.stringify(response.data.data)
+        // );
         const fetchedProjects = response.data.data.map((project) => {
           return {
             companyLogo: project.companyLogo,
@@ -44,7 +44,7 @@ const SeekJobPage = () => {
           };
         });
         setProjectTabs(fetchedProjects);
-        console.log("project tabs: " + JSON.stringify(projectTabs));
+        // console.log("project tabs: " + JSON.stringify(projectTabs));
       } catch (error) {
         console.error(error.message);
       }
@@ -74,6 +74,7 @@ const SeekJobPage = () => {
   };
   const handleSearchChange = (event) => {
     setSearchValue(event.target.value);
+    console.log("event target" + event.target.value);
   };
 
   const handleCategoryChange = (event) => {
@@ -84,8 +85,31 @@ const SeekJobPage = () => {
     setSelectedDuration(event.target.value);
   };
 
-  const handleClick = () => {
-    // Handle click action here
+  // Send GET request to backend with search query
+  const handleClick = async () => {
+    console.log("Search value: " + searchValue);
+    try {
+      const response = await axios.get("http://localhost:5050/projects", {
+        params: {
+          q: searchValue,
+        },
+      });
+      // console.log("Axios response.data: " + JSON.stringify(response.data.data));
+      const fetchedProjects = response.data.data.map((project) => {
+        return {
+          companyLogo: project.companyLogo,
+          projectName: project.projectTitle,
+          companyName: project.companyName,
+          category: project.category,
+          filters: project.filters,
+          timePosted: calculateTimePosted(project.createdAt),
+        };
+      });
+      setProjectTabs(fetchedProjects);
+      console.log("project tabs: " + JSON.stringify(projectTabs));
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   const handleFilterChange = (name, checked) => {
@@ -187,7 +211,7 @@ const SeekJobPage = () => {
           <SearchBar
             placeholder="Search"
             value={searchValue}
-            onChange={handleSearchChange}
+            handleChange={handleSearchChange}
           />
           <CategoryBar
             categories={categories}

@@ -41,7 +41,13 @@ app.post("/projects", async (req, res) => {
 // Retreives a list of projects from MongoDB - zhengyu
 app.get("/projects", async (req, res) => {
   try {
-    const projects = await Project.find({});
+    let query = {};
+    if (req.query.q) {
+      const searchQuery = req.query.q;
+      const regex = new RegExp(searchQuery, "i");
+      query = { projectTitle: regex };
+    }
+    const projects = await Project.find(query);
     return res.status(200).json({
       count: projects.length,
       data: projects,
