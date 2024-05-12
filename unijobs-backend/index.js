@@ -1,37 +1,50 @@
 import e from "express";
 import { PORT, mongoDBConnection } from "./config.js";
 import mongoose, { mongo } from "mongoose";
-import { Job } from "./models/jobsModel.js";
+import { Project } from "./models/projectModel.js";
+import cors from "cors";
 const app = e();
 
 // IN CASE ANYONE IS HERE, IGNORE THESE, THESE ARE JUST CODE FOR MY LEARNING
 app.use(e.json());
+app.use(cors());
 
-app.post("/jobs", async (req, res) => {
+// POST /projects - zhengyu
+// A dummy endpoint to save a project to MongoDB - zhengyu
+app.post("/projects", async (req, res) => {
   try {
     console.log(req.body);
-    const newJob = {
-      requester: req.body.requester,
-      name: req.body.name,
+    const newProject = {
+      companyName: req.body.companyName,
+      projectTitle: req.body.projectTitle,
+      projectDesc: req.body.projectDesc,
+      category: req.body.category,
+      duration: req.body.duration,
+      filters: req.body.filters,
+      contactInfo: req.body.contactInfo,
+      additionalInfo: req.body.additionalInfo,
       deadline: new Date(req.body.deadline),
       requiredSkills: req.body.requiredSkills,
     };
-    const job = await Job.create(newJob).then((job) =>
-      console.log("Job created: ", job)
+    const project = await Project.create(newProject).then((project) =>
+      console.log("project created: ", project)
     );
-    return res.status(201).send(job);
+    return res.status(201).send(project);
   } catch (error) {
     console.log(error.message);
     //When send is used with object, we are returning a JSON
     res.status(500).send({ message: error.message });
   }
 });
-app.get("/jobs", async (req, res) => {
+
+// GET /projects - zhengyu
+// Retreives a list of projects from MongoDB - zhengyu
+app.get("/projects", async (req, res) => {
   try {
-    const jobs = await Job.find({});
+    const projects = await Project.find({});
     return res.status(200).json({
-      count: jobs.length,
-      data: jobs,
+      count: projects.length,
+      data: projects,
     });
   } catch (error) {
     console.log(error.message);
