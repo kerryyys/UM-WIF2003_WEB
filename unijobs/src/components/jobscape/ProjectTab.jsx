@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark } from "@fortawesome/free-regular-svg-icons";
 import { Badge } from "react-bootstrap";
@@ -6,6 +6,7 @@ import "../../components-css/jobscape/ProjectTab.css";
 import { useNavigate } from "react-router-dom";
 
 const ProjectTab = ({
+  projectId,
   CompanyLogo,
   projectName,
   companyName,
@@ -31,9 +32,8 @@ const ProjectTab = ({
   };
 
   const handleClick = () => {
-    navigate("/SeekJobPage/job-details");
+    navigate(`/SeekJobPage/job-details/${projectId}`);
   };
-
   return (
     <div
       className="ProjectTab"

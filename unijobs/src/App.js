@@ -74,7 +74,10 @@ function App() {
         <Route path="/PostProjectPage" element={<PostProjectPage />} />
         <Route path="/ReviewProjectPage" element={<ReviewProjectPage />} />
         <Route path="/YourJobs" element={<YourJobsPage />} />
-        <Route path="/SeekJobPage/job-details" element={<JobDetailsPage />} />
+        <Route
+          path="/SeekJobPage/job-details/:projectId"
+          element={<JobDetailsPage />}
+        />
         <Route path="/Favorite" element={<FavoritePage />} />
         <Route path="/Profile" element={<Profile />} />
         <Route path="/EditProfile" element={<EditProfile />} />

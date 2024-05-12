@@ -35,6 +35,7 @@ const SeekJobPage = () => {
         // );
         const fetchedProjects = response.data.data.map((project) => {
           return {
+            projectId: project._id,
             companyLogo: project.companyLogo,
             projectName: project.projectTitle,
             companyName: project.companyName,
@@ -97,6 +98,7 @@ const SeekJobPage = () => {
       // console.log("Axios response.data: " + JSON.stringify(response.data.data));
       const fetchedProjects = response.data.data.map((project) => {
         return {
+          projectId: project._id,
           companyLogo: project.companyLogo,
           projectName: project.projectTitle,
           companyName: project.companyName,

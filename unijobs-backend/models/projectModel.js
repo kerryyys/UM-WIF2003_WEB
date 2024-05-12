@@ -12,6 +12,7 @@ const projectSchema = mongoose.Schema(
     contactInfo: { type: String, required: true },
     additionalInfo: String,
     deadline: { type: Date, required: true },
+    budget: { type: Number, required: true },
     requiredSkills: { type: [String], required: true, default: [] },
   },
   { timestamps: true }

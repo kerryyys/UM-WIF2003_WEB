@@ -1,18 +1,24 @@
 import "../../pages-css/Jobscape/JobDetailsPage.css";
 import { Button, Container, Row, Col, Badge } from "react-bootstrap";
 import dellImg from "../../assets/icons/jobscape/DellLogo.svg";
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import SeekJobPage from "./SeekJobPage";
 import JobAcceptedModal from "../../components/jobscape/JobAcceptedModal";
 import UploadWorkModal from "../../components/jobscape/UploadWorkModal";
+import axios from "axios";
 
 export default function JobDetailsPage(props) {
-  // Now i need to make this connect with the job list page, this page will change the structure if it's taken
+  const { projectId } = useParams();
+  const [loading, setLoading] = useState(true);
   const [saved, setSaved] = useState(false);
   const [jobAccepted, setJobAccepted] = useState(false);
   const [showAcceptedModal, setShowAcceptedModal] = useState(false);
   const [showUploadModal, setShowUploadModal] = useState(false);
+  const [projectDetails, setProjectDetails] = useState({
+    filters: [],
+    requiredSkills: [],
+  });
   const jobDetails = {
     title: "Web Development",
     companyName: "DELL Technology",
@@ -50,6 +56,60 @@ export default function JobDetailsPage(props) {
   const onFileChange = (files) => {
     console.log(files);
   };
+  useEffect(() => {
+    const fetchProjectDetails = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:5050/projects/${projectId}`
+        );
+
+        const project = response.data;
+        const fetchedProject = {
+          companyLogo: project.companyLogo,
+          projectName: project.projectTitle,
+          projectDesc: project.projectDesc,
+          duration: project.duration,
+          contactInfo: project.contactInfo,
+          additionalInfo: project.additionalInfo,
+          deadline: project.deadline,
+          requiredSkills: project.requiredSkills,
+          companyName: project.companyName,
+          category: project.category,
+          filters: project.filters,
+          timePosted: calculateTimePosted(project.createdAt),
+        };
+        console.log(
+          "Fetched project details: " + JSON.stringify(fetchedProject)
+        );
+        setProjectDetails(fetchedProject);
+        setLoading(false);
+      } catch (error) {
+        console.log("Error occured: " + error.message);
+        setLoading(false);
+      }
+    };
+    fetchProjectDetails();
+  }, []);
+  const calculateTimePosted = (createdAt) => {
+    const currentTime = new Date();
+    const createdTime = new Date(createdAt);
+    const diffInMs = currentTime - createdTime;
+    const diffInSeconds = Math.floor(diffInMs / 1000); // Difference in seconds
+    const diffInMinutes = Math.floor(diffInSeconds / 60); // Difference in minutes
+    const diffInHours = Math.floor(diffInMinutes / 60); // Difference in hours
+
+    if (diffInHours < 1) {
+      return "Less than an hour ago";
+    } else if (diffInHours < 24) {
+      return `${diffInHours} hours ago`;
+    } else {
+      const diffInDays = Math.floor(diffInHours / 24); // Difference in days
+      return `${diffInDays} days ago`;
+    }
+  };
+  if (loading) {
+    return <div>Loading...</div>; // Render loading indicator
+  }
   return (
     <Container className="job-details-page-container">
       <Button className="back-btn" onClick={() => navigate(-1)}>
@@ -59,14 +119,17 @@ export default function JobDetailsPage(props) {
       </Button>
       <div className="job-details-body">
         <div className="job-title-block">
-          <img src={dellImg} alt="" />
+          <img src={projectDetails.companyLogo} alt="logo here" />
           <div className="title-texts">
             <div className="title-left">
-              <h3>{jobDetails.title}</h3>
+              <h3>{projectDetails.projectName}</h3>
               <p className="CompanyInfo">
-                By <span className="CompanyName">{jobDetails.companyName}</span>{" "}
+                By{" "}
+                <span className="CompanyName">
+                  {projectDetails.companyName}
+                </span>{" "}
                 in {"  "}
-                <span className="Category">{jobDetails.category}</span>
+                <span className="Category">{projectDetails.category}</span>
               </p>
             </div>
             <div className="title-right">
@@ -74,7 +137,9 @@ export default function JobDetailsPage(props) {
                 <>
                   <h5>
                     Completion deadline: <br />
-                    <span className="big-deadline">{jobDetails.deadline}</span>
+                    <span className="big-deadline">
+                      {projectDetails.deadline}
+                    </span>
                   </h5>
                 </>
               ) : (
@@ -86,15 +151,15 @@ export default function JobDetailsPage(props) {
                       <i className="bi bi-bookmark"></i>
                     )}
                   </div>
-                  <p>posted {jobDetails.postedTime}</p>
+                  <p>posted {projectDetails.timePosted}</p>
                 </>
               )}
             </div>
           </div>
         </div>
         <div className="Filters">
-          {Array.isArray(jobDetails.filters) &&
-            jobDetails.filters.map((filter, index) => (
+          {Array.isArray(projectDetails.filters) &&
+            projectDetails.filters.map((filter, index) => (
               <Badge key={index} className="FilterBadge">
                 {filter}
               </Badge>
@@ -102,32 +167,34 @@ export default function JobDetailsPage(props) {
         </div>
         <h5>Job Description:</h5>
         <div className="job-desc">
-          <p>{jobDetails.description}</p>
+          <p>{projectDetails.projectDesc}</p>
         </div>
         <p>
           Project Duration:{" "}
-          <span className="duration">{jobDetails.duration}</span>
+          <span className="duration">{projectDetails.duration}</span>
         </p>
         <p>
           Deadline for completion:{" "}
-          <span className="deadline">{jobDetails.deadline}</span>
+          <span className="deadline">{projectDetails.deadline}</span>
         </p>
         <p>
-          Project Budget: <span className="budget">RM{jobDetails.budget}</span>
+          Project Budget:{" "}
+          <span className="budget">RM{projectDetails.budget}</span>
         </p>
         <p>Required Skills:</p>
         <ul className="skill-list">
-          {jobDetails.requiredSkills.map((skill, index) => {
-            return <li key={index}>{skill}</li>;
-          })}
+          {Array.isArray(projectDetails.requiredSkills) &&
+            projectDetails.requiredSkills.map((skill, index) => {
+              return <li key={index}>{skill}</li>;
+            })}
         </ul>
         <p>
           Contact Information: <br />
-          <span className="contact">{jobDetails.contactInfo}</span>
+          <span className="contact">{projectDetails.contactInfo}</span>
         </p>
         <p>
           Additional Information: <br />
-          <span className="additional">{jobDetails.additionalInfo}</span>
+          <span className="additional">{projectDetails.additionalInfo}</span>
         </p>
         <Container className="button-group">
           <Row className="button-row">

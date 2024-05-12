@@ -24,6 +24,7 @@ app.post("/projects", async (req, res) => {
       contactInfo: req.body.contactInfo,
       additionalInfo: req.body.additionalInfo,
       deadline: new Date(req.body.deadline),
+      budget: req.body.budget,
       requiredSkills: req.body.requiredSkills,
     };
     const project = await Project.create(newProject).then((project) =>
@@ -52,6 +53,16 @@ app.get("/projects", async (req, res) => {
       count: projects.length,
       data: projects,
     });
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send({ message: error.message });
+  }
+});
+app.get("/projects/:projectId", async (req, res) => {
+  try {
+    const projectId = req.params.projectId;
+    const project = await Project.findById(projectId);
+    return res.status(200).json(project);
   } catch (error) {
     console.log(error.message);
     res.status(500).send({ message: error.message });
