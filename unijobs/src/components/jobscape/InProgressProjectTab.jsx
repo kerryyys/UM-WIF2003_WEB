@@ -7,7 +7,7 @@ const InProgressProjectTab = ({ projectTitle, due, budget, collaborator }) => {
     <>
       <div className="InProgressProjectTab">
         <div className="projectDetails">
-          <SmallTitle title={projectTitle} fontWeight={700} fontSize="24px" />
+          <SmallTitle title={projectTitle} fontWeight={700} fontSize="21px" />
           <div className="content">
             <div className="DetailsType">
               <p>Due</p>
