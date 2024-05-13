@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-// CINCAI WRITE ONE, IGNORE ALL
 const projectSchema = mongoose.Schema(
   {
     companyLogo: { data: Buffer, contentType: String },
