@@ -12,11 +12,11 @@ app.use("/projects", projectsRouter);
 
 app.get("*", (req, res) => {
   console.log(req);
-  res.send("page is not here dumbass");
+  res.send("page is not here");
 });
 app.post("*", (req, res) => {
   console.log(req);
-  res.send("page is not here dumbass");
+  res.send("page is not here");
 });
 
 app.listen(PORT, () => {
