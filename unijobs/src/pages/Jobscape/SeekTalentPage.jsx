@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SmallTitle from "../../components/jobscape/SmallTitle";
 import NavBigTab from "../../components/jobscape/NavBigTab";
 import FilterTab from "../../components/jobscape/FilterTab";
@@ -7,275 +7,80 @@ import CollaboratorTab from "../../components/jobscape/CollaboratorTab";
 import PageNumberNav from "../../components/jobscape/PageNumberNav";
 import postProject from "../../assets/icons/jobscape/postProject.svg";
 import reviewProject from "../../assets/icons/jobscape/reviewProject.svg";
-import profile1 from "../../assets/icons/jobscape/profile1.svg";
-import profile2 from "../../assets/icons/jobscape/profile2.svg";
-import profile3 from "../../assets/icons/jobscape/profile3.svg";
-import profile4 from "../../assets/icons/jobscape/profile4.svg";
-import profile5 from "../../assets/icons/jobscape/profile5.svg";
-import profile6 from "../../assets/icons/jobscape/profile6.svg";
+import axios from "axios";
 
 const SeekTalentPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedFilters, setSelectedFilters] = useState({});
+  const [selectedFilters, setSelectedFilters] = useState([]);
+  const [freelancers, setFreelancers] = useState([]);
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
 
-  const handleFilterChange = (filterTitle, selectedValues) => {
-    setSelectedFilters((prevFilters) => ({
-      ...prevFilters,
-      [filterTitle]: selectedValues,
-    }));
+  const handleFilterChange = (name, checked) => {
+    // Will add to selectedFilters if checked
+    if (checked) {
+      setSelectedFilters((prevFilters) => [...prevFilters, name]);
+    } else {
+      // Remove from selectedFilters if unchecked
+      setSelectedFilters((prevFilters) =>
+        prevFilters.filter((filter) => filter !== name)
+      );
+    }
     setCurrentPage(1); // Reset to the first page when filters change
   };
+  //to retrieve data from backend
+  useEffect(() => {
+    // Fetch freelancer data from backend API
+    axios
+      .get("http://localhost:5050/freelancers")
+      .then((response) => {
+        setFreelancers(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching freelancer data:", error);
+      });
+  }, []); // Empty dependency array to fetch data only once when the component mounts
 
   const collaboratorsPerPage = 6;
-
-  const collaborators = [
-    {
-      profilePic: profile1,
-      collaboratorName: "Peter Lim Seng Zheng",
-      ratingStar: "5",
-      filters: [
-        "Expert",
-        "50/hr-80/hr",
-        "Programming",
-        "Editing",
-        "Kuala Lumpur",
-      ],
-      biography:
-        "Hi there! I'm Peter, a passionate frontend developer with a knack for crafting immersive digital experiences. With years of experience in programming and video editing, I bring a unique blend of technical skills and creative flair to every project. From building sleek websites to editing engaging videos, I love turning ideas into reality and delivering impactful results. Let's create something amazing together!",
-    },
-    {
-      profilePic: profile2,
-      collaboratorName: "Tan Jun Jie",
-      ratingStar: "4",
-      filters: [
-        "Expert",
-        "50/hr-80/hr",
-        "Programming",
-        "Editing",
-        "Kuala Lumpur",
-      ],
-      biography:
-        "Hi there! I'm Jun Jie, a passionate frontend developer with a knack for crafting immersive digital experiences. With years of experience in programming and video editing, I bring a unique blend of technical skills and creative flair to every project. From building sleek websites to editing engaging videos, I love turning ideas into reality and delivering impactful results. Let's create something amazing together!",
-    },
-    {
-      profilePic: profile3,
-      collaboratorName: "Shanice",
-      ratingStar: "3",
-      filters: [
-        "Intermediate",
-        "80/hr-100/hr",
-        "Writing",
-        "Content Creation",
-        "Kuching",
-      ],
-      biography:
-        "Hi there! I'm Shanice, a passionate frontend developer with a knack for crafting immersive digital experiences. With years of experience in programming and video editing, I bring a unique blend of technical skills and creative flair to every project. From building sleek websites to editing engaging videos, I love turning ideas into reality and delivering impactful results. Let's create something amazing together!",
-    },
-    {
-      profilePic: profile4,
-      collaboratorName: "Lim Lily",
-      ratingStar: "4",
-      filters: [
-        "Beginner",
-        "30/hr-50/hr",
-        "Programming",
-        "Photographic",
-        "Selangor",
-      ],
-      biography:
-        "Hi there! I'm Lim Lily, a passionate frontend developer with a knack for crafting immersive digital experiences. With years of experience in programming and video editing, I bring a unique blend of technical skills and creative flair to every project. From building sleek websites to editing engaging videos, I love turning ideas into reality and delivering impactful results. Let's create something amazing together!",
-    },
-    {
-      profilePic: profile5,
-      collaboratorName: "James Ng",
-      ratingStar: "3",
-      filters: [
-        "Intermediate",
-        "80/hr-100/hr",
-        "Writing",
-        "Content Creation",
-        "Johor Bahru",
-      ],
-      biography:
-        "Hi there! I'm James Ng, a passionate frontend developer with a knack for crafting immersive digital experiences. With years of experience in programming and video editing, I bring a unique blend of technical skills and creative flair to every project. From building sleek websites to editing engaging videos, I love turning ideas into reality and delivering impactful results. Let's create something amazing together!",
-    },
-    {
-      profilePic: profile6,
-      collaboratorName: "RyuJin",
-      ratingStar: "4",
-      filters: [
-        "Beginner",
-        "30/hr-50/hr",
-        "Programming",
-        "Photographic",
-        "Pealing Jaya",
-      ],
-      biography:
-        "Hi there! I'm RyuJin, a passionate frontend developer with a knack for crafting immersive digital experiences. With years of experience in programming and video editing, I bring a unique blend of technical skills and creative flair to every project. From building sleek websites to editing engaging videos, I love turning ideas into reality and delivering impactful results. Let's create something amazing together!",
-    },
-    {
-      profilePic: profile1,
-      collaboratorName: "Peter Lim Seng Zheng",
-      ratingStar: "3",
-      filters: [
-        "Intermediate",
-        "80/hr-100/hr",
-        "Writing",
-        "Content Creation",
-        "Kuala Lumpur",
-      ],
-      biography:
-        "Hi there! I'm Peter, a passionate frontend developer with a knack for crafting immersive digital experiences. With years of experience in programming and video editing, I bring a unique blend of technical skills and creative flair to every project. From building sleek websites to editing engaging videos, I love turning ideas into reality and delivering impactful results. Let's create something amazing together!",
-    },
-    {
-      profilePic: profile3,
-      collaboratorName: "Yang Hung Geng",
-      ratingStar: "4",
-      filters: [
-        "Beginner",
-        "30/hr-50/hr",
-        "Programming",
-        "Photographic",
-        "Kuala Lumpur",
-      ],
-      biography:
-        "Hi there! I'm Yang Hung Geng, a passionate frontend developer with a knack for crafting immersive digital experiences. With years of experience in programming and video editing, I bring a unique blend of technical skills and creative flair to every project. From building sleek websites to editing engaging videos, I love turning ideas into reality and delivering impactful results. Let's create something amazing together!",
-    },
-    {
-      profilePic: profile4,
-      collaboratorName: "Amber Heng",
-      ratingStar: "3",
-      filters: [
-        "Intermediate",
-        "80/hr-100/hr",
-        "Writing",
-        "Content Creation",
-        "Kuala Lumpur",
-      ],
-      biography:
-        "Hi there! I'm Amber Heng, a passionate frontend developer with a knack for crafting immersive digital experiences. With years of experience in programming and video editing, I bring a unique blend of technical skills and creative flair to every project. From building sleek websites to editing engaging videos, I love turning ideas into reality and delivering impactful results. Let's create something amazing together!",
-    },
-    {
-      profilePic: profile5,
-      collaboratorName: "Gina",
-      ratingStar: "4",
-      filters: [
-        "Beginner",
-        "30/hr-50/hr",
-        "Programming",
-        "Photographic",
-        "Kuala Lumpur",
-      ],
-      biography:
-        "Hi there! I'm Gina, a passionate frontend developer with a knack for crafting immersive digital experiences. With years of experience in programming and video editing, I bring a unique blend of technical skills and creative flair to every project. From building sleek websites to editing engaging videos, I love turning ideas into reality and delivering impactful results. Let's create something amazing together!",
-    },
-    {
-      profilePic: profile1,
-      collaboratorName: "Peter Lim Seng Zheng",
-      ratingStar: "5",
-      filters: [
-        "Expert",
-        "50/hr-80/hr",
-        "Programming",
-        "Editing",
-        "Kuala Lumpur",
-      ],
-      biography:
-        "Hi there! I'm Peter, a passionate frontend developer with a knack for crafting immersive digital experiences. With years of experience in programming and video editing, I bring a unique blend of technical skills and creative flair to every project. From building sleek websites to editing engaging videos, I love turning ideas into reality and delivering impactful results. Let's create something amazing together!",
-    },
-    {
-      profilePic: profile2,
-      collaboratorName: "Tan Jun Jie",
-      ratingStar: "4",
-      filters: [
-        "Expert",
-        "50/hr-80/hr",
-        "Programming",
-        "Editing",
-        "Kuala Lumpur",
-      ],
-      biography:
-        "Hi there! I'm Jun Jie, a passionate frontend developer with a knack for crafting immersive digital experiences. With years of experience in programming and video editing, I bring a unique blend of technical skills and creative flair to every project. From building sleek websites to editing engaging videos, I love turning ideas into reality and delivering impactful results. Let's create something amazing together!",
-    },
-    {
-      profilePic: profile3,
-      collaboratorName: "Shanice",
-      ratingStar: "3",
-      filters: [
-        "Intermediate",
-        "80/hr-100/hr",
-        "Writing",
-        "Content Creation",
-        "Kuching",
-      ],
-      biography:
-        "Hi there! I'm Shanice, a passionate frontend developer with a knack for crafting immersive digital experiences. With years of experience in programming and video editing, I bring a unique blend of technical skills and creative flair to every project. From building sleek websites to editing engaging videos, I love turning ideas into reality and delivering impactful results. Let's create something amazing together!",
-    },
-    {
-      profilePic: profile4,
-      collaboratorName: "Lim Lily",
-      ratingStar: "4",
-      filters: [
-        "Beginner",
-        "30/hr-50/hr",
-        "Programming",
-        "Photographic",
-        "Selangor",
-      ],
-      biography:
-        "Hi there! I'm Lim Lily, a passionate frontend developer with a knack for crafting immersive digital experiences. With years of experience in programming and video editing, I bring a unique blend of technical skills and creative flair to every project. From building sleek websites to editing engaging videos, I love turning ideas into reality and delivering impactful results. Let's create something amazing together!",
-    },
-    {
-      profilePic: profile6,
-      collaboratorName: "James Ng",
-      ratingStar: "3",
-      filters: [
-        "Intermediate",
-        "80/hr-100/hr",
-        "Writing",
-        "Content Creation",
-        "Johor Bahru",
-      ],
-      biography:
-        "Hi there! I'm James Ng, a passionate frontend developer with a knack for crafting immersive digital experiences. With years of experience in programming and video editing, I bring a unique blend of technical skills and creative flair to every project. From building sleek websites to editing engaging videos, I love turning ideas into reality and delivering impactful results. Let's create something amazing together!",
-    },
-  ];
-
+  
   const filters = [
     {
       filterTitle: "EXPERIENCED LEVEL",
       filterTypes: ["Beginner", "Intermediate", "Expert"],
     },
     {
-      filterTitle: "PRICE RATE",
-      filterTypes: ["30/hr - 50/hr", "50/hr - 80/hr", "80/hr - 100/hr"],
-    },
-    {
       filterTitle: "SKILLS",
-      filterTypes: ["Programming", "Editing", "Writing", "Content Creation"],
+      filterTypes: [
+        "Programming",
+        "Editing",
+        "Writing",
+        "Content Creation",
+        "Graphic Design",
+      ],
     },
     {
       filterTitle: "LOCATION",
-      filterTypes: ["Kuala Lumpur", "Penang", "Johor Bahru", "Kuching","Remote"],
+      filterTypes: [
+        "Kuala Lumpur",
+        "Penang",
+        "Johor Bahru",
+        "Selangor",
+        "Perak",
+        "Remote",
+      ],
     },
     {
       filterTitle: "RATING",
       filterTypes: ["5", "4", "3", "2", "1"],
-    }
+    },
   ];
 
-   const filteredCollaborators = collaborators.filter((collaborator) => {
-    return Object.keys(selectedFilters).every((filterTitle) => {
-      const selectedValues = selectedFilters[filterTitle];
-      return (
-        selectedValues.length === 0 ||
-        selectedValues.some((value) => collaborator.filters.includes(value))
-      );
-    });
+  const filteredCollaborators = freelancers.filter((freelancer) => {
+    return selectedFilters.every((filter) =>
+      freelancer.filters.includes(filter)
+    );
   });
 
   const totalCollaborators = filteredCollaborators.length;
@@ -340,17 +145,19 @@ const SeekTalentPage = () => {
             ProjectOrCollab="Collaborators"
             newOrRate="RATING"
           />
-
-          {slicedCollaborators.map((collaborator, index) => (
-            <CollaboratorTab
-              key={index}
-              profilePic={collaborator.profilePic}
-              collaboratorName={collaborator.collaboratorName}
-              ratingStar={collaborator.ratingStar}
-              filters={collaborator.filters}
-              biography={collaborator.biography}
-            />
-          ))}
+          <div className="CollabResult">
+            {/* Display filtered collaborators */}
+            {freelancers.map((freelancer, index) => (
+              <CollaboratorTab
+                key={index}
+                profilePic={freelancer.profilePic}
+                collaboratorName={freelancer.freelanceName}
+                ratingStar={freelancer.rating}
+                filters={freelancer.skills} // Assuming skills is an array of strings
+                biography={freelancer.selfDescription}
+              />
+            ))}
+          </div>
         </div>
       </div>
 

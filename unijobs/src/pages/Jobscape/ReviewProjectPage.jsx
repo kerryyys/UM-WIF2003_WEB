@@ -1,91 +1,45 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import SmallTitle from "../../components/jobscape/SmallTitle";
 import InProgressProjectTab from "../../components/jobscape/InProgressProjectTab";
 import CompletedProjectTab from "../../components/jobscape/CompletedProjectTab";
+import axios from "axios";
 import "../../components-css/jobscape/Notification.css";
 import "../../pages-css/Jobscape/ReviewProjectPage.css";
 
 const ReviewProjectPage = () => {
   const navigate = useNavigate();
+  const [inProgressProjects, setInProgressProjects] = useState([]);
+  const [completedProjects, setCompletedProjects] = useState([]);
   const [showNotification, setShowNotification] = useState(false);
+
+  useEffect(() => {
+    // Fetch in progress projects
+    axios
+      .get("http://localhost:5050/projects?status=in-progress")
+      .then((response) => {
+        console.log(response.data); // Log the response data to the console
+        setInProgressProjects(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching in progress projects:", error);
+      });
+
+    // Fetch completed projects
+    axios
+      .get("http://localhost:5050/projects?status=completed")
+      .then((response) => {
+        setCompletedProjects(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching completed projects:", error);
+      });
+  }, []);
 
   const handleReviewFormSubmit = () => {
     setShowNotification(true);
   };
-
-  const inProgressProjects = [
-    {
-      projectTitle: "E-commerce Website",
-      due: "16 May 2024",
-      budget: "RM 8,000",
-      collaborator: "Peter Lim",
-    },
-    {
-      projectTitle: "Photography Session",
-      due: "16 May 2024",
-      budget: "RM 8,000",
-      collaborator: "Peter Lim",
-    },
-    {
-      projectTitle: "Online Banking App",
-      due: "16 May 2024",
-      budget: "RM 8,000",
-      collaborator: "Peter Lim",
-    },
-    {
-      projectTitle: "Grab",
-      due: "16 May 2024",
-      budget: "RM 8,000",
-      collaborator: "Peter Lim",
-    },
-    {
-      projectTitle: "E-commerce Website",
-      due: "16 May 2024",
-      budget: "RM 8,000",
-      collaborator: "Peter Lim",
-    },
-  ];
-
-  const completedProjects = [
-    {
-      projectTitle: "Shopping Cart App",
-      due: "16 May 2024",
-      budget: "RM 8,000",
-      collaborator: "Peter Lim",
-    },
-    {
-      projectTitle: "Planting Session",
-      due: "16 May 2024",
-      budget: "RM 8,000",
-      collaborator: "Peter Lim",
-    },
-    {
-      projectTitle: "Mental Health App",
-      due: "16 May 2024",
-      budget: "RM 8,000",
-      collaborator: "Peter Lim",
-    },
-    {
-      projectTitle: "E-commerce Website",
-      due: "16 May 2024",
-      budget: "RM 8,000",
-      collaborator: "Peter Lim",
-    },
-    {
-      projectTitle: "E-commerce Website",
-      due: "16 May 2024",
-      budget: "RM 8,000",
-      collaborator: "Peter Lim",
-    },
-    {
-      projectTitle: "E-commerce Website",
-      due: "16 May 2024",
-      budget: "RM 8,000",
-      collaborator: "Peter Lim",
-    },
-  ];
 
   return (
     <div className="ReviewProjectPage">
@@ -111,7 +65,13 @@ const ReviewProjectPage = () => {
         <SmallTitle title="In Progress" fontWeight="400" fontSize="32px" />
         <div className="InProgressList">
           {inProgressProjects.map((project, index) => (
-            <InProgressProjectTab key={index} {...project} />
+            <InProgressProjectTab
+              key={index}
+              projectTitle={project.projectTitle}
+              due={new Date(project.deadline).toLocaleDateString("en-GB")} // Format the deadline
+              budget={project.projectBudget}
+              collaborator={project.PIC}
+            />
           ))}
         </div>
       </div>
@@ -122,8 +82,10 @@ const ReviewProjectPage = () => {
           {completedProjects.map((project, index) => (
             <CompletedProjectTab
               key={index}
-              {...project}
-              onReviewSubmit={handleReviewFormSubmit}
+              projectTitle={project.projectTitle}
+              due={new Date(project.deadline).toLocaleDateString("en-GB")} // Format the deadline
+              budget={project.projectBudget}
+              collaborator={project.PIC}
             />
           ))}
         </div>

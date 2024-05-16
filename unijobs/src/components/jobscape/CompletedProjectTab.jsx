@@ -21,7 +21,7 @@ const CompletedProjectTab = ({
     <>
       <div className="CompletedProjectTab">
         <div className="projectDetails">
-          <SmallTitle title={projectTitle} fontWeight={700} fontSize="24px" />
+          <SmallTitle title={projectTitle} fontWeight={700} fontSize="21px" />
           <div className="content">
             <div className="DetailsType">
               <p>Due</p>
