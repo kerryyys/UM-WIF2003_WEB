@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../../App.css";
+import axios from "axios";
 import SmallTitle from "../../components/jobscape/SmallTitle";
 import SearchBar from "../../components/jobscape/SearchBar";
 import CategoryBar from "../../components/jobscape/CategoryBar";
@@ -16,6 +17,7 @@ import searchbtn from "../../assets/icons/icon_search.svg";
 const SeekJobPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedFilters, setSelectedFilters] = useState([]);
+<<<<<<< HEAD:frontend/src/pages/Jobscape/SeekJobPage.jsx
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -39,20 +41,67 @@ const SeekJobPage = () => {
   }, [selectedFilters]);
   const projectPerPage = 7;
 
+=======
+  const [projectTabs, setProjectTabs] = useState([]);
+>>>>>>> remotes/origin/zhengyu:unijobs/src/pages/Jobscape/SeekJobPage.jsx
   const [searchValue, setSearchValue] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedDuration, setSelectedDuration] = useState("");
-  const categories = [
-    "Web Developer",
-    "Graphic Designer",
-    "Content Creation",
-    "Photographic",
-    "Project Management",
-  ];
-  const duration = ["Short Term", "Long Term", "OnGoing"];
+  const [searchResults, setSearchResults] = useState([]);
+  const [sortingOption, setSortingOption] = useState("newOrRate");
 
+  useEffect(() => {
+    // Asynchronous function to fetch all projects from backend
+    const fetchProjects = async () => {
+      try {
+        const response = await axios.get("http://localhost:5050/projects");
+        // response is an array of Objects
+        // console.log(
+        //   "Axios response.data: " + JSON.stringify(response.data.data)
+        // );
+        const fetchedProjects = response.data.data.map((project) => {
+          return {
+            projectId: project._id,
+            companyLogo: project.companyLogo,
+            projectName: project.projectTitle,
+            companyName: project.companyName,
+            category: project.category,
+            filters: project.filters,
+            timePosted: calculateTimePosted(project.createdAt),
+          };
+        });
+        setProjectTabs(fetchedProjects);
+        // console.log("project tabs: " + JSON.stringify(projectTabs));
+      } catch (error) {
+        console.error(error.message);
+      }
+    };
+    fetchProjects();
+  }, []);
+
+  const calculateTimePosted = (createdAt) => {
+    const currentTime = new Date();
+    const createdTime = new Date(createdAt);
+    const diffInMs = currentTime - createdTime;
+    const diffInSeconds = Math.floor(diffInMs / 1000); // Difference in seconds
+    const diffInMinutes = Math.floor(diffInSeconds / 60); // Difference in minutes
+    const diffInHours = Math.floor(diffInMinutes / 60); // Difference in hours
+
+    if (diffInHours < 1) {
+      return "Less than an hour ago";
+    } else if (diffInHours < 24) {
+      return `${diffInHours} hours ago`;
+    } else {
+      const diffInDays = Math.floor(diffInHours / 24); // Difference in days
+      return `${diffInDays} days ago`;
+    }
+  };
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
   const handleSearchChange = (event) => {
     setSearchValue(event.target.value);
+    console.log("event target" + event.target.value);
   };
 
   const handleCategoryChange = (event) => {
@@ -63,13 +112,48 @@ const SeekJobPage = () => {
     setSelectedDuration(event.target.value);
   };
 
-  const handleClick = () => {
-    // Handle click action here
+  // Send GET request to backend with search query
+  const handleClick = async () => {
+    console.log("Search value: " + searchValue);
+    try {
+      const response = await axios.get("http://localhost:5050/projects", {
+        params: {
+          q: searchValue,
+        },
+      });
+      // console.log("Axios response.data: " + JSON.stringify(response.data.data));
+      const fetchedProjects = response.data.data.map((project) => {
+        return {
+          projectId: project._id,
+          companyLogo: project.companyLogo,
+          projectName: project.projectTitle,
+          companyName: project.companyName,
+          category: project.category,
+          filters: project.filters,
+          timePosted: calculateTimePosted(project.createdAt),
+        };
+      });
+      setProjectTabs(fetchedProjects);
+      console.log("project tabs: " + JSON.stringify(projectTabs));
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
-  const [searchResults, setSearchResults] = useState([]);
-  const [sortingOption, setSortingOption] = useState("newOrRate");
+  const handleFilterChange = (name, checked) => {
+    // Will add to selectedFilters if checked
+    if (checked) {
+      setSelectedFilters((prevFilters) => [...prevFilters, name]);
+    } else {
+      // Remove from selectedFilters if unchecked
+      setSelectedFilters((prevFilters) =>
+        prevFilters.filter((filter) => filter !== name)
+      );
+    }
+    setCurrentPage(1); // Reset to the first page when filters change
+  };
 
+<<<<<<< HEAD:frontend/src/pages/Jobscape/SeekJobPage.jsx
   // Array of ProjectTab components
   const projectTabs = [
     {
@@ -296,7 +380,18 @@ const SeekJobPage = () => {
       ],
       timePosted: "5 hours ago",
     },
+=======
+  const projectPerPage = 7;
+
+  const categories = [
+    "Web Developer",
+    "Graphic Designer",
+    "Content Creation",
+    "Photographic",
+    "Project Management",
+>>>>>>> remotes/origin/zhengyu:unijobs/src/pages/Jobscape/SeekJobPage.jsx
   ];
+  const duration = ["Short Term", "Long Term", "OnGoing"];
 
   const filterTabs = [
     {
@@ -373,7 +468,7 @@ const SeekJobPage = () => {
           <SearchBar
             placeholder="Search"
             value={searchValue}
-            onChange={handleSearchChange}
+            handleChange={handleSearchChange}
           />
           <CategoryBar
             categories={categories}
