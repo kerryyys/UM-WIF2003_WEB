@@ -4,8 +4,8 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import IconLabelPair from "./IconLabelPair";
 
 function ProfileCard({ name, title }) {
-  const bookmarkIcon = <i className="bi bi-bookmark profile-card-icon"></i>;
-  const bookmarkFilledIcon = <i className="bi bi-bookmark-fill profile-card-icon"></i>;
+    const bookmarkIcon = <i className="bi bi-bookmark profile-card-icon"></i>;
+    const bookmarkFilledIcon = <i className="bi bi-bookmark-fill profile-card-icon"></i>;
 
   return (
     <div className="profile-card">
