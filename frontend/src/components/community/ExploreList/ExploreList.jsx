@@ -9,9 +9,6 @@ function FollowButton() {
     setIsActive(!isActive);
   };
 
-  const btnClassName =
-    "btn " + (isActive ? "btn-followed" : "btn-not-followed") + " follow-btn";
-
   return (
     <Button onClick={handleClick} className="tw-border tw-border-red-300">
       {isActive ? "Followed" : "Follow"}

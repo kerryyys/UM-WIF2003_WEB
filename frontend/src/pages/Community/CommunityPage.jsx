@@ -9,11 +9,8 @@ import { exploreListData, newsFeedList } from "../../components/community/data";
 function CommunityPage() {
   return (
     <>
-      {/* SearchBar */}
       <SearchBar />
-
-      <div className="tw-flex tw-flex-col tw-justify-center tw-items-center mt-5 sm:tw-flex-row sm:tw-justify-center sm:tw-items-start ">
-        {/* Side Navigation Bar */}
+      <div className="tw-flex tw-flex-col tw-justify-center tw-items-center mt-5 md:tw-flex-row md:tw-justify-center md:tw-items-start">
         <div className="tw-flex tw-flex-col tw-justify-center tw-items-center tw-w-2/5 tw-gap-y-5">
           <ProfileCard
             name="Mehrab Bozorgi"
@@ -21,7 +18,6 @@ function CommunityPage() {
           />
           <ExploreList exploreListData={exploreListData} />
         </div>
-
         <NewsFeed newsFeedList={newsFeedList} />
       </div>
     </>
