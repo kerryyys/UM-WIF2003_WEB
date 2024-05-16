@@ -1,4 +1,4 @@
-import "../../styles/General.css";
+import "../../pages-css/General/General.css";
 import React, { useState } from "react";
 import Notification from "../../pages/General/Notification";
 import google from "../../assets/images/General/logos_facebook.png";
@@ -47,13 +47,13 @@ function App({ handleLoginClick }) {
       <div className="error">{errorMessages.message}</div>
     );
   return (
-    <div className="background">
-      <img className="flower-pic" src={sideBackground}></img>
+    <div className="login-background">
+      <img className="login-flower-pic" src={sideBackground}></img>
       <form onSubmit={handleSubmit} className="login-form-container">
         <h2 className="login-title">Login Now</h2>
         <div className="login-input-container">
           <input
-            className="usernameInput"
+            className="login-usernameInput"
             placeholder="Username"
             type="textt"
             name="uname"
@@ -65,7 +65,7 @@ function App({ handleLoginClick }) {
         </div>
         <div className="login-input-container">
           <input
-            className="usernameInput"
+            className="login-usernameInput"
             placeholder="Password"
             type="password"
             name="pass"
@@ -75,7 +75,7 @@ function App({ handleLoginClick }) {
           />
           {renderErrorMessage("pass")}
         </div>
-        <div className="radio-container">
+        <div className="login-radio-container">
           <input
             type="radio"
             id="recruiter"
@@ -95,7 +95,7 @@ function App({ handleLoginClick }) {
           />
           <label htmlFor="freelance">Freelancer</label>
         </div>
-        <div className="checkbox-container">
+        <div className="login-checkbox-container">
           <input type="checkbox" id="rememberMe" name="rememberMe" />
           <label htmlFor="rememberMe" className="remember-label">
             Remember me on this computer
@@ -103,37 +103,37 @@ function App({ handleLoginClick }) {
         </div>
         {showNotification && <Notification message="Login Successfully!" />}{" "}
         {/* Conditionally render the notification */}
-        <div className="button-container">
+        <div className="login-button-container">
           <input type="submit" value="Login" onClick={handleClick} />
         </div>
-        <div className="forgot-password">
+        <div className="login-forgot-password">
           <span
             onClick={() => (window.location.href = "/ForgotP")}
-            className="forgot-password-text"
+            className="login-forgot-password-text"
           >
             Forgot Password?
           </span>
         </div>
         <div className="login-options">
-          <hr className="hr-left" />
-          <p className="normal-text">Or login with</p>
-          <hr className="hr-right" />
+          <hr className="login-hr-left" />
+          <p className="login-normal-text">Or login with</p>
+          <hr className="login-hr-right" />
         </div>
-        <div className="button-group">
-          <button className="facebook-button">
+        <div className="login-button-group">
+          <button className="login-facebook-button">
             <img src={google} alt="Facebook Logo" />
             Facebook
           </button>
-          <button className="facebook-button">
+          <button className="login-facebook-button">
             <img src={facebook} alt="Google Logo" />
             Google
           </button>
         </div>
-        <div className="normal-text">
+        <div className="login-normal-text">
           Not a member?{" "}
           <span
             onClick={() => (window.location.href = "/Register")}
-            className="sign-up"
+            className="login-sign-up"
           >
             Sign up now
           </span>

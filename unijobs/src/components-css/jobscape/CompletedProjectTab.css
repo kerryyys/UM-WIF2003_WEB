@@ -13,11 +13,14 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+.CompletedProjectTab .projectDetails{
+  width: 100%;
+}
 .CompletedProjectTab .content {
   display: flex;
   flex-direction: row;
-  padding: 10px;
-  margin-bottom: 25%;
+  padding: 8%;
+  margin-bottom: 15%;
 }
 
 .CompletedProjectTab .content .DetailsType,
@@ -28,12 +31,8 @@
   font-size: 16px;
 }
 
-.CompletedProjectTab .Details div {
-  width: 90%;
+.CompletedProjectTab .DetailsType {
   height: auto;
-  text-align: center;
-  background-color: #80d1d5;
-  color: #fdfaf3;
   border-radius: 10px;
   font-weight: 700;
 }

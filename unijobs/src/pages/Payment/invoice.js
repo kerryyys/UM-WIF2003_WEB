@@ -1,5 +1,5 @@
 import React from "react";
-import "../../styles/Payment.css";
+import "../../pages-css/Payment/Payment.css";
 import back from "../../assets/images/Payment/left.png";
 import { Button } from "react-bootstrap";
 

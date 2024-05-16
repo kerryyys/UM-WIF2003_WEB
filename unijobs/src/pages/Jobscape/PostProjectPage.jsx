@@ -1,7 +1,8 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import "../../styles/PostProjectPage.css";
+import "../../pages-css/Jobscape/PostProjectPage.css";
 import SmallTitle from "../../components/jobscape/SmallTitle";
 import "../../components-css/jobscape/Notification.css";
 
@@ -20,6 +21,7 @@ const PostProjectPage = () => {
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const [projectTitle, setProjectTitle] = useState("");
   const [projectDescription, setProjectDescription] = useState("");
+  const [location, setLocation] = useState("");
   const [projectCategory, setProjectCategory] = useState("");
   const [projectType, setProjectType] = useState("");
   const [projectDuration, setProjectDuration] = useState("");
@@ -33,6 +35,7 @@ const PostProjectPage = () => {
   const [validationMessages, setValidationMessages] = useState({
     projectTitle: "",
     projectDescription: "",
+    location: "",
     projectCategory: "",
     projectType: "",
     projectDuration: "",
@@ -54,6 +57,10 @@ const PostProjectPage = () => {
     }
     if (!projectDescription) {
       messages.projectDescription = "Project Description is required";
+      isValid = false;
+    }
+    if (!location) {
+      messages.location = "Location is required";
       isValid = false;
     }
     if (!projectCategory) {
@@ -78,10 +85,6 @@ const PostProjectPage = () => {
     }
     if (!deadline) {
       messages.deadline = "Deadline for Completion is required";
-      isValid = false;
-    }
-    if (!additionalNotes) {
-      messages.additionalNotes = "Additional Notes is required";
       isValid = false;
     }
     if (!agreedToTerms) {
@@ -127,36 +130,60 @@ const PostProjectPage = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!validateFields()) {
       return; // Stop submission if validation fails
     }
 
-    setIsFormSubmitted(true);
-    setShowNotification(true);
+    try {
+      const response = await axios.post("http://localhost:5050/projects", {
 
-    // Reset form fields
-    setProjectTitle("");
-    setProjectDescription("");
-    setProjectCategory("");
-    setProjectType("");
-    setProjectDuration("");
-    setRequiredSkills([]);
-    setNewSkill("");
-    setProjectBudget("");
-    setDeadline("");
-    setContactInformation("");
-    setAdditionalNotes("");
-    setAgreedToTerms(false);
+        projectTitle,
+        projectDescription,
+        location,
+        projectCategory,
+        projectType,
+        projectDuration,
+        requiredSkills,
+        projectBudget,
+        deadline,
+        contactInformation,
+        additionalNotes,
+        agreedToTerms,
+      });
+
+      if (response.status === 201) {
+        // Clear form fields and show notification
+        setIsFormSubmitted(true);
+        setShowNotification(true);
+        setProjectTitle("");
+        setProjectDescription("");
+        setLocation("");
+        setProjectCategory("");
+        setProjectType("");
+        setProjectDuration("");
+        setRequiredSkills([]);
+        setNewSkill("");
+        setProjectBudget("");
+        setDeadline("");
+        setContactInformation("");
+        setAdditionalNotes("");
+        setAgreedToTerms(false);
+      }
+    } catch (error) {
+      console.error("Error:", error.message);
+      // Display a generic error message to the user
+      alert("An error occurred. Please try again later.");
+    }
   };
 
   const handleNotificationClose = () => {
     setShowNotification(false);
     if (isFormSubmitted) {
       setIsFormSubmitted(false);
-      window.location.pathname = "/SeekTalentPage";
+      navigate("/SeekTalentPage");
     }
   };
 
@@ -220,6 +247,31 @@ const PostProjectPage = () => {
             )}
           </div>
           <div className="FormRow">
+            <label htmlFor="location">Location:</label>
+            <select
+              id="location"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+            >
+              <option value="">Select Location</option>
+              <option value="Kuala Lumpur">Kuala Lumpur</option>
+              <option value="Selangor">Selangor</option>
+              <option value="Negeri Sembilan">Negeri Sembilan</option>
+              <option value="Melaka">Melaka</option>
+              <option value="Johore">Johore</option>
+              <option value="Kelantan">Kelantan</option>
+              <option value="Terengganu">Terengganu</option>
+              <option value="Perak">Perak</option>
+              <option value="Pahang">Pahang</option>
+              <option value="Remote">Remote</option>
+            </select>
+            {validationMessages.location && (
+              <span className="ErrorMessage">
+                {validationMessages.location}
+              </span>
+            )}
+          </div>
+          <div className="FormRow">
             <label htmlFor="projectCategory">Project Category:</label>
             <select
               id="projectCategory"
@@ -231,6 +283,10 @@ const PostProjectPage = () => {
               <option value="Creative & Design">Creative & Design</option>
               <option value="Content Writing">Content Writing</option>
               <option value="Education & Training">Education & Training</option>
+              <option value="Marketing">Marketing</option>
+              <option value="Finance">Finance</option>
+              <option value="Healthcare">Healthcare</option>
+              <option value="Engineering">Engineering</option>
             </select>
             {validationMessages.projectCategory && (
               <span className="ErrorMessage">
@@ -251,6 +307,10 @@ const PostProjectPage = () => {
                 Mobile App Development
               </option>
               <option value="Graphic Design">Graphic Design</option>
+              <option value="UI/UX Design">UI/UX Design</option>
+              <option value="Content Writing">Content Writing</option>
+              <option value="Video Production">Video Production</option>
+              <option value="Photography">Photography</option>
             </select>
             {validationMessages.projectType && (
               <span className="ErrorMessage">
@@ -309,17 +369,12 @@ const PostProjectPage = () => {
           </div>
           <div className="FormRow">
             <label htmlFor="projectBudget">Project Budget:</label>
-            <select
+            <input
+              type="text"
               id="projectBudget"
               value={projectBudget}
               onChange={(e) => setProjectBudget(e.target.value)}
-            >
-              <option value="">Select budget...</option>
-              <option value="RM1K">RM1,000 - RM3,000</option>
-              <option value="RM3K">RM3,000 - RM5,000</option>
-              <option value="RM5K">RM5,001 - RM8,000</option>
-              <option value="RM8K">RM8,001 - RM10,000</option>
-            </select>
+            />
             {validationMessages.projectBudget && (
               <span className="ErrorMessage">
                 {validationMessages.projectBudget}
