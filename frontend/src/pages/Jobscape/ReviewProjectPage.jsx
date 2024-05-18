@@ -17,7 +17,7 @@ const ReviewProjectPage = () => {
   useEffect(() => {
     // Fetch in progress projects
     axios
-      .get("http://localhost:5050/projects?status=in-progress")
+      .get("http://localhost:5050/recruite?status=in-progress")
       .then((response) => {
         console.log(response.data); // Log the response data to the console
         setInProgressProjects(response.data);
@@ -28,7 +28,7 @@ const ReviewProjectPage = () => {
 
     // Fetch completed projects
     axios
-      .get("http://localhost:5050/projects?status=completed")
+      .get("http://localhost:5050/recruite?status=completed")
       .then((response) => {
         setCompletedProjects(response.data);
       })

@@ -4,7 +4,7 @@ import { ProjectDetails } from '../models/projectDetails.js';
 const router = express.Router();
 
 // Route to fetch projects based on status (in progress or completed)
-router.get('/projects', async (req, res) => {
+router.get('/recruite', async (req, res) => {
   try {
     const { status } = req.query;
     let projects;

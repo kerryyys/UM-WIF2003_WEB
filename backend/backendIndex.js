@@ -13,7 +13,7 @@ app.use(express.json());
 // Middleware for handling CORS POLICY
 app.use(cors());
 
-app.use("/projects", projectDetailsRoute);
+app.use("/recruite", projectDetailsRoute);
 app.use("/freelancers", freelanceInfoRoute);
 app.use("/projects", projectsRouter);
 

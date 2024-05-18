@@ -138,8 +138,7 @@ const PostProjectPage = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:5050/projects", {
-
+      const response = await axios.post("http://localhost:5050/recruite", {
         projectTitle,
         projectDescription,
         location,
