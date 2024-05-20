@@ -4,6 +4,7 @@ import { Container, Col, Row, Button } from "react-bootstrap";
 import userImg from "../../assets/icons/jobscape/user.svg";
 import CompletedReviewModal from "./CompletedReviewModal";
 import { useNavigate } from "react-router-dom";
+import moment from "moment";
 
 export default function JobsListItem({
   completed,
@@ -14,6 +15,11 @@ export default function JobsListItem({
   personfeedback,
   imgurl,
   reviewname,
+  _id,
+  companyName,
+  projectTitle,
+  budget,
+  deadline,
 }) {
   JobsListItem.defaultProps = {
     completed: false,
@@ -31,9 +37,7 @@ export default function JobsListItem({
     if (completed) {
       setShowReview(true);
     } else {
-      // This part is yet to be implemented
-      console.log("Will redirect to the jobs detail page");
-      navigate("/SeekJobPage/job-details");
+      navigate(`/SeekJobPage/job-details/${_id}`);
     }
   };
 
@@ -42,7 +46,7 @@ export default function JobsListItem({
     <>
       <div className="jobs-list-item">
         <div className="job-texts">
-          <h5 className="job-title">E-commerce Website</h5>
+          <h5 className="job-title">{projectTitle}</h5>
           <Container className="job-details-text">
             <Row>
               <Col>
@@ -51,8 +55,8 @@ export default function JobsListItem({
                 <p>Requester:</p>
               </Col>
               <Col>
-                <p>14 June 2024</p>
-                <p>RM8000</p>
+                <p>{moment(deadline).format("DD-MM-YYYY")}</p>
+                <p>RM{budget}</p>
                 <p className="company-name">DELL Technology</p>
               </Col>
             </Row>

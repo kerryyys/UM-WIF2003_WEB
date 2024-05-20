@@ -3,6 +3,7 @@ import { PORT, mongoDBURL } from "./config.js";
 import mongoose from "mongoose";
 import projectDetailsRoute from "./routes/projectDetailsRoute.js";
 import projectsRouter from "./routes/projects.js";
+import freelanceInfoRoute from "./routes/freelanceInfoRoute.js";
 import cors from "cors";
 
 const app = express();
@@ -13,13 +14,13 @@ app.use(express.json());
 // Middleware for handling CORS POLICY
 app.use(cors());
 
-app.use("/projects", projectDetailsRoute);
+// app.use("/projects", projectDetailsRoute);
 app.use("/freelancers", freelanceInfoRoute);
 app.use("/projects", projectsRouter);
 
 app.get("*", (req, res) => {
   console.log(req);
-  res.send("page is not here dumbass");
+  res.send("page is not here");
 });
 
 mongoose

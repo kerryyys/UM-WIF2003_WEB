@@ -17,33 +17,7 @@ import searchbtn from "../../assets/icons/icon_search.svg";
 const SeekJobPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedFilters, setSelectedFilters] = useState([]);
-<<<<<<< HEAD:frontend/src/pages/Jobscape/SeekJobPage.jsx
-
-  const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
-
-  const handleFilterChange = (name, checked) => {
-    // Will add to selectedFilters if checked
-    if (checked) {
-      setSelectedFilters((prevFilters) => [...prevFilters, name]);
-    } else {
-      // Remove from selectedFilters if unchecked
-      setSelectedFilters((prevFilters) =>
-        prevFilters.filter((filter) => filter !== name)
-      );
-    }
-    setCurrentPage(1); // Reset to the first page when filters change
-  };
-  // Use for debugging, can ignore
-  useEffect(() => {
-    console.log("current selectedFilters: " + JSON.stringify(selectedFilters));
-  }, [selectedFilters]);
-  const projectPerPage = 7;
-
-=======
   const [projectTabs, setProjectTabs] = useState([]);
->>>>>>> remotes/origin/zhengyu:unijobs/src/pages/Jobscape/SeekJobPage.jsx
   const [searchValue, setSearchValue] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedDuration, setSelectedDuration] = useState("");
@@ -73,7 +47,7 @@ const SeekJobPage = () => {
         setProjectTabs(fetchedProjects);
         // console.log("project tabs: " + JSON.stringify(projectTabs));
       } catch (error) {
-        console.error(error.message);
+        console.error("Error: " + error.message);
       }
     };
     fetchProjects();
@@ -153,234 +127,6 @@ const SeekJobPage = () => {
     setCurrentPage(1); // Reset to the first page when filters change
   };
 
-<<<<<<< HEAD:frontend/src/pages/Jobscape/SeekJobPage.jsx
-  // Array of ProjectTab components
-  const projectTabs = [
-    {
-      CompanyLogo: DellLogo,
-      projectName: "Build a Website",
-      companyName: "Dell Technology",
-      category: "Web Development",
-      filters: [
-        "Web Development",
-        "Long Term",
-        "Programming",
-        "RM 8,000",
-        "Remote",
-      ],
-      timePosted: "2 hours ago",
-    },
-    {
-      CompanyLogo: WeddingLogo,
-      projectName: "Wedding Photography",
-      companyName: "WedPhoto",
-      category: "Photographic",
-      filters: [
-        "Photographic",
-        "Short Term",
-        "Creative",
-        "RM 3,000",
-        "Selangor",
-      ],
-      timePosted: "5 hours ago",
-    },
-    {
-      CompanyLogo: DellLogo,
-      projectName: "Build a Website",
-      companyName: "Dell Technology",
-      category: "Web Development",
-      filters: [
-        "Web Development",
-        "Long Term",
-        "Programming",
-        "RM 8,000",
-        "Remote",
-      ],
-      timePosted: "2 hours ago",
-    },
-    {
-      CompanyLogo: WeddingLogo,
-      projectName: "Wedding Photography",
-      companyName: "WedPhoto",
-      category: "Photographic",
-      filters: [
-        "Photographic",
-        "Short Term",
-        "Creative",
-        "RM 3,000",
-        "Selangor",
-      ],
-      timePosted: "5 hours ago",
-    },
-    {
-      CompanyLogo: DellLogo,
-      projectName: "Build a Website",
-      companyName: "Dell Technology",
-      category: "Web Development",
-      filters: [
-        "Web Development",
-        "Long Term",
-        "Programming",
-        "RM 8,000",
-        "Remote",
-      ],
-      timePosted: "2 hours ago",
-    },
-    {
-      CompanyLogo: WeddingLogo,
-      projectName: "Wedding Photography",
-      companyName: "WedPhoto",
-      category: "Photographic",
-      filters: [
-        "Photographic",
-        "Short Term",
-        "Creative",
-        "RM 3,000",
-        "Selangor",
-      ],
-      timePosted: "5 hours ago",
-    },
-    {
-      CompanyLogo: DellLogo,
-      projectName: "Build a Website",
-      companyName: "Dell Technology",
-      category: "Web Development",
-      filters: [
-        "Web Development",
-        "Long Term",
-        "Programming",
-        "RM 8,000",
-        "Remote",
-      ],
-      timePosted: "2 hours ago",
-    },
-    {
-      CompanyLogo: WeddingLogo,
-      projectName: "Wedding Photography",
-      companyName: "WedPhoto",
-      category: "Photographic",
-      filters: [
-        "Photographic",
-        "Short Term",
-        "Creative",
-        "RM 3,000",
-        "Selangor",
-      ],
-      timePosted: "5 hours ago",
-    },
-    {
-      CompanyLogo: DellLogo,
-      projectName: "Build a Website",
-      companyName: "Dell Technology",
-      category: "Web Development",
-      filters: [
-        "Web Development",
-        "Long Term",
-        "Programming",
-        "RM 8,000",
-        "Remote",
-      ],
-      timePosted: "2 hours ago",
-    },
-    {
-      CompanyLogo: WeddingLogo,
-      projectName: "Wedding Photography",
-      companyName: "WedPhoto",
-      category: "Photographic",
-      filters: [
-        "Photographic",
-        "Short Term",
-        "Creative",
-        "RM 3,000",
-        "Selangor",
-      ],
-      timePosted: "5 hours ago",
-    },
-    {
-      CompanyLogo: DellLogo,
-      projectName: "Build a Website",
-      companyName: "Dell Technology",
-      category: "Web Development",
-      filters: [
-        "Web Development",
-        "Long Term",
-        "Programming",
-        "RM 8,000",
-        "Remote",
-      ],
-      timePosted: "2 hours ago",
-    },
-    {
-      CompanyLogo: WeddingLogo,
-      projectName: "Wedding Photography",
-      companyName: "WedPhoto",
-      category: "Photographic",
-      filters: [
-        "Photographic",
-        "Short Term",
-        "Creative",
-        "RM 3,000",
-        "Selangor",
-      ],
-      timePosted: "5 hours ago",
-    },
-    {
-      CompanyLogo: DellLogo,
-      projectName: "Build a Website",
-      companyName: "Dell Technology",
-      category: "Web Development",
-      filters: [
-        "Web Development",
-        "Long Term",
-        "Programming",
-        "RM 8,000",
-        "Remote",
-      ],
-      timePosted: "2 hours ago",
-    },
-    {
-      CompanyLogo: WeddingLogo,
-      projectName: "Wedding Photography",
-      companyName: "WedPhoto",
-      category: "Photographic",
-      filters: [
-        "Photographic",
-        "Short Term",
-        "Creative",
-        "RM 3,000",
-        "Selangor",
-      ],
-      timePosted: "5 hours ago",
-    },
-    {
-      CompanyLogo: DellLogo,
-      projectName: "Build a Website",
-      companyName: "Dell Technology",
-      category: "Web Development",
-      filters: [
-        "Web Development",
-        "Long Term",
-        "Programming",
-        "RM 8,000",
-        "Remote",
-      ],
-      timePosted: "2 hours ago",
-    },
-    {
-      CompanyLogo: WeddingLogo,
-      projectName: "Wedding Photography",
-      companyName: "WedPhoto",
-      category: "Photographic",
-      filters: [
-        "Photographic",
-        "Short Term",
-        "Creative",
-        "RM 3,000",
-        "Selangor",
-      ],
-      timePosted: "5 hours ago",
-    },
-=======
   const projectPerPage = 7;
 
   const categories = [
@@ -389,7 +135,6 @@ const SeekJobPage = () => {
     "Content Creation",
     "Photographic",
     "Project Management",
->>>>>>> remotes/origin/zhengyu:unijobs/src/pages/Jobscape/SeekJobPage.jsx
   ];
   const duration = ["Short Term", "Long Term", "OnGoing"];
 
