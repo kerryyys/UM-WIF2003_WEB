@@ -35,4 +35,5 @@
 .footer-socials .social-icon {
   margin-right: 5vw;
   cursor: pointer;
+  display: inline !important;
 }
