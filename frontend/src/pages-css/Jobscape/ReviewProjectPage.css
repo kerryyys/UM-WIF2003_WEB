@@ -53,6 +53,7 @@
   margin-bottom: 15px;
 }
 
+.ProjectPostedList,
 .InProgressList,
 .CompletedProjectList {
   display: flex;
@@ -64,6 +65,7 @@
   padding: 0 20px; /* Add padding to avoid sticking to edges */
 }
 
+.ProjectPostedTab,
 .InProgressProjectTab,
 .CompletedProjectTab {
   flex: 0 0 auto;
@@ -72,6 +74,7 @@
 }
 
 /* Hide the scrollbar */
+.ProjectPostedList::-webkit-scrollbar,
 .InProgressList::-webkit-scrollbar,
 .CompletedProjectList::-webkit-scrollbar {
   display: none;

@@ -17,45 +17,33 @@ const ReviewProjectPage = () => {
   const [showNotification, setShowNotification] = useState(false);
 
   useEffect(() => {
-    //fetch posted projected
-    axios
-      .get("http://localhost:5050/recruite?status=posted")
-      .then((response) => {
-        console.log(response.data); 
-        setProjectPosted(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching posted projects:", error);
-      });
+    const fetchData = async () => {
+      try {
+        const postedResponse = await axios.get(
+          "http://localhost:5050/recruite/posted"
+        );
+        setProjectPosted(postedResponse.data);
 
-    // Fetch in progress projects
-    axios
-      .get("http://localhost:5050/recruite?status=in-progress")
-      .then((response) => {
-        console.log(response.data); // Log the response data to the console
-        setInProgressProjects(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching in progress projects:", error);
-      });
+        const inProgressResponse = await axios.get(
+          "http://localhost:5050/recruite/in-progress"
+        );
+        setInProgressProjects(inProgressResponse.data);
 
-    // Fetch completed projects
-    axios
-      .get("http://localhost:5050/recruite?status=completed")
-      .then((response) => {
-        setCompletedProjects(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching completed projects:", error);
-      });
+        const completedResponse = await axios.get(
+          "http://localhost:5050/recruite/completed"
+        );
+        setCompletedProjects(completedResponse.data);
+      } catch (error) {
+        console.error("Error fetching projects:", error);
+      }
+    };
+
+    fetchData();
   }, []);
-
-  const handleReviewFormSubmit = () => {
-    setShowNotification(true);
-  };
-
+  
   return (
     <div className="ReviewProjectPage">
+      {/* Back button */}
       <div className="ReviewBackBtn">
         <Button className="BackBtn" onClick={() => navigate(-1)}>
           <p>
@@ -65,6 +53,7 @@ const ReviewProjectPage = () => {
         </Button>
       </div>
 
+      {/* Review header */}
       <div className="Reviewheader">
         <SmallTitle
           className="ReviewTitle"
@@ -74,46 +63,53 @@ const ReviewProjectPage = () => {
         />
       </div>
 
+      {/* Project Posted section */}
       <div className="ProjectPosted">
         <SmallTitle title="Project Posted" fontWeight="400" fontSize="32px" />
         <div className="ProjectPostedList">
-          {ProjectPosted.map((project, index) => (
+          {ProjectPosted.map((project) => (
             <ProjectPostedTab
-              key={index}
+              key={project._id}
+              projectId={project._id}
               projectTitle={project.projectTitle}
-              due={new Date(project.deadline).toLocaleDateString("en-GB")} // Format the deadline
+              due={new Date(project.deadline).toLocaleDateString("en-GB")}
               budget={project.projectBudget}
-              collaborator={project.timestamps}
+              postedDate={project.createdAt}
             />
           ))}
         </div>
       </div>
 
+      {/* In Progress section */}
       <div className="InProgress">
         <SmallTitle title="In Progress" fontWeight="400" fontSize="32px" />
         <div className="InProgressList">
-          {inProgressProjects.map((project, index) => (
+          {inProgressProjects.map((project) => (
             <InProgressProjectTab
-              key={index}
+              key={project._id}
+              projectId={project._id}
               projectTitle={project.projectTitle}
-              due={new Date(project.deadline).toLocaleDateString("en-GB")} // Format the deadline
+              due={new Date(project.deadline).toLocaleDateString("en-GB")}
               budget={project.projectBudget}
-              postedDate={project.PIC}
+              collaborator={project.PIC}
             />
           ))}
         </div>
       </div>
 
+      {/* Completed section */}
       <div>
         <SmallTitle title="Completed" fontWeight="400" fontSize="32px" />
         <div className="CompletedProjectList">
-          {completedProjects.map((project, index) => (
+          {completedProjects.map((project) => (
             <CompletedProjectTab
-              key={index}
+              key={project._id}
+              projectId={project._id}
               projectTitle={project.projectTitle}
-              due={new Date(project.deadline).toLocaleDateString("en-GB")} // Format the deadline
+              due={new Date(project.deadline).toLocaleDateString("en-GB")}
               budget={project.projectBudget}
               collaborator={project.PIC}
+              setShowNotification={setShowNotification}
             />
           ))}
         </div>

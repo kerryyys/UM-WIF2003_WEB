@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import projectDetailsRoute from "./routes/projectDetailsRoute.js";
 import projectsRouter from "./routes/projects.js";
 import freelanceInfoRoute from "./routes/freelanceInfoRoute.js";
+import reviewProjectRoute from "./routes/reviewProjectRoute.js";
 import cors from "cors";
 
 const app = express();
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/recruite", projectDetailsRoute);
+app.use("/recruite", reviewProjectRoute);
 app.use("/freelancers", freelanceInfoRoute);
 app.use("/projects", projectsRouter);
 
