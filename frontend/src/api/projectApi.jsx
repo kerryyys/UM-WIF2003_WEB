@@ -70,3 +70,31 @@ export const getCompletedProjects = async (userId) => {
     console.error("Error get completed project: " + error);
   }
 };
+
+// (files) is an array of uploaded files
+// For .post(), first parameter is the URL, 2nd parameter is request body,
+// 3rd parameter is the options or headers
+export const uploadCompletedWorks = async (files, projectId, userId) => {
+  const formData = new FormData();
+  for (let i = 0; i < files.length; i++) {
+    console.log("Is object? " + files[i].name);
+    formData.append("files", files[i], files[i].name);
+  }
+  formData.append("projectId", projectId);
+  formData.append("userId", userId);
+  for (const pair of formData.entries()) {
+    console.log(pair[0], pair[1]);
+  }
+  try {
+    const response = await axios.post(`${API_URL}/upload-works`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    console.log(
+      "File uploaded successfully from frontend api: " + response.data
+    );
+  } catch (error) {
+    console.log("Error in uploadCompletedWorks, frontend api: " + error);
+  }
+};

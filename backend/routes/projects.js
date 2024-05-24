@@ -1,6 +1,7 @@
 import e from "express";
 import { Project } from "../models/projectModel.js";
 import { FakeUser } from "../models/fakeUserModel.js";
+import multer from "multer";
 import {
   getAllProjects,
   postNewProject,
@@ -11,9 +12,22 @@ import {
   getTakenProjects,
   saveCompletedProject,
   getCompletedProjects,
+  uploadCompletedWorks,
 } from "../controllers/projectsController.js";
 import mongoose, { mongo } from "mongoose";
 const router = e.Router();
+// Configure storage for multer
+const storage = multer.diskStorage({
+  // req is request object, file is object containing info about the file, cb is callback func
+  destination: function (req, file, cb) {
+    cb(null, "./public/uploads"); // Directory to store uploaded files, can change
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + "-" + file.originalname);
+  },
+});
+// Create an upload instance
+const upload = multer({ storage });
 
 // Router for '/projects' endpoints
 // POST /projects - Dummy endpoint to save new projects to mongodb
@@ -42,6 +56,10 @@ router.post("/completed-project", saveCompletedProject);
 
 // GET /taken-project - Retrieves all taken projects of current user
 router.get("/completed-project/:userId", getCompletedProjects);
+
+// POST /upload-work - Saves service provider's uploaded works into server
+router.post("/upload-works", upload.array("files"), uploadCompletedWorks);
+
 // ---------------------------------------------------------------
 // These endpoints are for testing purposes, they use FakeUser
 router.post("/user", async (req, res) => {

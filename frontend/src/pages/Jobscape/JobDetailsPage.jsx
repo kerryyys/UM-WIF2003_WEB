@@ -6,7 +6,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import SeekJobPage from "./SeekJobPage";
 import JobAcceptedModal from "../../components/jobscape/JobAcceptedModal";
 import UploadWorkModal from "../../components/jobscape/UploadWorkModal";
-import { setTakenProject } from "../../api/projectApi";
+import { setTakenProject, uploadCompletedWorks } from "../../api/projectApi";
 import { API_URL } from "../../api/projectApi";
 import axios from "axios";
 import moment from "moment";
@@ -18,6 +18,7 @@ export default function JobDetailsPage(props) {
   const [jobAccepted, setJobAccepted] = useState(false);
   const [showAcceptedModal, setShowAcceptedModal] = useState(false);
   const [showUploadModal, setShowUploadModal] = useState(false);
+
   const [projectDetails, setProjectDetails] = useState({
     filters: [],
     requiredSkills: [],
@@ -36,8 +37,16 @@ export default function JobDetailsPage(props) {
   const handleUploadClick = () => {
     setShowUploadModal(true);
   };
-  const handleSubmitClick = () => {
+  const handleSubmitClick = async (files) => {
     setShowUploadModal(false);
+    console.log(files);
+    try {
+      if (files.length > 0) {
+        await uploadCompletedWorks(files, projectId, userId);
+      }
+    } catch (error) {
+      console.error("Error upload works, frontend: ", error);
+    }
   };
   const handleAcceptClick = async () => {
     setShowAcceptedModal(true);
@@ -51,7 +60,7 @@ export default function JobDetailsPage(props) {
     }
   };
   const onFileChange = (files) => {
-    console.log(files);
+    // console.log(files);
   };
 
   // UseEffect to get current project's details

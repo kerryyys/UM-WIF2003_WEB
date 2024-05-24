@@ -32,6 +32,7 @@ export const postNewProject = async (req, res) => {
       projectTitle: req.body.projectTitle,
       projectDesc: req.body.projectDesc,
       category: req.body.category,
+      location: req.body.location,
       duration: req.body.duration,
       filters: req.body.filters,
       contactInfo: req.body.contactInfo,
@@ -171,5 +172,30 @@ export const getCompletedProjects = async (req, res) => {
     return res.status(400).json({
       error: "Inside GET /completed-project endpoint " + error.message,
     });
+  }
+};
+
+export const uploadCompletedWorks = async (req, res) => {
+  try {
+    console.log("Uploaded req.files: " + Array.isArray(req.files));
+    const files = req.files;
+    const uploadedFiles = [];
+    for (let index = 0; index < files.length; index++) {
+      const file = files[index];
+      const obj = {
+        fileUrl: file.destination + "/" + file.filename,
+        fileName: file.filename,
+      };
+      uploadedFiles.push(obj);
+    }
+    const project = await Project.findByIdAndUpdate(req.body.projectId, {
+      serviceProvider: req.body.userId,
+      uploadedFiles: uploadedFiles,
+    });
+    return res.status(200).json(project);
+  } catch (error) {
+    return res
+      .status(400)
+      .json({ error: "Inside POST /upload-work endpoint " + error.message });
   }
 };
