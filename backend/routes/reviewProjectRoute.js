@@ -9,7 +9,9 @@ router.get('/recruite', async (req, res) => {
     const { status } = req.query;
     let projects;
 
-    if (status === 'in-progress') {
+    if (status === "posted"){
+      projects = await ProjectDetails.find({ taken: false, complete: false });
+    } else if(status === 'in-progress') {
       projects = await ProjectDetails.find({ taken: true, complete: false });
     } else if (status === 'completed') {
       projects = await ProjectDetails.find({ complete: true });

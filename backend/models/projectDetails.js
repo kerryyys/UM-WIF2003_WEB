@@ -18,6 +18,7 @@ const projectDetailsSchema = mongoose.Schema(
         contactInformation: { type: String, required: true },
         additionalNotes: String,
         agreedToTerms: { type: Boolean, required: true },
+        posted:{ type: Boolean, default: true },
         taken: { type: Boolean, default: false },
         complete: { type: Boolean, default: false},
         PIC: {type: String}

@@ -3,6 +3,7 @@ import { PORT, mongoDBURL } from "./config.js";
 import mongoose from "mongoose";
 import projectDetailsRoute from "./routes/projectDetailsRoute.js";
 import projectsRouter from "./routes/projects.js";
+import freelanceInfoRoute from "./routes/freelanceInfoRoute.js";
 import cors from "cors";
 
 const app = express();
