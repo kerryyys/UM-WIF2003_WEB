@@ -21,9 +21,12 @@ router.post("/", async (req, res) => {
       contactInformation,
       additionalNotes,
       agreedToTerms,
+      posted,
       taken,
       completed,
-      PIC
+      applicants,
+      PIC,
+      review
     } = req.body;
 
     // Create a new project details document
@@ -43,9 +46,12 @@ router.post("/", async (req, res) => {
       contactInformation,
       additionalNotes,
       agreedToTerms,
+      posted,
       taken,
       completed,
-      PIC
+      applicants,
+      PIC,
+      review
     });
 
     // Save the project details to MongoDB
