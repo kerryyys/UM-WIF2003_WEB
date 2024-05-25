@@ -104,11 +104,8 @@ const PostProjectPage = () => {
   };
 
   const handleSkillsChange = (e) => {
-    const value = e.target.value.trim();
-    // Allow only words for skills
-    if (/^[a-zA-Z]+$/.test(value) || value === "") {
-      setNewSkill(value);
-    }
+    const value = e.target.value;
+    setNewSkill(value);
   };
 
   const handleSkillsRemove = (index) => {
