@@ -111,10 +111,13 @@ export default function JobDetailsPage(props) {
         const user = await axios.get(`${API_URL}/user/${userId}`);
         const tknProjects = user.data.takenProjects;
         const applyingProjects = user.data.applyingProjects;
-        console.log("Fetch user from frontend: ", tknProjects);
-        console.log("Fetch user from frontend: ", applyingProjects);
+        console.log("Fetch user from frontend, tknProjects: ", tknProjects);
+        console.log(
+          "Fetch user from frontend, applyingProjects : ",
+          applyingProjects
+        );
         if (Array.isArray(tknProjects) && tknProjects.includes(projectId)) {
-          setjobApplied(true);
+          setApplicationStatus("applied");
         }
         if (
           Array.isArray(applyingProjects) &&
