@@ -23,7 +23,6 @@ const PostProjectPage = () => {
   const [projectDescription, setProjectDescription] = useState("");
   const [location, setLocation] = useState("");
   const [projectCategory, setProjectCategory] = useState("");
-  const [projectType, setProjectType] = useState("");
   const [projectDuration, setProjectDuration] = useState("");
   const [requiredSkills, setRequiredSkills] = useState([]);
   const [newSkill, setNewSkill] = useState("");
@@ -37,7 +36,6 @@ const PostProjectPage = () => {
     projectDescription: "",
     location: "",
     projectCategory: "",
-    projectType: "",
     projectDuration: "",
     requiredSkills: "",
     projectBudget: "",
@@ -65,10 +63,6 @@ const PostProjectPage = () => {
     }
     if (!projectCategory) {
       messages.projectCategory = "Project Category is required";
-      isValid = false;
-    }
-    if (!projectType) {
-      messages.projectType = "Project Type is required";
       isValid = false;
     }
     if (!projectDuration) {
@@ -143,7 +137,6 @@ const PostProjectPage = () => {
         projectDescription,
         location,
         projectCategory,
-        projectType,
         projectDuration,
         requiredSkills,
         projectBudget,
@@ -161,7 +154,6 @@ const PostProjectPage = () => {
         setProjectDescription("");
         setLocation("");
         setProjectCategory("");
-        setProjectType("");
         setProjectDuration("");
         setRequiredSkills([]);
         setNewSkill("");
@@ -290,30 +282,6 @@ const PostProjectPage = () => {
             {validationMessages.projectCategory && (
               <span className="ErrorMessage">
                 {validationMessages.projectCategory}
-              </span>
-            )}
-          </div>
-          <div className="FormRow">
-            <label htmlFor="projectType">Project Type:</label>
-            <select
-              id="projectType"
-              value={projectType}
-              onChange={(e) => setProjectType(e.target.value)}
-            >
-              <option value="">Select type</option>
-              <option value="Web Development">Web Development</option>
-              <option value="Mobile App Development">
-                Mobile App Development
-              </option>
-              <option value="Graphic Design">Graphic Design</option>
-              <option value="UI/UX Design">UI/UX Design</option>
-              <option value="Content Writing">Content Writing</option>
-              <option value="Video Production">Video Production</option>
-              <option value="Photography">Photography</option>
-            </select>
-            {validationMessages.projectType && (
-              <span className="ErrorMessage">
-                {validationMessages.projectType}
               </span>
             )}
           </div>
