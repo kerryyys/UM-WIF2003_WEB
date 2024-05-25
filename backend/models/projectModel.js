@@ -15,11 +15,13 @@ const projectSchema = mongoose.Schema(
     deadline: { type: Date, required: true },
     projectBudget: { type: Number, required: true },
     requiredSkills: { type: [String], required: true, default: [] },
+    agreedToTerms: { type: Boolean, required: true },
     posted: { type: Boolean, default: true },
     taken: { type: Boolean, default: false },
     completed: { type: Boolean, default: false },
     applicants: { type: [Schema.Types.ObjectId], ref: "FakeUser" }, //should store freelancer userID
-    PIC: { type: Schema.Types.ObjectId, ref: "FakeUser" },
+    // PIC: { type: Schema.Types.ObjectId, ref: "FakeUser" }, I renamed it to serviceProvider
+    serviceProvider: { type: Schema.Types.ObjectId, ref: "FakeUser" },
     review: [
       {
         satisfactionRating: Number,
@@ -30,7 +32,7 @@ const projectSchema = mongoose.Schema(
         _id: false,
       },
     ],
-    serviceProvider: { type: Schema.Types.ObjectId, ref: "FakeUser" },
+
     uploadedFiles: [
       {
         fileUrl: String,
