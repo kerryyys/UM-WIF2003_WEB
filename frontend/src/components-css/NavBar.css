@@ -10,10 +10,6 @@
   --item-font: "Lato", sans-serif;
 }
 
-.navbar-style .nav-link {
-  color: var(--secondary-color);
-}
-
 /* General */
 .navbar-style,
 .navbar-style .navbar-link,
@@ -24,10 +20,6 @@
 
 /* Alignment */
 .navbar-style {
-  padding: 5px 10px;
-  padding-left: 30px;
-  font-size: 1.1em;
-  font-family: var(--item-font);
 }
 
 .navbar-style .navbar-nav {
@@ -37,8 +29,14 @@
 }
 
 .navbar-style .navbar-collapse {
-  display: flex;
-  flex-grow: 1;
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .navbar-style .navbar-collapse {
+    display: flex;
+    flex-grow: 1;
+  }
 }
 
 .navbar-style .nav-item {
@@ -46,14 +44,6 @@
 }
 
 /* Brand */
-.navbar-style .navbar-brand {
-  position: absolute;
-  left: 30px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-family: var(--brand-font);
-  font-size: 1.5em;
-}
 .navbar-style .navbar-profile-pic {
   position: absolute;
   right: 8vw;
@@ -61,6 +51,7 @@
   cursor: pointer;
   width: 50px;
 }
+
 .navbar-style .navbar-sign-out-btn {
   text-wrap: nowrap;
   background-color: white;

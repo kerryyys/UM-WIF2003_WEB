@@ -2,13 +2,13 @@
 import React from "react";
 import NewsFeedItem from "./NewsFeedItem";
 import "../../../components-css/Community/NewsFeed.css";
-import WritePost from "./WritePost";
+import WritePost from "../WritePost/WritePost";
 
 function NewsFeed({ newsFeedList }) {
   return (
     <div className="complete-news-feed">
       <WritePost />
-      <div className="news-feed">
+      <div className="news-feed tw-w-5/6 xl:tw-4/5 tw-flex tw-flex-col tw-gap-5 tw-font-lato">
         {newsFeedList.length === 0 ? (
           <p>No news feed available</p>
         ) : (

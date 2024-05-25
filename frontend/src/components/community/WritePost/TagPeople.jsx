@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Form, InputGroup, Badge } from "react-bootstrap";
-import SuggestionsList from "./SuggestionsList";
+import SuggestionsList from "./SuggestionList";
 
 const TagPeople = ({ taggedUsers, setTaggedUsers }) => {
   const [query, setQuery] = useState("");
@@ -59,7 +59,10 @@ const TagPeople = ({ taggedUsers, setTaggedUsers }) => {
           className="border border-gray-300 p-2 rounded w-full"
         />
         {suggestions.length > 0 && (
-          <SuggestionsList suggestions={suggestions} onSelectUser={handleSelectUser} />
+          <SuggestionsList
+            suggestions={suggestions}
+            onSelectUser={handleSelectUser}
+          />
         )}
       </InputGroup>
       <div className="mt-2 flex flex-wrap">

@@ -17,7 +17,6 @@ import searchbtn from "../../assets/icons/icon_search.svg";
 const SeekJobPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedFilters, setSelectedFilters] = useState([]);
-<<<<<<< HEAD:frontend/src/pages/Jobscape/SeekJobPage.jsx
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -39,11 +38,10 @@ const SeekJobPage = () => {
   useEffect(() => {
     console.log("current selectedFilters: " + JSON.stringify(selectedFilters));
   }, [selectedFilters]);
+
   const projectPerPage = 7;
 
-=======
   const [projectTabs, setProjectTabs] = useState([]);
->>>>>>> remotes/origin/zhengyu:unijobs/src/pages/Jobscape/SeekJobPage.jsx
   const [searchValue, setSearchValue] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedDuration, setSelectedDuration] = useState("");
@@ -96,9 +94,6 @@ const SeekJobPage = () => {
       return `${diffInDays} days ago`;
     }
   };
-  const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
   const handleSearchChange = (event) => {
     setSearchValue(event.target.value);
     console.log("event target" + event.target.value);
@@ -140,22 +135,8 @@ const SeekJobPage = () => {
     }
   };
 
-  const handleFilterChange = (name, checked) => {
-    // Will add to selectedFilters if checked
-    if (checked) {
-      setSelectedFilters((prevFilters) => [...prevFilters, name]);
-    } else {
-      // Remove from selectedFilters if unchecked
-      setSelectedFilters((prevFilters) =>
-        prevFilters.filter((filter) => filter !== name)
-      );
-    }
-    setCurrentPage(1); // Reset to the first page when filters change
-  };
-
-<<<<<<< HEAD:frontend/src/pages/Jobscape/SeekJobPage.jsx
   // Array of ProjectTab components
-  const projectTabs = [
+  setProjectTabs([
     {
       CompanyLogo: DellLogo,
       projectName: "Build a Website",
@@ -380,8 +361,7 @@ const SeekJobPage = () => {
       ],
       timePosted: "5 hours ago",
     },
-=======
-  const projectPerPage = 7;
+  ]);
 
   const categories = [
     "Web Developer",
@@ -389,8 +369,8 @@ const SeekJobPage = () => {
     "Content Creation",
     "Photographic",
     "Project Management",
->>>>>>> remotes/origin/zhengyu:unijobs/src/pages/Jobscape/SeekJobPage.jsx
   ];
+
   const duration = ["Short Term", "Long Term", "OnGoing"];
 
   const filterTabs = [
