@@ -1,5 +1,5 @@
 import express from 'express';
-import { ProjectDetails } from '../models/projectDetails.js';
+import { Project } from '../models/projectModel.js';
 
 const router = express.Router();
 
@@ -10,11 +10,11 @@ router.get('/:status', async (req, res) => {
     let projects;
 
     if (status === "posted") {
-      projects = await ProjectDetails.find({ taken: false, completed: false });
+      projects = await Project.find({ taken: false, completed: false });
     } else if (status === "in-progress") {
-      projects = await ProjectDetails.find({ taken: true, completed: false });
+      projects = await Project.find({ taken: true, completed: false });
     } else if (status === "completed") {
-      projects = await ProjectDetails.find({ completed: true });
+      projects = await Project.find({ completed: true });
     } else {
       return res.status(400).json({ message: 'Invalid status parameter' });
     }
@@ -30,7 +30,7 @@ router.get('/posted/:projectId/applicants', async (req, res) => {
   const { projectId } = req.params;
 
   try {
-    const project = await ProjectDetails.findById(projectId);
+    const project = await Project.findById(projectId);
     if (!project) {
       return res.status(404).json({ message: 'Project not found' });
     }
@@ -47,7 +47,7 @@ router.put('/posted/:projectId/confirm', async (req, res) => {
   const { userID } = req.body;
 
   try {
-    const project = await ProjectDetails.findById(projectId);
+    const project = await Project.findById(projectId);
     if (!project) {
       return res.status(404).json({ message: 'Project not found' });
     }
@@ -70,7 +70,7 @@ router.put('/posted/:projectId/remove', async (req, res) => {
   const { userID } = req.body;
 
   try {
-    const project = await ProjectDetails.findById(projectId);
+    const project = await Project.findById(projectId);
     if (!project) {
       return res.status(404).json({ message: 'Project not found' });
     }
@@ -100,7 +100,7 @@ router.post('/:projectId/saveReview', async (req, res) => {
     } = req.body;
 
     // Find the project by its ID
-    const project = await ProjectDetails.findById(projectId);
+    const project = await Project.findById(projectId);
 
     // If the project is not found, return an error
     if (!project) {
