@@ -1,5 +1,5 @@
-import express from 'express';
-import { ProjectDetails } from '../models/projectDetails.js';
+import express from "express";
+import { ProjectDetails } from "../models/projectDetails.js";
 
 const router = express.Router();
 
@@ -26,7 +26,7 @@ router.post("/", async (req, res) => {
       completed,
       applicants,
       PIC,
-      review
+      review,
     } = req.body;
 
     // Create a new project details document
@@ -51,7 +51,7 @@ router.post("/", async (req, res) => {
       completed,
       applicants,
       PIC,
-      review
+      review,
     });
 
     // Save the project details to MongoDB
@@ -65,7 +65,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get('/', async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const projectDetails = await ProjectDetails.find();
     res.json(projectDetails);
