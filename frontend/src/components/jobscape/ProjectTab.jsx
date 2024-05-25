@@ -16,7 +16,7 @@ const ProjectTab = ({
   CompanyLogo,
   projectName,
   companyName,
-  category,
+  projectCategory,
   filters,
   timePosted,
 }) => {
@@ -85,7 +85,7 @@ const ProjectTab = ({
 
           <p className="CompanyInfo">
             By <span className="CompanyName">{companyName}</span> in {"  "}
-            <span className="Category">{category}</span>
+            <span className="Category">{projectCategory}</span>
           </p>
           <div className="Filters">
             {Array.isArray(filters) &&

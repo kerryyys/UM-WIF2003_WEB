@@ -18,6 +18,12 @@ const fakeUserSchema = mongoose.Schema({
       ref: "Project",
     },
   ],
+  applyingProjects: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Project",
+    },
+  ],
   completedProjects: [
     {
       type: Schema.Types.ObjectId,

@@ -6,9 +6,9 @@ export default function JobAcceptedModal(props) {
   return (
     <Modal {...props} centered backdrop="static">
       <Modal.Body className="border-0 accepted-container">
-        <h3>You have accepted a job!</h3>
+        <h3>You have applied this job!</h3>
         <p style={{ fontWeight: 300 }}>
-          Don't forget to communicate with the requester!
+          Your application has been sent to the requester!
         </p>
         <div>
           <div className="job-title">

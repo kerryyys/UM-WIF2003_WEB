@@ -6,7 +6,11 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import SeekJobPage from "./SeekJobPage";
 import JobAcceptedModal from "../../components/jobscape/JobAcceptedModal";
 import UploadWorkModal from "../../components/jobscape/UploadWorkModal";
-import { setTakenProject, uploadCompletedWorks } from "../../api/projectApi";
+import {
+  setTakenProject,
+  uploadCompletedWorks,
+  setApplyingProject,
+} from "../../api/projectApi";
 import { API_URL } from "../../api/projectApi";
 import axios from "axios";
 import moment from "moment";
@@ -15,7 +19,8 @@ export default function JobDetailsPage(props) {
   const { projectId } = useParams();
   const [loading, setLoading] = useState(true);
   const [saved, setSaved] = useState(false);
-  const [jobAccepted, setJobAccepted] = useState(false);
+  const [jobApplied, setjobApplied] = useState(false);
+  const [applicationStatus, setApplicationStatus] = useState("notApplied");
   const [showAcceptedModal, setShowAcceptedModal] = useState(false);
   const [showUploadModal, setShowUploadModal] = useState(false);
 
@@ -51,12 +56,12 @@ export default function JobDetailsPage(props) {
   const handleAcceptClick = async () => {
     setShowAcceptedModal(true);
     try {
-      if (!jobAccepted) {
-        await setTakenProject(userId, projectId);
+      if (applicationStatus == "notApplied") {
+        await setApplyingProject(userId, projectId);
       }
-      setJobAccepted(true);
+      setApplicationStatus("applying");
     } catch (error) {
-      console.error("Error add taken project: ", error);
+      console.error("Error add applying project: ", error);
     }
   };
   const onFileChange = (files) => {
@@ -73,16 +78,16 @@ export default function JobDetailsPage(props) {
         const fetchedProject = {
           companyLogo: project.companyLogo,
           projectName: project.projectTitle,
-          projectDesc: project.projectDesc,
-          duration: project.duration,
-          contactInfo: project.contactInfo,
-          additionalInfo: project.additionalInfo,
+          projectDesc: project.projectDescription,
+          duration: project.projectDuration,
+          contactInfo: project.contactInformation,
+          additionalInfo: project.additionalNotes,
           deadline: moment(project.deadline).format("DD-MM-YYYY"),
           requiredSkills: project.requiredSkills,
           companyName: project.companyName,
-          category: project.category,
+          category: project.projectCategory,
           filters: project.filters,
-          budget: project.budget,
+          budget: project.projectBudget,
           timePosted: calculateTimePosted(project.createdAt),
         };
         console.log(
@@ -105,9 +110,17 @@ export default function JobDetailsPage(props) {
       try {
         const user = await axios.get(`${API_URL}/user/${userId}`);
         const tknProjects = user.data.takenProjects;
+        const applyingProjects = user.data.applyingProjects;
         console.log("Fetch user from frontend: ", tknProjects);
+        console.log("Fetch user from frontend: ", applyingProjects);
         if (Array.isArray(tknProjects) && tknProjects.includes(projectId)) {
-          setJobAccepted(true);
+          setjobApplied(true);
+        }
+        if (
+          Array.isArray(applyingProjects) &&
+          applyingProjects.includes(projectId)
+        ) {
+          setApplicationStatus("applying");
         }
       } catch (error) {
         console.error("Error fetching user favorite projects: ", error);
@@ -116,6 +129,24 @@ export default function JobDetailsPage(props) {
     checkUserTakenProjects();
   }, []);
 
+  const renderApplyButton = () => {
+    switch (applicationStatus) {
+      case "notApplied":
+        return (
+          <Button className="accept" onClick={handleAcceptClick}>
+            Apply Job
+          </Button>
+        );
+      case "applying":
+        return <span>Applying...</span>;
+      case "applied":
+        return (
+          <Button className="accept" onClick={handleUploadClick}>
+            Upload Work
+          </Button>
+        );
+    }
+  };
   const calculateTimePosted = (createdAt) => {
     const currentTime = new Date();
     const createdTime = new Date(createdAt);
@@ -159,7 +190,7 @@ export default function JobDetailsPage(props) {
               </p>
             </div>
             <div className="title-right">
-              {jobAccepted ? (
+              {applicationStatus == "applied" ? (
                 <>
                   <h5>
                     Completion deadline: <br />
@@ -226,17 +257,18 @@ export default function JobDetailsPage(props) {
           <Row className="button-row">
             <Col></Col>
             <Col>
-              {jobAccepted ? (
+              {/* {jobApplied ? (
                 <Button className="accept" onClick={handleUploadClick}>
                   Upload Work
                 </Button>
               ) : (
                 <>
                   <Button className="accept" onClick={handleAcceptClick}>
-                    Accept Job
+                    Apply Job
                   </Button>
                 </>
-              )}
+              )} */}
+              {renderApplyButton()}
               <Button className="chat">
                 <i className="bi bi-chat-dots" /> Chat with Requester
               </Button>

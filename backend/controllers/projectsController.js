@@ -30,15 +30,15 @@ export const postNewProject = async (req, res) => {
     const newProject = {
       companyName: req.body.companyName,
       projectTitle: req.body.projectTitle,
-      projectDesc: req.body.projectDesc,
-      category: req.body.category,
+      projectDescription: req.body.projectDescription,
+      projectCategory: req.body.projectCategory,
       location: req.body.location,
-      duration: req.body.duration,
+      projectDuration: req.body.projectDuration,
       filters: req.body.filters,
-      contactInfo: req.body.contactInfo,
-      additionalInfo: req.body.additionalInfo,
+      contactInformation: req.body.contactInformation,
+      additionalNotes: req.body.additionalNotes,
       deadline: new Date(req.body.deadline),
-      budget: req.body.budget,
+      projectBudget: req.body.projectBudget,
       requiredSkills: req.body.requiredSkills,
     };
     const project = await Project.create(newProject).then((project) =>
@@ -104,7 +104,30 @@ export const removeFavoriteProject = async (req, res) => {
     });
   }
 };
-
+export const addApplyingProject = async (req, res) => {
+  console.log(req.body);
+  const { userId, projectId } = req.body;
+  try {
+    const user = await FakeUser.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User doesn't exist" });
+    }
+    if (!user.applyingProjects.includes(projectId)) {
+      user.applyingProjects.push(projectId);
+      await user.save();
+    }
+    const project = await Project.findById(projectId);
+    if (!project.applicants.includes(userId)) {
+      project.applicants.push(userId);
+      await project.save();
+    }
+    res.status(200).json({ user, project });
+  } catch (error) {
+    return res.status(400).json({
+      error: "Inside POST /applying-project endpoint " + error.message,
+    });
+  }
+};
 export const saveTakenProject = async (req, res) => {
   console.log(req.body);
   const { userId, projectId } = req.body;
@@ -129,7 +152,9 @@ export const getTakenProjects = async (req, res) => {
   console.log("getTakenProjects: ", req.params.userId);
   const userId = req.params.userId;
   try {
-    const user = await FakeUser.findById(userId).populate("takenProjects");
+    const user = await FakeUser.findById(userId)
+      .populate("takenProjects")
+      .populate("applyingProjects");
     if (!user) {
       return res.status(404).json({ message: "User doesn't exist" });
     }

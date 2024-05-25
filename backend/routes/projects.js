@@ -13,6 +13,7 @@ import {
   saveCompletedProject,
   getCompletedProjects,
   uploadCompletedWorks,
+  addApplyingProject,
 } from "../controllers/projectsController.js";
 import mongoose, { mongo } from "mongoose";
 const router = e.Router();
@@ -44,6 +45,9 @@ router.post("/favorite-project", saveFavoriteProject);
 
 // POST /remove-favorite-project - Removes projectId into current user's favoriteProjects
 router.post("/remove-favorite-project", removeFavoriteProject);
+
+// POST /applying-project - Adds projectId into current user's applyingProjects
+router.post("/applying-project", addApplyingProject);
 
 // POST /taken-project - Adds projectId into current user's takenProjects
 router.post("/taken-project", saveTakenProject);

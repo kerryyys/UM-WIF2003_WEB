@@ -39,7 +39,7 @@ const SeekJobPage = () => {
             companyLogo: project.companyLogo,
             projectName: project.projectTitle,
             companyName: project.companyName,
-            category: project.category,
+            projectCategory: project.projectCategory,
             filters: project.filters,
             timePosted: calculateTimePosted(project.createdAt),
           };
@@ -102,7 +102,7 @@ const SeekJobPage = () => {
           companyLogo: project.companyLogo,
           projectName: project.projectTitle,
           companyName: project.companyName,
-          category: project.category,
+          projectCategory: project.projectCategory,
           filters: project.filters,
           timePosted: calculateTimePosted(project.createdAt),
         };
@@ -140,7 +140,7 @@ const SeekJobPage = () => {
 
   const filterTabs = [
     {
-      filterTitle: "PROJECT TYPE",
+      filterTitle: "PROJECT CATEGORY",
       filterTypes: [
         "Web Development",
         "Graphic & Design",
@@ -153,19 +153,9 @@ const SeekJobPage = () => {
       filterTitle: "PROJECT DURATION",
       filterTypes: ["Short Term", "Long Term", "OnGoing"],
     },
+
     {
-      filterTitle: "SKILL REQUIRED",
-      filterTypes: [
-        "Programming",
-        "Editing",
-        "Designing",
-        "Problem Solving",
-        "Dancing",
-        "Project Management",
-      ],
-    },
-    {
-      filterTitle: "BUDGE RANGE",
+      filterTitle: "BUDGET RANGE",
       filterTypes: [
         "1,000-3,000",
         "3,001-5,000",
@@ -215,7 +205,7 @@ const SeekJobPage = () => {
             value={searchValue}
             handleChange={handleSearchChange}
           />
-          <CategoryBar
+          {/* <CategoryBar
             categories={categories}
             value={selectedCategory}
             onChange={handleCategoryChange}
@@ -224,7 +214,7 @@ const SeekJobPage = () => {
             duration={duration}
             value={selectedDuration}
             onChange={handleDurationChange}
-          />
+          /> */}
           <SearchButton
             handleClick={handleClick}
             bgColor={"#2D4877"}
