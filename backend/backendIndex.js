@@ -5,6 +5,7 @@ import projectDetailsRoute from "./routes/projectDetailsRoute.js";
 import projectsRouter from "./routes/projects.js";
 import freelanceInfoRoute from "./routes/freelanceInfoRoute.js";
 import reviewProjectRoute from "./routes/reviewProjectRoute.js";
+import postRoute from "./routes/postRoute.js";
 import cors from "cors";
 
 const app = express();
@@ -19,10 +20,17 @@ app.use("/recruite", projectDetailsRoute);
 app.use("/recruite", reviewProjectRoute);
 app.use("/freelancers", freelanceInfoRoute);
 app.use("/projects", projectsRouter);
+app.use("/posts", postRoute);
 
 app.get("*", (req, res) => {
   console.log(req);
   res.send("page is not here");
+});
+
+// Log every incoming request
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.url}`);
+  next();
 });
 
 mongoose

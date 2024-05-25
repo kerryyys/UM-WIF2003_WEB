@@ -5,12 +5,13 @@ import EmojiPickerComponent from "./EmojiPickerComponent"; // Adjust the path as
 import LocationButton from "./LocationButton"; // Adjust the path as needed
 import LocationSearchModal from "./LocationSearchModal"; // Adjust the path as needed
 import MarkdownEditor from "./MarkdownEditor";
+import TagPeople from "./TagPeople"; // Adjust the path as needed
 
 const WritePostModal = ({ show, handleClose }) => {
   const [files, setFiles] = useState([]);
   const [content, setContent] = useState("");
-  const [peopleTag, setPeopleTag] = useState(""); // Assuming a simple text input for people tags
-  const [placeTag, setPlaceTag] = useState(""); // Assuming a simple text input for place tags
+  const [taggedUsers, setTaggedUsers] = useState([]);
+  const [placeTag, setPlaceTag] = useState(""); // Define the placeTag state
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [showLocationModal, setShowLocationModal] = useState(false);
 
@@ -24,8 +25,10 @@ const WritePostModal = ({ show, handleClose }) => {
   const handleSaveChanges = async () => {
     const postData = new FormData();
     postData.append("content", content);
-    postData.append("peopleTag", peopleTag);
     postData.append("placeTag", placeTag);
+    taggedUsers.forEach((user, index) => {
+      postData.append(`taggedUser${index}`, user.id);
+    });
     files.forEach((file, index) => {
       postData.append(`image${index}`, file);
     });
@@ -60,15 +63,10 @@ const WritePostModal = ({ show, handleClose }) => {
             <MarkdownEditor content={content} setContent={setContent} />
           </Form.Group>
 
-          <Form.Group controlId="formPeopleTag">
-            <Form.Label>People Tag</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Tag people"
-              value={peopleTag}
-              onChange={(e) => setPeopleTag(e.target.value)}
-            />
-          </Form.Group>
+          <TagPeople
+            taggedUsers={taggedUsers}
+            setTaggedUsers={setTaggedUsers}
+          />
 
           <Form.Group controlId="formPlaceTag">
             <Form.Label>Place Tag</Form.Label>
