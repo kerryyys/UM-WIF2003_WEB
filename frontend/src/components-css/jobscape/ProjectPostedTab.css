@@ -1,0 +1,57 @@
+.ProjectPostedTab {
+  position: relative;
+  display: flex;
+  color: #2d4777;
+  background-color: #fdfaf3;
+  height: auto;
+  width: 300px;
+  border-radius: 10px;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  padding-bottom: 1%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.ProjectPostedTab .projectDetails{
+  width: 100%;
+}
+
+.ProjectPostedTab .content {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 15%;
+  padding: 8%;
+}
+
+.ProjectPostedTab .content .DetailsType,
+.ProjectPostedTab .content .PDetails {
+  width: 50%;
+  color: #2d4777;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.ProjectPostedTab .content .DetailsType {
+  height: auto;
+  font-weight: 700;
+}
+
+.ProjectPostedTab .MoreBtn {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: auto;
+  color: #fdfaf3;
+  background-color: #2d4777;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 24px;
+  text-align: center;
+  padding: 10px;
+}
+
+.ProjectPostedTab .MoreBtn:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}

@@ -3,7 +3,7 @@ import Rating from "react-rating";
 import { BsStarFill } from "react-icons/bs"; // Import the star icon from react-icons/bs
 import "../../components-css/jobscape/ReviewForm.css";
 
-const ReviewForm = ({ onClose, onReviewSubmit }) => {
+const ReviewForm = ({ onClose, onReviewSubmit, setShowNotification }) => {
   const [satisfactionRating, setSatisfactionRating] = useState(0);
   const [projectRating, setProjectRating] = useState(0);
   const [projectFeedback, setProjectFeedback] = useState("");
@@ -11,12 +11,17 @@ const ReviewForm = ({ onClose, onReviewSubmit }) => {
   const [collaboratorFeedback, setCollaboratorFeedback] = useState("");
 
   const handleSubmit = () => {
-    console.log("Satisfaction Rating:", satisfactionRating);
-    console.log("Project Rating:", projectRating);
-    console.log("Project Feedback:", projectFeedback);
-    console.log("Collaborator Rating:", collaboratorRating);
-    console.log("Collaborator Feedback:", collaboratorFeedback);
-    onReviewSubmit(); // Call the onReviewSubmit handler passed from parent component
+    // Prepare review data object
+    const reviewData = {
+      satisfactionRating,
+      projectRating,
+      projectFeedback,
+      collaboratorRating,
+      collaboratorFeedback,
+    };
+    console.log("Review Data:", reviewData); // Debugging log
+    // Call the onReviewSubmit handler passed from parent component with reviewData
+    onReviewSubmit(reviewData);
     onClose();
   };
 

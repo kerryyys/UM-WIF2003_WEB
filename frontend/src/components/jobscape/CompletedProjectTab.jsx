@@ -5,16 +5,41 @@ import ReviewForm from "../../components/jobscape/ReviewForm";
 import "../../components-css/jobscape/CompletedProjectTab.css";
 
 const CompletedProjectTab = ({
+  projectId,
   projectTitle,
   due,
   budget,
   collaborator,
-  onReviewSubmit,
+  setShowNotification
 }) => {
   const [showReviewForm, setShowReviewForm] = useState(false);
 
   const handleRateBtnClick = () => {
     setShowReviewForm(true);
+  };
+
+  const handleClose = () => {
+    setShowReviewForm(false);
+  };
+
+  const handleSubmitReview = async (reviewData) => {
+    try {
+      const response = await fetch(
+        "http://localhost:5050/recruite/" + projectId + "/saveReview",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(reviewData),
+        }
+      );
+      const data = await response.json();
+      console.log("Review saved:", data);
+      setShowNotification(true); // Call setShowNotification to show the notification
+    } catch (error) {
+      console.error("Error saving review:", error);
+    }
   };
 
   return (
@@ -46,8 +71,9 @@ const CompletedProjectTab = ({
       </div>
       {showReviewForm && (
         <ReviewForm
-          onClose={() => setShowReviewForm(false)}
-          onReviewSubmit={onReviewSubmit} // Pass onReviewSubmit handler
+          onClose={handleClose}
+          onReviewSubmit={handleSubmitReview}
+          setShowNotification={setShowNotification} // Pass setShowNotification as a prop
         />
       )}
     </>

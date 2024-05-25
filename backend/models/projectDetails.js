@@ -18,9 +18,18 @@ const projectDetailsSchema = mongoose.Schema(
         contactInformation: { type: String, required: true },
         additionalNotes: String,
         agreedToTerms: { type: Boolean, required: true },
+        posted:{ type: Boolean, default: true },
         taken: { type: Boolean, default: false },
-        complete: { type: Boolean, default: false},
-        PIC: {type: String}
+        completed: { type: Boolean, default: false},
+        applicants: { type: [String] }, //should store freelancer userID
+        PIC: {type: String},
+        review: [{
+    satisfactionRating: Number,
+    projectRating: Number,
+    projectFeedback: String,
+    collaboratorRating: Number,
+    collaboratorFeedback: String
+  }]
     },
     { timestamps: true }
 );
