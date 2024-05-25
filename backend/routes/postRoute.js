@@ -5,15 +5,25 @@ import Comment from "../models/comment.js";
 
 const router = express.Router();
 
-router.post("/posts", async (req, res) => {
-  const { content, image } = req.body;
+router.post("/", async (req, res) => {
+  const { author, content, image } = req.body;
   const post = new Post({
-    author: req.user._id,
+    // req.user._id,
+    author,
     content,
     image,
   });
   await post.save();
   res.status(Status.SUCCESS).json(post);
+});
+
+router.get("/", async (req, res) => {
+  try {
+    const posts = await Post.find().populate("comments");
+    res.status(Status.SUCCESS).json(posts);
+  } catch (error) {
+    res.status(Status.ERROR).json({ message: error.message });
+  }
 });
 
 router.post("/:postId/comments", async (req, res) => {
