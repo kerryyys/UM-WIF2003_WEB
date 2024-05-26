@@ -28,13 +28,14 @@ const projectDetailsSchema = mongoose.Schema(
         taken: { type: Boolean, default: false },
         completed: { type: Boolean, default: false},
         applicants: { type: [String] }, //should store freelancer userID
-        PIC: {type: String},
+        // PIC: { type: Schema.Types.ObjectId, ref: "FakeUser" }, I renamed it to serviceProvider
         review: [{
     satisfactionRating: Number,
     projectRating: Number,
     projectFeedback: String,
     collaboratorRating: Number,
-    collaboratorFeedback: String
+    collaboratorFeedback: String,
+    _id: false,
   }]
     },
     { timestamps: true }

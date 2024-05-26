@@ -1,5 +1,5 @@
 import express from 'express';
-import { ProjectDetails } from '../models/projectDetails.js';
+import { Project } from '../models/projectModel.js';
 
 const router = express.Router();
 
@@ -25,13 +25,14 @@ router.post("/", async (req, res) => {
       taken,
       completed,
       applicants,
-      PIC,
-      review
+      serviceProvider,
+      review,
+      uploadedFiles
     } = req.body;
 
     // Create a new project details document
     //NOT SURE HAVE TO RETRIEVE THE LOGO HERE OR NOT
-    const newProjectDetails = new ProjectDetails({
+    const project = new Project({
       companyLog,
       companyName,
       projectTitle,
@@ -50,15 +51,16 @@ router.post("/", async (req, res) => {
       taken,
       completed,
       applicants,
-      PIC,
-      review
+      serviceProvider,
+      review,
+      uploadedFiles
     });
 
     // Save the project details to MongoDB
-    const savedProjectDetails = await newProjectDetails.save();
-    console.log("Project details uploaded:", savedProjectDetails);
+    const savedProject = await project.save();
+    console.log("Project details uploaded:", savedProject);
 
-    return res.status(201).json(savedProjectDetails);
+    return res.status(201).json(savedProject);
   } catch (error) {
     console.error(error.message);
     res.status(500).json({ message: "Internal server error" });
@@ -67,8 +69,8 @@ router.post("/", async (req, res) => {
 
 router.get('/', async (req, res) => {
   try {
-    const projectDetails = await ProjectDetails.find();
-    res.json(projectDetails);
+    const project = await Project.find();
+    res.json(project);
   } catch (error) {
     console.error(error.message);
     res.status(500).json({ message: "Internal server error" });
