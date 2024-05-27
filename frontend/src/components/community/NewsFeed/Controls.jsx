@@ -8,10 +8,12 @@ import {
   faPaperPlane,
 } from "@fortawesome/free-solid-svg-icons";
 import CommentSection from "./CommentSection";
+import ShareModal from "./ShareModal";
 
 function Controls() {
   const [activeItem, setActiveItem] = useState(null);
   const [isLikeActive, setIsLikeActive] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const items = [
     {
@@ -33,7 +35,7 @@ function Controls() {
       label: "Share",
       color: "#76ef66", // Green color
       isActive: false,
-      onClick: () => {}, // No action defined for Share
+      onClick: () => setIsModalOpen(true),
     },
     {
       icon: <FontAwesomeIcon icon={faPaperPlane} className="tw-mr-4" />,
@@ -63,6 +65,11 @@ function Controls() {
           <CommentSection />
         </div>
       )}
+      <ShareModal
+        isOpen={isModalOpen}
+        onRequestClose={() => setIsModalOpen(false)}
+        link="https://youtu.be/xwBJbWc2xKE?si=P3sZsDlQoaeS7TKY"
+      />
     </div>
   );
 }
