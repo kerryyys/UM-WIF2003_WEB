@@ -10,7 +10,6 @@ const LocationButton = ({ handleShowLocationModal }) => (
     >
       Add Location
     </Button>
-    <Button variant="outline-secondary">Tag People</Button>
   </div>
 );
 
