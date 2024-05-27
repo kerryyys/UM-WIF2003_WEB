@@ -1,5 +1,3 @@
-// src/components/NewsFeed/ProfileHeader.js
-import React from "react";
 import { Image } from "react-bootstrap";
 
 function ProfileHeader({ img, name, title, time }) {
