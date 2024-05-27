@@ -24,8 +24,8 @@ function ExploreItem({ companyImg, companyName }) {
         alt="company"
         className="img-fluid rounded-circle mx-auto d-block explore-item-company-img"
       ></img>
-      <div class="tw-gap-0">
-        <p class="tw-text-lg tw-text-center">{companyName}</p>
+      <div className="tw-gap-0">
+        <p className="tw-text-lg tw-text-center">{companyName}</p>
         <FollowButton />
       </div>
     </div>
