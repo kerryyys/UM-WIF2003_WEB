@@ -3,12 +3,15 @@ import PropTypes from "prop-types";
 
 const SuggestionsList = ({ suggestions, onSelectUser }) => {
   return (
-    <ul className="absolute z-10 w-full bg-white border border-gray-300 rounded mt-1 max-h-60 overflow-y-auto shadow-lg">
+    <ul
+      className="tw-absolute tw-z-10 tw-w-full tw-bg-white tw-border tw-border-gray-300 tw-rounded mt-1 tw-max-h-60 tw-overflow-y-auto tw-shadow-sm"
+      style={{ marginTop: "2.5rem", boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)" }}
+    >
       {suggestions.map((user) => (
         <li
           key={user.id}
           onClick={() => onSelectUser(user)}
-          className="p-2 hover:bg-gray-100 cursor-pointer"
+          className="tw-p-2 hover:tw-bg-gray-100 tw-cursor-pointer"
         >
           {user.name}
         </li>
