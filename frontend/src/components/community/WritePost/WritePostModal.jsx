@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
+import axios from "axios";
 import FileUploader from "./FileUploader";
 import LocationButton from "./LocationButton";
 import LocationSearchModal from "./LocationSearchModal";
 import TagPeople from "./TagPeople";
-import axios from "axios";
+import RequiredField from "./RequiredField";
+import { handleInputChange, validateFields } from "./Util";
 
 const WritePostModal = ({ show, handleClose }) => {
   const [title, setTitle] = useState("");
@@ -13,6 +15,10 @@ const WritePostModal = ({ show, handleClose }) => {
   const [taggedUsers, setTaggedUsers] = useState([]);
   const [placeTag, setPlaceTag] = useState("");
   const [showLocationModal, setShowLocationModal] = useState(false);
+  const [errors, setErrors] = useState({});
+
+  const titleRef = useRef(null);
+  const contentRef = useRef(null);
 
   const handleShowLocationModal = () => setShowLocationModal(true);
   const handleCloseLocationModal = () => setShowLocationModal(false);
@@ -24,6 +30,7 @@ const WritePostModal = ({ show, handleClose }) => {
     setTaggedUsers([]);
     setPlaceTag("");
     setShowLocationModal(false);
+    setErrors({});
   };
 
   useEffect(() => {
@@ -33,20 +40,24 @@ const WritePostModal = ({ show, handleClose }) => {
   }, [show]);
 
   const handleSaveChanges = async () => {
-    const postData = {
-      title: title,
-      content: content,
-      taggedUsers: taggedUsers,
-      placeTag: placeTag,
-    };
+    const fields = { title, content };
+    const newErrors = validateFields(fields);
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length > 0) {
+      if (newErrors.title) titleRef.current.focus();
+      else if (newErrors.content) contentRef.current.focus();
+      return;
+    }
+
+    const postData = { title, content, taggedUsers, placeTag, images: files };
 
     try {
-      const response = await axios.post(
+      const res = await axios.post(
         "http://localhost:5050/community/posts",
         postData
       );
-
-      if (response.status === 200) {
+      if (res.status === 200) {
         console.log("Post submitted successfully");
         handleClose();
       } else {
@@ -67,30 +78,27 @@ const WritePostModal = ({ show, handleClose }) => {
 
       <Modal.Body className="tw-bg-white">
         <Form>
-          <Form.Group controlId="formPostTitle" className="tw-mb-4">
-            <Form.Label className="tw-text-gray-700 tw-font-semibold">
-              Title
-            </Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Enter the title of your post"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              className="tw-border tw-rounded tw-p-2 tw-w-full"
-            />
-          </Form.Group>
+          <RequiredField
+            label="Title"
+            value={title}
+            onChangeListener={handleInputChange(setTitle, errors, setErrors)}
+            hasError={errors.title}
+            errorTitle={errors.title}
+            controlType="text"
+            placeholder="Enter the title of your post"
+            ref={titleRef}
+          />
 
-          <Form.Group controlId="formPostContent" className="tw-mb-4">
-            <Form.Label className="tw-text-gray-700 tw-font-semibold">
-              Post Content
-            </Form.Label>
-            <Form.Control
-              as="textarea"
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-              className="tw-w-full tw-h-40 tw-border tw-rounded tw-p-2 tw-resize-none"
-            />
-          </Form.Group>
+          <RequiredField
+            label="Post Content"
+            value={content}
+            onChangeListener={handleInputChange(setContent, errors, setErrors)}
+            hasError={errors.content}
+            errorTitle={errors.content}
+            controlType="textarea"
+            placeholder="Enter the content of your post"
+            ref={contentRef}
+          />
 
           <TagPeople
             taggedUsers={taggedUsers}
