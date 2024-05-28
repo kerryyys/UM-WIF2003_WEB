@@ -18,29 +18,12 @@ const SeekJobPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedFilters, setSelectedFilters] = useState([]);
 
+
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
 
-  const handleFilterChange = (name, checked) => {
-    // Will add to selectedFilters if checked
-    if (checked) {
-      setSelectedFilters((prevFilters) => [...prevFilters, name]);
-    } else {
-      // Remove from selectedFilters if unchecked
-      setSelectedFilters((prevFilters) =>
-        prevFilters.filter((filter) => filter !== name)
-      );
-    }
-    setCurrentPage(1); // Reset to the first page when filters change
-  };
-  // Use for debugging, can ignore
-  useEffect(() => {
-    console.log("current selectedFilters: " + JSON.stringify(selectedFilters));
-  }, [selectedFilters]);
-
-  const projectPerPage = 7;
-
+ 
   const [projectTabs, setProjectTabs] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -63,7 +46,7 @@ const SeekJobPage = () => {
             companyLogo: project.companyLogo,
             projectName: project.projectTitle,
             companyName: project.companyName,
-            category: project.category,
+            projectCategory: project.projectCategory,
             filters: project.filters,
             timePosted: calculateTimePosted(project.createdAt),
           };
@@ -71,7 +54,7 @@ const SeekJobPage = () => {
         setProjectTabs(fetchedProjects);
         // console.log("project tabs: " + JSON.stringify(projectTabs));
       } catch (error) {
-        console.error(error.message);
+        console.error("Error: " + error.message);
       }
     };
     fetchProjects();
@@ -123,7 +106,7 @@ const SeekJobPage = () => {
           companyLogo: project.companyLogo,
           projectName: project.projectTitle,
           companyName: project.companyName,
-          category: project.category,
+          projectCategory: project.projectCategory,
           filters: project.filters,
           timePosted: calculateTimePosted(project.createdAt),
         };
@@ -135,233 +118,22 @@ const SeekJobPage = () => {
     }
   };
 
-  // Array of ProjectTab components
-  setProjectTabs([
-    {
-      CompanyLogo: DellLogo,
-      projectName: "Build a Website",
-      companyName: "Dell Technology",
-      category: "Web Development",
-      filters: [
-        "Web Development",
-        "Long Term",
-        "Programming",
-        "RM 8,000",
-        "Remote",
-      ],
-      timePosted: "2 hours ago",
-    },
-    {
-      CompanyLogo: WeddingLogo,
-      projectName: "Wedding Photography",
-      companyName: "WedPhoto",
-      category: "Photographic",
-      filters: [
-        "Photographic",
-        "Short Term",
-        "Creative",
-        "RM 3,000",
-        "Selangor",
-      ],
-      timePosted: "5 hours ago",
-    },
-    {
-      CompanyLogo: DellLogo,
-      projectName: "Build a Website",
-      companyName: "Dell Technology",
-      category: "Web Development",
-      filters: [
-        "Web Development",
-        "Long Term",
-        "Programming",
-        "RM 8,000",
-        "Remote",
-      ],
-      timePosted: "2 hours ago",
-    },
-    {
-      CompanyLogo: WeddingLogo,
-      projectName: "Wedding Photography",
-      companyName: "WedPhoto",
-      category: "Photographic",
-      filters: [
-        "Photographic",
-        "Short Term",
-        "Creative",
-        "RM 3,000",
-        "Selangor",
-      ],
-      timePosted: "5 hours ago",
-    },
-    {
-      CompanyLogo: DellLogo,
-      projectName: "Build a Website",
-      companyName: "Dell Technology",
-      category: "Web Development",
-      filters: [
-        "Web Development",
-        "Long Term",
-        "Programming",
-        "RM 8,000",
-        "Remote",
-      ],
-      timePosted: "2 hours ago",
-    },
-    {
-      CompanyLogo: WeddingLogo,
-      projectName: "Wedding Photography",
-      companyName: "WedPhoto",
-      category: "Photographic",
-      filters: [
-        "Photographic",
-        "Short Term",
-        "Creative",
-        "RM 3,000",
-        "Selangor",
-      ],
-      timePosted: "5 hours ago",
-    },
-    {
-      CompanyLogo: DellLogo,
-      projectName: "Build a Website",
-      companyName: "Dell Technology",
-      category: "Web Development",
-      filters: [
-        "Web Development",
-        "Long Term",
-        "Programming",
-        "RM 8,000",
-        "Remote",
-      ],
-      timePosted: "2 hours ago",
-    },
-    {
-      CompanyLogo: WeddingLogo,
-      projectName: "Wedding Photography",
-      companyName: "WedPhoto",
-      category: "Photographic",
-      filters: [
-        "Photographic",
-        "Short Term",
-        "Creative",
-        "RM 3,000",
-        "Selangor",
-      ],
-      timePosted: "5 hours ago",
-    },
-    {
-      CompanyLogo: DellLogo,
-      projectName: "Build a Website",
-      companyName: "Dell Technology",
-      category: "Web Development",
-      filters: [
-        "Web Development",
-        "Long Term",
-        "Programming",
-        "RM 8,000",
-        "Remote",
-      ],
-      timePosted: "2 hours ago",
-    },
-    {
-      CompanyLogo: WeddingLogo,
-      projectName: "Wedding Photography",
-      companyName: "WedPhoto",
-      category: "Photographic",
-      filters: [
-        "Photographic",
-        "Short Term",
-        "Creative",
-        "RM 3,000",
-        "Selangor",
-      ],
-      timePosted: "5 hours ago",
-    },
-    {
-      CompanyLogo: DellLogo,
-      projectName: "Build a Website",
-      companyName: "Dell Technology",
-      category: "Web Development",
-      filters: [
-        "Web Development",
-        "Long Term",
-        "Programming",
-        "RM 8,000",
-        "Remote",
-      ],
-      timePosted: "2 hours ago",
-    },
-    {
-      CompanyLogo: WeddingLogo,
-      projectName: "Wedding Photography",
-      companyName: "WedPhoto",
-      category: "Photographic",
-      filters: [
-        "Photographic",
-        "Short Term",
-        "Creative",
-        "RM 3,000",
-        "Selangor",
-      ],
-      timePosted: "5 hours ago",
-    },
-    {
-      CompanyLogo: DellLogo,
-      projectName: "Build a Website",
-      companyName: "Dell Technology",
-      category: "Web Development",
-      filters: [
-        "Web Development",
-        "Long Term",
-        "Programming",
-        "RM 8,000",
-        "Remote",
-      ],
-      timePosted: "2 hours ago",
-    },
-    {
-      CompanyLogo: WeddingLogo,
-      projectName: "Wedding Photography",
-      companyName: "WedPhoto",
-      category: "Photographic",
-      filters: [
-        "Photographic",
-        "Short Term",
-        "Creative",
-        "RM 3,000",
-        "Selangor",
-      ],
-      timePosted: "5 hours ago",
-    },
-    {
-      CompanyLogo: DellLogo,
-      projectName: "Build a Website",
-      companyName: "Dell Technology",
-      category: "Web Development",
-      filters: [
-        "Web Development",
-        "Long Term",
-        "Programming",
-        "RM 8,000",
-        "Remote",
-      ],
-      timePosted: "2 hours ago",
-    },
-    {
-      CompanyLogo: WeddingLogo,
-      projectName: "Wedding Photography",
-      companyName: "WedPhoto",
-      category: "Photographic",
-      filters: [
-        "Photographic",
-        "Short Term",
-        "Creative",
-        "RM 3,000",
-        "Selangor",
-      ],
-      timePosted: "5 hours ago",
-    },
-  ]);
+
+  const handleFilterChange = (name, checked) => {
+    // Will add to selectedFilters if checked
+    if (checked) {
+      setSelectedFilters((prevFilters) => [...prevFilters, name]);
+    } else {
+      // Remove from selectedFilters if unchecked
+      setSelectedFilters((prevFilters) =>
+        prevFilters.filter((filter) => filter !== name)
+      );
+    }
+    setCurrentPage(1); // Reset to the first page when filters change
+  };
+
+  const projectPerPage = 7;
+
 
   const categories = [
     "Web Developer",
@@ -375,7 +147,7 @@ const SeekJobPage = () => {
 
   const filterTabs = [
     {
-      filterTitle: "PROJECT TYPE",
+      filterTitle: "PROJECT CATEGORY",
       filterTypes: [
         "Web Development",
         "Graphic & Design",
@@ -388,19 +160,9 @@ const SeekJobPage = () => {
       filterTitle: "PROJECT DURATION",
       filterTypes: ["Short Term", "Long Term", "OnGoing"],
     },
+
     {
-      filterTitle: "SKILL REQUIRED",
-      filterTypes: [
-        "Programming",
-        "Editing",
-        "Designing",
-        "Problem Solving",
-        "Dancing",
-        "Project Management",
-      ],
-    },
-    {
-      filterTitle: "BUDGE RANGE",
+      filterTitle: "BUDGET RANGE",
       filterTypes: [
         "1,000-3,000",
         "3,001-5,000",
@@ -450,7 +212,7 @@ const SeekJobPage = () => {
             value={searchValue}
             handleChange={handleSearchChange}
           />
-          <CategoryBar
+          {/* <CategoryBar
             categories={categories}
             value={selectedCategory}
             onChange={handleCategoryChange}
@@ -459,7 +221,7 @@ const SeekJobPage = () => {
             duration={duration}
             value={selectedDuration}
             onChange={handleDurationChange}
-          />
+          /> */}
           <SearchButton
             handleClick={handleClick}
             bgColor={"#2D4877"}

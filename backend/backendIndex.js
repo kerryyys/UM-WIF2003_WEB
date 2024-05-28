@@ -24,7 +24,7 @@ app.use("/posts", postRoute);
 
 app.get("*", (req, res) => {
   console.log(req);
-  res.send("page is not here dumbass");
+  res.send("page is not here");
 });
 
 // Log every incoming request

@@ -6,39 +6,35 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import SeekJobPage from "./SeekJobPage";
 import JobAcceptedModal from "../../components/jobscape/JobAcceptedModal";
 import UploadWorkModal from "../../components/jobscape/UploadWorkModal";
+import {
+  setTakenProject,
+  uploadCompletedWorks,
+  setApplyingProject,
+} from "../../api/projectApi";
+import { API_URL } from "../../api/projectApi";
 import axios from "axios";
+import moment from "moment";
 
 export default function JobDetailsPage(props) {
   const { projectId } = useParams();
   const [loading, setLoading] = useState(true);
   const [saved, setSaved] = useState(false);
-  const [jobAccepted, setJobAccepted] = useState(false);
+  const [jobApplied, setjobApplied] = useState(false);
+  const [applicationStatus, setApplicationStatus] = useState("notApplied");
   const [showAcceptedModal, setShowAcceptedModal] = useState(false);
   const [showUploadModal, setShowUploadModal] = useState(false);
+
   const [projectDetails, setProjectDetails] = useState({
     filters: [],
     requiredSkills: [],
   });
-  const jobDetails = {
-    title: "Web Development",
-    companyName: "DELL Technology",
-    category: "Tech & IT",
-    filters: ["Web Dev", "Long Term", "Programming", "RM 8,000", "Remote"],
-    postedTime: "2 hours ago",
-    description: `We are looking for a talented web developer to join our team. As a web developer, you will be responsible for designing, coding, and modifying websites, from layout to function and according to a client's specifications. You will strive to create visually appealing sites that feature user-friendly design and clear navigation.`,
-    duration: "Long Term",
-    deadline: "Before August 2024",
-    budget: 8000.0,
-    requiredSkills: [
-      "Proficiency in HTML, CSS, JavaScript, and other relevant web development languages",
-      "Experience with front-end frameworks such as React.",
-      "Familiarity with back-end development languages and frameworks, such as Node.js.",
-    ],
-    contactInfo: "+6 012 3456789 (Mr Lee)",
-    additionalInfo: "-",
-  };
+
+  // Fake user id just for testing
+  // NEED TO BE MODIFIED ONCE USER SESSION IS IMPLEMENTED
+  const userId = "664a0e34bc1a43dbcb1f6d74";
+
   const navigate = useNavigate();
-  const filters = ["Web Dev", "Long Term", "Programming", "RM 8,000", "Remote"];
+
   const toggleBookmark = () => {
     setSaved(!saved);
   };
@@ -46,36 +42,52 @@ export default function JobDetailsPage(props) {
   const handleUploadClick = () => {
     setShowUploadModal(true);
   };
-  const handleSubmitClick = () => {
+  const handleSubmitClick = async (files) => {
     setShowUploadModal(false);
+    console.log(files);
+    try {
+      if (files.length > 0) {
+        await uploadCompletedWorks(files, projectId, userId);
+      }
+    } catch (error) {
+      console.error("Error upload works, frontend: ", error);
+    }
   };
-  const handleAcceptClick = () => {
+  const handleAcceptClick = async () => {
     setShowAcceptedModal(true);
-    setJobAccepted(true);
+    try {
+      if (applicationStatus == "notApplied") {
+        await setApplyingProject(userId, projectId);
+      }
+      setApplicationStatus("applying");
+    } catch (error) {
+      console.error("Error add applying project: ", error);
+    }
   };
   const onFileChange = (files) => {
-    console.log(files);
+    // console.log(files);
   };
+
+  // UseEffect to get current project's details
   useEffect(() => {
     const fetchProjectDetails = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:5050/projects/${projectId}`
-        );
+        const response = await axios.get(`${API_URL}/${projectId}`);
 
         const project = response.data;
         const fetchedProject = {
           companyLogo: project.companyLogo,
           projectName: project.projectTitle,
-          projectDesc: project.projectDesc,
-          duration: project.duration,
-          contactInfo: project.contactInfo,
-          additionalInfo: project.additionalInfo,
-          deadline: project.deadline,
+          projectDesc: project.projectDescription,
+          duration: project.projectDuration,
+          contactInfo: project.contactInformation,
+          additionalInfo: project.additionalNotes,
+          deadline: moment(project.deadline).format("DD-MM-YYYY"),
           requiredSkills: project.requiredSkills,
           companyName: project.companyName,
-          category: project.category,
+          category: project.projectCategory,
           filters: project.filters,
+          budget: project.projectBudget,
           timePosted: calculateTimePosted(project.createdAt),
         };
         console.log(
@@ -90,6 +102,54 @@ export default function JobDetailsPage(props) {
     };
     fetchProjectDetails();
   }, []);
+
+  // UseEffect to check if project is already taken by current user.
+  useEffect(() => {
+    const checkUserTakenProjects = async () => {
+      console.log("checkUserTaken Projects UseEffect has been executed");
+      try {
+        const user = await axios.get(`${API_URL}/user/${userId}`);
+        const tknProjects = user.data.takenProjects;
+        const applyingProjects = user.data.applyingProjects;
+        console.log("Fetch user from frontend, tknProjects: ", tknProjects);
+        console.log(
+          "Fetch user from frontend, applyingProjects : ",
+          applyingProjects
+        );
+        if (Array.isArray(tknProjects) && tknProjects.includes(projectId)) {
+          setApplicationStatus("applied");
+        }
+        if (
+          Array.isArray(applyingProjects) &&
+          applyingProjects.includes(projectId)
+        ) {
+          setApplicationStatus("applying");
+        }
+      } catch (error) {
+        console.error("Error fetching user favorite projects: ", error);
+      }
+    };
+    checkUserTakenProjects();
+  }, []);
+
+  const renderApplyButton = () => {
+    switch (applicationStatus) {
+      case "notApplied":
+        return (
+          <Button className="accept" onClick={handleAcceptClick}>
+            Apply Job
+          </Button>
+        );
+      case "applying":
+        return <span>Applying...</span>;
+      case "applied":
+        return (
+          <Button className="accept" onClick={handleUploadClick}>
+            Upload Work
+          </Button>
+        );
+    }
+  };
   const calculateTimePosted = (createdAt) => {
     const currentTime = new Date();
     const createdTime = new Date(createdAt);
@@ -133,7 +193,7 @@ export default function JobDetailsPage(props) {
               </p>
             </div>
             <div className="title-right">
-              {jobAccepted ? (
+              {applicationStatus == "applied" ? (
                 <>
                   <h5>
                     Completion deadline: <br />
@@ -200,17 +260,18 @@ export default function JobDetailsPage(props) {
           <Row className="button-row">
             <Col></Col>
             <Col>
-              {jobAccepted ? (
+              {/* {jobApplied ? (
                 <Button className="accept" onClick={handleUploadClick}>
                   Upload Work
                 </Button>
               ) : (
                 <>
                   <Button className="accept" onClick={handleAcceptClick}>
-                    Accept Job
+                    Apply Job
                   </Button>
                 </>
-              )}
+              )} */}
+              {renderApplyButton()}
               <Button className="chat">
                 <i className="bi bi-chat-dots" /> Chat with Requester
               </Button>

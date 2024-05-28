@@ -1,5 +1,7 @@
+
 import express from 'express';
 import { Project } from '../models/projectModel.js';
+
 
 const router = express.Router();
 
@@ -7,7 +9,7 @@ router.post("/", async (req, res) => {
   try {
     console.log(req.body);
     const {
-      companyLog,
+      companyLogo,
       companyName,
       projectTitle,
       projectDescription,
@@ -33,7 +35,7 @@ router.post("/", async (req, res) => {
     // Create a new project details document
     //NOT SURE HAVE TO RETRIEVE THE LOGO HERE OR NOT
     const project = new Project({
-      companyLog,
+      companyLogo,
       companyName,
       projectTitle,
       projectDescription,
@@ -67,7 +69,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get('/', async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const project = await Project.find();
     res.json(project);
