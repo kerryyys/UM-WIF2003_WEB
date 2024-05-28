@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
-import FileUploader from "./FileUploader"; // Adjust the path as needed
-import LocationButton from "./LocationButton"; // Adjust the path as needed
-import LocationSearchModal from "./LocationSearchModal"; // Adjust the path as needed
-import MarkdownEditor from "./MarkdownEditor";
-import TagPeople from "./TagPeople"; // Adjust the path as needed
+import FileUploader from "./FileUploader";
+import LocationButton from "./LocationButton";
+import LocationSearchModal from "./LocationSearchModal";
+import TagPeople from "./TagPeople";
+import axios from "axios";
 
 const WritePostModal = ({ show, handleClose }) => {
   const [title, setTitle] = useState("");
@@ -33,31 +33,27 @@ const WritePostModal = ({ show, handleClose }) => {
   }, [show]);
 
   const handleSaveChanges = async () => {
-    const postData = new FormData();
-    postData.append("title", title);
-    postData.append("content", content);
-    postData.append("placeTag", placeTag);
-    taggedUsers.forEach((user, index) => {
-      postData.append(`taggedUser${index}`, user.id);
-    });
-    files.forEach((file, index) => {
-      postData.append(`image${index}`, file);
-    });
+    const postData = {
+      title: title,
+      content: content,
+      taggedUsers: taggedUsers,
+      placeTag: placeTag,
+    };
 
     try {
-      const response = await fetch("http://localhost/community/post", {
-        method: "POST",
-        body: postData,
-      });
+      const response = await axios.post(
+        "http://localhost:5050/community/posts",
+        postData
+      );
 
-      if (response.ok) {
+      if (response.status === 200) {
         console.log("Post submitted successfully");
         handleClose();
       } else {
         console.error("Failed to submit post");
       }
     } catch (error) {
-      console.error("Error submitting post:", error);
+      console.log(error);
     }
   };
 
@@ -88,7 +84,12 @@ const WritePostModal = ({ show, handleClose }) => {
             <Form.Label className="tw-text-gray-700 tw-font-semibold">
               Post Content
             </Form.Label>
-            <MarkdownEditor content={content} setContent={setContent} />
+            <Form.Control
+              as="textarea"
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              className="tw-w-full tw-h-40 tw-border tw-rounded tw-p-2 tw-resize-none"
+            />
           </Form.Group>
 
           <TagPeople
