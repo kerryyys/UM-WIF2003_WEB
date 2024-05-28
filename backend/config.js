@@ -1,3 +1,5 @@
+// Multer is for handling file upload
+import multer from "multer";
 //i use this format because it is more organised
 export const PORT = 5050;
 

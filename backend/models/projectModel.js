@@ -1,9 +1,11 @@
 import mongoose from "mongoose";
 import { Schema } from "mongoose";
 
+
 const getDefaultFilter = function() {
     return [this.projectCategory, this.projectDuration, this.location];
 };
+
 
 const projectSchema = mongoose.Schema(
   {

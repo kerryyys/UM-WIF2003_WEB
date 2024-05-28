@@ -23,6 +23,11 @@ export default function UploadWorkModal(props) {
     wrapperRef.current.classList.remove("dragover");
   };
 
+  const onSubmit = () => {
+    setFileList([]);
+    props.onSubmitClick(fileList);
+  };
+
   const onFileDrop = (e) => {
     const newFile = e.target.files[0];
     if (newFile) {
@@ -59,7 +64,13 @@ export default function UploadWorkModal(props) {
               <img src={uploadWorkImg} alt="" />
               <p>Drag & Drop files here</p>
             </div>
-            <input type="file" value="" onChange={onFileDrop} multiple />
+            <input
+              type="file"
+              value=""
+              onChange={onFileDrop}
+              multiple
+              name="files"
+            />
           </div>
           {fileList.length > 0 ? (
             <div className="drop-file-preview">
@@ -80,7 +91,7 @@ export default function UploadWorkModal(props) {
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="primary" onClick={props.onSubmitClick}>
+        <Button variant="primary" onClick={onSubmit}>
           Submit
         </Button>
       </Modal.Footer>

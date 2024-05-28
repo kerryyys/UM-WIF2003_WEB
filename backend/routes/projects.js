@@ -1,66 +1,111 @@
 import e from "express";
 import { Project } from "../models/projectModel.js";
+import { FakeUser } from "../models/fakeUserModel.js";
+import multer from "multer";
+import {
+  getAllProjects,
+  postNewProject,
+  getProjectDetails,
+  saveFavoriteProject,
+  removeFavoriteProject,
+  saveTakenProject,
+  getTakenProjects,
+  saveCompletedProject,
+  getCompletedProjects,
+  uploadCompletedWorks,
+  addApplyingProject,
+  getApplyingProjects,
+} from "../controllers/projectsController.js";
 import mongoose, { mongo } from "mongoose";
 const router = e.Router();
+// Configure storage for multer
+const storage = multer.diskStorage({
+  // req is request object, file is object containing info about the file, cb is callback func
+  destination: function (req, file, cb) {
+    cb(null, "./public/uploads"); // Directory to store uploaded files, can change
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + "-" + file.originalname);
+  },
+});
+// Create an upload instance
+const upload = multer({ storage });
 
 // Router for '/projects' endpoints
 // POST /projects - Dummy endpoint to save new projects to mongodb
-router.post("/", async (req, res) => {
-  try {
-    console.log(req.body);
-    const newProject = {
-      companyName: req.body.companyName,
-      projectTitle: req.body.projectTitle,
-      projectDesc: req.body.projectDesc,
-      category: req.body.category,
-      duration: req.body.duration,
-      filters: req.body.filters,
-      contactInfo: req.body.contactInfo,
-      additionalInfo: req.body.additionalInfo,
-      deadline: new Date(req.body.deadline),
-      budget: req.body.budget,
-      requiredSkills: req.body.requiredSkills,
-    };
-    const project = await Project.create(newProject).then((project) =>
-      console.log("project created: ", project)
-    );
-    return res.status(201).send(project);
-  } catch (error) {
-    console.log(error.message);
-    //When send is used with object, we are returning a JSON
-    res.status(500).send({ message: error.message });
-  }
-});
+router.post("/", postNewProject);
 
 // GET /projects - Retrieves all projects from mongodb
-router.get("/", async (req, res) => {
+router.get("/", getAllProjects);
+
+// GET /projects/:projectId - Retrieves project details of projectId
+router.get("/:projectId", getProjectDetails);
+
+// POST /favorite-project - Saves projectId into current user's favoriteProjects
+router.post("/favorite-project", saveFavoriteProject);
+
+// POST /remove-favorite-project - Removes projectId into current user's favoriteProjects
+router.post("/remove-favorite-project", removeFavoriteProject);
+
+// POST /applying-project - Adds projectId into current user's applyingProjects
+router.post("/applying-project", addApplyingProject);
+
+// GET /applying-project - Retrieves all applying projects of current user
+router.get("/applying-project/:userId", getApplyingProjects);
+
+// POST /taken-project - Adds projectId into current user's takenProjects
+router.post("/taken-project", saveTakenProject);
+
+// GET /taken-project - Retrieves all taken projects of current user
+router.get("/taken-project/:userId", getTakenProjects);
+
+// POST /completed-project - Adds projectId into current user's completedProjects
+router.post("/completed-project", saveCompletedProject);
+
+// GET /taken-project - Retrieves all taken projects of current user
+router.get("/completed-project/:userId", getCompletedProjects);
+
+// POST /upload-work - Saves service provider's uploaded works into server
+router.post("/upload-works", upload.array("files"), uploadCompletedWorks);
+
+// router.post("/get-applicants", async (req, res) => {
+//   try {
+//     const project = await Project.findById("6651b3b082ee377a3e8d6a91").populate(
+//       "applicants"
+//     );
+//     return res.status(200).json(project);
+//   } catch (error) {
+//     return res.status(500).json({ error: error.message });
+//   }
+// });
+// ---------------------------------------------------------------
+// These endpoints are for testing purposes, they use FakeUser
+router.post("/user", async (req, res) => {
   try {
-    let query = {};
-    if (req.query.q) {
-      const searchQuery = req.query.q;
-      const regex = new RegExp(searchQuery, "i");
-      query = { projectTitle: regex };
-    }
-    const projects = await Project.find(query);
-    return res.status(200).json({
-      count: projects.length,
-      data: projects,
+    const newUser = {
+      userId: req.body.userId,
+      username: req.body.username,
+      email: req.body.email,
+      password: req.body.password,
+      favoriteProjects: [],
+      takenProjects: [],
+      completedProjects: [],
+    };
+    const user = await FakeUser.create(newUser).then((user) => {
+      console.log("New User created: ", user);
     });
+    return res.status(201).send(user);
   } catch (error) {
-    console.log(error.message);
-    res.status(500).send({ message: error.message });
+    return res.status(500).json({ error: error.message });
   }
 });
 
-// GET /projects/:projectId - Retrieves project details of projectId
-router.get("/:projectId", async (req, res) => {
+router.get("/user/:userId", async (req, res) => {
   try {
-    const projectId = req.params.projectId;
-    const project = await Project.findById(projectId);
-    return res.status(200).json(project);
+    const user = await FakeUser.findById(req.params.userId);
+    return res.status(200).json(user);
   } catch (error) {
-    console.log(error.message);
-    res.status(500).send({ message: error.message });
+    return res.status(500).json({ error: error.message });
   }
 });
 
