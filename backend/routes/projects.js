@@ -14,6 +14,7 @@ import {
   getCompletedProjects,
   uploadCompletedWorks,
   addApplyingProject,
+  getApplyingProjects,
 } from "../controllers/projectsController.js";
 import mongoose, { mongo } from "mongoose";
 const router = e.Router();
@@ -49,6 +50,9 @@ router.post("/remove-favorite-project", removeFavoriteProject);
 // POST /applying-project - Adds projectId into current user's applyingProjects
 router.post("/applying-project", addApplyingProject);
 
+// GET /applying-project - Retrieves all applying projects of current user
+router.get("/applying-project/:userId", getApplyingProjects);
+
 // POST /taken-project - Adds projectId into current user's takenProjects
 router.post("/taken-project", saveTakenProject);
 
@@ -64,6 +68,16 @@ router.get("/completed-project/:userId", getCompletedProjects);
 // POST /upload-work - Saves service provider's uploaded works into server
 router.post("/upload-works", upload.array("files"), uploadCompletedWorks);
 
+// router.post("/get-applicants", async (req, res) => {
+//   try {
+//     const project = await Project.findById("6651b3b082ee377a3e8d6a91").populate(
+//       "applicants"
+//     );
+//     return res.status(200).json(project);
+//   } catch (error) {
+//     return res.status(500).json({ error: error.message });
+//   }
+// });
 // ---------------------------------------------------------------
 // These endpoints are for testing purposes, they use FakeUser
 router.post("/user", async (req, res) => {

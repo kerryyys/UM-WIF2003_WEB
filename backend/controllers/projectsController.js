@@ -128,6 +128,20 @@ export const addApplyingProject = async (req, res) => {
     });
   }
 };
+export const getApplyingProjects = async (req, res) => {
+  const userId = req.params.userId;
+  try {
+    const user = await FakeUser.findById(userId).populate("applyingProjects");
+    if (!user) {
+      return res.status(404).json({ message: "User doesn't exist" });
+    }
+    return res.status(200).json(user);
+  } catch (error) {
+    return res.status(400).json({
+      error: "Inside GET /applying-project endpoint " + error.message,
+    });
+  }
+};
 export const saveTakenProject = async (req, res) => {
   console.log(req.body);
   const { userId, projectId } = req.body;
@@ -152,9 +166,7 @@ export const getTakenProjects = async (req, res) => {
   console.log("getTakenProjects: ", req.params.userId);
   const userId = req.params.userId;
   try {
-    const user = await FakeUser.findById(userId)
-      .populate("takenProjects")
-      .populate("applyingProjects");
+    const user = await FakeUser.findById(userId).populate("takenProjects");
     if (!user) {
       return res.status(404).json({ message: "User doesn't exist" });
     }

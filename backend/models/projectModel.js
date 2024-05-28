@@ -1,5 +1,8 @@
 import mongoose from "mongoose";
 import { Schema } from "mongoose";
+const getDefaultFilter = function () {
+  return [this.projectCategory, this.projectDuration, this.location];
+};
 const projectSchema = mongoose.Schema(
   {
     companyLogo: { data: Buffer, contentType: String },
@@ -9,7 +12,7 @@ const projectSchema = mongoose.Schema(
     location: { type: String, required: true },
     projectCategory: { type: String, required: true },
     projectDuration: { type: String, required: true },
-    filters: { type: [String], required: true, default: [] },
+    filter: { type: [String], required: true, default: getDefaultFilter },
     contactInformation: { type: String, required: true },
     additionalNotes: String,
     deadline: { type: Date, required: true },
