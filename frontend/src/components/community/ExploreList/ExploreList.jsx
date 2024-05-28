@@ -24,8 +24,8 @@ function ExploreItem({ companyImg, companyName }) {
         alt="company"
         className="img-fluid rounded-circle mx-auto d-block explore-item-company-img"
       ></img>
-      <div class="explore-company-container">
-        <p class="company-name text-center">{companyName}</p>
+      <div class="tw-gap-0">
+        <p class="tw-text-lg tw-text-center">{companyName}</p>
         <FollowButton />
       </div>
     </div>
@@ -34,7 +34,7 @@ function ExploreItem({ companyImg, companyName }) {
 
 function ExploreList({ exploreListData }) {
   return (
-    <div className="explore-list d-inline-flex flex-column flex-wrap justify-content-center align-items-center">
+    <div className="tw-w-4/5 tw-p-[20px] tw-rounded-lg tw-border tw-border-gray-400 tw-pl-0 tw-gap-[15px] tw-inline-flex tw-flex-column tw-flex-wrap tw-flex-col tw-items-center">
       {exploreListData.map((data, index) => (
         <ExploreItem
           key={index} // Assuming each data item has a unique 'id'

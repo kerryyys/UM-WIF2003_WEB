@@ -17,6 +17,13 @@ import searchbtn from "../../assets/icons/icon_search.svg";
 const SeekJobPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedFilters, setSelectedFilters] = useState([]);
+
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+ 
   const [projectTabs, setProjectTabs] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -70,9 +77,6 @@ const SeekJobPage = () => {
       return `${diffInDays} days ago`;
     }
   };
-  const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
   const handleSearchChange = (event) => {
     setSearchValue(event.target.value);
     console.log("event target" + event.target.value);
@@ -114,6 +118,7 @@ const SeekJobPage = () => {
     }
   };
 
+
   const handleFilterChange = (name, checked) => {
     // Will add to selectedFilters if checked
     if (checked) {
@@ -129,6 +134,7 @@ const SeekJobPage = () => {
 
   const projectPerPage = 7;
 
+
   const categories = [
     "Web Developer",
     "Graphic Designer",
@@ -136,6 +142,7 @@ const SeekJobPage = () => {
     "Photographic",
     "Project Management",
   ];
+
   const duration = ["Short Term", "Long Term", "OnGoing"];
 
   const filterTabs = [

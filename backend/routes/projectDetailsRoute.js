@@ -1,5 +1,7 @@
-import express from "express";
-import { Project } from "../models/projectModel.js";
+
+import express from 'express';
+import { Project } from '../models/projectModel.js';
+
 
 const router = express.Router();
 
@@ -7,7 +9,7 @@ router.post("/", async (req, res) => {
   try {
     console.log(req.body);
     const {
-      companyLog,
+      companyLogo,
       companyName,
       projectTitle,
       projectDescription,
@@ -25,14 +27,15 @@ router.post("/", async (req, res) => {
       taken,
       completed,
       applicants,
-      PIC,
+      serviceProvider,
       review,
+      uploadedFiles
     } = req.body;
 
     // Create a new project details document
     //NOT SURE HAVE TO RETRIEVE THE LOGO HERE OR NOT
-    const newProject = new Project({
-      companyLog,
+    const project = new Project({
+      companyLogo,
       companyName,
       projectTitle,
       projectDescription,
@@ -50,12 +53,13 @@ router.post("/", async (req, res) => {
       taken,
       completed,
       applicants,
-      PIC,
+      serviceProvider,
       review,
+      uploadedFiles
     });
 
     // Save the project details to MongoDB
-    const savedProject = await newProject.save();
+    const savedProject = await project.save();
     console.log("Project details uploaded:", savedProject);
 
     return res.status(201).json(savedProject);
