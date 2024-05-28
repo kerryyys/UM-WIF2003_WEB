@@ -20,7 +20,7 @@ app.use("/recruite", projectDetailsRoute);
 app.use("/recruite", reviewProjectRoute);
 app.use("/freelancers", freelanceInfoRoute);
 app.use("/projects", projectsRouter);
-app.use("/posts", postRoute);
+app.use("/community", postRoute);
 
 app.get("*", (req, res) => {
   console.log(req);

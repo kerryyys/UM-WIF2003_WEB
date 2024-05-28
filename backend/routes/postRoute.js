@@ -2,22 +2,35 @@ import { Status } from "../config.js";
 import express from "express";
 import Post from "../models/post.js";
 import Comment from "../models/comment.js";
+import formidable from "formidable";
 
 const router = express.Router();
 
-router.post("/", async (req, res) => {
-  const { author, content, image } = req.body;
-  const post = new Post({
-    // req.user._id,
-    author,
-    content,
-    image,
-  });
-  await post.save();
-  res.status(Status.SUCCESS).json(post);
+router.post("/posts", async (req, res) => {
+  try {
+    const postData = req.body;
+    console.log(postData);
+    const { content } = postData;
+
+    console.log("The content is ", content);
+
+    if (!content) {
+      return res.status(400).json({ message: "Content is required" });
+    }
+
+    const post = new Post({
+      content,
+    });
+
+    await post.save();
+    res.status(200).json(post);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Error saving post", error });
+  }
 });
 
-router.get("/", async (req, res) => {
+router.get("/posts", async (req, res) => {
   try {
     const posts = await Post.find().populate("comments");
     res.status(Status.SUCCESS).json(posts);
@@ -26,7 +39,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.post("/:postId/comments", async (req, res) => {
+router.post("/posts/:postId/comments", async (req, res) => {
   const { content } = req.body;
   const comment = new Comment({
     post: req.params.postId,
