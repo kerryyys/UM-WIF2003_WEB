@@ -12,9 +12,8 @@ import cors from "cors";
 const app = express();
 
 // Middleware for parsing request body
-app.use(express.json({ limit: '10mb' })); 
-app.use(express.urlencoded({ limit: '10mb', extended: true }));
-
+app.use(express.json({ limit: "10mb" }));
+app.use(express.urlencoded({ limit: "10mb", extended: true }));
 
 // Middleware for handling CORS POLICY
 app.use(cors());
@@ -26,7 +25,6 @@ app.use("/projects", projectsRouter);
 app.use("/community", postRoute);
 app.use("/users", usersRoute);
 
-
 app.get("*", (req, res) => {
   console.log(req);
   res.send("page is not here");
@@ -37,6 +35,8 @@ app.use((req, res, next) => {
   console.log(`${req.method} ${req.url}`);
   next();
 });
+
+app.post("/users", (req, res) => {});
 
 mongoose
   .connect(mongoDBURL)
