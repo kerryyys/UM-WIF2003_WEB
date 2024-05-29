@@ -63,6 +63,10 @@ const users = mongoose.Schema({
         type: [String],
         default: []
     }, experience: [experience],
+    rating: {
+        type: [String],
+        default:["5"]
+    },
     about: {
         type: String,
     }, product: {

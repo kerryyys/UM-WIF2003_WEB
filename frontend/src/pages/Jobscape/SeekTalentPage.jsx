@@ -34,7 +34,7 @@ const SeekTalentPage = () => {
   useEffect(() => {
     // Fetch freelancer data from backend API
     axios
-      .get("http://localhost:5050/freelancers")
+      .get("http://localhost:5050/users/:id")
       .then((response) => {
         setFreelancers(response.data);
       })
@@ -155,10 +155,10 @@ const SeekTalentPage = () => {
               <CollaboratorTab
                 key={index}
                 profilePic={freelancer.profilePic}
-                collaboratorName={freelancer.freelanceName}
+                collaboratorName={freelancer.firstName + freelancer.lastName}
                 ratingStar={freelancer.rating}
-                filters={freelancer.skills} // Assuming skills is an array of strings
-                biography={freelancer.selfDescription}
+                filters={freelancer.skill} // Assuming skills is an array of strings
+                biography={freelancer.about}
               />
             ))}
           </div>
