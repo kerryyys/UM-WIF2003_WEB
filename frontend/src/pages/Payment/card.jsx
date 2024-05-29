@@ -1,12 +1,22 @@
 import "../../pages-css/Payment/Payment.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import fpxPic from "../../assets/images/Payment/fpx.png";
 import ewalletPic from "../../assets/images/Payment/ewallet.png";
 import cardPic from "../../assets/images/Payment/card.png";
 
 function Card() {
-  const [cardNumber, setCardNumber, country] = useState("");
 
+  // read linked card
+  const [services, setServices] = useState(['']); 
+  const [selectedService, setSelectedService] = useState({});
+
+  const handleServiceClick = (service) => {
+    setSelectedService(service);
+  };
+  
+
+  // write card details
+  const [cardNumber, setCardNumber, country] = useState("");
   const handleChange = (event) => {
     setCardNumber(event.target.value);
   };
@@ -14,18 +24,76 @@ function Card() {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // Check if cardNumber is empty before submitting
-    if (cardNumber.trim() === "") {
-      // Card number is empty, do not submit
-      alert("Please enter a card number.");
-      return;
+    function submitForm() {
+      const cardNumber = document.querySelector('.cardNo-inputCTN').value;
+      const expirationDate = document.querySelector('.inputCTN1').value;
+      const cvv = document.querySelector('.inputCTN2').value;
+      const ownerName = document.querySelector('.cardNo-inputCTN:nth-of-type(2)').value;
+      const country = document.querySelector('.cardNo-inputCTN:last-of-type').value;
+    
+      const selectedCard = {
+        cardNumber: cardNumber,
+        expirationDate: expirationDate,
+        cvv: cvv,
+        ownerName: ownerName,
+        country: country
+      };
+    
+      if (cardNumber && expirationDate && cvv && ownerName && country) {
+        fetch('http://localhost:6006/submitCard', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(selectedCard)
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log('Data saved successfully.');
+                // window.location.href = "/redirect"
+            } else {
+                throw new Error('Failed to save data.');
+            }
+        })
+        .catch(error => {
+            console.error(error);
+        });
+      } else {
+        alert('Please enter all the card details.');
+      }
     }
-
-    // Continue with form submission
-    // You can add your submission logic here
-    // For example: send data to server, etc.
-    console.log("Submitting form with card number:", cardNumber);
   };
+
+// read data to service summary
+const [taskData, setTaskData] = useState({});
+
+useEffect(() => {
+    fetch('http://localhost:6006/task')
+        .then(response => response.json())
+        .then(data => {
+            setTaskData(data);
+        })
+        .catch(error => console.error('Error fetching task data:', error));
+}, []); 
+
+// total price
+let totalPrice;
+let totalPriceString;
+if (taskData && taskData.taskPrice) {
+  const priceString = taskData.taskPrice;
+  const priceWithoutPrefix = priceString.replace("RM", "").trim();
+  const taskPrice = parseFloat(priceWithoutPrefix);
+  
+  if (!isNaN(taskPrice)) {
+      totalPrice = taskPrice + 10;
+      totalPriceString = "RM " + totalPrice;
+  } else {
+      console.log("Invalid task price");
+  }
+} else {
+  console.log("taskData or taskData.taskPrice is undefined");
+}
+    
   return (
     <div className="split-container">
       <div className="LeftContainer">
@@ -33,21 +101,20 @@ function Card() {
         <hr className="line"></hr>
         <p className="titleLinked">Linked payment method:</p>
 
-        <div
-          onClick={() => (window.location.href = "/redirect")}
-          className="automatedContainer"
-        >
-          <p className="BankName">VISA</p>
-          <span className="AccNumHashed">**** **** **** 8968</span>
-        </div>
-
-        <div
-          onClick={() => (window.location.href = "/redirect")}
-          className="automatedContainer"
-        >
-          <p className="BankName">MasterCard</p>
-          <span className="AccNumHashed">**** **** **** 3666</span>
-        </div>
+        <div>
+  {services.map((service, index) => (
+    <div
+      key={index}
+      onClick={() => {
+        handleServiceClick(service);
+        window.location.href = "/redirect";
+      }}      
+      className={`automatedContainer ${selectedService && selectedService.name === service.name ? 'selected' : ''}`}
+    >
+      <p className="BankName">{service.name}</p>
+    </div>
+  ))}
+</div>
 
         <hr className="line"></hr>
         <p className="titleLinked">Pay With:</p>
@@ -91,8 +158,9 @@ function Card() {
           </label>
         </div>
 
+        <form action="/submitCard" method="POST">
         <p className="titleLinked">Card Number</p>
-        <form onSubmit={handleSubmit}>
+        {/* <form onSubmit={handleSubmit}> */}
           <input
             className="cardNo-inputCTN"
             type="text"
@@ -101,54 +169,54 @@ function Card() {
             placeholder="1234  5678  9101  1121"
             maxLength="16"
           />
-        </form>
+        {/* </form> */}
 
         <div className="split-container">
           <div className="c">
             <p className="titleLinked">Expiration Date</p>
-            <form onSubmit={handleSubmit}>
+            {/* <form onSubmit={handleSubmit}> */}
               <input className="inputCTN1" type="text" placeholder="MM/YY" />
-            </form>
+            {/* </form> */}
           </div>
           <div className="c">
             <p className="titleLinked">CVV</p>
-            <form onSubmit={handleSubmit}>
+            {/* <form onSubmit={handleSubmit}> */}
               <input
                 className="inputCTN2"
                 type="text"
                 placeholder="123"
                 maxlength="3"
               />
-            </form>
+            {/* </form> */}
           </div>
         </div>
 
         <p className="titleLinked">Owner Name</p>
-        <form onSubmit={handleSubmit}>
+        {/* <form onSubmit={handleSubmit}> */}
           <input
             className="cardNo-inputCTN"
             type="text"
             placeholder="David Teo"
           />
-        </form>
+        {/* </form> */}
 
         <p className="titleLinked">Country</p>
-        <form onSubmit={handleSubmit}>
+        {/* <form onSubmit={handleSubmit}> */}
           <input
             className="cardNo-inputCTN"
             type="text"
             value={country}
             placeholder="Malaysia"
           />
-        </form>
+        {/* </form> */}
 
         <button
           type="submit"
           className="buttonPay"
-          onClick={() => (window.location.href = "/redirect")}
         >
           Pay Now
         </button>
+        </form>
         <div className="reminder">
           <p>
             Your personal data will be used to process your order, support your
@@ -168,8 +236,8 @@ function Card() {
         </div>
         <div>
           <p className="descContent">
-            <span className="taskName">Complete 10 survey form</span>
-            <span className="taskPrice">RM 100.00</span>
+            <span className="taskName">{taskData.taskName}</span>
+            <span className="taskPrice">{taskData.taskPrice}</span>
           </p>
         </div>
 
@@ -188,14 +256,14 @@ function Card() {
           <div>
             <p className="descContent">
               <span className="taskName">Subtotal</span>
-              <span className="taskPrice">RM 100.00</span>
+              <span className="taskPrice">{totalPriceString}</span>
             </p>
           </div>
 
           <div>
             <p className="descContent">
-              <span className="taskName">Additional</span>
-              <span className="taskPrice">RM 10.00</span>
+              <span className="taskName">Additional ( 6% of service tax )</span>
+              <span className="taskPrice">RM 10</span>
             </p>
           </div>
         </div>
@@ -205,7 +273,7 @@ function Card() {
         <div>
           <p className="descContent">
             <span className="taskName">Total</span>
-            <span className="taskPrice">RM 110.00</span>
+            <span className="taskPrice">{parseInt(taskData.taskPrice) + 10}</span>
           </p>
         </div>
       </div>

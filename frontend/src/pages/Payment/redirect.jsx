@@ -12,6 +12,7 @@ function Redirect() {
   return (
     <div className="App-header">
       <p className="redirect">Redirecting to ...</p>
+      <div class="loader-wenhao-successful"></div>
     </div>
   );
 }
