@@ -8,7 +8,7 @@ const getDefaultFilter = function () {
 const projectSchema = mongoose.Schema(
   {
     companyLogo: { data: Buffer, contentType: String },
-    companyName: { type: String, required: true },
+    companyName: { type: String,},
     projectTitle: { type: String, required: true },
     projectDescription: { type: String, required: true },
     location: { type: String, required: true },
