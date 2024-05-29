@@ -9,6 +9,7 @@ const CollaboratorTab = ({
   ratingStar,
   filters,
   biography,
+  location,
 }) => {
   const [showModal, setShowModal] = useState(false);
 
@@ -43,6 +44,8 @@ const CollaboratorTab = ({
                   {filter}
                 </Badge>
               ))}
+            {/* Location */}
+            <Badge className="FilterBadge LocationBadge">{location}</Badge>
           </div>
         </div>
       </div>
@@ -85,6 +88,10 @@ const CollaboratorTab = ({
                         {filter}
                       </Badge>
                     ))}
+                  {/* Location */}
+                  <Badge className="FilterBadge LocationBadge">
+                    {location}
+                  </Badge>
                 </div>
               </div>
             </div>
