@@ -1,0 +1,36 @@
+.news-feed-item-gallery-container {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin: 10px;
+}
+
+.news-feed-item-gallery {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  overflow-x: auto;
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+  -ms-overflow-style: none; /* Hide scrollbar for IE 10+ */
+}
+
+.news-feed-item-gallery::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for Chrome, Safari */
+}
+
+.gallery-scroll-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+.gallery-scroll-btn.left {
+  left: 10px;
+}
+
+.gallery-scroll-btn.right {
+  right: 10px;
+}

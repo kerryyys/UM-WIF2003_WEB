@@ -1,0 +1,37 @@
+.PPMoreBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.PPMoreBtn .ConfirmBtn {
+    background-color: #2d4877 !important;
+    color: white  !important;
+    padding: 0.5rem 1rem  !important;
+    border: none !important;
+    border-radius: 5px !important;
+    cursor: pointer !important;
+    margin: 1rem !important;
+}
+
+.PPMoreBtn .ConfirmBtn:hover {
+    background-color: #80d1d5 !important;
+    border-color: #80d1d5 !important;
+
+}
+
+.PPMoreBtn .RemoveBtn {
+    background-color: #f44336 !important;
+    color: white !important;
+    padding: 0.5rem 1rem !important;
+    border: none !important;
+    border-radius: 5px !important;
+    cursor: pointer !important;
+}
+
+.PPMoreBtn .RemoveBtn:hover{
+    background-color: #ff7f7f !important;
+    border-color: #ff7f7f !important;
+}

@@ -1,0 +1,35 @@
+/* News Feed */
+.news-feed {
+}
+
+.news-feed-item {
+  width: 100%;
+  border: 1px solid rgb(192, 192, 192);
+  padding: 40px;
+  border-radius: 15px;
+  font-size: 15px;
+}
+
+.news-feed-item-content {
+  white-space: pre-wrap; /* or 'pre-line' depending on your needs */
+}
+
+/* Status Bar */
+.news-feed-item .status-bar .profile-img {
+  max-width: 50px !important;
+  margin-right: 20px !important;
+}
+
+.status-bar {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.status-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 10px;
+}

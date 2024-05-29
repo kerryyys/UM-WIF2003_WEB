@@ -1,0 +1,155 @@
+.PostProjectPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #2d4877;
+  padding-bottom: 5%;
+}
+
+.ErrorMessage {
+  color: red;
+}
+
+.SmallTitle {
+  text-align: center;
+}
+
+.PostHeader {
+  width: 65%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.PostBackBtn {
+  width: 65%;
+  padding-top: 3%;
+  margin: 0 auto; /* Center the ReviewBackBtn */
+  display: flex;
+}
+
+.BackBtn {
+  align-items: flex-start;
+  background-color: transparent;
+  border: none;
+  color: #2d4777;
+  transition: transform 0.3s;
+}
+
+.BackBtn a {
+  text-decoration: none;
+  color: #2d4777;
+}
+.BackBtn .bi-chevron-left {
+  margin-right: 5px;
+}
+.BackBtn:hover {
+  transform: scale(1.1);
+  background-color: transparent;
+  color: #2d4777;
+}
+.BackBtn:active {
+  background-color: transparent !important;
+  color: #223559 !important;
+}
+.BackButton:hover {
+  transform: scale(1.1);
+  background-color: transparent;
+  color: #2d4777;
+}
+.BackButton:active {
+  background-color: transparent !important;
+  color: #223559 !important;
+}
+
+.FormContainer {
+  width: 62%;
+  margin-top: 20px;
+  padding: 2%;
+  border: 1px solid #2d4877;
+  border-radius: 10px;
+}
+
+.ProjectForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.FormRow {
+  margin-bottom: 20px;
+}
+
+label {
+  font-weight: bold;
+}
+
+input[type="text"],
+textarea,
+select {
+  width: 100% !important;
+  padding: 8px !important;
+  border: 1px solid #ccc !important;
+  border-radius: 4px !important;
+  box-sizing: border-box !important;
+}
+
+select {
+  color: grey;
+}
+
+.SkillBox {
+  display: inline-flex;
+  align-items: center;
+  border: 0.5px solid #2d4877;
+  border-radius: 4px;
+  padding: 5px 5px;
+  margin: 5px;
+}
+
+.SkillsContainer button {
+  width: 10%;
+  padding: 5px;
+  margin-top: 2px;
+  background-color: #2d4877;
+  color: #fdfaf3;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.SkillsContainer .XBtn {
+  padding: 0 15px 0 5px;
+  margin-left: 5px;
+  background-color: #2d4877;
+  color: #fdfaf3;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.SkillsContainer button:hover {
+  background-color: #0056b3;
+}
+
+#deadline {
+  margin-left: 2%;
+}
+
+textarea {
+  height: 100px;
+}
+
+.SubmitButton {
+  width: 30%;
+  padding: 10px;
+  margin-left: 35%;
+  background-color: #2d4877;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.SubmitButton:hover {
+  background-color: #0056b3;
+}
