@@ -6,7 +6,7 @@ import projectsRouter from "./routes/projects.js";
 import freelanceInfoRoute from "./routes/freelanceInfoRoute.js";
 import reviewProjectRoute from "./routes/reviewProjectRoute.js";
 import postRoute from "./routes/postRoute.js";
-import usersRoute from "./routes/usersRoutes.js";
+import usersRoute from "./routes/usersRoute.js";
 import cors from "cors";
 
 const app = express();

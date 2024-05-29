@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Button, Container, Image, Modal } from 'react-bootstrap';
 import ExpandableInput from '../../components/Profile/ExpandableInput';
 import ExpandableExperience from '../../components/Profile/ExpandableExperience';
-import default_avatar from '../../assets/profile/avatar-default-symbolic-svgrepo-com.svg';
+import default_avatar from '../../assets/icons/profile/avatar-default-symbolic-svgrepo-com.svg';
 import UploadPicIcon from '../../assets/icons/profile/upload_pic.svg';
 import { useNavigate, useParams } from 'react-router-dom';
 import '../../components-css/Profile/EditProfileCSS.css';
@@ -18,7 +18,7 @@ function EditProfile() {
 
     const getProfileData = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/users/${userId}`, {
+            const response = await fetch(`http://localhost:5050/users/${userId}`, {
                 method: 'GET'
             });
             const result = await response.json();
@@ -35,7 +35,7 @@ function EditProfile() {
 
     const handleSave = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/users/${userId}`, {
+            const response = await fetch(`http://localhost:5050/users/${userId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
@@ -70,7 +70,7 @@ function EditProfile() {
 
     const handleRemovePicture = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/users/${userId}`, {
+            const response = await fetch(`http://localhost:5050/users/${userId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
