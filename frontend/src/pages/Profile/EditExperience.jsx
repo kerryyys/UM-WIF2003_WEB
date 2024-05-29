@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button, Container } from 'react-bootstrap';
 import '../../components-css/Profile/EditProfileCSS.css';
 
-function AddNewExperience() {
-    const { userId } = useParams();
-    // const userId = "6642605a39cd67056f64cec6";
+function EditExperience() {
+    const { userId, experienceId } = useParams();
     const navigate = useNavigate();
 
     const [info, setInfo] = useState({
@@ -18,10 +17,43 @@ function AddNewExperience() {
         current: false
     });
 
+    useEffect(() => {
+        const fetchExperience = async () => {
+            try {
+                const response = await fetch(`http://localhost:5000/users/${userId}/experience/${experienceId}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                });
+
+                if (response.ok) {
+                    const experience = await response.json();
+                    console.log(experience)
+                    setInfo({
+                        title: experience.title,
+                        employmentType: experience.employmentType,
+                        company: experience.company,
+                        location: experience.location,
+                        locationType: experience.locationType,
+                        description: experience.description,
+                        current: experience.current
+                    });
+                } else {
+                    console.error('Error fetching experience data');
+                }
+            } catch (error) {
+                console.error('Error fetching experience data:', error);
+            }
+        };
+
+        fetchExperience();
+    }, [userId, experienceId]);
+
     const handleSave = async () => {
         console.log("Info", JSON.stringify(info));
         try {
-            const response = await fetch(`http://localhost:5000/users/${userId}/addExperience`, {
+            const response = await fetch(`http://localhost:5000/users/${userId}/editExperience/${experienceId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
@@ -31,10 +63,10 @@ function AddNewExperience() {
             if (response.ok) {
                 navigate(`/EditProfile/${userId}`);
             } else {
-                console.error('Error updating profile data');
+                console.error('Error updating experience data');
             }
         } catch (error) {
-            console.error('Error updating profile data:', error);
+            console.error('Error updating experience data:', error);
         }
     };
 
@@ -69,7 +101,7 @@ function AddNewExperience() {
     return (
         <Container className='d-flex justify-content-center align-items-center'>
             <div className='mt-5 w-50'>
-                <h5>Add Experience</h5>
+                <h5>Edit Experience</h5>
                 <div style={{ marginLeft: '3px' }}>
                     <div>
                         <p>Title</p>
@@ -169,4 +201,4 @@ function AddNewExperience() {
     );
 }
 
-export default AddNewExperience;
+export default EditExperience;

@@ -1,79 +1,46 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container, Row, Col } from "react-bootstrap";
 import ProfileHeader from "../../components/Profile/ProfileHeader";
 import Experience from "../../components/Profile/Experience";
-import ProfilePic from "../../assets/images/profile_pic.svg";
 import Skill from "../../components/Profile/Skill";
 import JobHistory from "../../components/Profile/JobHistory";
-import Dell from "../../assets/icons/jobscape/DellLogo.svg";
 import "../../pages-css/Profile/Profile.css";
+import { useParams } from "react-router-dom";
+
 function Profile() {
-  const profileData = {
-    name: "Mehrab Bozorgi",
-    university: "University of Malaya",
-    location: "Petaling Jaya, Selangor",
-    avatarSrc: ProfilePic,
-    headline: "2nd Year Software Engineering Student of University of Malaya",
-    tags: ["IT&Technology", "Creative and Design"],
+  // const { userId } = useParams();
+  const userId = "6642605a39cd67056f64cec6";
+  const [profile, setProfile] = useState({});
+
+  const getProfileData = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/users/${userId}`, {
+        method: "GET"
+      });
+      const result = await response.json();
+      setProfile(result.data);
+    } catch (error) {
+      console.error('Error fetching profile data:', error);
+    }
   };
 
-  const experiences = [
-    {
-      title: "Software Developer Intern",
-      company: "Tech Company",
-      location: "Kuala Lumpur, Malaysia",
-      employmentType: "Internship",
-      locationType: "On-site",
-      description:
-        "Worked on developing web applications using React and Node.js.",
-    },
-    {
-      title: "Freelance Web Designer",
-      company: "Freelance",
-      location: "Remote",
-      employmentType: "Freelance",
-      locationType: "Remote",
-      description:
-        "Designed and developed responsive websites for various clients.",
-    },
-  ];
-
-  const skills = ["React", "HTML", "CSS"];
-
-  const jobInfos = [
-    {
-      avatar: Dell,
-      jobTitle: "Web Development",
-      company: "Dell Technology",
-      status: "Completed",
-      description:
-        "Worked on developing web applications using React and Node.js.",
-      duration: "Long Term",
-      deadline: "Before August",
-      skills: ["React", "Node.js", "JavaScript", "HTML", "CSS"],
-      contact: "John Doe (john.doe@example.com)",
-      additionalInfo: "Received Employee of the Month award in December 2023.",
-    },
-    {
-      avatar: Dell,
-      jobTitle: "Web Development",
-      company: "Dell Technology",
-      status: "Completed",
-      description:
-        "Worked on developing web applications using React and Node.js.",
-      duration: "Long Term",
-      deadline: "Before August",
-      skills: ["React", "Node.js", "JavaScript", "HTML", "CSS"],
-      contact: "John Doe (john.doe@example.com)",
-      additionalInfo: "Received Employee of the Month award in December 2023.",
-    },
-  ];
+  useEffect(() => {
+    getProfileData();
+  }, []);
 
   return (
     <Container fluid style={{ maxWidth: "70%" }}>
       <Container className="mt-5">
-        <ProfileHeader {...profileData} />
+        <ProfileHeader
+          name={`${profile.firstName} ${profile.lastName}`}
+          university={profile.university}
+          location={`${profile.city}, ${profile.state}`}
+          avatarSrc={profile.profilePic}  
+          headline={profile.headline}
+          tags={profile.categories}
+          userId={userId}
+        />
       </Container>
       <Container className="mt-5">
         <Row className="justify-content-center">
@@ -82,19 +49,19 @@ function Profile() {
               <h6 className="text-center">EXPERIENCE</h6>
               <hr />
             </div>
-            <Experience experiences={experiences} />
+            <Experience experiences={profile.experience} />
             <div className="section-header">
               <h6 className="text-center mt-4">SKILL</h6>
               <hr />
             </div>
-            <Skill skills={skills} />
+            <Skill skills={profile.skill} />
           </Col>
           <Col md={7} xs={12}>
             <div className="section-header">
               <h6 className="text-center">JOB HISTORY</h6>
               <hr />
             </div>
-            <JobHistory jobInfos={jobInfos} />
+            <JobHistory jobInfos={profile.jobHistory} />
           </Col>
         </Row>
       </Container>
