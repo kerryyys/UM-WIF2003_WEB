@@ -15,26 +15,25 @@ function Invoice() {
           Back
         </p>
       </Button>
-      {/* <img
-        className="LeftPic"
-        onClick={() => (window.location.href = "/successful")}
-        src={back}
-      ></img> */}
 
       <div className="cardContainer">
-        <div className="invoiceHolder">Mr. Wu</div>
+        <div className="invoiceHolder">
+          Project Name -  <span> Shopping Cart App</span>
+          <br></br>
+          Issue to -  <span> Peter Lim</span>
+          </div>
         <div className="cardContainer">
           <div className="invoiceDetails">
             <div className="invoiceAmount">
               AMOUNT DUE
               <br></br>
               <p className="Amount">
-                RM <span>30</span>
+                RM <span>8000</span>
               </p>
-              <p className="date">July 26, 2024</p>
+              <p className="date">May 20, 2024</p>
             </div>
             <p className="invoiceWord">Invoice To: </p>
-            <p className="Invoicename">Howard</p>
+            <p className="Invoicename">James Chin</p>
             <p>012-3456789</p>
             <p className="location">Sabah, Malaysia</p>
           </div>
@@ -42,20 +41,20 @@ function Invoice() {
       </div>
 
       <div className="cardInvoiceNo">
-        <div className="invoiceDesc2">
+        <div className="invoiceDesc-long-bar">
           <p>
             Invoice No: <span>000027</span>
           </p>
           <p>
-            Issued By: <span>June 26, 2024</span>
+            Issued By: <span>May 20, 2024</span>
           </p>
           <p>
-            Due Date: <span>July 26, 2024</span>
+            Due Date: <span>June 20, 2024</span>
           </p>
         </div>
       </div>
 
-      <div className="cardContainer">
+      <div className="cardContainer-desc-price">
         <div className="cardInvoiceDesc">
           <div class="invoiceDesc">
             <p class="descColumn">DESCRIPTION</p>
@@ -63,26 +62,26 @@ function Invoice() {
           </div>
           <div class="invoiceDesc2">
             <p class="descContent">
-              Fill up survey about faculty research programme
+              App Design
             </p>
-            <p class="priceContent">RM 50.00</p>
+            <p class="priceContent">RM 2000</p>
           </div>
           <div class="invoiceDesc2">
-            <p class="descContent">Send the new tyre urgently</p>
-            <p class="priceContent">RM 70.00</p>
+            <p class="descContent">Front End Developemnt</p>
+            <p class="priceContent">RM 4000</p>
           </div>
           <div class="invoiceDesc2">
-            <p class="descContent">Java Assignment</p>
-            <p class="priceContent">RM 120.00</p>
+            <p class="descContent">Back End Development</p>
+            <p class="priceContent">RM 3000</p>
           </div>
           <div class="invoiceDesc2">
-            <p class="descContent">Solve KBAT SPM Add Math Questions</p>
-            <p class="priceContent">RM 50.00</p>
+            <p class="descContent">Software Testing</p>
+            <p class="priceContent">RM 1500</p>
           </div>
         </div>
 
         <p className="totalAmt">TOTAL AMOUNT: </p>
-        <p className="greatTotal">RM 290.00</p>
+        <p className="greatTotal">RM 8000</p>
       </div>
 
       <p className="tnc">Terms & Conditions:</p>

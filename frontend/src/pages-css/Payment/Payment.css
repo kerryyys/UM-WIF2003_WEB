@@ -1,12 +1,12 @@
 .background {
   background-image: url("../../assets/images/Payment/Background1.png");
-  background-size: cover; /* Ensure the entire image is visible */
-  background-repeat: no-repeat; /* Prevent image repetition */
-  background-position: center; /* Center the image */
-  min-height: 100vh; /* Set minimum height to fill the viewport */
-  display: flex; /* Display flex to center content vertically */
-  justify-content: center; /* Center content horizontally */
-  align-items: center; /* Center content vertically */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center; 
+  min-height: 100vh; 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
 }
 
 .App-header {
@@ -28,6 +28,21 @@
   color: #61dafb;
 }
 
+.loader-wenhao-successful {
+  width: 124px;
+  height: 24px;
+  -webkit-mask: 
+    conic-gradient(from 135deg at top   ,#0000,#000 .5deg 90deg,#0000 90.5deg) 0 0   ,
+    conic-gradient(from -45deg at bottom,#0000,#000 .5deg 90deg,#0000 90.5deg) 0 100%;
+  -webkit-mask-size:25% 50%;
+  -webkit-mask-repeat:repeat-x;
+  background: linear-gradient(#25b09b 0 0) left/0% 100% no-repeat #ddd;
+  animation: l13 2s infinite linear;
+}
+@keyframes l13 {
+  100% {background-size: 100% 100%}
+}
+
 .choose-payment-method {
   font-family: "Lato", sans-serif;
   cursor: pointer;
@@ -45,12 +60,40 @@
   justify-content: space-between;
 }
 
-.c {
+.table-header-wenhao {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  justify-content: space-between;
+  padding: 0.5vh;
+  border: none;
 }
 
+.header-item-wenhao {
+  flex: 1;
+  text-align: center;
+  margin-right: 7vh;
+  margin-top: 4vh;
+  font-family: "Lato", sans-serif;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.card-wenhao {
+  background-color: #d9d9d9;
+  border-radius: 30px;
+  height: 100vh;
+  margin-top: 2vh;
+  padding-top: 5vh;
+  padding-left: 7vh;
+  padding-right: 7vh;
+}
+
+.INV-title-name {
+  font-family: "Lato", sans-serif;
+  font-size: 25px;
+  padding-left: 2vh;
+  color: #2d4777;
+  font-weight: bold;
+}
 .titleCVV {
   font-family: "Lato", sans-serif;
   font-weight: bold;
@@ -135,7 +178,7 @@
   border-radius: 8px;
   padding-left: 10px;
   height: 35px;
-  width: 77.5%;
+  max-width: 82%;
   border: #2d4777 solid 2px;
   font-family: "Lato", sans-serif;
 }
@@ -145,7 +188,7 @@
   border-radius: 8px;
   padding-left: 10px;
   height: 35px;
-  width: 30%;
+  max-width: 40.5%;
   font-family: "Lato", sans-serif;
   margin-top: 5px;
 }
@@ -155,7 +198,7 @@
   border-radius: 8px;
   padding-left: 10px;
   height: 35px;
-  width: 30%;
+  max-width: 37.5%;
   margin-top: 5px;
   font-family: "Lato", sans-serif;
   border: #2d4777 solid 2px;
@@ -281,20 +324,42 @@
   background-color: #2d4777;
   padding: 20px;
   width: 500px;
-  height: 450px;
+  height: 500px;
   margin: 0 auto;
   border: none;
   border-radius: 30px;
-  margin-top: 30px;
+  margin-top: -40px;
   align-items: center;
 }
+
+.invoice-list-containerner {
+  display: flex;
+  justify-content: center;
+  padding: 0 20px;
+}
+
+.invoice-containerner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.invoice-listlist {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* .invoice-listing{
+
+} */
 
 .successMsg {
   font-family: "Lato", sans-serif;
   margin-top: 30px;
-  font-size: 27px;
+  font-size: 25px;
   color: #fff;
-  font-weight: bold;
+  font-weight: 400;
   text-align: center;
 }
 
@@ -304,10 +369,23 @@
   margin-top: 40px;
   margin-left: 160px;
   margin-bottom: -10px;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-30px);
+  }
+  60% {
+    transform: translateY(-15px);
+  }
 }
 
 .buttonSuccessful {
-  margin-top: 5px;
+  margin-top: 20px;
   margin-left: 80px;
   border-radius: 12px;
   padding: 10px 10px 10px 10px;
@@ -316,12 +394,12 @@
   cursor: pointer;
   color: #2d4777;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 16px;
   border: none;
 }
 
 .buttonSuccessful:hover {
-  margin-top: 5px;
+  margin-top: 20px;
   margin-left: 80px;
   border-radius: 12px;
   padding: 10px 10px 10px 10px;
@@ -332,11 +410,19 @@
   background-color: #fcfcff79;
   border: none;
   font-weight: bold;
+  font-size: 16px;
 }
 
 .cardContainer {
   display: flex;
   justify-content: space-between;
+}
+
+.cardContainer-desc-price {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 9vh;
+  margin-top: 5vh;
 }
 
 .picFpx {
@@ -502,9 +588,9 @@
 
 .cardinput {
   border-radius: 6px;
-  padding: 10px; /* Adjust padding for all sides */
+  padding: 10px;
   font-family: "Lato", sans-serif;
-  width: 60%; /* Make width 100% to fill container */
+  width: 60%;
   margin: 10px 0;
   border-color: #2d4777;
   box-sizing: border-box;
@@ -512,9 +598,9 @@
 
 .cardinput1 {
   border-radius: 6px;
-  padding: 10px; /* Adjust padding for all sides */
+  padding: 10px;
   font-family: "Lato", sans-serif;
-  width: 60%; /* Make width 100% to fill container */
+  width: 60%;
   margin: 10px 0;
   border-color: #2d4777;
   box-sizing: border-box;
@@ -523,9 +609,9 @@
 
 .cardinput2 {
   border-radius: 6px;
-  padding: 10px; /* Adjust padding for all sides */
+  padding: 10px;
   font-family: "Lato", sans-serif;
-  width: 60%; /* Make width 100% to fill container */
+  width: 60%;
   margin: 10px 0;
   border-color: #2d4777;
   box-sizing: border-box;
@@ -534,9 +620,9 @@
 
 .cardinput3 {
   border-radius: 6px;
-  padding: 10px; /* Adjust padding for all sides */
+  padding: 10px; 
   font-family: "Lato", sans-serif;
-  width: 60%; /* Make width 100% to fill container */
+  width: 60%; 
   margin: 10px 0;
   border-color: #2d4777;
   box-sizing: border-box;
@@ -545,9 +631,9 @@
 
 .cardinput4 {
   border-radius: 6px;
-  padding: 10px; /* Adjust padding for all sides */
+  padding: 10px;
   font-family: "Lato", sans-serif;
-  width: 60%; /* Make width 100% to fill container */
+  width: 60%;
   margin: 10px 0;
   border-color: #2d4777;
   box-sizing: border-box;
@@ -561,7 +647,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 800px;
   height: 500px;
-  margin: 0 auto; /* Center the card */
+  margin: 0 auto;
   border: none;
   margin-top: 30px;
 }
@@ -659,20 +745,21 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 1200px;
   height: 40px;
-  margin: 0 auto; /* Center the card */
+  margin: 0 auto;
   border: none;
   margin-top: 30px;
 }
 
 .invoiceTitle {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   font-family: "Lato", sans-serif;
   color: #000;
   font-weight: bold;
   padding-left: 280px;
   padding-right: 480px;
   font-size: 22px;
+  margin-left: 30vh;
 }
 
 .invoiceTitle2 {
@@ -694,6 +781,28 @@
   color: black;
   cursor: pointer;
   font-weight: bold;
+}
+
+.invoiceDesc-long-bar {
+  display: flex;
+  justify-content: space-between;
+  font-family: "Lato", sans-serif;
+  color: #2d4777;
+}
+
+.invoiceDesc-long-bar p {
+  margin-top: 10px;
+  font-family: "Lato", sans-serif;
+  color: black;
+  padding: 0 12vh;
+}
+
+.invoiceDesc-long-bar p span {
+  font-weight: bold;
+  font-family: "Lato", sans-serif;
+  color: #2d4777;
+  font-size: 22px;
+  padding: 0 2vh;
 }
 
 .invoiceDesc2 {
@@ -741,7 +850,6 @@
   margin-bottom: 45px;
   color: #fff;
   display: flex;
-  /* justify-content: space-between; */
   align-items: center;
 }
 
@@ -767,17 +875,20 @@
   font-size: 18px;
 }
 
+.BackBtn{
+  margin-top: 3vh;
+}
+
 .INV {
   font-family: "Lato", sans-serif;
   width: 1100px;
   height: 80px;
-  padding: 20px; /* Consolidate padding properties */
-  margin: 25px 0; /* Adjust top and bottom margin */
-  margin-left: 150px;
+  padding: 20px;
+  margin: 25px 0; 
   color: #fff;
   background-color: #2d4777;
   display: flex;
-  justify-content: space-between; /* Distribute space evenly between elements */
+  justify-content: space-between; 
   align-items: center;
   border-radius: 15px;
   cursor: pointer;
@@ -787,13 +898,12 @@
   font-family: "Lato", sans-serif;
   width: 1100px;
   height: 80px;
-  padding: 20px; /* Consolidate padding properties */
-  margin: 25px 0; /* Adjust top and bottom margin */
-  margin-left: 150px;
+  padding: 20px; 
+  margin: 25px 0; 
   color: #fff;
   background-color: #2d4777;
   display: flex;
-  justify-content: space-between; /* Distribute space evenly between elements */
+  justify-content: space-between;
   align-items: center;
   border-radius: 15px;
   cursor: pointer;
@@ -801,7 +911,7 @@
 }
 
 .INV p {
-  margin: 0; /* Remove default margins from paragraphs */
+  margin: 0;
   padding-left: 110px;
 }
 
@@ -835,6 +945,7 @@
   color: #fff;
   width: 120px;
   margin-left: 100px;
+  font-weight: bold;
 }
 
 .back {
@@ -851,16 +962,16 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 300px;
   height: 150px;
-  margin: 0 auto; /* Center the card */
+  margin: 0 auto;
   border: none;
-  margin-left: 60px;
+  margin-left: 26.5vh;
   margin-top: 50px;
   font-family: "Lato", sans-serif;
 }
 
 .paymentHistory {
   padding-top: 50px;
-  padding-left: 70px;
+  margin-left: 30vh;
   font-family: "Lato", sans-serif;
   font-size: 30px;
 }
@@ -896,6 +1007,7 @@
   text-decoration: none;
   font-size: 15px;
   width: 150px;
+  margin-top: 5vh;
   margin-bottom: 50px;
 }
 
@@ -938,7 +1050,7 @@
 
 .invoiceHolder {
   margin-top: 30px;
-  margin-left: 50px;
+  margin-left: 15vh;
   background-color: #2d4777;
   font-family: "Lato", sans-serif;
   width: 600px;
@@ -946,8 +1058,13 @@
   border-radius: 40px;
   padding-left: 40px;
   padding-top: 30px;
-  font-size: 30px;
+  font-size: 20px;
   color: #fff;
+}
+
+.invoiceHolder span {
+  font-family: "Lato", sans-serif;
+  font-size: 30px;
   font-weight: bold;
 }
 
@@ -972,7 +1089,7 @@
   padding-top: 10px;
   padding-bottom: 10px;
   margin-left: -10px;
-  margin-top: -15px;
+  margin-top: -13px;
   width: 260px;
   height: 130px;
   font-family: "Lato", sans-serif;
@@ -1030,7 +1147,7 @@
 .tnc {
   margin-top: 50px;
   font-family: "Lato", sans-serif;
-  padding-left: 50px;
+  padding-left: 16vh;
   margin-bottom: 20px;
   font-size: 15px;
   font-weight: bold;
@@ -1038,13 +1155,13 @@
 
 .tncDesc {
   font-family: "Lato", sans-serif;
-  padding-left: 50px;
+  padding-left: 16vh;
   font-size: 12px;
 }
 
 .tncDesc2 {
   font-family: "Lato", sans-serif;
-  padding-left: 50px;
+  padding-left: 16vh;
   font-size: 12px;
 }
 
@@ -1070,17 +1187,19 @@
 }
 
 .cardInvoiceNo {
+  display: flex;
+  flex-direction: column;
+  align-items:center;
   background-color: #d9d9d9;
   padding: 20px;
   border-radius: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 1360px;
+  max-width: 165vh;
   height: 80px;
-  margin: 0 auto;
   border: none;
   padding-top: -10px;
   margin-top: 40px;
-  margin-left: 50px;
+  margin-left: 15vh;
 }
 
 .LeftPic {
@@ -1108,30 +1227,6 @@
   cursor: pointer;
   margin-top: 33px;
 }
-
-/* .button {
-  border-radius: 30px;
-  padding: 10px 40px 10px 40px;
-  font-weight: bold;
-  border: black 1px solid;
-  color: #2D4777;
-  font-family: 'Lato',sans-serif;
-  cursor: pointer;
-  text-decoration: none;
-  font-size: 15px;
-  width: 150px;
-}
-
-.button:hover {
-  border: white 1px solid;
-  font-size: 18px;
-  background-color: #2D4777;
-  color: #fff;
-  border-color: #fff;
-  font-family: 'Lato',sans-serif;
-  text-decoration: none;
-  width: 160px;
-} */
 
 .automatedContainer {
   border-radius: 10px;
@@ -1213,6 +1308,7 @@
   width: 150px;
   margin-bottom: 20px;
   margin-top: 20px;
+  margin-right: 5vh;
 }
 
 .buttonPayHis:hover {
