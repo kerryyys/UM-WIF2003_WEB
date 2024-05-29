@@ -6,7 +6,7 @@ function Invoice() {
   return (
     <div className="invoice-containerner">
       <Button
-        className="BackBtn"
+        className="BackBtn-In-PayHis"
         onClick={() => (window.location.href = "/successful")}>
         <p>
           <i className="bi-chevron-left" />

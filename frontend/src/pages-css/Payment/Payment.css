@@ -899,7 +899,6 @@
   transition: transform 0.3s ease;
 }
 
-.BackBtn-In-Successful::after,
 .BackBtn-In-Successful:hover {
   margin-top: -15px;
   margin-left: -10px;
@@ -907,6 +906,23 @@
   border: none;
   transform: scale(1.05);
 }
+
+.BackBtn-In-PayHis {
+  margin-top: 30px;
+  color: #000;
+  margin-left: -150vh;
+  background: none;
+  border: none;
+  transition: transform 0.3s ease;
+}
+
+.BackBtn-In-PayHis:hover {
+  color: #000;
+  background: none;
+  border: none;
+  transform: scale(1.05);
+}
+
 
 .INV {
   font-family: "Lato", sans-serif;
