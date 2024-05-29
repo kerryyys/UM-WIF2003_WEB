@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import SmallTitle from "../../components/jobscape/SmallTitle";
 import ReviewForm from "../../components/jobscape/ReviewForm";
+import ProjectDetailsModal from "./ProjectDetailsModal";
 import "../../components-css/jobscape/CompletedProjectTab.css";
 
 const CompletedProjectTab = ({
@@ -10,22 +11,41 @@ const CompletedProjectTab = ({
   due,
   budget,
   collaborator,
-  setShowNotification
+  setShowNotification,
 }) => {
   const [showReviewForm, setShowReviewForm] = useState(false);
+  const [showProjectDetails, setShowProjectDetails] = useState(false);
+  const [projectDetails, setProjectDetails] = useState(null);
 
   const handleRateBtnClick = () => {
     setShowReviewForm(true);
   };
 
-  const handleClose = () => {
+  const handleCloseReview = () => {
     setShowReviewForm(false);
+  };
+
+  const handleProjectClick = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:5050/projects/${projectId}`
+      );
+      const data = await response.json();
+      setProjectDetails(data);
+      setShowProjectDetails(true);
+    } catch (error) {
+      console.error("Error fetching project details:", error);
+    }
+  };
+
+  const handleCloseProjectDetails = () => {
+    setShowProjectDetails(false);
   };
 
   const handleSubmitReview = async (reviewData) => {
     try {
       const response = await fetch(
-        "http://localhost:5050/recruite/" + projectId + "/saveReview",
+        `http://localhost:5050/recruite/${projectId}/saveReview`,
         {
           method: "POST",
           headers: {
@@ -44,7 +64,7 @@ const CompletedProjectTab = ({
 
   return (
     <>
-      <div className="CompletedProjectTab">
+      <div className="CompletedProjectTab" onClick={handleProjectClick}>
         <div className="projectDetails">
           <SmallTitle title={projectTitle} fontWeight={700} fontSize="21px" />
           <div className="content">
@@ -71,9 +91,15 @@ const CompletedProjectTab = ({
       </div>
       {showReviewForm && (
         <ReviewForm
-          onClose={handleClose}
+          onClose={handleCloseReview}
           onReviewSubmit={handleSubmitReview}
           setShowNotification={setShowNotification} // Pass setShowNotification as a prop
+        />
+      )}
+      {showProjectDetails && projectDetails && (
+        <ProjectDetailsModal
+          project={projectDetails}
+          onClose={handleCloseProjectDetails}
         />
       )}
     </>
