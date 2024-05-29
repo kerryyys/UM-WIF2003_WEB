@@ -21,11 +21,13 @@ function Fpx() {
         throw new Error('Failed to fetch selected banks');
       }
       const data = await response.json();
+      console.log(data); // Log the fetched data to inspect its structure
       setServices(data);
     } catch (error) {
       console.error('Error fetching selected banks:', error);
     }
   };
+  
 
   const handleServiceClick = (service) => {
     setSelectedService(service);
@@ -104,18 +106,22 @@ const [taskData, setTaskData] = useState({});
         <p className="titleLinked">Linked payment method: </p>
 
         <div>
-  {services.map((service, index) => (
-    <div
-      key={index}
-      onClick={() => {
-        handleServiceClick(service);
-        window.location.href = "/redirect";
-      }}   
-      className={`automatedContainer ${selectedService && selectedService.name === service.name ? 'selected' : ''}`}
-    >
-      <p className="BankName">{service.name}</p>
-    </div>
-  ))}
+  {services.map((service, index) => {
+    console.log(service);
+    return (
+      <div
+        key={index}
+        onClick={() => {
+          handleServiceClick(service);
+          window.location.href = "/redirect";
+        }}   
+        className={`automatedContainer ${selectedService && selectedService.name === service.name ? 'selected' : ''}`}
+      >
+        <p className="BankName">{service.name}</p>
+        {service}
+      </div>
+    );
+  })}
 </div>
 
         <hr className="line"></hr>
