@@ -12,12 +12,12 @@ function ExpandableInput({ defaultWords, title, onChange }) {
             value: word
         }));
         setInputs(initialInputs);
+        if (initialInputs.length > 0) {
+          setNextId(initialInputs[initialInputs.length - 1].id + 1);
+        } else {
+            setNextId(1);
+        }
     }, [defaultWords]);
-
-    useEffect(() => {
-        const values = inputs.map(input => input.value);
-        onChange(values);
-    }, [inputs, onChange]);  
 
     const handleAdd = () => {
         setInputs([...inputs, { id: nextId, value: '' }]);
@@ -25,20 +25,25 @@ function ExpandableInput({ defaultWords, title, onChange }) {
     };
 
     const handleCancel = (id) => {
-        setInputs(inputs.filter(input => input.id !== id));
+        const updatedInputs = inputs.filter(input => input.id !== id)
+        setInputs(updatedInputs);
+        onChange(updatedInputs.map(input => input.value));
     };
 
     const handleInputChange = (id, value) => {
-        setInputs(inputs.map(input =>
-            input.id === id ? { ...input, value: value } : input
-        ));
-    };
+      const updatedInputs = inputs.map(input =>
+          input.id === id ? { ...input, value: value } : input
+      );
+      setInputs(updatedInputs);
+      console.log(updatedInputs);
+      onChange(updatedInputs.map(input => input.value));
+  };
 
     return (
         <div className="w-100">
             <div className="d-flex flex-column gap-3">
-                {inputs.map(input => (
-                    <div key={input.id} className="d-flex position-relative">
+                {inputs.map((input, index) => (
+                    <div key={index} className="d-flex position-relative">
                         <input
                             type="text"
                             value={input.value}

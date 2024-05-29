@@ -25,6 +25,7 @@ import FavoritePage from "./pages/General/FavoritePage";
 import Profile from "./pages/Profile/Profile";
 import EditProfile from "./pages/Profile/EditProfile";
 import AddNewExperience from "./pages/Profile/AddNewExperience";
+import EditExperience from "./pages/Profile/EditExperience";
 import JobHistoryDetails from "./pages/Profile/JobHistoryDetails";
 import Ewallet from "./pages/Payment/ewallet";
 import Card from "./pages/Payment/card";
@@ -76,10 +77,11 @@ function App() {
         <Route path="/YourJobs" element={<YourJobsPage />} />
         <Route path="/SeekJobPage/job-details" element={<JobDetailsPage />} />
         <Route path="/Favorite" element={<FavoritePage />} />
-        <Route path="/Profile" element={<Profile />} />
-        <Route path="/EditProfile" element={<EditProfile />} />
-        <Route path="/AddNewExperience" element={<AddNewExperience />} />
-        <Route path="/JobHistoryDetails" element={<JobHistoryDetails />} />
+        <Route path="/Profile/:userId" element={<Profile />} />
+        <Route path="/EditProfile/:userId" element={<EditProfile />} />
+        <Route path="/AddNewExperience/:userId" element={<AddNewExperience />} />
+        <Route path="/EditExperience/:userId/:experienceId" element={<EditExperience />} />
+        <Route path="/JobHistoryDetails/:id" element={<JobHistoryDetails />} />
         <Route path="/card" element={<Card />} />
         <Route path="/ewallet" element={<Ewallet />} />
         <Route path="/fpx" element={<Fpx />} />
