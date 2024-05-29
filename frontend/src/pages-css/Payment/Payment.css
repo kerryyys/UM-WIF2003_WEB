@@ -118,7 +118,7 @@
 .RightContainer {
   background-color: #2d4777;
   border-radius: 50px;
-  height: 640px;
+  height: 540px;
   margin-top: 30px;
   margin-right: 70px;
 }
@@ -156,6 +156,7 @@
   margin-top: 30px;
   margin-left: 40px;
   font-size: 25px;
+  margin-bottom: 20px;
   color: #fff;
 }
 

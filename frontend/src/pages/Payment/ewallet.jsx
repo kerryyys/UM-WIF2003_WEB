@@ -176,9 +176,9 @@ useEffect(() => {
               <option value="Boost">Boost</option>
               <option value="Grab Pay">GrabPay</option>
               <option value="MAE">MAE</option>
-              <option value="MAE">BigPay</option>
-              <option value="MAE">AliPay</option>
-              <option value="MAE">ShopeePay</option>
+              <option value="BigPay">BigPay</option>
+              <option value="AliPay">AliPay</option>
+              <option value="ShopeePay">ShopeePay</option>
             </select>
             {selectedWallet && (
               <p className="selectedEwallet">You selected: {selectedWallet}</p>
@@ -211,20 +211,14 @@ useEffect(() => {
           </div>
 
           <hr className="lineRightBox"></hr>
-          <form onSubmit={handleSubmit}>
-            <input
-              className="dis"
-              type="text"
-              placeholder="Gift or discount code" />{" "}
-            <span className="buttonApply">Apply</span>
-          </form>
+          
           <hr className="lineRightBox"></hr>
 
           <div>
             <div>
               <p className="descContent">
                 <span className="taskName">Subtotal</span>
-                <span className="taskPrice">{projectBudget}</span>
+                <span className="taskPrice">RM {projectBudget}</span>
               </p>
             </div>
 

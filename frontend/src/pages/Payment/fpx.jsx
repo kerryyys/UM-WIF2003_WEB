@@ -267,20 +267,14 @@ useEffect(() => {
           </div>
 
           <hr className="lineRightBox"></hr>
-          <form onSubmit={handleSubmit}>
-            <input
-              className="dis"
-              type="text"
-              placeholder="Gift or discount code" />{" "}
-            <span className="buttonApply">Apply</span>
-          </form>
+
           <hr className="lineRightBox"></hr>
 
           <div>
             <div>
               <p className="descContent">
                 <span className="taskName">Subtotal</span>
-                <span className="taskPrice">{projectBudget}</span>
+                <span className="taskPrice">RM {projectBudget}</span>
               </p>
             </div>
 
