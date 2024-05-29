@@ -25,17 +25,7 @@ function Invoice() {
           <p className="INVDesc">RM 8000</p>
         </div>
 
-        <div className="INV">
-          <p className="INVName">CIMB</p>
-          <p className="INVPrice">
-            Online Banking App
-          </p>
-          <p className="INVDesc">RM 15000</p>
-        </div>
-      </div>
-
-      <div className="button4-CTN">
-        <button className="buttonDown">Download</button>
+        
       </div>
       </div>
     </div>
