@@ -83,6 +83,16 @@ app.post('/submitCard', async (req, res) => {
     }
 });
 
+app.get('/getCardNumbers', async (req, res) => {
+    try {
+        const cards = await CreditOrDebitCard.find({}, 'cardNumber -_id');
+        res.status(200).json(cards);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal server error.');
+    }
+});
+
 // Task
 app.post('/task', async (req, res) => {
     try {

@@ -5,95 +5,121 @@ import ewalletPic from "../../assets/images/Payment/ewallet.png";
 import cardPic from "../../assets/images/Payment/card.png";
 
 function Card() {
+  const [cardNumbers, setCardNumbers] = useState([]);
+  const [selectedService, setSelectedService] = useState(null);
+  const [cardNumber, setCardNumber] = useState("");
+  const [expirationDate, setExpirationDate] = useState("");
+  const [cvv, setCvv] = useState("");
+  const [ownerName, setOwnerName] = useState("");
+  const [country, setCountry] = useState("Malaysia");
+  const [taskData, setTaskData] = useState({});
 
-  // read linked card
-  const [services, setServices] = useState(['']); 
-  const [selectedService, setSelectedService] = useState({});
+useEffect(() => {
+  fetch('http://localhost:6006/getCardNumbers')
+    .then(response => response.json())
+    .then(data => setCardNumbers(data))
+    .catch(error => console.error('Error fetching card numbers:', error));
+}, []);
 
   const handleServiceClick = (service) => {
     setSelectedService(service);
-  };
-  
-
-  // write card details
-  const [cardNumber, setCardNumber, country] = useState("");
-  const handleChange = (event) => {
-    setCardNumber(event.target.value);
+    window.location.href = "/redirect";
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    function submitForm() {
-      const cardNumber = document.querySelector('.cardNo-inputCTN').value;
-      const expirationDate = document.querySelector('.inputCTN1').value;
-      const cvv = document.querySelector('.inputCTN2').value;
-      const ownerName = document.querySelector('.cardNo-inputCTN:nth-of-type(2)').value;
-      const country = document.querySelector('.cardNo-inputCTN:last-of-type').value;
-    
+    const handleSubmit = (event) => {
+      event.preventDefault();
+      
       const selectedCard = {
-        cardNumber: cardNumber,
-        expirationDate: expirationDate,
-        cvv: cvv,
-        ownerName: ownerName,
-        country: country
-      };
-    
-      if (cardNumber && expirationDate && cvv && ownerName && country) {
-        fetch('http://localhost:6006/submitCard', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(selectedCard)
-        })
-        .then(response => {
-            if (response.ok) {
-                console.log('Data saved successfully.');
-                // window.location.href = "/redirect"
-            } else {
-                throw new Error('Failed to save data.');
-            }
-        })
-        .catch(error => {
-            console.error(error);
-        });
-      } else {
-        alert('Please enter all the card details.');
-      }
+        cardNumber,
+        expirationDate,
+        cvv,
+        ownerName,
+        country,
+    };
+
+    if (cardNumber && expirationDate && cvv && ownerName && country) {
+      fetch('http://localhost:6006/submitCard', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(selectedCard)
+      })
+      .then(response => {
+          if (response.ok) {
+              console.log('Data saved successfully.');
+              window.location.href = "/redirect";
+          } else {
+              throw new Error('Failed to save data.');
+          }
+      })
+      .catch(error => {
+          console.error(error);
+      });
+    } else {
+      alert('Please enter all the card details.');
     }
   };
 
-// read data to service summary
-const [taskData, setTaskData] = useState({});
-
-useEffect(() => {
+  useEffect(() => {
     fetch('http://localhost:6006/task')
-        .then(response => response.json())
-        .then(data => {
-            setTaskData(data);
-        })
-        .catch(error => console.error('Error fetching task data:', error));
-}, []); 
+      .then(response => response.json())
+      .then(data => setTaskData(data))
+      .catch(error => console.error('Error fetching task data:', error));
+  }, []);
 
-// total price
-let totalPrice;
-let totalPriceString;
-if (taskData && taskData.taskPrice) {
-  const priceString = taskData.taskPrice;
-  const priceWithoutPrefix = priceString.replace("RM", "").trim();
-  const taskPrice = parseFloat(priceWithoutPrefix);
-  
-  if (!isNaN(taskPrice)) {
-      totalPrice = taskPrice + 10;
+  let totalPriceString = "RM 10";
+  if (taskData && taskData.taskPrice) {
+    const priceString = taskData.taskPrice;
+    const priceWithoutPrefix = priceString.replace("RM", "").trim();
+    const taskPrice = parseFloat(priceWithoutPrefix);
+
+    if (!isNaN(taskPrice)) {
+      const totalPrice = taskPrice + 10;
       totalPriceString = "RM " + totalPrice;
-  } else {
+    } else {
       console.log("Invalid task price");
+    }
+  } else {
+    console.log("taskData or taskData.taskPrice is undefined");
   }
-} else {
-  console.log("taskData or taskData.taskPrice is undefined");
-}
+
+  const formatCardNumber = (value) => {
+    // Remove all non-digit characters
+    const cleaned = value.replace(/\D+/g, '');
+    // Group digits in sets of four
+    const formatted = cleaned.match(/.{1,4}/g)?.join(' ') || '';
+    return formatted;
+  };
+
+  const handleCardNumberChange = (e) => {
+    const formattedCardNumber = formatCardNumber(e.target.value);
+    setCardNumber(formattedCardNumber);
+  };
+
+  const formatExpirationDate = (value) => {
+    // Remove all non-digit characters
+    const cleaned = value.replace(/\D+/g, '');
     
+    // Limit to 4 digits for MMYY format
+    const truncated = cleaned.substring(0, 4);
+  
+    // Format as MM/YY
+    if (truncated.length >= 3) {
+      return `${truncated.substring(0, 2)}/${truncated.substring(2, 4)}`;
+    } else if (truncated.length >= 1) {
+      return truncated;
+    }
+  
+    return '';
+  };
+  
+  const handleExpirationDateChange = (e) => {
+    const formattedExpirationDate = formatExpirationDate(e.target.value);
+    setExpirationDate(formattedExpirationDate);
+  };
+  
+
   return (
     <div className="split-container">
       <div className="LeftContainer">
@@ -102,16 +128,13 @@ if (taskData && taskData.taskPrice) {
         <p className="titleLinked">Linked payment method:</p>
 
         <div>
-  {services.map((service, index) => (
+  {cardNumbers.map((number, index) => (
     <div
       key={index}
-      onClick={() => {
-        handleServiceClick(service);
-        window.location.href = "/redirect";
-      }}      
-      className={`automatedContainer ${selectedService && selectedService.name === service.name ? 'selected' : ''}`}
+      onClick={() => handleServiceClick(number)}
+      className={`automatedContainer ${selectedService && selectedService.cardNumber === number.cardNumber ? 'selected' : ''}`}
     >
-      <p className="BankName">{service.name}</p>
+      <p className="BankName">{number.cardNumber}</p>
     </div>
   ))}
 </div>
@@ -124,108 +147,100 @@ if (taskData && taskData.taskPrice) {
           <label
             className="choose-payment-method"
             onClick={() => (window.location.href = "/fpx")}
-            htmlFor="creditCard"
           >
-            {" "}
             Online Banking FPX
           </label>
         </div>
 
         <div className="LeftContainerr">
-          <img className="picEwallet" src={ewalletPic} alt="E-Wallet Logo" />{" "}
+          <img className="picEwallet" src={ewalletPic} alt="E-Wallet Logo" />
           <label
             className="choose-payment-method"
             onClick={() => (window.location.href = "/ewallet")}
-            htmlFor="debitCard"
           >
             E- Wallet
           </label>
         </div>
 
         <div className="LeftContainerr">
-          <img
-            className="picCard"
-            src={cardPic}
-            alt="Credit / Debit Card Logo"
-          />{" "}
+          <img className="picCard" src={cardPic} alt="Credit / Debit Card Logo" />
           <label
             onClick={() => (window.location.href = "/card")}
             className="choose-payment-method"
-            htmlFor="paypal"
           >
-            {" "}
             Credit / Debit Card
           </label>
         </div>
 
-        <form action="/submitCard" method="POST">
-        <p className="titleLinked">Card Number</p>
-        {/* <form onSubmit={handleSubmit}> */}
+        <form onSubmit={handleSubmit}>
+          <p className="titleLinked">Card Number</p>
           <input
             className="cardNo-inputCTN"
             type="text"
             value={cardNumber}
-            onChange={handleChange}
+            onChange={handleCardNumberChange}
             placeholder="1234  5678  9101  1121"
-            maxLength="16"
+            maxLength="19"
+            required
           />
-        {/* </form> */}
 
-        <div className="split-container">
-          <div className="c">
-            <p className="titleLinked">Expiration Date</p>
-            {/* <form onSubmit={handleSubmit}> */}
-              <input className="inputCTN1" type="text" placeholder="MM/YY" />
-            {/* </form> */}
-          </div>
-          <div className="c">
-            <p className="titleLinked">CVV</p>
-            {/* <form onSubmit={handleSubmit}> */}
+          <div className="split-container">
+            <div className="c">
+              <p className="titleLinked">Expiration Date</p>
+              <input
+                className="inputCTN1"
+                type="text"
+                value={expirationDate}
+                onChange={handleExpirationDateChange}
+                placeholder="MM/YY"
+                maxLength="5"
+                required
+              />
+            </div>
+            <div className="c">
+              <p className="titleLinked">CVV</p>
               <input
                 className="inputCTN2"
                 type="text"
+                value={cvv}
+                onChange={(e) => setCvv(e.target.value)}
                 placeholder="123"
-                maxlength="3"
+                maxLength="3"
+                required
               />
-            {/* </form> */}
+            </div>
           </div>
-        </div>
 
-        <p className="titleLinked">Owner Name</p>
-        {/* <form onSubmit={handleSubmit}> */}
+          <p className="titleLinked">Owner Name</p>
           <input
             className="cardNo-inputCTN"
             type="text"
+            value={ownerName}
+            onChange={(e) => setOwnerName(e.target.value)}
             placeholder="David Teo"
+            required
           />
-        {/* </form> */}
 
-        <p className="titleLinked">Country</p>
-        {/* <form onSubmit={handleSubmit}> */}
+          <p className="titleLinked">Country</p>
           <input
             className="cardNo-inputCTN"
             type="text"
             value={country}
+            onChange={(e) => setCountry(e.target.value)}
             placeholder="Malaysia"
+            required
           />
-        {/* </form> */}
 
-        <button
-          type="submit"
-          className="buttonPay"
-        >
-          Pay Now
-        </button>
+          <button type="submit" className="buttonPay">
+            Pay Now
+          </button>
         </form>
         <div className="reminder">
           <p>
             Your personal data will be used to process your order, support your
-            experience
-          </p>
-          <p>
             experience throughout this website, and for other purposes described
+            in our privacy policy.
           </p>
-          <p>in our privacy policy.</p>
         </div>
       </div>
 
@@ -247,7 +262,7 @@ if (taskData && taskData.taskPrice) {
             className="dis"
             type="text"
             placeholder="Gift or discount code"
-          />{" "}
+          />
           <span className="buttonApply">Apply</span>
         </form>
         <hr className="lineRightBox"></hr>
@@ -262,7 +277,7 @@ if (taskData && taskData.taskPrice) {
 
           <div>
             <p className="descContent">
-              <span className="taskName">Additional ( 6% of service tax )</span>
+              <span className="taskName">Additional (6% of service tax)</span>
               <span className="taskPrice">RM 10</span>
             </p>
           </div>
@@ -273,7 +288,6 @@ if (taskData && taskData.taskPrice) {
         <div>
           <p className="descContent">
             <span className="taskName">Total</span>
-            <span className="taskPrice">{parseInt(taskData.taskPrice) + 10}</span>
           </p>
         </div>
       </div>

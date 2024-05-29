@@ -17,12 +17,12 @@ function Ewallet() {
     try {
       const response = await fetch('http://localhost:6006/selectedWallets');
       if (!response.ok) {
-        throw new Error('Failed to fetch selected banks');
+        throw new Error('Failed to fetch selected e wallet');
       }
       const data = await response.json();
       setServices(data);
     } catch (error) {
-      console.error('Error fetching selected banks:', error);
+      console.error('Error fetching selected e wallet:', error);
     }
   };
 
@@ -101,7 +101,7 @@ const [taskData, setTaskData] = useState({});
         <hr className="line"></hr>
         <p className="titleLinked">Linked payment method:</p>
 
-        <div>
+        {/* <div>
   {services.map((service, index) => (
     <div
       key={index}
@@ -110,10 +110,25 @@ const [taskData, setTaskData] = useState({});
         window.location.href = "/redirect";
       }}   
       className={`automatedContainer ${selectedService && selectedService.name === service.name ? 'selected' : ''}`}>
-      <p className="BankName">{service.name}</p>
+      <p className="BankName">{service}</p>
     </div>
       ))}
-        </div>
+        </div> */}
+
+{services.map((service, index) => (
+  <div
+    key={index}
+    onClick={() => {
+      handleServiceClick(service);
+      window.location.href = "/redirect";
+    }}   
+    className={`automatedContainer ${selectedService && selectedService.name === service.name ? 'selected' : ''}`}
+  >
+    <p className="BankName"></p>
+    <p>{service.selectedWallet}</p>
+  </div>
+))}
+
 
         <hr className="line"></hr>
         <p className="titleLinked">Pay With:</p>
@@ -161,8 +176,11 @@ const [taskData, setTaskData] = useState({});
             <option value="">Select E-Wallet</option>
             <option value="Touch N Go">Touch N Go</option>
             <option value="Boost">Boost</option>
-            <option value="Grab Pay">Grab Pay</option>
+            <option value="Grab Pay">GrabPay</option>
             <option value="MAE">MAE</option>
+            <option value="MAE">BigPay</option>
+            <option value="MAE">AliPay</option>
+            <option value="MAE">ShopeePay</option>
           </select>
           {selectedWallet && (
             <p className="selectedEwallet">You selected: {selectedWallet}</p>
