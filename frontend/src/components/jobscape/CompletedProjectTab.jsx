@@ -84,7 +84,7 @@ const CompletedProjectTab = ({
           <div className="RateBtn" onClick={handleRateBtnClick}>
             Rate
           </div>
-          <Link to="/card" className="PayBtn">
+          <Link to="/fpx" className="PayBtn">
             Pay
           </Link>
         </div>
@@ -107,3 +107,5 @@ const CompletedProjectTab = ({
 };
 
 export default CompletedProjectTab;
+
+

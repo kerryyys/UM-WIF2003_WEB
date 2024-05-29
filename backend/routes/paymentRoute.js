@@ -1,24 +1,11 @@
 import express from 'express';
-import mongoose from 'mongoose';
-import bodyParser from 'body-parser';
-import cors from 'cors';
-
-// Import models from the combined models file
 import { SelectedWallet, SelectedBank, CreditOrDebitCard, Task } from '../models/payment.js';
+import { Project } from '../models/projectModel.js';
 
-const app = express();
-const PORT = 6006;
-
-app.use(cors());
-
-mongoose.connect('mongodb://localhost:27017/payment', { useNewUrlParser: true, useUnifiedTopology: true });
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-
-app.use(bodyParser.json());
+const router = express.Router();
 
 // E-Wallet
-app.post('/submit', async (req, res) => {
+router.post('/submit', async (req, res) => {
     try {
         const newSelectedWallet = new SelectedWallet({
             selectedWallet: req.body.selectedWallet
@@ -33,7 +20,7 @@ app.post('/submit', async (req, res) => {
     }
 });
 
-app.get('/selectedWallets', async (req, res) => {
+router.get('/selectedWallets', async (req, res) => {
     try {
         const selectedWallets = await SelectedWallet.find();
         res.status(200).json(selectedWallets);
@@ -44,22 +31,25 @@ app.get('/selectedWallets', async (req, res) => {
 });
 
 // Bank
-app.post('/submitBank', async (req, res) => {
+router.post('/submitBank', async (req, res) => {
     try {
-        const newSelectedBank = new SelectedBank({
-            selectedBank: req.body.selectedBank
-        });
+        const { selectedBank } = req.body;
 
+        if (!selectedBank) {
+            return res.status(400).send('No bank selected');
+        }
+
+        const newSelectedBank = new SelectedBank({ selectedBank });
         await newSelectedBank.save();
 
         res.status(200).send('Data saved successfully.');
     } catch (error) {
-        console.error(error);
+        console.error('Error saving selected bank:', error);
         res.status(500).send('Internal server error.');
     }
 });
 
-app.get('/selectedBanks', async (req, res) => {
+router.get('/selectedBanks', async (req, res) => {
     try {
         const selectedBanks = await SelectedBank.find();
         const selectedBankNames = selectedBanks.map(selectedBank => selectedBank.selectedBank);
@@ -71,7 +61,7 @@ app.get('/selectedBanks', async (req, res) => {
 });
 
 // Card
-app.post('/submitCard', async (req, res) => {
+router.post('/submitCard', async (req, res) => {
     try {
         const cardData = req.body;
         const newCard = new CreditOrDebitCard(cardData);
@@ -83,7 +73,7 @@ app.post('/submitCard', async (req, res) => {
     }
 });
 
-app.get('/getCardNumbers', async (req, res) => {
+router.get('/getCardNumbers', async (req, res) => {
     try {
         const cards = await CreditOrDebitCard.find({}, 'cardNumber -_id');
         res.status(200).json(cards);
@@ -94,31 +84,21 @@ app.get('/getCardNumbers', async (req, res) => {
 });
 
 // Task
-app.post('/task', async (req, res) => {
+router.get('/task', async (req, res) => {
     try {
-        const { taskName, taskPrice } = req.body;
-        const newTask = new Task({ taskName, taskPrice });
-        await newTask.save();
-        res.status(200).send('Task added successfully.');
+      const project = await Project.findOne({});
+  
+      if (!project) {
+        return res.status(404).send('Project not found');
+      }
+  
+      const { projectTitle, projectBudget } = project;
+  
+      res.status(200).json({ projectTitle, projectBudget });
     } catch (error) {
-        console.error(error);
-        res.status(500).send('Internal server error.');
+      console.error(error);
+      res.status(500).send('Internal server error.');
     }
-});
+  });
 
-app.get('/task', async (req, res) => {
-    try {
-        const task = await Task.findOne({});
-        if (!task) {
-            return res.status(404).send('Task not found');
-        }
-        res.status(200).json(task);
-    } catch (error) {
-        console.error(error);
-        res.status(500).send('Internal server error.');
-    }
-});
-
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
-});
+export default router;
