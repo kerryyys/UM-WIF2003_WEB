@@ -133,27 +133,19 @@ const SeekJobPage = () => {
   };
 
   const projectPerPage = 7;
-
-
-  const categories = [
-    "Web Developer",
-    "Graphic Designer",
-    "Content Creation",
-    "Photographic",
-    "Project Management",
-  ];
-
-  const duration = ["Short Term", "Long Term", "OnGoing"];
-
+  
   const filterTabs = [
     {
       filterTitle: "PROJECT CATEGORY",
       filterTypes: [
-        "Web Development",
-        "Graphic & Design",
+        "Tech & IT",
+        "Creative & Design",
         "Content Writing",
-        "Photographic",
-        "Audit",
+        "Education & Training",
+        "Marketing",
+        "Finance",
+        "Healthcare",
+        "Engineering",
       ],
     },
     {
@@ -162,17 +154,19 @@ const SeekJobPage = () => {
     },
 
     {
-      filterTitle: "BUDGET RANGE",
-      filterTypes: [
-        "1,000-3,000",
-        "3,001-5,000",
-        "5,001-8,000",
-        "8,001-10,000",
-      ],
-    },
-    {
       filterTitle: "LOCATION",
-      filterTypes: ["Kuala Lumpur", "Selangor", "Johor Bahru", "Remote"],
+      filterTypes: [
+        "Kuala Lumpur",
+        "Selangor",
+        "Negeri Sembilan",
+        "Melaka",
+        "Johore",
+        "Kelantan",
+        "Terengganu",
+        "Perak",
+        "Pahang",
+        "Remote",
+      ],
     },
     // Add more FilterTab objects as needed
   ];
