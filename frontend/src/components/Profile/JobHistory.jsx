@@ -3,7 +3,7 @@ import { Container, Row, Col, Image } from "react-bootstrap";
 import "../../components-css/Profile/JobHistoryCSS.css";
 import { useNavigate } from "react-router-dom";
 
-const JobHistory = ({ jobInfos }) => {
+const JobHistory = ({ jobInfos=[] }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {

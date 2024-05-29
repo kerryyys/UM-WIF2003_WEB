@@ -2,7 +2,7 @@ import React from "react";
 import WorkCaseIcon from '../../assets/icons/profile/work-case-svgrepo-com 1.svg'
 import '../../components-css/Profile/ExperienceCSS.css'
 
-function Experience({ experiences }) {
+function Experience({ experiences=[] }) {
   return (
     <>
       {experiences.map((experience, index) => (

@@ -1,6 +1,6 @@
 import React from "react";
 
-function Skill({ skills }) {
+function Skill({ skills=[] }) {
   return (
     <>
       
