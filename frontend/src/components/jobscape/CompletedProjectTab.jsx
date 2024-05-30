@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link , useNavigate } from "react-router-dom";
+import React, { useState , useEffect , useContext } from "react";
+import { Link , useNavigate  , useLocation } from "react-router-dom";
 import SmallTitle from "../../components/jobscape/SmallTitle";
 import ReviewForm from "../../components/jobscape/ReviewForm";
 import ProjectDetailsModal from "./ProjectDetailsModal";
@@ -12,6 +12,8 @@ const CompletedProjectTab = ({
   budget,
   collaborator,
   setShowNotification,
+
+  
 }) => {
   const [showReviewForm, setShowReviewForm] = useState(false);
   const [showProjectDetails, setShowProjectDetails] = useState(false);
@@ -44,7 +46,7 @@ const CompletedProjectTab = ({
       const response = await fetch(`http://localhost:5050/projects/${projectId}`);
       const data = await response.json();
       const { projectTitle, projectBudget } = data;
-      navigate("/fpx", {
+      navigate("/ewallet", {
         state: { projectTitle, projectBudget }
       });
     } catch (error) {

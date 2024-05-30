@@ -39,6 +39,7 @@ import Footer from "./components/Footer";
 import CommunityPage from "./pages/Community/CommunityPage";
 import NavBar from "./components/NavBar";
 import CompletedProjectTab from '../src/components/jobscape/CompletedProjectTab';
+import ServiceSummary from "./components/payment/serviceSummary";
 import "./App.css";
 
 function ScrollToTopOnNavigation() {
@@ -87,6 +88,7 @@ function App() {
         <Route path="/EditExperience/:userId/:experienceId" element={<EditExperience />} />
         <Route path="/JobHistoryDetails/:id" element={<JobHistoryDetails />} />
         <Route path="/" component={CompletedProjectTab} />
+        <Route path="/ServiceSummary" component={ServiceSummary} />
         <Route path="/card" element={<Card />} />
         <Route path="/ewallet" element={<Ewallet />} />
         <Route path="/fpx" element={<Fpx />} />

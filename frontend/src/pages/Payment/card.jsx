@@ -1,6 +1,6 @@
-
+import ServiceSummary from "../../components/payment/serviceSummary";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import fpxPic from "../../assets/images/Payment/fpx.png";
 import ewalletPic from "../../assets/images/Payment/ewallet.png";
 import cardPic from "../../assets/images/Payment/card.png";
@@ -8,7 +8,6 @@ import { Button } from "react-bootstrap";
 
 const Card = () => {
 
-  const { projectId } = useParams();
   const [cardNumbers, setCardNumbers] = useState([]);
   const [selectedService, setSelectedService] = useState(null);
   const [cardNumber, setCardNumber] = useState("");
@@ -18,8 +17,8 @@ const Card = () => {
   const [country, setCountry] = useState("Malaysia");
   const [projectTitle, setProjectTitle] = useState("");
   const [projectBudget, setProjectBudget] = useState("");
-  const [taskId, setTaskId] = useState("");
-  const [totalPrice, setTotalPrice] = useState("");
+  const location = useLocation();
+  const [taskData, setTaskData] = useState({});
 
   useEffect(() => {
     // Fetch card numbers
@@ -70,19 +69,6 @@ const Card = () => {
       alert("Please enter all the card details.");
     }
   };
-
-
-// get project title and budget
-useEffect(() => {
-  fetch('http://localhost:5050/payment/task')
-    .then(response => response.json())
-    .then(data => {
-      const { projectTitle, projectBudget } = data;
-      setProjectTitle(projectTitle.toString());
-      setProjectBudget(projectBudget.toString());
-    })    
-    .catch(error => console.error('Error fetching project data:', error));
-}, []);
 
   // Format card number input
   const formatCardNumber = (value) => {
@@ -248,47 +234,11 @@ useEffect(() => {
           </div>
         </div>
 
-        <div className="RightContainer">
-          <div>
-            <p className="titleRight">Service Summary</p>
-            <hr className="lineRightBox"></hr>
-          </div>
-          <div>
-            <p className="descContent">
-              <span className="taskName">{projectTitle}</span>
-              <span className="taskPrice">RM {projectBudget}</span>
-            </p>
-          </div>
-
-          <hr className="lineRightBox"></hr>
-         
-          <hr className="lineRightBox"></hr>
-
-          <div>
-            <div>
-              <p className="descContent">
-                <span className="taskName">Subtotal</span>
-                <span className="taskPrice">RM {projectBudget}</span>
-              </p>
-            </div>
-
-            <div>
-              <p className="descContent">
-                <span className="taskName">Additional (6% of service tax)</span>
-                <span className="taskPrice">RM 10</span>
-              </p>
-            </div>
-          </div>
-
-          <hr className="lineRightBox"></hr>
-
-          <div>
-            <p className="descContent">
-              <span className="taskName">Total</span>
-              <span className="taskPrice">RM {parseFloat(projectBudget) + 10}</span>
-            </p>
-          </div>
-        </div>
+        <ServiceSummary 
+        projectTitle={projectTitle} 
+        projectBudget={projectBudget} 
+        taskData={taskData} 
+      />
       </div></>
   );
 }
