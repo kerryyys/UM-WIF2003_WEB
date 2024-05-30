@@ -13,10 +13,10 @@ export default function NavBar({ loggedIn }) {
   ];
 
   return (
-    <div className="navbar-style tw-px-1 tw-py-2 tw-pl-8 tw-text-lg">
+    <div className="navbar-style tw-px-1 tw-py-1 tw-pl-8 tw-text-lg">
       <nav className="navbar navbar-expand-lg tw-p-5">
         <Link
-          className="tw-absolute tw-left-8 tw-top-1/2 w-transform tw--translate-y-1/2 tw-text-3xl tw-font-kaushan"
+          className="tw-absolute tw-lexft-8 tw-top-1/2 w-transform tw--translate-y-1/2 tw-text-3xl tw-font-kaushan"
           to="/"
         >
           UniJobs

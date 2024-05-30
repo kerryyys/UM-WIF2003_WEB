@@ -9,16 +9,11 @@ const router = express.Router();
 router.post("/posts", async (req, res) => {
   try {
     const postData = req.body;
-    console.log(postData);
-    const { content } = postData;
 
-    console.log("The content is ", content);
-
-    if (!content) {
-      return res.status(400).json({ message: "Content is required" });
-    }
+    const { title, content } = postData;
 
     const post = new Post({
+      title,
       content,
     });
 
