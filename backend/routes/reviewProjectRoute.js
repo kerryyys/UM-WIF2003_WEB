@@ -103,12 +103,10 @@ router.post("/:projectId/saveReview", async (req, res) => {
     // Find the project by its ID
     const project = await Project.findById(projectId);
 
-    // If the project is not found, return an error
     if (!project) {
       return res.status(404).json({ message: "Project not found" });
     }
 
-    // Update the project's review data
     project.review = {
       satisfactionRating,
       projectRating,
@@ -117,7 +115,6 @@ router.post("/:projectId/saveReview", async (req, res) => {
       collaboratorFeedback,
     };
 
-    // Save the updated project
     const updatedProject = await project.save();
     console.log("review saved");
 

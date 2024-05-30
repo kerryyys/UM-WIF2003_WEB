@@ -91,7 +91,7 @@ const ReviewProjectPage = () => {
               projectTitle={project.projectTitle}
               due={new Date(project.deadline).toLocaleDateString("en-GB")}
               budget={project.projectBudget}
-              collaborator={project.PIC}
+              collaborator={project.serviceProvider}
             />
           ))}
         </div>
@@ -108,7 +108,7 @@ const ReviewProjectPage = () => {
               projectTitle={project.projectTitle}
               due={new Date(project.deadline).toLocaleDateString("en-GB")}
               budget={project.projectBudget}
-              collaborator={project.PIC}
+              collaborator={project.serviceProvider}
               setShowNotification={setShowNotification}
             />
           ))}
