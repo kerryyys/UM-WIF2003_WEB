@@ -30,13 +30,23 @@ const SeekTalentPage = () => {
     }
     setCurrentPage(1); // Reset to the first page when filters change
   };
-  //to retrieve data from backend
+
+  // Retrieve data from backend
   useEffect(() => {
     // Fetch freelancer data from backend API
     axios
-      .get("http://localhost:5050/users/:id")
+      .get("http://localhost:5050/users/")
       .then((response) => {
-        setFreelancers(response.data);
+        const fetchedFreelancers = response.data.data.map((freelancer) => ({
+          ...freelancer,
+          filters: [
+            ...freelancer.skill,
+            freelancer.state,
+            freelancer.rating.toString(), // Add rating as a string to the filters array
+          ],
+        }));
+        setFreelancers(fetchedFreelancers);
+        console.log(fetchedFreelancers);
       })
       .catch((error) => {
         console.error("Error fetching freelancer data:", error);
@@ -44,12 +54,8 @@ const SeekTalentPage = () => {
   }, []); // Empty dependency array to fetch data only once when the component mounts
 
   const collaboratorsPerPage = 6;
-  
+
   const filters = [
-    {
-      filterTitle: "EXPERIENCED LEVEL",
-      filterTypes: ["Beginner", "Intermediate", "Expert"],
-    },
     {
       filterTitle: "SKILLS",
       filterTypes: [
@@ -150,15 +156,16 @@ const SeekTalentPage = () => {
             newOrRate="RATING"
           />
           <div className="CollabResult">
-            {/* Display filtered collaborators */}
-            {freelancers.map((freelancer, index) => (
+            {/* Display filtered and paginated collaborators */}
+            {slicedCollaborators.map((freelancer, index) => (
               <CollaboratorTab
                 key={index}
                 profilePic={freelancer.profilePic}
-                collaboratorName={freelancer.firstName + freelancer.lastName}
+                collaboratorName={`${freelancer.firstName} ${freelancer.lastName}`}
                 ratingStar={freelancer.rating}
-                filters={freelancer.skill} // Assuming skills is an array of strings
+                filters={freelancer.skill} 
                 biography={freelancer.about}
+                location={freelancer.state}
               />
             ))}
           </div>

@@ -2,7 +2,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col, Image } from 'react-bootstrap';
 import EditProfileIcon from '../../assets/icons/profile/edit_fill.svg';
-import default_avatar from "../../assets/profile/avatar-default-symbolic-svgrepo-com.svg";
+import default_avatar from "../../assets/icons/profile/avatar-default-symbolic-svgrepo-com.svg";
 import { Link } from 'react-router-dom';
 
 function ProfileHeader(props) {

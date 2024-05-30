@@ -45,7 +45,7 @@ const ReviewProjectPage = () => {
     <div className="ReviewProjectPage">
       {/* Back button */}
       <div className="ReviewBackBtn">
-        <Button className="BackBtn" onClick={() => navigate(-1)}>
+        <Button className="BackBtn"  onClick={() => (window.location.href = '/SeekTalentPage')}>
           <p>
             <i className="bi-chevron-left" />
             Back
@@ -91,7 +91,7 @@ const ReviewProjectPage = () => {
               projectTitle={project.projectTitle}
               due={new Date(project.deadline).toLocaleDateString("en-GB")}
               budget={project.projectBudget}
-              collaborator={project.PIC}
+              collaborator={project.serviceProvider}
             />
           ))}
         </div>
@@ -108,7 +108,7 @@ const ReviewProjectPage = () => {
               projectTitle={project.projectTitle}
               due={new Date(project.deadline).toLocaleDateString("en-GB")}
               budget={project.projectBudget}
-              collaborator={project.PIC}
+              collaborator={project.serviceProvider}
               setShowNotification={setShowNotification}
             />
           ))}
