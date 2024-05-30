@@ -20,7 +20,6 @@ import WorkMutual from "../../assets/icons/jobscape/mutual.svg";
 
 const JobscapeMainPage = () => {
   const [searchValue, setSearchValue] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("");
   const categories = [
     "Web Developer",
     "Graphic Design",
@@ -84,11 +83,7 @@ const JobscapeMainPage = () => {
   const handleSearchChange = (event) => {
     setSearchValue(event.target.value);
   };
-
-  const handleCategoryChange = (event) => {
-    setSelectedCategory(event.target.value);
-  };
-
+  
   const handleClick = () => {
     // Handle click action here
   };
@@ -97,7 +92,7 @@ const JobscapeMainPage = () => {
       <div
         style={{
           width: "100vw",
-          height: "75vh",
+          height: "68vh",
           backgroundImage: `url(${BackgroundImage})`,
         }}
       >
@@ -114,11 +109,6 @@ const JobscapeMainPage = () => {
             placeholder="Search"
             value={searchValue}
             onChange={handleSearchChange}
-          />
-          <CategoryBar
-            categories={categories}
-            value={selectedCategory}
-            onChange={handleCategoryChange}
           />
           <SearchButton
             handleClick={handleClick}
@@ -138,7 +128,7 @@ const JobscapeMainPage = () => {
           <Link to="/YourJobs">
             <Button
               className="floating-your-jobs-btn"
-              style={{ backgroundColor: "#ffffff", color: "#2D4877" }}
+              style={{ backgroundColor: "#ffffff", color: "#2D4877", border:"none"}}
             >
               Your Jobs <i className="bi bi-exclamation-circle-fill" />
             </Button>

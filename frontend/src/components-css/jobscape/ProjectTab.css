@@ -1,7 +1,8 @@
 .ProjectTab {
-  display: flex; /* Ensure the tab layout is a flex container */
-  align-items: center; /* Align items vertically */
-  justify-content: space-between; /* Distribute space between items */
+    position: relative; /* Add this line */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   width: 100%;
   border-radius: 10px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
@@ -10,29 +11,43 @@
   transition: box-shadow 0.3s ease;
 }
 
-.ProjectTab:hover{
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+.SaveIcon {
+  position: absolute; /* Add this line */
+  top: 5px; /* Adjust the value as needed */
+  right: 5px; /* Adjust the value as needed */
+  cursor: pointer;
+  color: #2d4877;
+  border: 1px solid #2d4877;
+  padding: 5px;
+  margin-right: 10px;
+  border-radius: 50%;
+  transition: color 0.3s ease, background-color 0.3s ease;
 }
+
+.ProjectTab:hover {
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+}
+
 .LeftContent {
   display: flex;
   align-items: center;
 }
 
 .CompanyLogo {
-  width: 50%;
-  height: 50%;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
-  margin: -12px 15px 0 10px;
+  margin-right: 15px;
 }
 
 .ProjectTitle {
-  margin: 10px 0 3px;
+  margin: 0;
   color: #2d4877;
   font-weight: 700;
 }
 
 .CompanyInfo {
-  margin: 0 0 15px 0;
+  margin: 0;
   color: #bcbcbc;
 }
 
@@ -47,42 +62,38 @@
 
 .Filters {
   display: flex;
+  flex-wrap: wrap;
+  margin-top: 5px;
 }
 
 .FilterBadge {
   margin-right: 5px;
-  background-color: #80d1d5 !important; /* Override bootstrap background color */
-  color: #fdfaf3 !important; /* Override bootstrap text color */
+  background-color: #80d1d5 !important;
+  color: #fdfaf3 !important;
   border-radius: 5px;
 }
 
 .RightContent {
-  align-items: end;
-}
-
-.SaveIcon {
-  cursor: pointer;
-  color: #2d4877;
-  border: 1px solid #2d4877;
-  padding: 9%;
-  border-radius: 50%;
-  margin: 10px 0 50%;
-  transition: color 0.3s ease, background-color 0.3s ease; /* Include background-color in the transition */
+  display: flex;
+  align-items: center;
 }
 
 .SaveIcon.saved {
-  color: #fdfaf3; /* Change color based on saved state */
-  background-color: #2d4877; /* Change background color based on saved state */
+  color: #fdfaf3;
+  background-color: #2d4877;
 }
 
 .SaveIcon:hover {
-  color: #fdfaf3; /* Change color on hover */
-  background-color: #2d4877; /* Change background color on hover */
+  color: #fdfaf3;
+  background-color: #2d4877;
 }
 
-
 .TimePosted {
-  margin: 0 20px 0 0;
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  margin: 0;
+  margin-right: 10px;
   font-size: 12px;
   color: #bcbcbc;
 }
