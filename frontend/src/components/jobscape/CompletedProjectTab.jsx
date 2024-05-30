@@ -24,7 +24,6 @@ const CompletedProjectTab = ({
   const [isProjectAccepted, setIsProjectAccepted] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState("");
   const [showLocalNotification, setShowLocalNotification] = useState(false);
-  const [projects, setProject] = useState([]);
   const navigate = useNavigate();
 
   const handleProjectClick = async () => {
