@@ -7,11 +7,13 @@ import "../../components-css/jobscape/ProjectPostedUser.css";
 
 const ProjectPostedUser = ({ applicant, projectId, onConfirm, onRemove }) => {
   const handleConfirm = () => {
-    onConfirm(projectId, applicant.userID);
+    console.log("handleConfirm: ", applicant);
+    onConfirm(applicant);
   };
 
   const handleRemove = () => {
-    onRemove(projectId, applicant.userID);
+    console.log("handleRemove: ", applicant);
+    onRemove(applicant);
   };
 
   return (

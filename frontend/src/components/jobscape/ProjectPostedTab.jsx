@@ -16,6 +16,7 @@ const ProjectPostedTab = ({
   const [applicants, setApplicants] = useState([]);
 
   useEffect(() => {
+    console.log("Project id of this tab: ", projectId);
     fetchApplicants();
   }, [projectId]);
 
@@ -30,7 +31,7 @@ const ProjectPostedTab = ({
   const fetchApplicants = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5050/recruite/posted/" + projectId+ "/applicants"
+        "http://localhost:5050/recruite/posted/" + projectId + "/applicants"
       );
       console.log("Applicants response:", response.data); // Log response data
       setApplicants(response.data);
@@ -41,6 +42,7 @@ const ProjectPostedTab = ({
 
   const handleConfirm = async (userID) => {
     try {
+      console.log("applicant ID: ", userID);
       const response = await axios.put(
         "http://localhost:5050/recruite/posted/" + projectId + "/confirm",
         { userID }
@@ -77,7 +79,6 @@ const ProjectPostedTab = ({
     console.log("Applicants state:", applicants); // Log applicants state
     fetchApplicants();
   }, [projectId]);
-
 
   const handleShowModal = () => {
     setShowModal(true);

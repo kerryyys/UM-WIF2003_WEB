@@ -228,6 +228,7 @@ export const uploadCompletedWorks = async (req, res) => {
     const project = await Project.findByIdAndUpdate(req.body.projectId, {
       serviceProvider: req.body.userId,
       uploadedFiles: uploadedFiles,
+      completed: true,
     });
     return res.status(200).json(project);
   } catch (error) {

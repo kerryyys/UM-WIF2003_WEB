@@ -116,14 +116,15 @@ export default function JobDetailsPage(props) {
           "Fetch user from frontend, applyingProjects : ",
           applyingProjects
         );
-        if (Array.isArray(tknProjects) && tknProjects.includes(projectId)) {
-          setApplicationStatus("applied");
-        }
+
         if (
           Array.isArray(applyingProjects) &&
           applyingProjects.includes(projectId)
         ) {
           setApplicationStatus("applying");
+        }
+        if (Array.isArray(tknProjects) && tknProjects.includes(projectId)) {
+          setApplicationStatus("applied");
         }
       } catch (error) {
         console.error("Error fetching user favorite projects: ", error);
