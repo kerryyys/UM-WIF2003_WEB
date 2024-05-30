@@ -1,4 +1,11 @@
+<<<<<<< HEAD
+node_modules
+
+.gitignore
+=======
 /frontend/node_modules
 /unijobs/node_modules
 /backend/node_modules
+/backend/public
 .gitignore
+>>>>>>> 84045aba1de231ed315824141c9ad9f018ddfb9c

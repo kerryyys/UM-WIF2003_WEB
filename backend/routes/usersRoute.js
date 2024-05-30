@@ -1,74 +1,67 @@
 import express from 'express';
 import { User } from '../models/users.js';
+import multer from 'multer';
 
-const router=express.Router();
-//add data
-router.post('/',async(request,response)=>{
-    try{
-        if(
-            !request.body.firstName,
-            !request.body.lastName,
-            !request.body.city,
-            !request.body.state,
-            !request.body.role
+const router = express.Router();
 
-        ){
-            return response.status(400).send({
-                message:'Send all required fields'
-            });
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
+// Add data
+router.post('/', upload.single('profilePic'), async (req, res) => {
+    try {
+        if (!req.body.firstName || !req.body.lastName || !req.body.city || !req.body.state || !req.body.role) {
+            return res.status(400).send({ message: 'Send all required fields' });
         }
-        const newUser={
-            firstName: request.body.firstName,
-            lastName:request.body.lastName,
-            city:request.body.city,
-            state:request.body.state,
-            role:request.body.role
+        const newUser = {
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            city: req.body.city,
+            state: req.body.state,
+            role: req.body.role,
+            profilePic: req.file ? { data: req.file.buffer, contentType: req.file.mimetype } : undefined,
         };
-        const user=await User.create(newUser);
-    
-
-        return response.status(201).send(user);
-    }catch(error){
+        const user = await User.create(newUser);
+        return res.status(201).send(user);
+    } catch (error) {
         console.log(error.message);
-        response.status(500).send({message:error.message});
+        res.status(500).send({ message: error.message });
     }
+});
 
-
-})
-//retrieve all data
-router.get('/',async(request,response)=>{
-    try{
-    
-        const user=await User.find({});
-    
-
-        return response.status(200).json({
-            count:user.length,
-            data:user
+// Retrieve all data
+router.get('/', async (req, res) => {
+    try {
+        const users = await User.find({});
+        return res.status(200).json({
+            count: users.length,
+            data: users
         });
-    }catch(error){
+    } catch (error) {
         console.log(error.message);
-        response.status(500).send({message:error.message});
+        res.status(500).send({ message: error.message });
     }
+});
 
+// Retrieve by ID
+router.get('/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const user = await User.findById(id);
 
-})
-//retrieve by id
-router.get('/:id',async(request,response)=>{
-    try{
-    
-        const {id} =request.params;
-        const user=await User.findById(id);
+        if (user && user.profilePic && user.profilePic.data) {
+            user.profilePic.data = user.profilePic.data.toString('base64');
+        }
 
-        return response.status(200).json({
-            count:user.length,
-            data:user
+        return res.status(200).json({
+            data: user
         });
-    }catch(error){
+    } catch (error) {
         console.log(error.message);
-        response.status(500).send({message:error.message});
+        res.status(500).send({ message: error.message });
     }
-})
+});
+
 
 // Endpoint to fetch a specific experience by userId and experienceId
 router.get('/:userId/experience/:experienceId', async (req, res) => {
@@ -92,37 +85,39 @@ router.get('/:userId/experience/:experienceId', async (req, res) => {
     }
 });
 
-//update 
-router.put('/:id',async(request,response)=>{
-    try{
-        if(
-            !request.body.firstName,
-            !request.body.lastName,
-            !request.body.city,
-            !request.body.state,
-            !request.body.role
+// Update user data
+router.put('/:id', upload.single('profilePic'), async (req, res) => {
+    try {
+        const { id } = req.params;
+        const updateData = {
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            city: req.body.city,
+            state: req.body.state,
+            role: req.body.role,
+        };
 
-        ){
-            return response.status(400).send({
-                message:'Send all required fields'
-            });
+        console.log("updateData:", updateData)
+
+        if (req.body.profilePic && req.body.profilePicContentType) {
+            updateData.profilePic = {
+                data: Buffer.from(req.body.profilePic, 'base64'),
+                contentType: req.body.profilePicContentType,
+            };
         }
-        const{id}=request.params;
-        const result= await User.findByIdAndUpdate(id,request.body);
-        console.log("result", result)
 
-        if(!result){
-            return response.status(404).json({message:'Book not found'});
+        const result = await User.findByIdAndUpdate(id, updateData, { new: true });
+        if (!result) {
+            return res.status(404).json({ message: 'User not found' });
         }
-        return response.status(200).send({message:'Information updated successfully'});
-
-        
-    }catch(error){
+        return res.status(200).send({ message: 'Information updated successfully', data: result });
+    } catch (error) {
         console.log(error.message);
-        response.status(500).send({message:error.message});
+        res.status(500).send({ message: error.message });
     }
-})
+});
 
+// Add experience to user
 router.put('/:id/addExperience', async (req, res) => {
     const { id } = req.params;
     const newExperience = req.body;
@@ -132,7 +127,7 @@ router.put('/:id/addExperience', async (req, res) => {
         if (!user) {
             return res.status(404).send('User not found');
         }
-        user.experience.push(newExperience); // Add the new experience to the experiences array
+        user.experience.push(newExperience);
         await user.save();
         res.status(200).send(user);
     } catch (error) {
@@ -141,6 +136,7 @@ router.put('/:id/addExperience', async (req, res) => {
     }
 });
 
+// Edit specific experience for user
 router.put('/:userId/editExperience/:experienceId', async (req, res) => {
     const { userId, experienceId } = req.params;
     const updatedExperience = req.body;
@@ -158,13 +154,12 @@ router.put('/:userId/editExperience/:experienceId', async (req, res) => {
 
         user.experience[experienceIndex] = { ...user.experience[experienceIndex].toObject(), ...updatedExperience };
         await user.save();
-        
+
         res.status(200).send(user);
     } catch (error) {
         console.error('Error updating experience:', error);
         res.status(500).send('Internal server error');
     }
 });
-
 
 export default router;

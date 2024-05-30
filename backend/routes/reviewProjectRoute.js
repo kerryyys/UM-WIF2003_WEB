@@ -1,7 +1,6 @@
-
-import express from 'express';
-import { Project } from '../models/projectModel.js';
-
+import express from "express";
+import { Project } from "../models/projectModel.js";
+import { FakeUser } from "../models/fakeUserModel.js";
 
 const router = express.Router();
 
@@ -36,6 +35,7 @@ router.get("/posted/:projectId/applicants", async (req, res) => {
     if (!project) {
       return res.status(404).json({ message: "Project not found" });
     }
+    console.log("Project ID: ", projectId);
     res.json(project.applicants);
   } catch (error) {
     console.error(error);
@@ -43,11 +43,22 @@ router.get("/posted/:projectId/applicants", async (req, res) => {
   }
 });
 
+// Route to confirm applicant of a project
 router.put("/posted/:projectId/confirm", async (req, res) => {
   const { projectId } = req.params;
   const { userID } = req.body;
-
+  console.log("userID in backend: ", userID);
   try {
+    const user = await FakeUser.findById(userID);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    if (!user.takenProjects.includes(projectId)) {
+      user.takenProjects.push(projectId);
+      user.applyingProjects.pull(projectId);
+      await user.save();
+    }
+
     const project = await Project.findById(projectId);
     if (!project) {
       return res.status(404).json({ message: "Project not found" });
@@ -58,7 +69,7 @@ router.put("/posted/:projectId/confirm", async (req, res) => {
     project.taken = true;
     await project.save();
 
-    res.json(project);
+    res.json({ project, user });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });
@@ -80,7 +91,16 @@ router.put("/posted/:projectId/remove", async (req, res) => {
     project.applicants = project.applicants.filter((id) => id !== userID);
     await project.save();
 
-    res.json(project);
+    const user = await FakeUser.findById(userID);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    if (!user.applyingProjects.includes(projectId)) {
+      //remove projectId from applyingProjects
+      user.applyingProjects.pull(projectId);
+      await user.save();
+    }
+    res.json({ project, user });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });
@@ -103,10 +123,12 @@ router.post("/:projectId/saveReview", async (req, res) => {
     // Find the project by its ID
     const project = await Project.findById(projectId);
 
+    // If the project is not found, return an error
     if (!project) {
       return res.status(404).json({ message: "Project not found" });
     }
 
+    // Update the project's review data
     project.review = {
       satisfactionRating,
       projectRating,
@@ -115,6 +137,7 @@ router.post("/:projectId/saveReview", async (req, res) => {
       collaboratorFeedback,
     };
 
+    // Save the updated project
     const updatedProject = await project.save();
     console.log("review saved");
 

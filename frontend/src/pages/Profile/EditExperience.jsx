@@ -20,7 +20,7 @@ function EditExperience() {
     useEffect(() => {
         const fetchExperience = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/users/${userId}/experience/${experienceId}`, {
+                const response = await fetch(`http://localhost:5050/users/${userId}/experience/${experienceId}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
@@ -53,7 +53,7 @@ function EditExperience() {
     const handleSave = async () => {
         console.log("Info", JSON.stringify(info));
         try {
-            const response = await fetch(`http://localhost:5000/users/${userId}/editExperience/${experienceId}`, {
+            const response = await fetch(`http://localhost:5050/users/${userId}/editExperience/${experienceId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
