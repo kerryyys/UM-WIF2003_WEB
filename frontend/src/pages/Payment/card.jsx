@@ -1,6 +1,5 @@
-import ServiceSummary from "../../components/payment/serviceSummary";
+
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
 import fpxPic from "../../assets/images/Payment/fpx.png";
 import ewalletPic from "../../assets/images/Payment/ewallet.png";
 import cardPic from "../../assets/images/Payment/card.png";
@@ -15,10 +14,19 @@ const Card = () => {
   const [cvv, setCvv] = useState("");
   const [ownerName, setOwnerName] = useState("");
   const [country, setCountry] = useState("Malaysia");
-  const [projectTitle, setProjectTitle] = useState("");
-  const [projectBudget, setProjectBudget] = useState("");
-  const location = useLocation();
+  const [projectTitle, setProjectTitle] = useState(null);
+  const [projectBudget, setProjectBudget] = useState(null);
   const [taskData, setTaskData] = useState({});
+
+  useEffect(() => {
+    const title = localStorage.getItem('projectTitle');
+    const budget = localStorage.getItem('projectBudget');
+
+    if (title && budget) {
+      setProjectTitle(title);
+      setProjectBudget(budget);
+    }
+  }, []);
 
   useEffect(() => {
     // Fetch card numbers
@@ -68,7 +76,7 @@ const Card = () => {
     } else {
       alert("Please enter all the card details.");
     }
-  };
+  }; 
 
   // Format card number input
   const formatCardNumber = (value) => {
@@ -234,12 +242,44 @@ const Card = () => {
           </div>
         </div>
 
-        <ServiceSummary 
-        projectTitle={projectTitle} 
-        projectBudget={projectBudget} 
-        taskData={taskData} 
-      />
-      </div></>
+        <div className="RightContainer">
+      <div>
+        <p className="titleRight">Service Summary</p>
+        <hr className="lineRightBox"></hr>
+      </div>
+      <div>
+        <p className="descContent">
+          <span className="taskName">{projectTitle}</span>
+          <span className="taskPrice"> RM {projectBudget}</span>
+        </p>
+      </div>
+      
+      <hr className="lineRightBox"></hr>
+      
+      <div>
+        <div>
+          <p className="descContent">
+            <span className="taskName">Subtotal</span>
+            <span className="taskPrice">RM {projectBudget}</span>
+          </p>
+        </div>
+        <div>
+          <p className="descContent">
+            <span className="taskName">Additional (6% of service tax)</span>
+            <span className="taskPrice">RM 10</span>
+          </p>
+        </div>
+      </div>
+      <hr className="lineRightBox"></hr>
+      <div>
+        <p className="descContent">
+          <span className="taskName">Total</span>
+          <span className="taskPrice">RM {10 + parseFloat(projectBudget)}</span>
+        </p>
+      </div>
+    </div>
+      </div>
+      </>
   );
 }
 

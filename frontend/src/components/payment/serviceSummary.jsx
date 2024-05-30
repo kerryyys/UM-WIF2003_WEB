@@ -7,7 +7,6 @@ const ServiceSummary = ({ taskData }) => {
   const [projectBudget, setProjectBudget] = useState('');
   const location = useLocation();
 
-
   // get task name and price
   useEffect(() => {
     if (location.state) {

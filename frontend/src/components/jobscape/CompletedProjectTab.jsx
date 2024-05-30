@@ -46,6 +46,11 @@ const CompletedProjectTab = ({
       const response = await fetch(`http://localhost:5050/projects/${projectId}`);
       const data = await response.json();
       const { projectTitle, projectBudget } = data;
+  
+      localStorage.setItem('projectTitle', projectTitle);
+      localStorage.setItem('projectBudget', projectBudget);
+
+  
       navigate("/ewallet", {
         state: { projectTitle, projectBudget }
       });
@@ -53,6 +58,7 @@ const CompletedProjectTab = ({
       console.error('Error fetching project data:', error);
     }
   };
+  
 
   const handleCloseProjectDetails = () => {
     setShowProjectDetails(false);

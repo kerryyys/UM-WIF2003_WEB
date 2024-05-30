@@ -1,4 +1,4 @@
-import "../../../components-css/Community/ExploreList.css";
+// import "../../../components-css/Community/ExploreList.css";
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 

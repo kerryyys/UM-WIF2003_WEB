@@ -3,7 +3,7 @@ import React from "react";
 import Controls from "./Controls";
 import ImageGallery from "./ImageGallery";
 import ProfileHeader from "./ProfileHeader";
-import { PostProvider } from "../../context/PostContext";
+import { PostProvider } from "../../../context/PostContext";
 
 function NewsFeedItem({ img, name, title, time, content, images, postId }) {
   return (
