@@ -8,17 +8,17 @@ import { Link } from 'react-router-dom';
 function ProfileHeader(props) {
   const { name, university, location, avatarSrc, headline, tags = [], userId } = props;
 
-  const avatar = avatarSrc ? `${avatarSrc}` : default_avatar;
 
   return (
     <Container style={{ margin: 'auto', width: '1000px' }}>
       <Row className="justify-content-center">
         <Col xs={12} md={4} className="text-center">
           <Image
-            style={{ height: '200px', width:'200px'}}
-            src={avatar}
+            src={avatarSrc ? `data:${avatarSrc};base64,${avatarSrc}` : default_avatar}
             roundedCircle
+            style={{ width: '200px', height: '200px' }}
           />
+
         </Col>
         <Col xs={12} md={8}>
           <h2 style={{ marginTop: '20px' }}>{name}</h2>

@@ -1,8 +1,11 @@
-import React, { useState } from "react";
-import { Link , useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import SmallTitle from "../../components/jobscape/SmallTitle";
 import ReviewForm from "../../components/jobscape/ReviewForm";
 import ProjectDetailsModal from "./ProjectDetailsModal";
+import PopNotification from "../../components/jobscape/PopNotification";
+import "../../components-css/jobscape/Notification.css";
+import axios from "axios";
 import "../../components-css/jobscape/CompletedProjectTab.css";
 
 const CompletedProjectTab = ({
@@ -16,15 +19,12 @@ const CompletedProjectTab = ({
   const [showReviewForm, setShowReviewForm] = useState(false);
   const [showProjectDetails, setShowProjectDetails] = useState(false);
   const [projectDetails, setProjectDetails] = useState(null);
+  const [fileAccepted, setFileAccepted] = useState(false);
+  const [fileRejected, setFileRejected] = useState(false);
+  const [isProjectAccepted, setIsProjectAccepted] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState("");
+  const [showLocalNotification, setShowLocalNotification] = useState(false);
   const navigate = useNavigate();
-
-  const handleRateBtnClick = () => {
-    setShowReviewForm(true);
-  };
-
-  const handleCloseReview = () => {
-    setShowReviewForm(false);
-  };
 
   const handleProjectClick = async () => {
     try {
@@ -39,16 +39,72 @@ const CompletedProjectTab = ({
     }
   };
 
-  const handlePayBtnClick = async () => {
-    try {
-      const response = await fetch(`http://localhost:5050/projects/${projectId}`);
-      const data = await response.json();
-      const { projectTitle, projectBudget } = data;
-      navigate("/fpx", {
-        state: { projectTitle, projectBudget }
+  const handleAccept = () => {
+    console.log("Accept button clicked");
+    axios
+      .post(`http://localhost:5050/recruite/${projectId}/accept-file`)
+      .then((response) => {
+        console.log("Accept response: ", response);
+        setFileAccepted(true);
+        localStorage.setItem(`project_${projectId}_accepted`, true); // Store accepted state in localStorage
+        setIsProjectAccepted(true);
+        setNotificationMessage("File accepted successfully.");
+        setShowLocalNotification(true);
+      })
+      .catch((error) => {
+        console.error("Error accepting the file:", error);
       });
-    } catch (error) {
-      console.error('Error fetching project data:', error);
+  };
+
+  // Check if the project has been accepted before
+  useEffect(() => {
+    const isAccepted = localStorage.getItem(`project_${projectId}_accepted`);
+    if (isAccepted) {
+      setFileAccepted(true);
+      setIsProjectAccepted(true);
+    }
+  }, [projectId]);
+
+  const handleReject = () => {
+    console.log("Reject button clicked");
+    axios
+      .post(`http://localhost:5050/recruite/${projectId}/reject-file`)
+      .then((response) => {
+        console.log("Reject response: ", response);
+        setFileRejected(true);
+        setFileAccepted(false);
+        localStorage.removeItem(`project_${projectId}_accepted`);
+        setFileRejected(true);
+        setNotificationMessage("File rejected successfully.");
+        setShowLocalNotification(true);
+        setProjectDetails((prevProjectDetails) => ({
+          ...prevProjectDetails,
+          uploadedFiles: [],
+        }));
+      })
+      .catch((error) => {
+        console.error("Error rejecting the file:", error);
+      });
+  };
+
+  const handlePayBtnClick = async () => {
+    if (isProjectAccepted) {
+      try {
+        const response = await fetch(
+          `http://localhost:5050/projects/${projectId}`
+        );
+        const data = await response.json();
+        const { projectTitle, projectBudget } = data;
+
+        localStorage.setItem("projectTitle", projectTitle);
+        localStorage.setItem("projectBudget", projectBudget);
+
+        navigate("/ewallet", {
+          state: { projectTitle, projectBudget },
+        });
+      } catch (error) {
+        console.error("Error fetching project data:", error);
+      }
     }
   };
 
@@ -62,15 +118,11 @@ const CompletedProjectTab = ({
         `http://localhost:5050/recruite/${projectId}/saveReview`,
         {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(reviewData),
         }
       );
-      const data = await response.json();
-      console.log("Review saved:", data);
-      setShowNotification(true); // Call setShowNotification to show the notification
+      setShowLocalNotification(true);
     } catch (error) {
       console.error("Error saving review:", error);
     }
@@ -95,25 +147,47 @@ const CompletedProjectTab = ({
           </div>
         </div>
         <div className="TabBtn">
-          <div className="RateBtn" onClick={handleRateBtnClick}>
+          <div
+            className="RateBtn"
+            onClick={(e) => {
+              setShowReviewForm(true);
+              e.stopPropagation();
+            }}
+          >
             Rate
           </div>
-          <Link to="/fpx" className="PayBtn" onClick={handlePayBtnClick}>
+          <button
+            className="PayBtn"
+            onClick={handlePayBtnClick}
+            disabled={!isProjectAccepted}
+          >
             Pay
-          </Link>
+          </button>
         </div>
       </div>
       {showReviewForm && (
         <ReviewForm
-          onClose={handleCloseReview}
-          onReviewSubmit={handleSubmitReview}
-          setShowNotification={setShowNotification} // Pass setShowNotification as a prop
+          onClose={() => setShowReviewForm(false)}
+          onReviewSubmit={(reviewData) => {
+            handleSubmitReview(reviewData);
+            setShowNotification(true);
+          }}
         />
       )}
-      {showProjectDetails && projectDetails && (
+      {showProjectDetails && (
         <ProjectDetailsModal
           project={projectDetails}
           onClose={handleCloseProjectDetails}
+          onAccept={handleAccept}
+          onReject={handleReject}
+          fileAccepted={fileAccepted}
+          fileRejected={fileRejected}
+        />
+      )}
+      {showLocalNotification && (
+        <PopNotification
+          message={notificationMessage}
+          onClose={() => setShowLocalNotification(false)}
         />
       )}
     </>

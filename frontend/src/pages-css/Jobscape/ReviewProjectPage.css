@@ -56,13 +56,25 @@
 .ProjectPostedList,
 .InProgressList,
 .CompletedProjectList {
+  height: 300px;
   display: flex;
   overflow-x: auto;
-  justify-content: left;
   width: 70vw; /* Adjust as needed */
   margin: 0 auto 40px;
   border-radius: 10px;
   padding: 0 20px; /* Add padding to avoid sticking to edges */
+  justify-content: left;
+  align-items: center; /* Align items vertically */
+}
+
+.ProjectPostedList .nothing,
+.InProgressList .nothing,
+.CompletedProjectList .nothing {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-left: auto; /* Add this line to center the .nothing element */
+  margin-right: auto; /* Add this line to center the .nothing element */
 }
 
 .ProjectPostedTab,
@@ -70,7 +82,7 @@
 .CompletedProjectTab {
   flex: 0 0 auto;
   width: 300px; /* Fixed width for each tab */
-  margin-right: 35px; /* Adjust spacing between tabs */
+  margin: 10px 35px 10px 0;
 }
 
 /* Hide the scrollbar */

@@ -11,14 +11,11 @@ const ProjectPostedTab = ({
   due,
   budget,
   postedDate,
+  onMoveToInProgress,
 }) => {
   const [showModal, setShowModal] = useState(false);
   const [applicants, setApplicants] = useState([]);
-
-  useEffect(() => {
-    console.log("Project id of this tab: ", projectId);
-    fetchApplicants();
-  }, [projectId]);
+  const [isProjectFetched, setIsProjectFetched] = useState(false);
 
   const formatPostedDate = (dateString) => {
     const date = new Date(dateString);
@@ -28,12 +25,15 @@ const ProjectPostedTab = ({
     return `${day}/${month}/${year}`;
   };
 
+  useEffect(() => {
+    fetchApplicants();
+  }, [projectId]);
+
   const fetchApplicants = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5050/recruite/posted/" + projectId + "/applicants"
+        `http://localhost:5050/recruite/posted/${projectId}/applicants`
       );
-      console.log("Applicants response:", response.data); // Log response data
       setApplicants(response.data);
     } catch (error) {
       console.error("Error fetching applicants:", error);
@@ -42,43 +42,29 @@ const ProjectPostedTab = ({
 
   const handleConfirm = async (userID) => {
     try {
-      console.log("applicant ID: ", userID);
       const response = await axios.put(
-        "http://localhost:5050/recruite/posted/" + projectId + "/confirm",
+        `http://localhost:5050/recruite/posted/${projectId}/confirm`,
         { userID }
       );
-      const confirmedProject = response.data;
-      // Update local state or fetch data again if needed
-      // For example, you can fetch the updated list of applicants after confirmation
-      fetchApplicants();
-      console.log("Applicant confirmed:", confirmedProject);
+      const confirmedProject = response.data.project;
+      onMoveToInProgress(confirmedProject);
+      setShowModal(false);
     } catch (error) {
       console.error("Error confirming applicant:", error);
-      // Handle error gracefully
     }
   };
 
   const handleRemove = async (userID) => {
     try {
       const response = await axios.put(
-        "http://localhost:5050/recruite/posted/" + projectId + "/remove",
+        `http://localhost:5050/recruite/posted/${projectId}/remove`,
         { userID }
       );
-      const removedProject = response.data;
-      // Update local state or fetch data again if needed
-      // For example, you can fetch the updated list of applicants after removal
       fetchApplicants();
-      console.log("Applicant removed:", removedProject);
     } catch (error) {
       console.error("Error removing applicant:", error);
-      // Handle error gracefully
     }
   };
-
-  useEffect(() => {
-    console.log("Applicants state:", applicants); // Log applicants state
-    fetchApplicants();
-  }, [projectId]);
 
   const handleShowModal = () => {
     setShowModal(true);
@@ -115,21 +101,23 @@ const ProjectPostedTab = ({
         <Modal.Body>
           {applicants.map((applicant, index) => (
             <ProjectPostedUser
-              key={`${projectId}-${index}`} // or use a unique identifier from the applicant data if available
+              key={`${projectId}-${index}`}
               applicant={applicant}
               projectId={projectId}
-              onConfirm={handleConfirm} // Ensure that onConfirm is passed here
+              onConfirm={handleConfirm}
               onRemove={handleRemove}
             />
           ))}
         </Modal.Body>
-
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseModal}>
             Close
           </Button>
         </Modal.Footer>
       </Modal>
+      {isProjectFetched && projectDetails === null && (
+        <p>No project in progress</p>
+      )}
     </div>
   );
 };

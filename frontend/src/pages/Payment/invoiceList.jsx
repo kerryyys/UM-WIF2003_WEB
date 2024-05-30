@@ -1,10 +1,37 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import "../../pages-css/Payment/Payment.css";
-import back from "../../assets/images/Payment/left.png";
 import { Button } from "react-bootstrap";
+import Tnc from "../../components/payment/tnc";
+// import { useInvoice } from '../../context/UserContext';
 
 function InvoiceList() {
+  const [projectTitle, setProjectTitle] = useState('');
+  const [projectBudget, setProjectBudget] = useState('');
+  const [invoices, setInvoices] = useState([]);
+  const location = useLocation();
+
+
+  // const { projectTitle, projectBudget } = useInvoice();
+
+
+  useEffect(() => {
+    
+    const title = localStorage.getItem('projectTitle');
+    const budget = localStorage.getItem('projectBudget');
+
+    if (title && budget) {
+      setProjectTitle(title);
+      setProjectBudget(budget);
+      setInvoices([{ projectTitle: title, projectBudget: budget }]);
+    } 
+    else if (location.state) {
+      const { projectTitle, projectBudget } = location.state;
+      setProjectTitle(projectTitle.toString());
+      setProjectBudget(projectBudget.toString());
+      setInvoices([{ projectTitle: projectTitle.toString(), projectBudget: projectBudget.toString() }]);
+    }
+  }, [location.state]);
 
   const handleDownload = () => {
         const pdfUrl = '';
@@ -19,7 +46,6 @@ function InvoiceList() {
   const handleInvClick = () => {
         handleDownload();
       };
-
 
   return (
     <><div className="invoice-list-containerner">
@@ -36,24 +62,18 @@ function InvoiceList() {
 
         <div className="card-wenhao">
           <p className="INV-title-name">Invoice List</p>
-          <div className="INV" onClick={handleInvClick}>
-            <p className="INVName">Completed</p>
-            <p className="INVPrice">Shopping Cart App</p>
-            <p className="INVDesc">RM 8000</p>
-          </div>
+          {invoices.map((invoice, index) => (
+        <div key={index} className="INV" onClick={() => handleInvClick(invoice)}>
+          <p className="INVName">Completed</p>
+          <p className="INVPrice">{projectTitle}</p>
+          <p className="INVDesc">RM {parseFloat(projectBudget) + 10}</p>
+        </div>
+      ))}
         </div>
       </div>
     </div>
-    
-    <p className="tnc">Terms & Conditions:</p>
-    <p className="tncDesc">
-        Fees and payment terms will be established in the contract or agreement
-        prior to the commencement of the project.{" "}
-      </p>
-      <p className="tncDesc2">
-        An initial deposit will be required before any design work begins. We
-        reserve the right to suspend or halt work in the event of non-payment.
-      </p></>
+      <Tnc />
+      </>
     
   );
 }

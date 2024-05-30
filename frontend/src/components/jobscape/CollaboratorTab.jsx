@@ -50,7 +50,7 @@ const CollaboratorTab = ({
         </div>
       </div>
       {/* Button to view details */}
-      <Button className="button" onClick={handleShowModal}>
+      <Button className="details-button" onClick={handleShowModal}>
         View Details
       </Button>
 
