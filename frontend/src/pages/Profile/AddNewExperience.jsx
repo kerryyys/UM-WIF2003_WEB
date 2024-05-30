@@ -21,7 +21,7 @@ function AddNewExperience() {
     const handleSave = async () => {
         console.log("Info", JSON.stringify(info));
         try {
-            const response = await fetch(`http://localhost:5000/users/${userId}/addExperience`, {
+            const response = await fetch(`http://localhost:5050/users/${userId}/addExperience`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
