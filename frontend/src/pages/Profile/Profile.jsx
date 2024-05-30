@@ -10,7 +10,7 @@ import { useParams } from "react-router-dom";
 
 function Profile() {
   // const { userId } = useParams();
-  const userId = "6642605a39cd67056f64cec6";
+  const userId = "6656f978f67566b776033a16";
   const [profile, setProfile] = useState({});
 
   const getProfileData = async () => {
