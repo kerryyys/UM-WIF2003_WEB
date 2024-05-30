@@ -8,7 +8,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import '../../components-css/Profile/EditProfileCSS.css';
 
 function EditProfile() {
-    const { userId } = useParams();
+    // const { userId } = useParams();
+    const userId = "6642605a39cd67056f64cec6";
     const navigate = useNavigate();
     const fileInputRef = useRef(null);
 
@@ -17,7 +18,7 @@ function EditProfile() {
 
     const getProfileData = async () => {
         try {
-            const response = await fetch(`http://localhost:5050/users/${userId}`, {
+            const response = await fetch(`http://localhost:5000/users/${userId}`, {
                 method: 'GET'
             });
             const result = await response.json();
@@ -34,28 +35,13 @@ function EditProfile() {
 
     const handleSave = async () => {
         try {
-            // const updateData = {
-            //     firstName: profileData.firstName,
-            //     lastName: profileData.lastName,
-            //     city: profileData.city,
-            //     state: profileData.state,
-            //     role: profileData.role,
-            // };
-            // console.log("s", updateData)
-
-            // if (profileData.profilePic && profileData.profilePic.data) {
-            //     updateData.profilePic = profileData.profilePic.data;
-            //     updateData.profilePicContentType = profileData.profilePic.contentType;
-            // }
-
-            const response = await fetch(`http://localhost:5050/users/${userId}`, {
+            const response = await fetch(`http://localhost:5000/users/${userId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(profileData),
+                body: JSON.stringify(profileData)
             });
-
             if (response.ok) {
                 navigate(`/Profile/${userId}`);
             } else {
@@ -72,31 +58,24 @@ function EditProfile() {
 
     const handleFileUpload = (e) => {
         const file = e.target.files[0];
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            setProfileData({ ...profileData, profilePic: reader.result });
+            setShowModal(false);
+        };
         if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setProfileData({
-                    ...profileData,
-                    profilePic: {
-                        data: reader.result.split(',')[1], // Extracting base64 string from Data URL
-                        contentType: file.type
-                    }
-                });
-                setShowModal(false);
-            };
             reader.readAsDataURL(file);
         }
     };
 
-
     const handleRemovePicture = async () => {
         try {
-            const response = await fetch(`http://localhost:5050/users/${userId}`, {
+            const response = await fetch(`http://localhost:5000/users/${userId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ ...profileData, profilePic: '', profilePicContentType: '' })
+                body: JSON.stringify({ ...profileData, profilePic: '' })
             });
             if (response.ok) {
                 setProfileData({ ...profileData, profilePic: '' });
@@ -137,13 +116,10 @@ function EditProfile() {
                 <Container className="text-center">
                     <div className="profile-pic-container position-relative d-inline-flex justify-content-center">
                         <Image
-                        
-                            src={profileData.profilePic ? `data:${profileData.profilePic};base64,${profileData.profilePic}` : default_avatar}
+                            src={profileData.profilePic ? profileData.profilePic : default_avatar}
                             roundedCircle
                             style={{ width: '150px', height: '150px' }}
                         />
-                        
-
                         <input
                             type="file"
                             ref={fileInputRef}
@@ -234,37 +210,68 @@ function EditProfile() {
                     />
                 </div>
                 <div>
-                    <p style={{ fontWeight: '700' }}>Skills</p>
-                    <ExpandableInput
-                        defaultWords={profileData.skill || []}
-                        title="skills"
-                        onChange={handleSkillChange}
+                    <p style={{ fontWeight: '700' }}>Experience</p>
+                    <ExpandableExperience
+                        defaultWords={profileData.experience || []}
+                        onChange={handleExperienceChange}
+                        userId={userId}
                     />
                 </div>
                 <div>
-                    <p style={{ fontWeight: '700' }}>Experiences</p>
-                    <ExpandableExperience
-                        defaultWords={profileData.experience || []}
-                        userId={userId}
-                        onChange={handleExperienceChange}
+                    <p style={{ fontWeight: '700' }}>Skill</p>
+                    <ExpandableInput
+                        defaultWords={profileData.skill || []}
+                        title="skill"
+                        onChange={handleSkillChange}
                     />
                 </div>
-
-                <Modal show={showModal} onHide={() => setShowModal(false)} centered>
-                    <Modal.Header closeButton>
-                        <Modal.Title>Upload Profile Picture</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body className="d-flex flex-column align-items-center">
-                        <Button onClick={() => fileInputRef.current.click()}>Choose Picture</Button>
-                        <Button variant="danger" className="mt-3" onClick={handleRemovePicture}>Remove Picture</Button>
-                    </Modal.Body>
-                </Modal>
-
-                <div className="mt-5 mb-5 d-flex justify-content-center gap-5">
-                    <Button variant="outline-primary" onClick={handleCancel}>Cancel</Button>
-                    <Button onClick={handleSave}>Save</Button>
+                <div
+                    style={{ display: 'flex', marginBottom: '50px' }}
+                    className="gap-5 justify-content-center"
+                >
+                    <Button
+                        onClick={handleSave}
+                        style={{
+                            background: '#2D4877',
+                            width: '100px',
+                            border: 'none',
+                        }}
+                    >
+                        Save
+                    </Button>
+                    <Button
+                        onClick={handleCancel}
+                        style={{
+                            color: '#2D4877',
+                            background: '#FFFFFF',
+                            width: '100px',
+                            border: '1px solid #2D4877',
+                        }}
+                    >
+                        Cancel
+                    </Button>
                 </div>
             </div>
+
+            {/* Modal for Upload Picture */}
+            <Modal show={showModal} onHide={() => setShowModal(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Update Profile Picture</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Button variant="primary" onClick={() => fileInputRef.current.click()}>
+                        Upload Picture
+                    </Button>
+                    <Button variant="danger" onClick={handleRemovePicture} className="ms-2">
+                        Remove Picture
+                    </Button>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setShowModal(false)}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </Container>
     );
 }

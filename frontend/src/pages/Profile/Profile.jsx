@@ -10,12 +10,12 @@ import { useParams } from "react-router-dom";
 
 function Profile() {
   // const { userId } = useParams();
-  const userId = "6642605a39cd67056f64cec6";
+  const userId = "6656f978f67566b776033a16";
   const [profile, setProfile] = useState({});
 
   const getProfileData = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/users/${userId}`, {
+      const response = await fetch(`http://localhost:5050/users/${userId}`, {
         method: "GET"
       });
       const result = await response.json();
