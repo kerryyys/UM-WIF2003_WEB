@@ -71,6 +71,7 @@ const ProjectTab = ({
   const handleClick = () => {
     navigate(`/SeekJobPage/job-details/${projectId}`);
   };
+
   return (
     <div
       className="ProjectTab"
@@ -82,7 +83,6 @@ const ProjectTab = ({
         <img src={CompanyLogo} alt="Company Logo" className="CompanyLogo" />
         <div>
           <p className="ProjectTitle">{projectName}</p>
-
           <p className="CompanyInfo">
             By <span className="CompanyName">{companyName}</span> in {"  "}
             <span className="Category">{projectCategory}</span>
@@ -99,12 +99,12 @@ const ProjectTab = ({
       </div>
       {/* Right side content */}
       <div className="RightContent">
+        <p className="TimePosted">{timePosted}</p>
         <FontAwesomeIcon
           icon={faBookmark}
           className={`SaveIcon ${saved ? "saved" : ""}`}
           onClick={handleSaveClick}
         />
-        <p className="TimePosted">{timePosted}</p>
       </div>
     </div>
   );

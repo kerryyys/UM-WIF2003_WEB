@@ -9,20 +9,33 @@ const ReviewForm = ({ onClose, onReviewSubmit, setShowNotification }) => {
   const [projectFeedback, setProjectFeedback] = useState("");
   const [collaboratorRating, setCollaboratorRating] = useState(0);
   const [collaboratorFeedback, setCollaboratorFeedback] = useState("");
+  const [showOverlay, setShowOverlay] = useState(false); // State to control overlay
+
+  const isFormComplete = () => {
+    return (
+      satisfactionRating > 0 &&
+      projectRating > 0 &&
+      projectFeedback.trim() !== "" &&
+      collaboratorRating > 0 &&
+      collaboratorFeedback.trim() !== ""
+    );
+  };
 
   const handleSubmit = () => {
-    // Prepare review data object
-    const reviewData = {
-      satisfactionRating,
-      projectRating,
-      projectFeedback,
-      collaboratorRating,
-      collaboratorFeedback,
-    };
-    console.log("Review Data:", reviewData); // Debugging log
-    // Call the onReviewSubmit handler passed from parent component with reviewData
-    onReviewSubmit(reviewData);
-    onClose();
+    if (isFormComplete()) {
+      const reviewData = {
+        satisfactionRating,
+        projectRating,
+        projectFeedback,
+        collaboratorRating,
+        collaboratorFeedback,
+      };
+      console.log("Review Data:", reviewData); // Debugging log
+      onReviewSubmit(reviewData);
+      onClose();
+    } else {
+      setShowNotification(true); // Display notification that form is incomplete
+    }
   };
 
   // Define custom star icons for the Rating component
@@ -30,43 +43,61 @@ const ReviewForm = ({ onClose, onReviewSubmit, setShowNotification }) => {
   const emptyStarIcon = <BsStarFill color="#ccc" size={24} />; // Define an empty star icon
 
   return (
-    <div className="ReviewForm">
-      <p className="rate1">Rate The Project!</p>
-      <p className="projectheader">Project Satisfaction</p>
-      <Rating
-        initialRating={satisfactionRating}
-        onClick={(value) => setSatisfactionRating(value)}
-        emptySymbol={emptyStarIcon}
-        fullSymbol={starIcon}
-      />
-      <p className="rate1">Rate this Project</p>
-      <Rating
-        initialRating={projectRating}
-        onClick={(value) => setProjectRating(value)}
-        emptySymbol={emptyStarIcon}
-        fullSymbol={starIcon}
-      />
-      <p className="rate1">Project Feedback</p>
-      <textarea
-        value={projectFeedback}
-        onChange={(e) => setProjectFeedback(e.target.value)}
-        rows={4}
-      />
-      <p className="rate1">Rate Your Collaborator</p>
-      <Rating
-        initialRating={collaboratorRating}
-        onClick={(value) => setCollaboratorRating(value)}
-        emptySymbol={emptyStarIcon}
-        fullSymbol={starIcon}
-      />
-      <p className="rate1">Collaborator Feedback</p>
-      <textarea
-        value={collaboratorFeedback}
-        onChange={(e) => setCollaboratorFeedback(e.target.value)}
-        rows={4}
-      />
-      <button onClick={handleSubmit}>Submit</button>
-    </div>
+    <>
+      <div className="overlay" onClick={onClose}></div>
+      <div className="ReviewForm">
+        <span className="close" onClick={onClose}>
+          &times;
+        </span>
+        <p className="rate1">Rate The Project!</p>
+        <div className="rating-section">
+          <p>Project Satisfaction</p>
+          <Rating
+            initialRating={satisfactionRating}
+            onClick={(value) => setSatisfactionRating(value)}
+            emptySymbol={emptyStarIcon}
+            fullSymbol={starIcon}
+          />
+        </div>
+        <div className="rating-section">
+          <p>Rate this Project</p>
+          <Rating
+            initialRating={projectRating}
+            onClick={(value) => setProjectRating(value)}
+            emptySymbol={emptyStarIcon}
+            fullSymbol={starIcon}
+          />
+        </div>
+        <div className="feedback-section">
+          <p>Project Feedback</p>
+          <textarea
+            value={projectFeedback}
+            onChange={(e) => setProjectFeedback(e.target.value)}
+            rows={4}
+          />
+        </div>
+        <div className="rating-section">
+          <p>Rate Your Collaborator</p>
+          <Rating
+            initialRating={collaboratorRating}
+            onClick={(value) => setCollaboratorRating(value)}
+            emptySymbol={emptyStarIcon}
+            fullSymbol={starIcon}
+          />
+        </div>
+        <div className="feedback-section">
+          <p>Collaborator Feedback</p>
+          <textarea
+            value={collaboratorFeedback}
+            onChange={(e) => setCollaboratorFeedback(e.target.value)}
+            rows={4}
+          />
+        </div>
+        <button onClick={handleSubmit} disabled={!isFormComplete()}>
+          Submit
+        </button>
+      </div>
+    </>
   );
 };
 

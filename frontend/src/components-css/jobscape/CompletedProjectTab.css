@@ -13,7 +13,7 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.CompletedProjectTab .projectDetails{
+.CompletedProjectTab .projectDetails {
   width: 100%;
 }
 .CompletedProjectTab .content {
@@ -69,4 +69,13 @@
 .CompletedProjectTab .PayBtn:hover,
 .CompletedProjectTab .RateBtn:hover {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+.notification {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
 }

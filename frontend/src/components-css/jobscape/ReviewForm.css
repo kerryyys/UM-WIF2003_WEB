@@ -1,3 +1,13 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+  z-index: 999; /* Ensure it's above other content */
+}
+
 .ReviewForm {
   position: fixed;
   display: flex; 
@@ -15,28 +25,54 @@
   z-index: 1000;
 }
 
+.close {
+  color: #aaa;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 .rate1 {
-  margin-top: 8%;
-}
-
-.rate1:first-child {
   font-size: 24px;
-  margin-top: 0;
+  margin-top: 20px;
 }
 
-.rate1:nth-child(2) {
-  margin-top: 0;
+.rating-section p,
+.feedback-section p {
+  margin: 10px 0 5px;
+  font-weight: bold;
 }
+
+.rating-section, .feedback-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
 
 .ReviewForm textarea {
   width: 100%;
   resize: vertical;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 .ReviewForm button {
   display: block;
-  margin-top: 10px;
-  padding: 5px 20px;
+  margin-top: 20px;
+  padding: 10px 20px;
   background-color: #2d4877;
   color: white;
   border: none;
@@ -46,4 +82,9 @@
 
 .ReviewForm button:hover {
   background-color: #0056b3;
+}
+
+.ReviewForm button:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
 }
