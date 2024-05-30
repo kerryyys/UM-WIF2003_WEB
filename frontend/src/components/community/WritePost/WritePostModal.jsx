@@ -52,20 +52,7 @@ const WritePostModal = ({ show, handleClose }) => {
 
     const postData = { title, content, taggedUsers, placeTag, images: files };
 
-    try {
-      const res = await axios.post(
-        "http://localhost:5050/community/posts",
-        postData
-      );
-      if (res.status === 200) {
-        console.log("Post submitted successfully");
-        handleClose();
-      } else {
-        console.error("Failed to submit post");
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    
   };
 
   return (

@@ -39,6 +39,7 @@ import Footer from "./components/Footer";
 import CommunityPage from "./pages/Community/CommunityPage";
 import NavBar from "./components/NavBar";
 import "./App.css";
+import { UserProvider } from "./context/UserContext";
 
 function ScrollToTopOnNavigation() {
   const { pathname } = useLocation();
@@ -50,54 +51,67 @@ function ScrollToTopOnNavigation() {
   return null;
 }
 
+const user = null;
+
 function App() {
   const [loggedIn, setLoggedIn] = useState(true);
   const handleLoginClick = () => {
     setLoggedIn(!loggedIn);
   };
   return (
-    <Router>
-      <ScrollToTopOnNavigation />
-      <NavBar loggedIn={loggedIn} />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route
-          path="/Login"
-          element={<Login handleLoginClick={handleLoginClick} />}
-        />
-        <Route path="/Register" element={<Register />} />
-        <Route path="/ForgotP" element={<ForgotP />} />
-        <Route path="/EnterCode" element={<EnterCode />} />
-        <Route path="/NewPass" element={<NewPass />} />
-        <Route path="/JobscapeMainPage" element={<JobscapeMainPage />} />
-        <Route path="/SeekJobPage" element={<SeekJobPage />} />
-        <Route path="/SeekTalentPage" element={<SeekTalentPage />} />
-        <Route path="/PostProjectPage" element={<PostProjectPage />} />
-        <Route path="/ReviewProjectPage" element={<ReviewProjectPage />} />
-        <Route path="/YourJobs" element={<YourJobsPage />} />
-        <Route
-          path="/SeekJobPage/job-details/:projectId"
-          element={<JobDetailsPage />}
-        />
-        <Route path="/Favorite" element={<FavoritePage />} />
-        <Route path="/Profile/:userId" element={<Profile />} />
-        <Route path="/EditProfile/:userId" element={<EditProfile />} />
-        <Route path="/AddNewExperience/:userId" element={<AddNewExperience />} />
-        <Route path="/EditExperience/:userId/:experienceId" element={<EditExperience />} />
-        <Route path="/JobHistoryDetails/:id" element={<JobHistoryDetails />} />
-        <Route path="/card" element={<Card />} />
-        <Route path="/ewallet" element={<Ewallet />} />
-        <Route path="/fpx" element={<Fpx />} />
-        <Route path="/redirect" element={<Redirect />} />
-        <Route path="/successful" element={<Successful />} />
-        <Route path="/invoiceList" element={<InvoiceList />} />
-        <Route path="/paymentHis" element={<PaymentHis />} />
-        <Route path="/invoice" element={<Invoice />} />
-        <Route path="/AboutUs" element={<AboutUs />} />
-        <Route path="/Community" element={<CommunityPage />} />
-      </Routes>
-      <Footer />
-    </Router>
+    <UserProvider user={user}>
+      <Router>
+        <ScrollToTopOnNavigation />
+        <NavBar loggedIn={loggedIn} />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route
+            path="/Login"
+            element={<Login handleLoginClick={handleLoginClick} />}
+          />
+          <Route path="/Register" element={<Register />} />
+          <Route path="/ForgotP" element={<ForgotP />} />
+          <Route path="/EnterCode" element={<EnterCode />} />
+          <Route path="/NewPass" element={<NewPass />} />
+          <Route path="/JobscapeMainPage" element={<JobscapeMainPage />} />
+          <Route path="/SeekJobPage" element={<SeekJobPage />} />
+          <Route path="/SeekTalentPage" element={<SeekTalentPage />} />
+          <Route path="/PostProjectPage" element={<PostProjectPage />} />
+          <Route path="/ReviewProjectPage" element={<ReviewProjectPage />} />
+          <Route path="/YourJobs" element={<YourJobsPage />} />
+          <Route
+            path="/SeekJobPage/job-details/:projectId"
+            element={<JobDetailsPage />}
+          />
+          <Route path="/Favorite" element={<FavoritePage />} />
+          <Route path="/Profile/:userId" element={<Profile />} />
+          <Route path="/EditProfile/:userId" element={<EditProfile />} />
+          <Route
+            path="/AddNewExperience/:userId"
+            element={<AddNewExperience />}
+          />
+          <Route
+            path="/EditExperience/:userId/:experienceId"
+            element={<EditExperience />}
+          />
+          <Route
+            path="/JobHistoryDetails/:id"
+            element={<JobHistoryDetails />}
+          />
+          <Route path="/card" element={<Card />} />
+          <Route path="/ewallet" element={<Ewallet />} />
+          <Route path="/fpx" element={<Fpx />} />
+          <Route path="/redirect" element={<Redirect />} />
+          <Route path="/successful" element={<Successful />} />
+          <Route path="/invoiceList" element={<InvoiceList />} />
+          <Route path="/paymentHis" element={<PaymentHis />} />
+          <Route path="/invoice" element={<Invoice />} />
+          <Route path="/AboutUs" element={<AboutUs />} />
+          <Route path="/Community" element={<CommunityPage />} />
+        </Routes>
+        <Footer />
+      </Router>
+    </UserProvider>
   );
 }
 
