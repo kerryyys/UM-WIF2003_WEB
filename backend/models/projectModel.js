@@ -1,16 +1,14 @@
 import mongoose from "mongoose";
 import { Schema } from "mongoose";
 
-
-const getDefaultFilter = function() {
-    return [this.projectCategory, this.projectDuration, this.location];
+const getDefaultFilter = function () {
+  return [this.projectCategory, this.projectDuration, this.location];
 };
-
 
 const projectSchema = mongoose.Schema(
   {
     companyLogo: { data: Buffer, contentType: String },
-    companyName: { type: String, required: true },
+    companyName: { type: String,},
     projectTitle: { type: String, required: true },
     projectDescription: { type: String, required: true },
     location: { type: String, required: true },
