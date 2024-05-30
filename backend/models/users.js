@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Schema, mongo } from "mongoose";
 const experience = new mongoose.Schema({
     title: {
         type: String,

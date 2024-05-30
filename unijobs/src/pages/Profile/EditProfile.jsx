@@ -18,7 +18,7 @@ function EditProfile() {
 
     const getProfileData = async () => {
         try {
-            const response = await fetch(`http://localhost:5050/users/${userId}`, {
+            const response = await fetch(`http://localhost:5000/users/${userId}`, {
                 method: 'GET'
             });
             const result = await response.json();
@@ -35,7 +35,7 @@ function EditProfile() {
 
     const handleSave = async () => {
         try {
-            const response = await fetch(`http://localhost:5050/users/${userId}`, {
+            const response = await fetch(`http://localhost:5000/users/${userId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
@@ -70,7 +70,7 @@ function EditProfile() {
 
     const handleRemovePicture = async () => {
         try {
-            const response = await fetch(`http://localhost:5050/users/${userId}`, {
+            const response = await fetch(`http://localhost:5000/users/${userId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
