@@ -45,7 +45,7 @@ const ReviewProjectPage = () => {
     <div className="ReviewProjectPage">
       {/* Back button */}
       <div className="ReviewBackBtn">
-        <Button className="BackBtn" onClick={() => navigate(-1)}>
+        <Button className="BackBtn"  onClick={() => (window.location.href = '/SeekTalentPage')}>
           <p>
             <i className="bi-chevron-left" />
             Back

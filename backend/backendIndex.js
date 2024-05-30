@@ -7,7 +7,9 @@ import freelanceInfoRoute from "./routes/freelanceInfoRoute.js";
 import reviewProjectRoute from "./routes/reviewProjectRoute.js";
 import postRoute from "./routes/postRoute.js";
 import usersRoute from "./routes/usersRoute.js";
+import paymentRoute from "./routes/paymentRoute.js";
 import cors from "cors";
+import bodyParser from 'body-parser';
 
 const app = express();
 
@@ -18,12 +20,16 @@ app.use(express.urlencoded({ limit: "10mb", extended: true }));
 // Middleware for handling CORS POLICY
 app.use(cors());
 
+// Use body-parser
+app.use(bodyParser.json());
+
 app.use("/recruite", projectDetailsRoute);
 app.use("/recruite", reviewProjectRoute);
 app.use("/freelancers", freelanceInfoRoute);
 app.use("/projects", projectsRouter);
 app.use("/community", postRoute);
 app.use("/users", usersRoute);
+app.use("/payment", paymentRoute);
 
 app.get("*", (req, res) => {
   console.log(req);

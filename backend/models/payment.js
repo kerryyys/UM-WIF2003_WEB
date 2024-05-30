@@ -8,7 +8,7 @@ const SelectedWallet = mongoose.model('SelectedWallet', selectedWalletSchema);
 
 // Bank Schema
 const selectedBankSchema = new mongoose.Schema({
-    selectedBank: String
+    selectedBank: String,
 });
 const SelectedBank = mongoose.model('SelectedBank', selectedBankSchema);
 
