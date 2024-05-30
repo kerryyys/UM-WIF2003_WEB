@@ -1,5 +1,5 @@
-import React, { useState , useEffect , useContext } from "react";
-import { Link , useNavigate  , useLocation } from "react-router-dom";
+import React, { useState } from "react";
+import { Link , useNavigate } from "react-router-dom";
 import SmallTitle from "../../components/jobscape/SmallTitle";
 import ReviewForm from "../../components/jobscape/ReviewForm";
 import ProjectDetailsModal from "./ProjectDetailsModal";
@@ -40,7 +40,7 @@ const CompletedProjectTab = ({
       console.error("Error fetching project details:", error);
     }
   };
-
+  
   const handlePayBtnClick = async () => {
     try {
       const response = await fetch(`http://localhost:5050/projects/${projectId}`);
@@ -100,7 +100,7 @@ const CompletedProjectTab = ({
           <div className="RateBtn" onClick={handleRateBtnClick}>
             Rate
           </div>
-          <Link to="/fpx" className="PayBtn" onClick={handlePayBtnClick}>
+          <Link className="PayBtn" onClick={handlePayBtnClick}>
             Pay
           </Link>
         </div>
