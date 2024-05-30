@@ -3,7 +3,7 @@ import "../../pages-css/Community/CommunityPage.css";
 import NewsFeed from "../../components/community/NewsFeed/NewsFeed";
 // import SearchBar from "../../components/community/SearchBar/SearchBar";
 import ProfileCard from "../../components/community/ProfileCard/ProfileCard";
-import ExploreList from "../../components/community/ExploreList/ExploreList";
+import ExploreList from "../../components/community/NewsFeed/ExploreList/ExploreList";
 import { exploreListData, newsFeedList } from "../../components/community/data";
 
 function CommunityPage() {

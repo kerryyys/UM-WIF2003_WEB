@@ -9,6 +9,16 @@ function Fpx() {
   const [projectTitle, setProjectTitle] = useState('');
   const [projectBudget, setProjectBudget] = useState('');
   const [taskData, setTaskData] = useState({});
+
+  useEffect(() => {
+    const title = localStorage.getItem('projectTitle');
+    const budget = localStorage.getItem('projectBudget');
+
+    if (title && budget) {
+      setProjectTitle(title);
+      setProjectBudget(budget);
+    }
+  }, []);
   
   // read linked FPX
   const [selectedService, setSelectedService] = useState(null);
@@ -70,18 +80,6 @@ function Fpx() {
         alert('Please select a bank to proceed.');
     }
 };
-
-// get task name and price
-useEffect(() => {
-  fetch('http://localhost:5050/payment/task')
-    .then(response => response.json())
-    .then(data => {
-      const { projectTitle, projectBudget } = data;
-      setProjectTitle(projectTitle.toString());
-      setProjectBudget(projectBudget.toString());
-    })
-    .catch(error => console.error('Error fetching project data:', error));
-}, []);
 
     // total price
     let totalPrice;
@@ -255,46 +253,41 @@ useEffect(() => {
         </div>
 
         <div className="RightContainer">
-          <div>
-            <p className="titleRight">Service Summary</p>
-            <hr className="lineRightBox"></hr>
-          </div>
-          <div>
-            <p className="descContent">
-              <span className="taskName">{projectTitle}</span>
-              <span className="taskPrice"> RM {projectBudget}</span>
-            </p>
-          </div>
-
-          <hr className="lineRightBox"></hr>
-
-          <hr className="lineRightBox"></hr>
-
-          <div>
-            <div>
-              <p className="descContent">
-                <span className="taskName">Subtotal</span>
-                <span className="taskPrice">RM {projectBudget}</span>
-              </p>
-            </div>
-
-            <div>
-              <p className="descContent">
-                <span className="taskName">Additional( 6% of service tax )</span>
-                <span className="taskPrice">RM 10</span>
-              </p>
-            </div>
-          </div>
-
-          <hr className="lineRightBox"></hr>
-
-          <div>
-            <p className="descContent">
-              <span className="taskName">Total</span>
-              <span className="taskPrice">RM {parseFloat(projectBudget) + 10}</span>
-            </p>
-          </div>
+      <div>
+        <p className="titleRight">Service Summary</p>
+        <hr className="lineRightBox"></hr>
+      </div>
+      <div>
+        <p className="descContent">
+          <span className="taskName">{projectTitle}</span>
+          <span className="taskPrice"> RM {projectBudget}</span>
+        </p>
+      </div>
+      
+      <hr className="lineRightBox"></hr>
+      
+      <div>
+        <div>
+          <p className="descContent">
+            <span className="taskName">Subtotal</span>
+            <span className="taskPrice">RM {projectBudget}</span>
+          </p>
         </div>
+        <div>
+          <p className="descContent">
+            <span className="taskName">Additional (6% of service tax)</span>
+            <span className="taskPrice">RM 10</span>
+          </p>
+        </div>
+      </div>
+      <hr className="lineRightBox"></hr>
+      <div>
+        <p className="descContent">
+          <span className="taskName">Total</span>
+          <span className="taskPrice">RM {10 + parseFloat(projectBudget)}</span>
+        </p>
+      </div>
+    </div>
       </div></>
   );
 }
