@@ -15,8 +15,6 @@ const CompletedProjectTab = ({
   budget,
   collaborator,
   setShowNotification,
-
-  
 }) => {
   const [showReviewForm, setShowReviewForm] = useState(false);
   const [showProjectDetails, setShowProjectDetails] = useState(false);
@@ -29,8 +27,6 @@ const CompletedProjectTab = ({
   const [projects, setProject] = useState([]);
   const navigate = useNavigate();
 
-
-
   const handleProjectClick = async () => {
     try {
       const response = await fetch(
@@ -42,6 +38,23 @@ const CompletedProjectTab = ({
     } catch (error) {
       console.error("Error fetching project details:", error);
     }
+  };
+
+  const handleAccept = () => {
+    console.log("Accept button clicked");
+    axios
+      .post(`http://localhost:5050/recruite/${projectId}/accept-file`)
+      .then((response) => {
+        console.log("Accept response: ", response);
+        setFileAccepted(true);
+        localStorage.setItem(`project_${projectId}_accepted`, true); // Store accepted state in localStorage
+        setIsProjectAccepted(true);
+        setNotificationMessage("File accepted successfully.");
+        setShowLocalNotification(true);
+      })
+      .catch((error) => {
+        console.error("Error accepting the file:", error);
+      });
   };
 
   // Check if the project has been accepted before
@@ -83,13 +96,18 @@ const CompletedProjectTab = ({
         );
         const data = await response.json();
         const { projectTitle, projectBudget } = data;
-        navigate("/fpx", { state: { projectTitle, projectBudget } });
+
+        localStorage.setItem("projectTitle", projectTitle);
+        localStorage.setItem("projectBudget", projectBudget);
+
+        navigate("/ewallet", {
+          state: { projectTitle, projectBudget },
+        });
       } catch (error) {
         console.error("Error fetching project data:", error);
       }
     }
   };
-  
 
   const handleCloseProjectDetails = () => {
     setShowProjectDetails(false);
