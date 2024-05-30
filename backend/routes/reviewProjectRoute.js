@@ -13,7 +13,9 @@ router.get("/:status", async (req, res) => {
     if (status === "posted") {
       projects = await Project.find({ taken: false, completed: false });
     } else if (status === "in-progress") {
-      projects = await Project.find({ taken: true, completed: false });
+      projects = await Project.find({ taken: true, completed: false }).populate(
+        "serviceProvider"
+      );
     } else if (status === "completed") {
       projects = await Project.find({ completed: true });
     } else {
@@ -36,6 +38,7 @@ router.get("/posted/:projectId/applicants", async (req, res) => {
       return res.status(404).json({ message: "Project not found" });
     }
     console.log("Project ID: ", projectId);
+    console.log("Project: ", project);
     res.json(project.applicants);
   } catch (error) {
     console.error(error);
@@ -65,7 +68,8 @@ router.put("/posted/:projectId/confirm", async (req, res) => {
     }
 
     // Confirm the applicant by removing others and updating the project document
-    project.applicants = [userID];
+    project.applicants = [];
+    project.serviceProvider = userID;
     project.taken = true;
     await project.save();
 
@@ -80,22 +84,25 @@ router.put("/posted/:projectId/confirm", async (req, res) => {
 router.put("/posted/:projectId/remove", async (req, res) => {
   const { projectId } = req.params;
   const { userID } = req.body;
+  console.log(projectId + "   " + userID);
 
   try {
     const project = await Project.findById(projectId);
     if (!project) {
       return res.status(404).json({ message: "Project not found" });
     }
-
+    console.log("applicants: " + project.applicants);
     // Remove the applicant from the applicants array
-    project.applicants = project.applicants.filter((id) => id !== userID);
+    // project.applicants = project.applicants.filter((id) => id !== userID);
+    project.applicants.pull(userID);
+    console.log(project.applicants);
     await project.save();
 
     const user = await FakeUser.findById(userID);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-    if (!user.applyingProjects.includes(projectId)) {
+    if (user.applyingProjects.includes(projectId)) {
       //remove projectId from applyingProjects
       user.applyingProjects.pull(projectId);
       await user.save();
