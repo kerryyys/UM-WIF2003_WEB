@@ -4,10 +4,12 @@ import fpxPic from "../../assets/images/Payment/fpx.png";
 import ewalletPic from "../../assets/images/Payment/ewallet.png";
 import cardPic from "../../assets/images/Payment/card.png";
 import { Button } from "react-bootstrap";
+import { useLocation } from 'react-router-dom';
 
 function Fpx() {
   const [projectTitle, setProjectTitle] = useState('');
   const [projectBudget, setProjectBudget] = useState('');
+  const location = useLocation();
   const [taskData, setTaskData] = useState({});
   
   // read linked FPX
@@ -31,7 +33,6 @@ function Fpx() {
       console.error('Error fetching selected banks:', error);
     }
   };
-  
 
   const handleServiceClick = (service) => {
     setSelectedService(service);
@@ -73,15 +74,12 @@ function Fpx() {
 
 // get task name and price
 useEffect(() => {
-  fetch('http://localhost:5050/payment/task')
-    .then(response => response.json())
-    .then(data => {
-      const { projectTitle, projectBudget } = data;
-      setProjectTitle(projectTitle.toString());
-      setProjectBudget(projectBudget.toString());
-    })
-    .catch(error => console.error('Error fetching project data:', error));
-}, []);
+  if (location.state) {
+    const { projectTitle, projectBudget } = location.state;
+    setProjectTitle(projectTitle.toString());
+    setProjectBudget(projectBudget.toString());
+  }
+}, [location.state]);
 
     // total price
     let totalPrice;

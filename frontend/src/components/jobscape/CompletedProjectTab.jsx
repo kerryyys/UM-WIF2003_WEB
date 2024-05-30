@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link , useNavigate } from "react-router-dom";
 import SmallTitle from "../../components/jobscape/SmallTitle";
 import ReviewForm from "../../components/jobscape/ReviewForm";
 import ProjectDetailsModal from "./ProjectDetailsModal";
@@ -16,6 +16,7 @@ const CompletedProjectTab = ({
   const [showReviewForm, setShowReviewForm] = useState(false);
   const [showProjectDetails, setShowProjectDetails] = useState(false);
   const [projectDetails, setProjectDetails] = useState(null);
+  const navigate = useNavigate();
 
   const handleRateBtnClick = () => {
     setShowReviewForm(true);
@@ -35,6 +36,19 @@ const CompletedProjectTab = ({
       setShowProjectDetails(true);
     } catch (error) {
       console.error("Error fetching project details:", error);
+    }
+  };
+
+  const handlePayBtnClick = async () => {
+    try {
+      const response = await fetch(`http://localhost:5050/projects/${projectId}`);
+      const data = await response.json();
+      const { projectTitle, projectBudget } = data;
+      navigate("/fpx", {
+        state: { projectTitle, projectBudget }
+      });
+    } catch (error) {
+      console.error('Error fetching project data:', error);
     }
   };
 
@@ -84,7 +98,7 @@ const CompletedProjectTab = ({
           <div className="RateBtn" onClick={handleRateBtnClick}>
             Rate
           </div>
-          <Link to="/fpx" className="PayBtn">
+          <Link to="/fpx" className="PayBtn" onClick={handlePayBtnClick}>
             Pay
           </Link>
         </div>
@@ -107,5 +121,3 @@ const CompletedProjectTab = ({
 };
 
 export default CompletedProjectTab;
-
-
