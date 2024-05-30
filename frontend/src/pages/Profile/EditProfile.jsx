@@ -34,20 +34,7 @@ function EditProfile() {
 
     const handleSave = async () => {
         try {
-            // const updateData = {
-            //     firstName: profileData.firstName,
-            //     lastName: profileData.lastName,
-            //     city: profileData.city,
-            //     state: profileData.state,
-            //     role: profileData.role,
-            // };
-            // console.log("s", updateData)
-
-            // if (profileData.profilePic && profileData.profilePic.data) {
-            //     updateData.profilePic = profileData.profilePic.data;
-            //     updateData.profilePicContentType = profileData.profilePic.contentType;
-            // }
-
+            console.log("hi", profileData)
             const response = await fetch(`http://localhost:5050/users/${userId}`, {
                 method: 'PUT',
                 headers: {
@@ -76,11 +63,11 @@ function EditProfile() {
             const reader = new FileReader();
             reader.onloadend = () => {
                 setProfileData({
-                    ...profileData,
-                    profilePic: {
-                        data: reader.result.split(',')[1], // Extracting base64 string from Data URL
-                        contentType: file.type
-                    }
+                    ...profileData, profilePic: reader.result.split(',')[1],
+                    // profilePic: {
+                    //     data: reader.result.split(',')[1], // Extracting base64 string from Data URL
+                    //     contentType: file.type
+                    // }
                 });
                 setShowModal(false);
             };
