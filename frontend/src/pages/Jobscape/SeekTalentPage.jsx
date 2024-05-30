@@ -163,7 +163,7 @@ const SeekTalentPage = () => {
                 profilePic={freelancer.profilePic}
                 collaboratorName={`${freelancer.firstName} ${freelancer.lastName}`}
                 ratingStar={freelancer.rating}
-                filters={freelancer.skill} 
+                filters={freelancer.skill} // Assuming skills is an array of strings
                 biography={freelancer.about}
                 location={freelancer.state}
               />
