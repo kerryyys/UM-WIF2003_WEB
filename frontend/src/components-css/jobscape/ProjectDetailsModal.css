@@ -1,6 +1,5 @@
+/* ProjectDetailsModal.css */
 .projectModal {
-  width: 80%;
-  height: 80%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -16,18 +15,21 @@
 }
 
 .project-modal-content {
-  width: 80%;
+  width: 60vw;
+  max-height: 80vh;
+  overflow-y: auto; /* Enable vertical scrolling if content exceeds max height */
   background-color: #fefefe;
   padding: 2%;
-  border: none;
+  border-radius: 10px;
   display: grid;
   grid-template-columns: auto 1fr; /* Titles on the left, content on the right */
   grid-row-gap: 20px; /* Adjust the row gap as needed */
   position: relative;
+  margin-bottom: 10px;
 }
 
 .project-modal-content h2 {
-  font-size: 48px;
+  font-size: 36px;
   text-align: center;
   margin-top: 0;
   font-weight: bold;
@@ -50,16 +52,61 @@
   cursor: pointer;
 }
 
-.project-modal-content button {
-  background-color: #2d4877 !important;
+.project-modal-content .button-container {
+  grid-column: 1 / -1; /* Span across both columns */
+  display: flex;
+  justify-content: center; /* Center the buttons horizontally */
+  align-items: center; /* Center the buttons vertically */
+  margin-top: 20px; /* Add some spacing from content */
+}
+
+.project-modal-content .button-container button,
+.project-modal-content .download-container .download {
+  flex: 1; /* Buttons will take equal space */
+  margin: 0 10px; /* Add some spacing between buttons */
   color: #fdfaf3;
   border-radius: 5px !important;
-  padding: 5px 10px !important;
-  margin-left: 10px !important;
-  align-items: center;
+  padding: 10px; /* Add padding for better look */
+  border: none; /* Remove default border */
+  font-size: 18px; /* Increase font size for better readability */
+}
+
+.project-modal-content .button-container .accept {
+  background-color: #008000 !important;
+}
+
+.project-modal-content .button-container .reject {
+  background-color: #ff0000 !important;
+}
+
+.project-modal-content .download-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  grid-column: 1 / -1; /* Span across both columns */
+}
+
+.project-modal-content .download-container .download {
+  width: 50%;
+  background-color: #2d4877 !important;
+}
+
+.project-modal-content .close-modal {
+  background-color: #aaa !important;
 }
 
 .project-modal-content p {
   margin: 0; /* Remove default margin */
-  
 }
+
+.details-content {
+  margin-left: 20px; /* Add left margin for spacing */
+}
+
+.file-accepted-message {
+  color: #008000;
+  text-align: center;
+  font-weight: 700;
+  grid-column: 1 / -1; /* Span across both columns */
+}
+

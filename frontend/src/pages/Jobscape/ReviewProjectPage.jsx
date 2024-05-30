@@ -40,12 +40,16 @@ const ReviewProjectPage = () => {
 
     fetchData();
   }, []);
-  
+
+  const moveToInProgress = (project) => {
+    setProjectPosted((prev) => prev.filter((p) => p._id !== project._id));
+    setInProgressProjects((prev) => [...prev, project]);
+  };
+
   return (
     <div className="ReviewProjectPage">
-      {/* Back button */}
       <div className="ReviewBackBtn">
-        <Button className="BackBtn"  onClick={() => (window.location.href = '/SeekTalentPage')}>
+        <Button className="BackBtn" onClick={() => navigate("/SeekTalentPage")}>
           <p>
             <i className="bi-chevron-left" />
             Back
@@ -53,7 +57,6 @@ const ReviewProjectPage = () => {
         </Button>
       </div>
 
-      {/* Review header */}
       <div className="Reviewheader">
         <SmallTitle
           className="ReviewTitle"
@@ -63,7 +66,6 @@ const ReviewProjectPage = () => {
         />
       </div>
 
-      {/* Project Posted section */}
       <div className="ProjectPosted">
         <SmallTitle title="Project Posted" fontWeight="400" fontSize="32px" />
         <div className="ProjectPostedList">
@@ -75,12 +77,12 @@ const ReviewProjectPage = () => {
               due={new Date(project.deadline).toLocaleDateString("en-GB")}
               budget={project.projectBudget}
               postedDate={project.createdAt}
+              onMoveToInProgress={moveToInProgress}
             />
           ))}
         </div>
       </div>
 
-      {/* In Progress section */}
       <div className="InProgress">
         <SmallTitle title="In Progress" fontWeight="400" fontSize="32px" />
         <div className="InProgressList">
@@ -97,7 +99,6 @@ const ReviewProjectPage = () => {
         </div>
       </div>
 
-      {/* Completed section */}
       <div>
         <SmallTitle title="Completed" fontWeight="400" fontSize="32px" />
         <div className="CompletedProjectList">

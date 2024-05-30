@@ -107,6 +107,44 @@ router.put("/posted/:projectId/remove", async (req, res) => {
   }
 });
 
+// Route to accept the file for a project
+router.post("/:projectId/accept-file", async (req, res) => {
+  const { projectId } = req.params;
+  console.log("Accept file request received for project ID:", projectId); // Debug statement
+  try {
+    const project = await Project.findById(projectId);
+    if (!project) {
+      console.log("Project not found for ID:", projectId); // Debug statement
+      return res.status(404).json({ message: "Project not found" });
+    }
+    project.fileAccepted = true;
+    await project.save();
+    console.log("File accepted for project ID:", projectId); // Debug statement
+    res.json({ message: "File accepted" });
+  } catch (error) {
+    console.error("Error accepting file:", error);
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// Route to reject all files for a project
+router.post("/:projectId/reject-file", async (req, res) => {
+  const { projectId } = req.params;
+  try {
+    const project = await Project.findById(projectId);
+    if (!project) {
+      return res.status(404).json({ message: "Project not found" });
+    }
+    project.uploadedFiles = [];
+    await project.save();
+    res.json({ message: "Files rejected" });
+  } catch (error) {
+    console.error("Error rejecting files:", error);
+    res.status(500).json({ message: error.message });
+  }
+});
+
+
 router.post("/:projectId/saveReview", async (req, res) => {
   try {
     const { projectId } = req.params;
