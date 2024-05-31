@@ -12,21 +12,21 @@ function ProfileHeader(props) {
   return (
     <Container style={{ margin: 'auto', width: '1000px' }}>
       <Row className="justify-content-center">
-        <Col xs={12} md={4} className="text-center">
+        <Col xs={12} md={3} className="text-center">
           <Image
             src={avatarSrc ? `data:${avatarSrc};base64,${avatarSrc}` : default_avatar}
             roundedCircle
-            style={{ width: '200px', height: '200px' }}
+            style={{ width: '180px', height: '180px' }}
           />
 
         </Col>
         <Col xs={12} md={5}>
-          <h2 style={{ marginTop: '20px' }}>{name}</h2>
-          <div style={{ display: 'flex' }}>
-            <p style={{ marginRight: '100px', color: '#2D4777' }}>{university}</p>
+          <p style={{ marginTop: '10px',fontSize:'23px' }}>{name}</p>
+          <div style={{ display: 'flex' ,marginTop:'10px'}}>
+            <p style={{ marginRight: '50px', color: '#2D4777' }}>{university}</p>
             <p style={{ color: '#858585' }}>{location}</p>
           </div>
-          <p>{headline}</p>
+          <p style={{ marginTop:'5px'}}>{headline}</p>
           <div style={{ display: 'flex' }}>
             {tags.map((tag, index) => (
               <div
@@ -35,7 +35,7 @@ function ProfileHeader(props) {
                   backgroundColor: '#80D1D5',
                   color: 'white',
                   padding: '5px 10px',
-                  marginTop:'10px',
+                  marginTop:'15px',
                   marginRight: '20px',
                   borderRadius: '10px',
                 }}
@@ -44,7 +44,7 @@ function ProfileHeader(props) {
               </div>
             ))}
             <Link to={`/EditProfile/${userId}`}>
-              <img src={EditProfileIcon} alt="edit profile" style={{ width: '30px', height: '30px', marginLeft: '220px' ,marginTop:'10px'}} />
+              <img src={EditProfileIcon} alt="edit profile" style={{ width: '30px', height: '30px', marginLeft: '200px' ,marginTop:'15px'}} />
             </Link>
           </div>
         </Col>
