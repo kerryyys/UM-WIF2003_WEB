@@ -3,7 +3,6 @@ import { PORT, mongoDBURL } from "./config.js";
 import mongoose from "mongoose";
 import projectDetailsRoute from "./routes/projectDetailsRoute.js";
 import projectsRouter from "./routes/projects.js";
-import freelanceInfoRoute from "./routes/freelanceInfoRoute.js";
 import reviewProjectRoute from "./routes/reviewProjectRoute.js";
 import postRoute from "./routes/postRoute.js";
 import usersRoute from "./routes/usersRoute.js";
@@ -29,7 +28,6 @@ app.use(bodyParser.json());
 
 app.use("/recruite", projectDetailsRoute);
 app.use("/recruite", reviewProjectRoute);
-app.use("/freelancers", freelanceInfoRoute);
 app.use("/projects", projectsRouter);
 app.use("/community", postRoute);
 app.use("/users", usersRoute);
