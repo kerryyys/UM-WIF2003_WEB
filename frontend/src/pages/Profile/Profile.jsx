@@ -51,7 +51,7 @@ function Profile() {
             </div>
             <Experience experiences={profile.experience} />
             <div className="section-header">
-              <h6 className="text-center mt-4">SKILL</h6>
+              <h6 className="text-center mt-8">SKILL</h6>
               <hr />
             </div>
             <Skill skills={profile.skill} />
