@@ -5,23 +5,18 @@ import { Schema } from "mongoose";
 const experience = new mongoose.Schema({
   title: {
     type: String,
-    required: true,
   },
   employmentType: {
     type: String,
-    required: true,
   },
   company: {
     type: String,
-    required: true,
   },
   location: {
     type: String,
-    required: true,
   },
   locationType: {
     type: String,
-    required: true,
   },
   description: {
     type: String,
@@ -69,11 +64,9 @@ const userSchema = new mongoose.Schema(
     },
     city: {
       type: String,
-      required: true,
     },
     state: {
       type: String,
-      required: true,
     },
     categories: {
       type: [String],
@@ -81,7 +74,6 @@ const userSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      required: true,
     },
     university: {
       type: String,
@@ -122,7 +114,7 @@ const userSchema = new mongoose.Schema(
         ref: "Project",
       },
     ],
-    
+
   },
   [
     {
