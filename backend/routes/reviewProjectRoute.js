@@ -17,7 +17,9 @@ router.get("/:status", async (req, res) => {
         "serviceProvider"
       );
     } else if (status === "completed") {
-      projects = await Project.find({ completed: true });
+      projects = await Project.find({ completed: true }).populate(
+        "serviceProvider"
+      );
     } else {
       return res.status(400).json({ message: "Invalid status parameter" });
     }
