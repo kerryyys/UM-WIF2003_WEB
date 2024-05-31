@@ -16,9 +16,6 @@ const ProjectPostedTab = ({
   const [showModal, setShowModal] = useState(false);
   const [applicants, setApplicants] = useState([]);
 
-  // ! Need to be fix ASAP
-  const [projectDetails, setProjectDetails] = useState(null);
-
   const formatPostedDate = (dateString) => {
     const date = new Date(dateString);
     const day = date.getDate().toString().padStart(2, "0");
