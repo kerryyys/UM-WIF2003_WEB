@@ -13,12 +13,14 @@ import {
 export const signUp = async (req, res) => {
   try {
     const { email, username, password } = req.body;
+    //Check if user email already exists in the database
     const existingUser = await User.findOne({ email });
 
     if (existingUser) {
       return handleBadRequest(res, "User already exists");
     }
 
+    // Encrypt the password
     const hashedPassword = await bcrypt.hash(password, 10);
     console.log(await bcrypt.compare(password, hashedPassword));
 
@@ -28,6 +30,7 @@ export const signUp = async (req, res) => {
       username: username,
     });
 
+    // Create a token with JWT based on _id
     const token = createSecretToken(user._id);
     setTokenCookie(res, token);
 
@@ -49,6 +52,7 @@ export const login = async (req, res) => {
       return handleBadRequest(res, "Incorrect password or email");
     }
 
+    // Compare input password with the encrypted password
     console.log("User found:", user);
     const auth = await bcrypt.compare(password, user.password);
 
@@ -58,6 +62,7 @@ export const login = async (req, res) => {
     }
 
     console.log("Password comparison succeeded");
+    // Create a JWT token for current user session
     const token = createSecretToken(user._id);
     setTokenCookie(res, token);
 
