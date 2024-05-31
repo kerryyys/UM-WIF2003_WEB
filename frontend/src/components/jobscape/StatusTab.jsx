@@ -7,7 +7,7 @@ const StatusTab = ({ numArray, typeArray }) => (
       flexDirection: "column",
       alignItems: "center",
       width: "100%",
-      height: "24%",
+      height: "28%",
       backgroundColor: "#FDFAF3",
       padding: "10px",
     }}

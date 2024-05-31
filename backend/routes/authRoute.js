@@ -1,7 +1,29 @@
-const { Signup, Login } = require('../controllers/authController')
-const router = require("express").Router();
+import express from "express";
+import { asyncHandler } from "../middleware/asyncMiddleware.js";
+import { signUp, login } from "../controllers/authController.js";
+import { validateSignUp, validateLogin } from "../middleware/authMiddleware.js";
+import {
+  handleBadRequest,
+  handleInternalServerError,
+} from "../helpers/errorHelpers.js";
+import { User } from "../models/userModel.js";
+import { StatusCodes } from "http-status-codes";
 
-router.post("/signup", Signup);
-router.post('/login', Login)
+const router = express.Router();
 
-module.exports = router;
+router.post("/signup", validateSignUp, asyncHandler(signUp));
+router.post("/login", validateLogin, asyncHandler(login));
+router.get("/debug", async (req, res) => {
+  try {
+    const allUsers = await User.find();
+
+    if (!allUsers) {
+      handleInternalServerError(res, error);
+    }
+    return res.status(StatusCodes.OK).json(allUsers);
+  } catch (error) {
+    handleInternalServerError(res, error);
+  }
+});
+
+export default router;

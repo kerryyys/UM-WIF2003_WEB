@@ -3,14 +3,17 @@ import { PORT, mongoDBURL } from "./config.js";
 import mongoose from "mongoose";
 import projectDetailsRoute from "./routes/projectDetailsRoute.js";
 import projectsRouter from "./routes/projects.js";
-import freelanceInfoRoute from "./routes/freelanceInfoRoute.js";
 import reviewProjectRoute from "./routes/reviewProjectRoute.js";
 import postRoute from "./routes/postRoute.js";
 import usersRoute from "./routes/usersRoute.js";
 import paymentRoute from "./routes/paymentRoute.js";
+import authRoute from "./routes/authRoute.js";
 import cors from "cors";
-import bodyParser from 'body-parser';
+import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
+import dotenv from "dotenv";
 
+dotenv.config();
 const app = express();
 
 // Middleware for parsing request body
@@ -25,11 +28,11 @@ app.use(bodyParser.json());
 
 app.use("/recruite", projectDetailsRoute);
 app.use("/recruite", reviewProjectRoute);
-app.use("/freelancers", freelanceInfoRoute);
 app.use("/projects", projectsRouter);
 app.use("/community", postRoute);
 app.use("/users", usersRoute);
 app.use("/payment", paymentRoute);
+app.use("/auth", authRoute);
 
 app.get("*", (req, res) => {
   console.log(req);
@@ -54,6 +57,8 @@ mongoose
   });
 
 // Start the server
-app.listen(PORT, () => {
+app.listen(PORT || 5050, () => {
   console.log(`Server is listening on port ${PORT}`);
 });
+
+app.use(cookieParser());

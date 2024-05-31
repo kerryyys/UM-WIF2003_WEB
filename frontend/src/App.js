@@ -38,7 +38,6 @@ import Invoice from "./pages/Payment/invoice";
 import Footer from "./components/Footer";
 import CommunityPage from "./pages/Community/CommunityPage";
 import NavBar from "./components/NavBar";
-import CompletedProjectTab from "../src/components/jobscape/CompletedProjectTab";
 import "./App.css";
 import { UserProvider } from "./context/UserContext";
 
@@ -53,11 +52,8 @@ function ScrollToTopOnNavigation() {
 }
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(true);
-  const handleLoginClick = () => {
-    setLoggedIn(!loggedIn);
-  };
-  const user = null;
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [user, setUser] = useState(null);
   return (
     <UserProvider user={user}>
       <Router>
@@ -67,7 +63,12 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route
             path="/Login"
-            element={<Login handleLoginClick={handleLoginClick} />}
+            element={
+              <Login
+                setLoggedIn={(boolean) => setLoggedIn(boolean)}
+                setUser={setUser}
+              />
+            }
           />
           <Route path="/Register" element={<Register />} />
           <Route path="/ForgotP" element={<ForgotP />} />

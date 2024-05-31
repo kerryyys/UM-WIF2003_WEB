@@ -27,6 +27,7 @@ const projectSchema = mongoose.Schema(
     applicants: { type: [Schema.Types.ObjectId], ref: "FakeUser" }, //should store freelancer userID
     // PIC: { type: Schema.Types.ObjectId, ref: "FakeUser" }, I renamed it to serviceProvider
     serviceProvider: { type: Schema.Types.ObjectId, ref: "FakeUser" },
+    fileAccepted: { type: Boolean, default: false },
     review: [
       {
         satisfactionRating: Number,

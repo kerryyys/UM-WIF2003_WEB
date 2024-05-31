@@ -3,6 +3,7 @@ import "../components-css/NavBar.css";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import ProfilePic from "../assets/images/profile_pic.svg";
+import { motion } from "framer-motion";
 
 export default function NavBar({ loggedIn }) {
   const linkProps = [
@@ -13,44 +14,56 @@ export default function NavBar({ loggedIn }) {
   ];
 
   return (
-    <div className="navbar-style tw-px-1 tw-py-1 tw-pl-8 tw-text-lg">
-      <nav className="navbar navbar-expand-lg tw-p-5">
-        <Link
-          className="tw-absolute tw-lexft-8 tw-top-1/2 w-transform tw--translate-y-1/2 tw-text-3xl tw-font-kaushan"
-          to="/"
-        >
-          UniJobs
-        </Link>
+    <div className="navbar-style tw-p-2">
+      <nav className="tw-w-full tw-flex tw-flex-row tw-justify-between tw-items-center tw-px-5 lg:tw-px-10 tw-text-lg navbar">
+        <div>
+          <Link className="tw-text-3xl tw-font-kaushan" to="/">
+            UniJobs
+          </Link>
+        </div>
 
-        <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav ml-auto">
+        <div className="tw-hidden lg:tw-inline">
+          <ul className="tw-flex tw-gap-4">
             {linkProps.map((linkProp) => (
-              <li className={` ${linkProp.isActive ? "active" : ""}`}>
-                <Link
-                  to={`${linkProp.link}`}
-                  className="nav-link tw-text-secondary"
-                >
+              <motion.li
+                key={linkProp.label}
+                className={`${linkProp.isActive ? "active" : ""}`}
+                whileHover={{
+                  scale: 1.3,
+                  textShadow: "0px 0px 10px rgba(255, 255, 255, 1)",
+                  color: "#d4d4d8",
+                  "padding-left": "10px",
+                  "padding-right": "10px",
+                }}
+                whileTap={{
+                  scale: 1,
+                }}
+                transition={{ type: "spring", stiffness: 100 }}
+              >
+                <Link to={linkProp.link} className="nav-link tw-text-secondary">
                   {linkProp.label}
                 </Link>
-              </li>
+              </motion.li>
             ))}
           </ul>
+        </div>
 
-          {loggedIn ? (
-            <>
-              <Link to="/Profile">
-                <img src={ProfilePic} alt="" className="navbar-profile-pic" />
-              </Link>
-              <div className="navbar-sign-out">
-                <Button
-                  onClick={() => (window.location.href = "/Login")}
-                  className="navbar-sign-out-btn"
-                >
-                  Sign out <i className="bi bi-box-arrow-right" />
-                </Button>
-              </div>
-            </>
-          ) : null}
+        <div className="tw-flex tw-items-center tw-gap-3">
+          <Link to="/Profile">
+            <img
+              src={ProfilePic}
+              alt="Profile"
+              className={`tw-cursor-pointer tw-w-[50px] ${
+                loggedIn ? "" : "tw-hidden"
+              }`}
+            />
+          </Link>
+          <Button
+            onClick={() => (window.location.href = "/Login")}
+            className={`navbar-sign-out-btn ${loggedIn ? "" : "tw-hidden"}`}
+          >
+            Sign out <i className="bi bi-box-arrow-right" />
+          </Button>
         </div>
       </nav>
     </div>
