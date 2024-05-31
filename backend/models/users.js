@@ -33,7 +33,6 @@ const experience = new mongoose.Schema({
 
 const users = mongoose.Schema(
   {
-  
     firstName: {
       type: String,
       required: true,
@@ -44,7 +43,7 @@ const users = mongoose.Schema(
     },
     profilePic: {
       data: Buffer,
-      contentType: String
+      contentType: String,
     },
     headline: {
       type: String,

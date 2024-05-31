@@ -1,36 +1,5 @@
 // import "../../../components-css/Community/ExploreList.css";
-import React, { useState } from "react";
-import Button from "react-bootstrap/Button";
-
-function FollowButton() {
-  const [isActive, setIsActive] = useState(false);
-
-  const handleClick = () => {
-    setIsActive(!isActive);
-  };
-
-  return (
-    <Button onClick={handleClick} className="tw-border tw-border-red-300">
-      {isActive ? "Followed" : "Follow"}
-    </Button>
-  );
-}
-
-function ExploreItem({ companyImg, companyName }) {
-  return (
-    <div className="explore-item px-4 d-inline-flex flex-row justify-content-center align-items-center">
-      <img
-        src={companyImg}
-        alt="company"
-        className="img-fluid rounded-circle mx-auto d-block explore-item-company-img"
-      ></img>
-      <div className="tw-gap-0">
-        <p className="tw-text-lg tw-text-center">{companyName}</p>
-        <FollowButton />
-      </div>
-    </div>
-  );
-}
+import ExploreItem from "./ExploreItem";
 
 function ExploreList({ exploreListData }) {
   return (
