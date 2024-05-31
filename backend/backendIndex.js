@@ -32,7 +32,6 @@ app.use("/projects", projectsRouter);
 app.use("/community", postRoute);
 app.use("/users", usersRoute);
 app.use("/payment", paymentRoute);
-
 app.use("/auth", authRoute);
 
 app.get("*", (req, res) => {

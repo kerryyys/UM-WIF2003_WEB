@@ -1,53 +1,73 @@
 import bcrypt from "bcryptjs";
 import { User } from "../models/userModel.js";
-import { createSecretToken } from "../util/SecretToken.js";
+import { StatusCodes } from "http-status-codes";
+import {
+  createSecretToken,
+  setTokenCookie,
+} from "../middleware/tokenMiddleware.js";
+import {
+  handleBadRequest,
+  handleInternalServerError,
+} from "../helpers/errorHelpers.js";
 
-export const signUp = async (req, res, next) => {
+export const signUp = async (req, res) => {
   try {
-    const { email, password, username, createdAt } = req.body;
+    const { email, username, password } = req.body;
     const existingUser = await User.findOne({ email });
+
     if (existingUser) {
-      return res.json({ message: "User already exists" });
+      return handleBadRequest(res, "User already exists");
     }
-    const user = await User.create({ email, password, username, createdAt });
-    const token = createSecretToken(user._id);
-    res.cookie("token", token, {
-      withCredentials: true,
-      httpOnly: false,
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    console.log(await bcrypt.compare(password, hashedPassword));
+
+    const user = await User.create({
+      email: email,
+      password: hashedPassword,
+      username: username,
     });
+
+    const token = createSecretToken(user._id);
+    setTokenCookie(res, token);
+
     res
-      .status(201)
-      .json({ message: "User signed in successfully", success: true, user });
-    next();
+      .status(StatusCodes.CREATED)
+      .json({ message: "User signed up successfully", success: true, user });
   } catch (error) {
-    console.error(error);
+    return handleInternalServerError(res, error);
   }
 };
 
-export const login = async (req, res, next) => {
+export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    if (!email || !password) {
-      return res.json({ message: "All fields are required" });
-    }
     const user = await User.findOne({ email });
+
     if (!user) {
-      return res.json({ message: "Incorrect password or email" });
+      console.log("User not found");
+      return handleBadRequest(res, "Incorrect password or email");
     }
+
+    console.log("User found:", user);
     const auth = await bcrypt.compare(password, user.password);
+
     if (!auth) {
-      return res.json({ message: "Incorrect password or email" });
+      console.log("Password comparison failed");
+      return handleBadRequest(res, "Incorrect password");
     }
+
+    console.log("Password comparison succeeded");
     const token = createSecretToken(user._id);
-    res.cookie("token", token, {
-      withCredentials: true,
-      httpOnly: false,
+    setTokenCookie(res, token);
+
+    return res.status(StatusCodes.OK).json({
+      message: "User logged in successfully",
+      success: true,
+      user: user,
     });
-    res
-      .status(201)
-      .json({ message: "User logged in successfully", success: true });
-    next();
   } catch (error) {
-    console.error(error);
+    console.log("Error during login:", error);
+    return handleInternalServerError(res, error);
   }
 };
