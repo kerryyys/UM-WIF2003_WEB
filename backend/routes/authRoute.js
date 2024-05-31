@@ -1,7 +1,10 @@
 import express from "express";
-import { asyncHandler } from "../middleware/asyncMiddleware.js";
+import { asyncHandler } from "../middlewares/asyncMiddleware.js";
 import { signUp, login } from "../controllers/authController.js";
-import { validateSignUp, validateLogin } from "../middleware/authMiddleware.js";
+import {
+  validateSignUp,
+  validateLogin,
+} from "../middlewares/authMiddleware.js";
 import {
   handleBadRequest,
   handleInternalServerError,

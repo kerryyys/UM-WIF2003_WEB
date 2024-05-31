@@ -2,7 +2,6 @@ import { Status } from "../config.js";
 import express from "express";
 import Post from "../models/post.js";
 import Comment from "../models/comment.js";
-import formidable from "formidable";
 
 const router = express.Router();
 
