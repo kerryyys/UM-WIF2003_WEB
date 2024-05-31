@@ -120,7 +120,7 @@ function EditProfile() {
     return (
         <Container className="d-flex justify-content-center align-items-center">
             <div className="mt-5 w-50">
-                <h5>Edit Profile</h5>
+                <p style={{ fontWeight: '700' ,fontSize:'22px'}}>Edit Profile</p>
                 <Container className="text-center">
                     <div className="profile-pic-container position-relative d-inline-flex justify-content-center">
                         <Image
@@ -170,7 +170,7 @@ function EditProfile() {
                     </div>
                 </div>
                 <div>
-                    <p style={{ fontWeight: '700' }}>Headline</p>
+                    <p style={{ fontWeight: '700', marginTop:'10px' }}>Headline</p>
                     <input
                         className="bigInput"
                         type="text"
@@ -179,7 +179,7 @@ function EditProfile() {
                         onChange={handleInputChange}
                     />
                 </div>
-                <div className="d-flex gap-5">
+                <div className="d-flex gap-5 mt-2">
                     <div style={{ width: '50%' }}>
                         <p style={{ fontWeight: '700' }}>City</p>
                         <input
@@ -202,7 +202,7 @@ function EditProfile() {
                     </div>
                 </div>
                 <div>
-                    <p style={{ fontWeight: '700' }}>University</p>
+                    <p style={{ fontWeight: '700', marginTop:'10px' }}>University</p>
                     <input
                         className="bigInput"
                         type="text"
@@ -221,7 +221,7 @@ function EditProfile() {
                     />
                 </div>
                 <div>
-                    <p style={{ fontWeight: '700' }}>Skills</p>
+                    <p style={{ fontWeight: '700', marginTop:'20px' }}>Skills</p>
                     <ExpandableInput
                         defaultWords={profileData.skill || []}
                         title="skills"
@@ -229,7 +229,7 @@ function EditProfile() {
                     />
                 </div>
                 <div>
-                    <p style={{ fontWeight: '700' }}>Experiences</p>
+                    <p style={{ fontWeight: '700', marginTop:'20px' }}>Experiences</p>
                     <ExpandableExperience
                         defaultWords={profileData.experience || []}
                         userId={userId}
@@ -242,14 +242,14 @@ function EditProfile() {
                         <Modal.Title>Upload Profile Picture</Modal.Title>
                     </Modal.Header>
                     <Modal.Body className="d-flex flex-column align-items-center">
-                        <Button onClick={() => fileInputRef.current.click()}>Choose Picture</Button>
-                        <Button variant="danger" className="mt-3" onClick={handleRemovePicture}>Remove Picture</Button>
+                        <Button onClick={() => fileInputRef.current.click()} style={{ background: '#2D4777',  border: "none", padding:'10px' }}>Choose Picture</Button>
+                        <Button style={{  background: '#898989', border: "none", padding:'10px', marginTop:'10px' }} onClick={handleRemovePicture}>Remove Picture</Button>
                     </Modal.Body>
                 </Modal>
 
-                <div className="mt-5 mb-5 d-flex justify-content-center gap-5">
-                    <Button variant="outline-primary" onClick={handleCancel}>Cancel</Button>
-                    <Button onClick={handleSave}>Save</Button>
+                <div style={{ display: 'flex', marginBottom: '50px' }} className='gap-5 justify-content-center mt-5'>
+                    <Button onClick={handleSave} style={{ background: '#2D4777', width: '100px', border: "none" }}>Save</Button>
+                    <Button onClick={handleCancel} style={{ color: '#2D4777', background: '#FFFFFF', width: '100px', border: "1px solid #2D4877" }}>Cancel</Button>
                 </div>
             </div>
         </Container>
