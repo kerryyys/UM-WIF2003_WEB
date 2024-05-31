@@ -108,4 +108,14 @@ router.get("/task", async (req, res) => {
   }
 });
 
+// Invoice
+router.get('/invoices', async (req, res) => {
+  try {
+    const projects = await Project.find({}, 'projectTitle projectBudget');
+    res.json(projects);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 export default router;

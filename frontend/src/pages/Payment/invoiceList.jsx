@@ -6,32 +6,20 @@ import Tnc from "../../components/payment/tnc";
 // import { useInvoice } from '../../context/UserContext';
 
 function InvoiceList() {
-  const [projectTitle, setProjectTitle] = useState('');
-  const [projectBudget, setProjectBudget] = useState('');
   const [invoices, setInvoices] = useState([]);
-  const location = useLocation();
-
-
-  // const { projectTitle, projectBudget } = useInvoice();
-
 
   useEffect(() => {
-    
-    const title = localStorage.getItem('projectTitle');
-    const budget = localStorage.getItem('projectBudget');
-
-    if (title && budget) {
-      setProjectTitle(title);
-      setProjectBudget(budget);
-      setInvoices([{ projectTitle: title, projectBudget: budget }]);
-    } 
-    else if (location.state) {
-      const { projectTitle, projectBudget } = location.state;
-      setProjectTitle(projectTitle.toString());
-      setProjectBudget(projectBudget.toString());
-      setInvoices([{ projectTitle: projectTitle.toString(), projectBudget: projectBudget.toString() }]);
-    }
-  }, [location.state]);
+    const fetchInvoices = async () => {
+      try {
+        const response = await fetch('http://localhost:5050/payment/invoices');
+        const data = await response.json();
+        setInvoices(data);
+      } catch (error) {
+        console.error('Error fetching invoices:', error);
+      }
+    };
+    fetchInvoices();
+  }, []);
 
   const handleDownload = () => {
         const pdfUrl = '';
@@ -65,8 +53,8 @@ function InvoiceList() {
           {invoices.map((invoice, index) => (
         <div key={index} className="INV" onClick={() => handleInvClick(invoice)}>
           <p className="INVName">Completed</p>
-          <p className="INVPrice">{projectTitle}</p>
-          <p className="INVDesc">RM {parseFloat(projectBudget) + 10}</p>
+          <p className="INVPrice">{invoice.projectTitle}</p>
+          <p className="INVDesc">RM {parseFloat(invoice.projectBudget) + 10}</p>
         </div>
       ))}
         </div>
