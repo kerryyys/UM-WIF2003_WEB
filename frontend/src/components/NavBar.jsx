@@ -48,23 +48,23 @@ export default function NavBar({ loggedIn }) {
           </ul>
         </div>
 
-        {loggedIn ? (
-          <div className="tw-flex tw-items-center tw-gap-3">
-            <Link to="/Profile">
-              <img
-                src={ProfilePic}
-                alt="Profile"
-                className="tw-cursor-pointer tw-w-[50px]"
-              />
-            </Link>
-            <Button
-              onClick={() => (window.location.href = "/Login")}
-              className="navbar-sign-out-btn"
-            >
-              Sign out <i className="bi bi-box-arrow-right" />
-            </Button>
-          </div>
-        ) : null}
+        <div className="tw-flex tw-items-center tw-gap-3">
+          <Link to="/Profile">
+            <img
+              src={ProfilePic}
+              alt="Profile"
+              className={`tw-cursor-pointer tw-w-[50px] ${
+                loggedIn ? "" : "tw-hidden"
+              }`}
+            />
+          </Link>
+          <Button
+            onClick={() => (window.location.href = "/Login")}
+            className={`navbar-sign-out-btn ${loggedIn ? "" : "tw-hidden"}`}
+          >
+            Sign out <i className="bi bi-box-arrow-right" />
+          </Button>
+        </div>
       </nav>
     </div>
   );

@@ -4,40 +4,36 @@ import Notification from "../../pages/General/Notification";
 import google from "../../assets/images/General/logos_facebook.png";
 import facebook from "../../assets/images/General/flat-color-icons_google.png";
 import sideBackground from "../../assets/images/General/LOGIN.png";
+import { getUser } from "../../api/authApi";
+import { useNavigate } from "react-router-dom";
 
-function App({ handleLoginClick }) {
+function Login({ setLoggedIn, setUser }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessages, setErrorMessages] = useState({});
   const [userType, setUserType] = useState("recruiter");
   const [showNotification, setShowNotification] = useState(false);
+  const navigate = useNavigate(); // Call the useNavigate hook here
 
-  const handleClick = () => {
-    setShowNotification(true); // Show the notification when the button is clicked
-    setTimeout(() => {
-      setShowNotification(false); // Hide the notification after a delay
-      handleLoginClick();
-      window.location.href = "/JobscapeMainPage"; // Redirect after hiding the notification
-    }, 3000); // Adjust the timeout duration as needed
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent page reload
+    const user = await getUser(username, password);
 
-    // Simulate successful login
-    // You can replace this logic with your actual authentication mechanism
-    // For demonstration purposes, let's consider any username and password as valid
-    // Replace 'your_username' and 'your_password' with your actual username and password
-    if (username === "your_username" && password === "your_password") {
+    if (user) {
       setErrorMessages({});
-      // Successful login logic (redirect, show success message, etc.)
-      alert("Login successful!");
+      setUser(user);
+      setShowNotification(true);
+      setTimeout(() => {
+        setShowNotification(false);
+        setLoggedIn(true);
+        navigate("/JobscapeMainPage");
+      }, 3000);
     } else {
-      // Invalid username or password
       setErrorMessages({
         name: "invalid",
         message: "Invalid username or password",
       });
+      setUser(null);
     }
   };
 
@@ -46,22 +42,27 @@ function App({ handleLoginClick }) {
     name === errorMessages.name && (
       <div className="error">{errorMessages.message}</div>
     );
+
   return (
     <div className="login-background">
-      <img className="login-flower-pic" src={sideBackground}></img>
+      <img
+        alt="Side background decoration"
+        className="login-flower-pic"
+        src={sideBackground}
+      />
       <form onSubmit={handleSubmit} className="login-form-container">
         <h2 className="login-title">Login Now</h2>
         <div className="login-input-container">
           <input
             className="login-usernameInput"
             placeholder="Username"
-            type="textt"
+            type="text"
             name="uname"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
           />
-          {renderErrorMessage("pass")}
+          {renderErrorMessage("invalid")}
         </div>
         <div className="login-input-container">
           <input
@@ -73,7 +74,7 @@ function App({ handleLoginClick }) {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          {renderErrorMessage("pass")}
+          {renderErrorMessage("invalid")}
         </div>
         <div className="login-radio-container">
           <input
@@ -104,11 +105,11 @@ function App({ handleLoginClick }) {
         {showNotification && <Notification message="Login Successfully!" />}{" "}
         {/* Conditionally render the notification */}
         <div className="login-button-container">
-          <input type="submit" value="Login" onClick={handleClick} />
+          <input type="submit" value="Login" />
         </div>
         <div className="login-forgot-password">
           <span
-            onClick={() => (window.location.href = "/ForgotP")}
+            onClick={() => navigate("/ForgotP")}
             className="login-forgot-password-text"
           >
             Forgot Password?
@@ -121,20 +122,17 @@ function App({ handleLoginClick }) {
         </div>
         <div className="login-button-group">
           <button className="login-facebook-button">
-            <img src={google} alt="Facebook Logo" />
-            Facebook
+            <img src={google} alt="Google Logo" />
+            Google
           </button>
           <button className="login-facebook-button">
-            <img src={facebook} alt="Google Logo" />
-            Google
+            <img src={facebook} alt="Facebook Logo" />
+            Facebook
           </button>
         </div>
         <div className="login-normal-text">
           Not a member?{" "}
-          <span
-            onClick={() => (window.location.href = "/Register")}
-            className="login-sign-up"
-          >
+          <span onClick={() => navigate("/Register")} className="login-sign-up">
             Sign up now
           </span>
         </div>
@@ -143,4 +141,4 @@ function App({ handleLoginClick }) {
   );
 }
 
-export default App;
+export default Login;

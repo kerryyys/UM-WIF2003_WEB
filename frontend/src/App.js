@@ -52,11 +52,8 @@ function ScrollToTopOnNavigation() {
 }
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(true);
-  const handleLoginClick = () => {
-    setLoggedIn(!loggedIn);
-  };
-  const user = null;
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [user, setUser] = useState(null);
   return (
     <UserProvider user={user}>
       <Router>
@@ -66,7 +63,12 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route
             path="/Login"
-            element={<Login handleLoginClick={handleLoginClick} />}
+            element={
+              <Login
+                setLoggedIn={(boolean) => setLoggedIn(boolean)}
+                setUser={setUser}
+              />
+            }
           />
           <Route path="/Register" element={<Register />} />
           <Route path="/ForgotP" element={<ForgotP />} />
@@ -102,7 +104,7 @@ function App() {
           <Route path="/fpx" element={<Fpx />} />
           <Route path="/redirect" element={<Redirect />} />
           <Route path="/successful" element={<Successful />} />
-          <Route path="/invoiceList" element={<InvoiceList />}  />
+          <Route path="/invoiceList" element={<InvoiceList />} />
           <Route path="/paymentHis" element={<PaymentHis />} />
           <Route path="/invoice" element={<Invoice />} />
           <Route path="/AboutUs" element={<AboutUs />} />
