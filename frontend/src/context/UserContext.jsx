@@ -10,18 +10,3 @@ export const UserProvider = ({ user, children }) => {
   );
 };
 
-// const InvoiceContext = createContext();
-
-// export const InvoiceProvider = ({ children }) => {
-//   const [projectTitle, setProjectTitle] = useState('');
-//   const [projectBudget, setProjectBudget] = useState(0);
-
-//   return (
-//     <InvoiceContext.Provider value={{ projectTitle, projectBudget }}>
-//       {children}
-//     </InvoiceContext.Provider>
-//   );
-// };
-
-// export const useInvoice = () => useContext(InvoiceContext);
-

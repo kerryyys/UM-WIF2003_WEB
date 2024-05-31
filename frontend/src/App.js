@@ -38,7 +38,6 @@ import Invoice from "./pages/Payment/invoice";
 import Footer from "./components/Footer";
 import CommunityPage from "./pages/Community/CommunityPage";
 import NavBar from "./components/NavBar";
-// import { InvoiceProvider } from '../src/context/UserContext';
 import "./App.css";
 import { UserProvider } from "./context/UserContext";
 
@@ -60,7 +59,6 @@ function App() {
   const user = null;
   return (
     <UserProvider user={user}>
-      {/* <InvoiceProvider>  */}
       <Router>
         <ScrollToTopOnNavigation />
         <NavBar loggedIn={loggedIn} />
@@ -112,7 +110,6 @@ function App() {
         </Routes>
         <Footer />
       </Router>
-      {/* </InvoiceProvider> */}
     </UserProvider>
   );
 }

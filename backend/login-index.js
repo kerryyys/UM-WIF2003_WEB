@@ -1,9 +1,9 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
-require("dotenv").config();
-const cookieParser = require("cookie-parser");
-const authRoute = require("./routes/authRoute");
+import express, { json } from "express";
+import { connect } from "mongoose";
+import cors from "cors";
+import 'dotenv/config';
+import cookieParser from "cookie-parser";
+import authRoute from "./routes/authRoute.js";
 const app = express();
 const { MONGO_URL, PORT } = process.env;
 
@@ -13,10 +13,10 @@ app.use(cors({
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true,
 }));
-app.use(express.json());
+app.use(json());
 
 // MongoDB connection
-mongoose.connect(MONGO_URL)
+connect(MONGO_URL)
   .then(() => console.log("MongoDB is connected successfully"))
   .catch((err) => {
     console.error("Failed to connect to MongoDB", err);
