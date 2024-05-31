@@ -21,3 +21,9 @@ export const handleError = (res, error) => {
   console.log(error);
   res.status(statusCode).json({ message });
 };
+
+export const handleNotFound = (entity, entityName = "Entity") => {
+  if (!entity) {
+    throw new NotFoundError(`${entityName} not found`);
+  }
+};

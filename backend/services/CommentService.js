@@ -1,5 +1,6 @@
 import Comment from "../models/comment.js";
 import Post from "../models/post.js";
+import { handleNotFound } from "../utils/errorHandler.js";
 
 class CommentService {
   async addComment(postId, userId, content) {
@@ -14,15 +15,11 @@ class CommentService {
 
   async deleteComment(commentId) {
     const comment = await Comment.findByIdAndDelete(commentId);
-    if (!comment) {
-      throw new Error("Comment not found");
-    }
-
-    await Post.findByIdAndUpdate(comment.post, {
+    handleNotFound(comment, "Comment");
+    const post = await Post.findByIdAndUpdate(comment.post, {
       $pull: { comments: commentId },
     });
-
-    return { message: "Comment deleted" };
+    handleNotFound(post, "Post");
   }
 
   async modifyComment(commentId, content) {
@@ -31,10 +28,7 @@ class CommentService {
       { content },
       { new: true }
     );
-    if (!comment) {
-      throw new Error("Comment not found");
-    }
-
+    handleNotFound(comment, "Comment");
     return comment;
   }
 
@@ -44,10 +38,7 @@ class CommentService {
       { $inc: { likes: 1 } },
       { new: true }
     );
-    if (!comment) {
-      throw new Error("Comment not found");
-    }
-
+    handleNotFound(comment, "Comment");
     return comment;
   }
 
@@ -57,10 +48,7 @@ class CommentService {
       { $inc: { likes: -1 } },
       { new: true }
     );
-    if (!comment) {
-      throw new Error("Comment not found");
-    }
-
+    handleNotFound(comment, "Comment");
     return comment;
   }
 }

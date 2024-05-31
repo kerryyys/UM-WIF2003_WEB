@@ -114,7 +114,6 @@ const userSchema = new mongoose.Schema(
         ref: "Project",
       },
     ],
-
   },
   [
     {

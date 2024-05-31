@@ -4,7 +4,7 @@ import { StatusCodes } from "http-status-codes";
 import {
   createSecretToken,
   setTokenCookie,
-} from "../middleware/tokenMiddleware.js";
+} from "../middlewares/tokenMiddleware.js";
 import {
   handleBadRequest,
   handleInternalServerError,
