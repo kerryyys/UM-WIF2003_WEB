@@ -120,16 +120,16 @@ function EditProfile() {
     return (
         <Container className="d-flex justify-content-center align-items-center">
             <div className="mt-5 w-50">
-                <p style={{ fontWeight: '700' ,fontSize:'22px'}}>Edit Profile</p>
+                <p style={{ fontWeight: '700', fontSize: '22px' }}>Edit Profile</p>
                 <Container className="text-center">
                     <div className="profile-pic-container position-relative d-inline-flex justify-content-center">
                         <Image
-                        
+
                             src={profileData.profilePic ? `data:${profileData.profilePic};base64,${profileData.profilePic}` : default_avatar}
                             roundedCircle
                             style={{ width: '150px', height: '150px' }}
                         />
-                        
+
 
                         <input
                             type="file"
@@ -151,26 +151,17 @@ function EditProfile() {
                     <div style={{ width: '50%' }}>
                         <p style={{ fontWeight: '700' }}>First Name</p>
                         <input
-                            className="smallInput"
+                            className="bigInput"
                             type="text"
-                            name="firstName"
+                            name="headline"
                             value={profileData.firstName || ''}
                             onChange={handleInputChange}
                         />
                     </div>
-                    <div style={{ width: '50%' }}>
-                        <p style={{ fontWeight: '700' }}>Last Name</p>
-                        <input
-                            className="smallInput"
-                            type="text"
-                            name="lastName"
-                            value={profileData.lastName || ''}
-                            onChange={handleInputChange}
-                        />
-                    </div>
+
                 </div>
                 <div>
-                    <p style={{ fontWeight: '700', marginTop:'10px' }}>Headline</p>
+                    <p style={{ fontWeight: '700', marginTop: '10px' }}>Headline</p>
                     <input
                         className="bigInput"
                         type="text"
@@ -202,7 +193,7 @@ function EditProfile() {
                     </div>
                 </div>
                 <div>
-                    <p style={{ fontWeight: '700', marginTop:'10px' }}>University</p>
+                    <p style={{ fontWeight: '700', marginTop: '10px' }}>University</p>
                     <input
                         className="bigInput"
                         type="text"
@@ -221,7 +212,7 @@ function EditProfile() {
                     />
                 </div>
                 <div>
-                    <p style={{ fontWeight: '700', marginTop:'20px' }}>Skills</p>
+                    <p style={{ fontWeight: '700', marginTop: '20px' }}>Skills</p>
                     <ExpandableInput
                         defaultWords={profileData.skill || []}
                         title="skills"
@@ -229,7 +220,7 @@ function EditProfile() {
                     />
                 </div>
                 <div>
-                    <p style={{ fontWeight: '700', marginTop:'20px' }}>Experiences</p>
+                    <p style={{ fontWeight: '700', marginTop: '20px' }}>Experiences</p>
                     <ExpandableExperience
                         defaultWords={profileData.experience || []}
                         userId={userId}
@@ -242,8 +233,8 @@ function EditProfile() {
                         <Modal.Title>Upload Profile Picture</Modal.Title>
                     </Modal.Header>
                     <Modal.Body className="d-flex flex-column align-items-center">
-                        <Button onClick={() => fileInputRef.current.click()} style={{ background: '#2D4777',  border: "none", padding:'10px' }}>Choose Picture</Button>
-                        <Button style={{  background: '#898989', border: "none", padding:'10px', marginTop:'10px' }} onClick={handleRemovePicture}>Remove Picture</Button>
+                        <Button onClick={() => fileInputRef.current.click()} style={{ background: '#2D4777', border: "none", padding: '10px' }}>Choose Picture</Button>
+                        <Button style={{ background: '#898989', border: "none", padding: '10px', marginTop: '10px' }} onClick={handleRemovePicture}>Remove Picture</Button>
                     </Modal.Body>
                 </Modal>
 

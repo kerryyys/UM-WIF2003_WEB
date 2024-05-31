@@ -10,20 +10,11 @@ const upload = multer({ storage: storage });
 // Add data
 router.post("/", upload.single("profilePic"), async (req, res) => {
   try {
-    if (
-      !req.body.firstName ||
-      !req.body.lastName ||
-      !req.body.city ||
-      !req.body.state ||
-      !req.body.role
-    ) {
-      return res.status(400).send({ message: "Send all required fields" });
-    }
+   
     const newUser = {
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      city: req.body.city,
-      state: req.body.state,
+     email:req.body.email,
+     password:req.body.password,
+      username:req.body.username,
       role: req.body.role,
       profilePic: req.file
         ? { data: req.file.buffer, contentType: req.file.mimetype }
