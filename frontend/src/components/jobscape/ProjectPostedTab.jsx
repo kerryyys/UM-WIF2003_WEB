@@ -15,7 +15,6 @@ const ProjectPostedTab = ({
 }) => {
   const [showModal, setShowModal] = useState(false);
   const [applicants, setApplicants] = useState([]);
-  const [isProjectFetched, setIsProjectFetched] = useState(false);
 
   // ! Need to be fix ASAP
   const [projectDetails, setProjectDetails] = useState(null);
@@ -118,9 +117,6 @@ const ProjectPostedTab = ({
           </Button>
         </Modal.Footer>
       </Modal>
-      {isProjectFetched && projectDetails === null && (
-        <p>No project in progress</p>
-      )}
     </div>
   );
 };
