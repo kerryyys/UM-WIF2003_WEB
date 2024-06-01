@@ -10,6 +10,6 @@ export const createSecretToken = (userId) => {
 export const setTokenCookie = (res, token) => {
   res.cookie("token", token, {
     withCredentials: true,
-    httpOnly: false,
+    httpOnly: true,
   });
 };

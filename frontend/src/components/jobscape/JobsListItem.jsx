@@ -20,6 +20,7 @@ export default function JobsListItem({
   projectTitle,
   projectBudget,
   deadline,
+  review,
 }) {
   JobsListItem.defaultProps = {
     completed: false,
@@ -68,13 +69,7 @@ export default function JobsListItem({
         <CompletedReviewModal
           show={showReview}
           onHide={() => setShowReview(false)}
-          satisfaction={satisfaction}
-          projectrating={projectrating}
-          projectfeedback={projectfeedback}
-          personrating={personrating}
-          personfeedback={personfeedback}
-          imgurl={imgurl}
-          reviewname={reviewname}
+          review={review}
         />
       </div>
     </>

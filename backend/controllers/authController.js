@@ -33,7 +33,7 @@ export const signUp = async (req, res) => {
     // Create a token with JWT based on _id
     const token = createSecretToken(user._id);
     setTokenCookie(res, token);
-
+    console.log(res);
     res
       .status(StatusCodes.CREATED)
       .json({ message: "User signed up successfully", success: true, user });

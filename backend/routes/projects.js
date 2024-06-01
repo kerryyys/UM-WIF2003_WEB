@@ -17,6 +17,7 @@ import {
   getApplyingProjects,
 } from "../controllers/projectsController.js";
 import mongoose, { mongo } from "mongoose";
+import { downloadFile } from "../middleware/downloadMiddleware.js";
 const router = e.Router();
 // Configure storage for multer
 const storage = multer.diskStorage({
@@ -37,7 +38,8 @@ router.post("/", postNewProject);
 
 // GET /projects - Retrieves all projects from mongodb
 router.get("/", getAllProjects);
-
+// GET /download - Downloads file that is saved in 'public/uploads'
+router.get("/download", downloadFile);
 // GET /projects/:projectId - Retrieves project details of projectId
 router.get("/:projectId", getProjectDetails);
 

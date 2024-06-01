@@ -119,6 +119,8 @@ router.put("/posted/:projectId/remove", async (req, res) => {
 // Route to accept the file for a project
 router.post("/:projectId/accept-file", async (req, res) => {
   const { projectId } = req.params;
+  const { userId } = req.body;
+  console.log(userId);
   console.log("Accept file request received for project ID:", projectId); // Debug statement
   try {
     const project = await Project.findById(projectId);
@@ -126,8 +128,13 @@ router.post("/:projectId/accept-file", async (req, res) => {
       console.log("Project not found for ID:", projectId); // Debug statement
       return res.status(404).json({ message: "Project not found" });
     }
+    project.completed = true;
     project.fileAccepted = true;
     await project.save();
+    const user = await FakeUser.findById(userId);
+    user.takenProjects.pull(projectId);
+    user.completedProjects.push(projectId);
+    await user.save();
     console.log("File accepted for project ID:", projectId); // Debug statement
     res.json({ message: "File accepted" });
   } catch (error) {
@@ -139,20 +146,30 @@ router.post("/:projectId/accept-file", async (req, res) => {
 // Route to reject all files for a project
 router.post("/:projectId/reject-file", async (req, res) => {
   const { projectId } = req.params;
+  const { userId } = req.body;
+  console.log(userId);
   try {
     const project = await Project.findById(projectId);
     if (!project) {
       return res.status(404).json({ message: "Project not found" });
     }
     project.uploadedFiles = [];
+    project.completed = false;
     await project.save();
-    res.json({ message: "Files rejected" });
+
+    // const user = await FakeUser.findById(userId);
+    // if (!user) {
+    //   return res.status(404).json({ message: "User not found" });
+    // }
+    // user.completedProjects.pull(projectId);
+    // user.takenProjects.push(projectId);
+    // await user.save();
+    res.json({ project });
   } catch (error) {
     console.error("Error rejecting files:", error);
     res.status(500).json({ message: error.message });
   }
 });
-
 
 router.post("/:projectId/saveReview", async (req, res) => {
   try {

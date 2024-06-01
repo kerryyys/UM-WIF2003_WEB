@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../../components-css/jobscape/ProjectDetailsModal.css";
+import { downloadFile } from "../../api/projectApi";
 
 const ProjectDetailsModal = ({
   project,
@@ -11,18 +12,8 @@ const ProjectDetailsModal = ({
 }) => {
   const [isFileAccepted, setIsFileAccepted] = useState(fileAccepted);
   const [isFileRejected, setIsFileRejected] = useState(fileRejected);
-
   const handleDownloadAll = () => {
-    project.uploadedFiles.forEach((file) => {
-      if (file.fileUrl) {
-        const link = document.createElement("a");
-        link.href = file.fileUrl;
-        link.download = file.fileName;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      }
-    });
+    downloadFile(project.uploadedFiles);
   };
 
   const formatDate = (dateString) => {
@@ -63,7 +54,7 @@ const ProjectDetailsModal = ({
         <p>
           <strong>Budget:</strong>
         </p>
-        <p className="details-content">{project.projectBudget}</p>
+        <p className="details-content">RM{project.projectBudget}</p>
         <p>
           <strong>Deadline:</strong>
         </p>
@@ -100,7 +91,7 @@ const ProjectDetailsModal = ({
             You have accepted the Submission, please make payment.
           </div>
         )}
-        
+
         {project.uploadedFiles &&
           project.uploadedFiles.length > 0 &&
           !isFileAccepted && (

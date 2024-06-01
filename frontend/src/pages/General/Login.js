@@ -55,7 +55,7 @@ function Login({ setLoggedIn, setUser }) {
         <div className="login-input-container">
           <input
             className="login-usernameInput"
-            placeholder="Username"
+            placeholder="Email"
             type="text"
             name="uname"
             value={username}
