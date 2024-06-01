@@ -13,9 +13,8 @@ function WritePost() {
   return (
     <div>
       <div
-        className="post-container"
+        className="tw-w-full tw-flex tw-items-center tw-p-3 tw-bg-white tw-rounded-lg tw-border tw-border-gray-300 tw-cursor-pointer"
         onClick={handleShowModal}
-        style={{ cursor: "pointer" }}
       >
         <Avatar
           src="https://www.w3schools.com/howto/img_avatar.png"
@@ -24,12 +23,13 @@ function WritePost() {
 
         <Form.Control
           as="textarea"
-          className="post-textarea"
-          placeholder="Write your post here..."
-          rows={3}
+          className="tw-flex-grow tw-ml-3 tw-border-none tw-resize-none tw-outline-none tw-p-3"
+          placeholder="Start a post, try writing with AI"
+          rows={1}
           readOnly
         />
       </div>
+
       <WritePostModal show={showModal} handleClose={handleCloseModal} />
     </div>
   );

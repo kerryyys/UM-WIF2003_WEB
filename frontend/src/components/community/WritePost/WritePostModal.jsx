@@ -7,7 +7,7 @@ import { postPost } from "../../../api/postApi";
 import { useUserContext } from "../../../context/UserContext";
 import TitleField from "./TitleField";
 import ContentField from "./ContentField";
-import SubmitButtons from "./SubmitButtons";
+import SubmitButtons from "./SubmitButton";
 
 const WritePostModal = ({ show, handleClose }) => {
   const { user } = useUserContext();

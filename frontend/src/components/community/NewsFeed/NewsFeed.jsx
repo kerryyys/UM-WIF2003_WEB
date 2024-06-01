@@ -6,9 +6,9 @@ import WritePost from "../WritePost/WritePost";
 
 function NewsFeed({ newsFeedList }) {
   return (
-    <div className="complete-news-feed">
+    <div>
       <WritePost />
-      <div className="news-feed tw-w-5/6 xl:tw-4/5 tw-flex tw-flex-col tw-gap-5 tw-font-lato">
+      <div className="tw-mt-5 tw-flex tw-flex-col tw-justify-center tw-items-center tw-gap-5 tw-font-lato news-feed ">
         {newsFeedList.length === 0 ? (
           <p>No news feed available</p>
         ) : (

@@ -7,7 +7,7 @@ import { PostProvider } from "../../../context/PostContext";
 
 function NewsFeedItem({ img, name, title, time, content, images, postId }) {
   return (
-    <div className="news-feed-item">
+    <div className="news-feed-item tw-w-full tw-border tw-border-slate-300 tw-p-10 tw-rounded-2xl tw-text-[17px]">
       <ProfileHeader img={img} name={name} title={title} time={time} />
       <div className="news-feed-item-content">{content}</div>
       <div className="news-feed-item-gallery">
