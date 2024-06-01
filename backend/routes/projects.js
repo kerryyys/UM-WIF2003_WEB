@@ -17,7 +17,7 @@ import {
   getApplyingProjects,
 } from "../controllers/projectsController.js";
 import mongoose, { mongo } from "mongoose";
-import { downloadFile } from "../middleware/downloadMiddleware.js";
+import { downloadFile } from "../middlewares/downloadMiddleware.js";
 const router = e.Router();
 // Configure storage for multer
 const storage = multer.diskStorage({

@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
 import { body, validationResult } from "express-validator";
-import { User } from "../models/userModel.js";
+import User from "../models/userModel.js";
 import { StatusCodes } from "http-status-codes";
 
 dotenv.config();

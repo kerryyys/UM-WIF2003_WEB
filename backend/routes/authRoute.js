@@ -9,7 +9,7 @@ import {
   handleBadRequest,
   handleInternalServerError,
 } from "../helpers/errorHelpers.js";
-import { User } from "../models/userModel.js";
+import User from "../models/userModel.js";
 import { StatusCodes } from "http-status-codes";
 
 const router = express.Router();

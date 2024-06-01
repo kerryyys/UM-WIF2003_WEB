@@ -105,7 +105,7 @@ const SeekJobPage = () => {
           projectName: project.projectTitle,
           companyName: project.companyName,
           projectCategory: project.projectCategory,
-          filters: project.filters,
+          filters: project.filter,
           timePosted: calculateTimePosted(project.createdAt),
         };
       });
