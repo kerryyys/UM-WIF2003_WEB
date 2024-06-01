@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button, Container } from 'react-bootstrap';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import '../../components-css/Profile/EditProfileCSS.css';
 
 function AddNewExperience() {
     const { userId } = useParams();
-    // const userId = "6642605a39cd67056f64cec6";
     const navigate = useNavigate();
 
     const [info, setInfo] = useState({
@@ -15,11 +16,12 @@ function AddNewExperience() {
         location: '',
         locationType: '',
         description: '',
-        current: false
+        current: false,
+        from: new Date(),
+        until: new Date()
     });
 
     const handleSave = async () => {
-        console.log("Info", JSON.stringify(info));
         try {
             const response = await fetch(`http://localhost:5050/users/${userId}/addExperience`, {
                 method: 'PUT',
@@ -39,7 +41,7 @@ function AddNewExperience() {
     };
 
     const handleCancel = () => {
-        navigate(`/EditProfile/${userId}`); // Navigate to EditProfile page
+        navigate(`/EditProfile/${userId}`);
     };
 
     const employmentTypeOptions = [
@@ -66,6 +68,13 @@ function AddNewExperience() {
         }));
     };
 
+    const handleDateChange = (date, field) => {
+        setInfo(prevInfo => ({
+            ...prevInfo,
+            [field]: date
+        }));
+    };
+
     return (
         <Container className='d-flex justify-content-center align-items-center'>
             <div className='mt-5 w-50'>
@@ -73,21 +82,21 @@ function AddNewExperience() {
                 <div style={{ marginLeft: '3px' }}>
                     <div>
                         <p>Title</p>
-                        <input 
-                            className="bigInput" 
-                            type="text" 
-                            name="title" 
-                            value={info.title} 
-                            onChange={handleChange} 
+                        <input
+                            className="bigInput"
+                            type="text"
+                            name="title"
+                            value={info.title}
+                            onChange={handleChange}
                         />
                     </div>
 
                     <div>
                         <p>Employment type</p>
-                        <select 
-                            className="bigInput" 
-                            name="employmentType" 
-                            value={info.employmentType} 
+                        <select
+                            className="bigInput"
+                            name="employmentType"
+                            value={info.employmentType}
                             onChange={handleChange}
                         >
                             <option value="">Select employment type</option>
@@ -99,32 +108,32 @@ function AddNewExperience() {
 
                     <div>
                         <p>Company</p>
-                        <input 
-                            className="bigInput" 
-                            type="text" 
-                            name="company" 
-                            value={info.company} 
-                            onChange={handleChange} 
+                        <input
+                            className="bigInput"
+                            type="text"
+                            name="company"
+                            value={info.company}
+                            onChange={handleChange}
                         />
                     </div>
 
                     <div>
                         <p>Location</p>
-                        <input 
-                            className="bigInput" 
-                            type="text" 
-                            name="location" 
-                            value={info.location} 
-                            onChange={handleChange} 
+                        <input
+                            className="bigInput"
+                            type="text"
+                            name="location"
+                            value={info.location}
+                            onChange={handleChange}
                         />
                     </div>
 
                     <div>
                         <p>Location type</p>
-                        <select 
-                            className="bigInput" 
-                            name="locationType" 
-                            value={info.locationType} 
+                        <select
+                            className="bigInput"
+                            name="locationType"
+                            value={info.locationType}
                             onChange={handleChange}
                         >
                             <option value="">Select location type</option>
@@ -136,27 +145,47 @@ function AddNewExperience() {
 
                     <div>
                         <p>Description</p>
-                        <textarea 
-                            rows={5} 
-                            className="w-100" 
-                            name="description" 
-                            value={info.description} 
-                            onChange={handleChange} 
+                        <textarea
+                            rows={5}
+                            className="w-100"
+                            name="description"
+                            value={info.description}
+                            onChange={handleChange}
                         />
                     </div>
 
                     <div className="form-check mt-3">
-                        <input 
-                            className="form-check-input" 
-                            type="checkbox" 
-                            id="currentlyWorkingCheckbox" 
-                            name="current" 
-                            checked={info.current} 
-                            onChange={handleChange} 
+                        <input
+                            className="form-check-input"
+                            type="checkbox"
+                            id="currentlyWorkingCheckbox"
+                            name="current"
+                            checked={info.current}
+                            onChange={handleChange}
                         />
                         <label className="form-check-label" htmlFor="currentlyWorkingCheckbox">
                             I am currently working in this role
                         </label>
+                    </div>
+                <div style={{ display: 'flex'}} className='gap-5 mt-3'>
+                    <div>
+                        <p>From</p>
+                        <DatePicker
+                            selected={info.from}
+                            onChange={date => handleDateChange(date,'from' )}
+                            className="bigInput"
+                        />
+                    </div>
+
+                    <div>
+                        <p>Until</p>
+                        <DatePicker
+                            selected={info.until}
+                            onChange={date => handleDateChange(date, 'until')}
+                            className="bigInput"
+                            disabled={info.current}
+                        />
+                    </div>
                     </div>
                 </div>
 
