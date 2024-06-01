@@ -17,15 +17,31 @@ export const postRegistration = async (email, username, password, navigate) => {
 
 export const getUser = async (email, password) => {
   try {
-    const res = await axios.post("http://localhost:5050/auth/login", {
-      email,
-      password,
-    });
+    const res = await axios.post(
+      "http://localhost:5050/auth/login",
+      {
+        email,
+        password,
+      },
+      { withCredentials: true }
+    );
     console.log(res.headers);
     console.log(document.cookie);
     if (!res.data.user) return console.error("User not found");
     return res.data.user;
   } catch (error) {
     console.error(error);
+  }
+};
+
+export const verifyUserToken = async () => {
+  try {
+    const response = await axios.get("http://localhost:5050/auth/verify", {
+      withCredentials: true,
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Token verification failed: " + error);
+    return { status: false };
   }
 };

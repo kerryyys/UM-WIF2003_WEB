@@ -9,6 +9,7 @@ import { text } from "@fortawesome/fontawesome-svg-core";
 import NotificationMenu from "../../components/jobscape/NotificationMenu";
 import ApplyingJobsList from "../../components/jobscape/AppliedJobsList";
 import { useUserContext } from "../../context/UserContext";
+import useAuth from "../../hooks/useAuth";
 
 export default function YourJobsPage() {
   const navigate = useNavigate();
@@ -36,6 +37,8 @@ export default function YourJobsPage() {
     });
   };
   const { user } = useUserContext();
+  console.log("Your jobs page userContext: " + JSON.stringify(user));
+  // console.log("useAuth returns: " + useAuth());
   return (
     <>
       <Container className="your-jobs-container">
