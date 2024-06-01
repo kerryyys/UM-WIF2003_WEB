@@ -163,11 +163,7 @@ const CompletedProjectTab = ({
           >
             Rate
           </div>
-          <button
-            className="PayBtn"
-            onClick={handlePayBtnClick}
-            disabled={!isProjectAccepted}
-          >
+          <button className="PayBtn" onClick={handlePayBtnClick}>
             Pay
           </button>
         </div>
