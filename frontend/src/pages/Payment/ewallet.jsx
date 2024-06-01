@@ -4,14 +4,14 @@ import fpxPic from "../../assets/images/Payment/fpx.png";
 import ewalletPic from "../../assets/images/Payment/ewallet.png";
 import cardPic from "../../assets/images/Payment/card.png";
 import { Button } from "react-bootstrap";
-import { useLocation } from "react-router-dom";
 import ServiceSummary from "../../components/payment/serviceSummary";
 
 function Ewallet() {
   const [projectTitle, setProjectTitle] = useState('');
   const [projectBudget, setProjectBudget] = useState('');
   const [taskData, setTaskData] = useState({});
-  const location = useLocation();
+  const [paymentMethod, setPaymentMethod] = useState('');
+
 
   // read linked ewallet
   const [selectedService, setSelectedService] = useState(null);
@@ -42,6 +42,7 @@ function Ewallet() {
   const [selectedWallet, setSelectedWallet] = useState('');
   const handleWalletChange = (event) => {
     setSelectedWallet(event.target.value);
+    localStorage.setItem('paymentMethod' , event.target.value);
   };
 
   const handleSubmit = () => {
@@ -70,25 +71,6 @@ function Ewallet() {
         alert('Please select an e-wallet.');
     }
 };
-
-     // total price
-     let totalPrice;
-     let totalPriceString;
-     if (taskData && taskData.taskPrice) {
-       const priceString = taskData.taskPrice;
-       const priceWithoutPrefix = priceString.replace("RM", "").trim();
-       const taskPrice = parseFloat(priceWithoutPrefix);
-       
-       if (!isNaN(taskPrice)) {
-           totalPrice = taskPrice + 10;
-           totalPriceString = "RM " + totalPrice;
-       } else {
-           console.log("Invalid task price");
-       }
-   } else {
-       console.log("taskData or taskData.taskPrice is undefined");
-   }
-
 
   return (
     <><Button

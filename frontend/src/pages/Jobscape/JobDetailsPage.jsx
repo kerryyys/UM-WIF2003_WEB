@@ -33,7 +33,7 @@ export default function JobDetailsPage(props) {
 
   // Fake user id just for testing
   // NEED TO BE MODIFIED ONCE USER SESSION IS IMPLEMENTED
-  const userId = "664a0e34bc1a43dbcb1f6d74";
+  const userId = "665ae5b6a6b3bf91769e6d6e";
   const { user } = useUserContext();
   console.log(user);
 

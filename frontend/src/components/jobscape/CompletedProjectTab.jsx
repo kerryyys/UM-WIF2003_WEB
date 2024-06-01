@@ -95,7 +95,7 @@ const CompletedProjectTab = ({
   };
 
   const handlePayBtnClick = async () => {
-    if (isProjectAccepted) {
+    // if (isProjectAccepted) {
       try {
         const response = await fetch(
           `http://localhost:5050/projects/${projectId}`
@@ -112,7 +112,7 @@ const CompletedProjectTab = ({
       } catch (error) {
         console.error("Error fetching project data:", error);
       }
-    }
+    // }
   };
 
   const handleCloseProjectDetails = () => {
@@ -166,7 +166,7 @@ const CompletedProjectTab = ({
           <button
             className="PayBtn"
             onClick={handlePayBtnClick}
-            disabled={!isProjectAccepted}
+            // disabled={isProjectAccepted}
           >
             Pay
           </button>
@@ -200,5 +200,4 @@ const CompletedProjectTab = ({
     </>
   );
 };
-
 export default CompletedProjectTab;

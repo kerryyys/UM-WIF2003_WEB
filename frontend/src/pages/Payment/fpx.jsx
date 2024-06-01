@@ -8,7 +8,7 @@ import { Button } from "react-bootstrap";
 function Fpx() {
   const [projectTitle, setProjectTitle] = useState('');
   const [projectBudget, setProjectBudget] = useState('');
-  const [taskData, setTaskData] = useState({});
+  const [paymentMethod, setPaymentMethod] = useState('');
 
   useEffect(() => {
     const title = localStorage.getItem('projectTitle');
@@ -19,7 +19,7 @@ function Fpx() {
       setProjectBudget(budget);
     }
   }, []);
-  
+
   // read linked FPX
   const [selectedService, setSelectedService] = useState(null);
   const [services, setServices] = useState([]);
@@ -42,7 +42,6 @@ function Fpx() {
     }
   };
   
-
   const handleServiceClick = (service) => {
     setSelectedService(service);
   };
@@ -52,6 +51,7 @@ function Fpx() {
 
   const handleBankChange = (event) => {
     setSelectedBank(event.target.value);
+    localStorage.setItem('paymentMethod' , event.target.value);
   };
 
   const handleSubmit = () => {
@@ -80,25 +80,6 @@ function Fpx() {
         alert('Please select a bank to proceed.');
     }
 };
-
-    // total price
-    let totalPrice;
-    let totalPriceString;
-    if (taskData && taskData.taskPrice) {
-      const priceString = taskData.taskPrice;
-      const priceWithoutPrefix = priceString.replace("RM", "").trim();
-      const taskPrice = parseFloat(priceWithoutPrefix);
-      
-      if (!isNaN(taskPrice)) {
-          totalPrice = taskPrice + 10;
-          totalPriceString = "RM " + totalPrice;
-      } else {
-          console.log("Invalid task price");
-      }
-  } else {
-      console.log("taskData or taskData.taskPrice is undefined");
-  }
-  
   
   return (
     <><Button
