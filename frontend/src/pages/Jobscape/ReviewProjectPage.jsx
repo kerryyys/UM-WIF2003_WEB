@@ -30,11 +30,12 @@ const ReviewProjectPage = () => {
           "http://localhost:5050/recruite/in-progress"
         );
         setInProgressProjects(inProgressResponse.data);
-
+        console.log(inProgressResponse.data);
         const completedResponse = await axios.get(
           "http://localhost:5050/recruite/completed"
         );
         setCompletedProjects(completedResponse.data);
+        console.log(completedResponse.data);
       } catch (error) {
         console.error("Error fetching projects:", error);
       }
@@ -106,7 +107,15 @@ const ReviewProjectPage = () => {
             </p>
           ) : (
             inProgressProjects.map((project) => (
-              <InProgressProjectTab key={project._id} />
+              <InProgressProjectTab
+                key={project._id}
+                projectId={project._id}
+                projectTitle={project.projectTitle}
+                due={new Date(project.deadline).toLocaleDateString("en-GB")}
+                budget={project.projectBudget}
+                collaborator={project.serviceProvider.username}
+                collaboratorId={project.serviceProvider._id}
+              />
             ))
           )}
         </div>
@@ -115,7 +124,7 @@ const ReviewProjectPage = () => {
       <div>
         <SmallTitle title="Completed" fontWeight="400" fontSize="32px" />
         <div className="CompletedProjectList">
-          {inProgressProjects.length === 0 ? (
+          {completedProjects.length === 0 ? (
             <p
               style={{ fontWeight: "500", fontSize: "24px", color: "red" }}
               className="nothing"
@@ -130,7 +139,8 @@ const ReviewProjectPage = () => {
                 projectTitle={project.projectTitle}
                 due={new Date(project.deadline).toLocaleDateString("en-GB")}
                 budget={project.projectBudget}
-                collaborator={project.PIC}
+                collaborator={project.serviceProvider.username}
+                collaboratorId={project.serviceProvider._id}
                 setShowNotification={setShowNotification}
               />
             ))

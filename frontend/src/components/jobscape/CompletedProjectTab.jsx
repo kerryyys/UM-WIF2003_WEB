@@ -15,6 +15,7 @@ const CompletedProjectTab = ({
   budget,
   collaborator,
   setShowNotification,
+  collaboratorId,
 }) => {
   const [showReviewForm, setShowReviewForm] = useState(false);
   const [showProjectDetails, setShowProjectDetails] = useState(false);
@@ -42,7 +43,9 @@ const CompletedProjectTab = ({
   const handleAccept = () => {
     console.log("Accept button clicked");
     axios
-      .post(`http://localhost:5050/recruite/${projectId}/accept-file`)
+      .post(`http://localhost:5050/recruite/${projectId}/accept-file`, {
+        userId: collaboratorId,
+      })
       .then((response) => {
         console.log("Accept response: ", response);
         setFileAccepted(true);
@@ -66,9 +69,13 @@ const CompletedProjectTab = ({
   }, [projectId]);
 
   const handleReject = () => {
-    console.log("Reject button clicked");
+    console.log(
+      "Reject button clicked, this is the collaborator id: " + collaboratorId
+    );
     axios
-      .post(`http://localhost:5050/recruite/${projectId}/reject-file`)
+      .post(`http://localhost:5050/recruite/${projectId}/reject-file`, {
+        userId: collaboratorId,
+      })
       .then((response) => {
         console.log("Reject response: ", response);
         setFileRejected(true);
@@ -141,7 +148,7 @@ const CompletedProjectTab = ({
             </div>
             <div className="Details">
               <p>{due}</p>
-              <p>{budget}</p>
+              <p>RM{budget}</p>
               <div>{collaborator}</div>
             </div>
           </div>

@@ -1,5 +1,5 @@
 import express from "express";
-import { User } from "../models/userModel.js";
+import User from "../models/userModel.js";
 import multer from "multer";
 
 const router = express.Router();
@@ -10,7 +10,6 @@ const upload = multer({ storage: storage });
 // Add data
 router.post("/", upload.single("profilePic"), async (req, res) => {
   try {
-   
     const newUser = {
       profilePic: req.file
         ? { data: req.file.buffer, contentType: req.file.mimetype }

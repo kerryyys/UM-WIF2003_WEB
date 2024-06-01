@@ -1,11 +1,12 @@
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
 import { body, validationResult } from "express-validator";
-import { User } from "../models/userModel.js";
+import User from "../models/userModel.js";
 import { StatusCodes } from "http-status-codes";
 
 dotenv.config();
 
+// To verify client's token is valid or not, then decode it to extract userid
 export const userVerification = (req, res) => {
   const token = req.cookies.token;
   if (!token) {
@@ -16,6 +17,7 @@ export const userVerification = (req, res) => {
       return res.json({ status: false });
     } else {
       const user = await User.findById(data.id);
+      // Sends back user's username if token is valid
       if (user) return res.json({ status: true, user: user.username });
       else return res.json({ status: false });
     }

@@ -8,6 +8,7 @@ import { useState } from "react";
 import { text } from "@fortawesome/fontawesome-svg-core";
 import NotificationMenu from "../../components/jobscape/NotificationMenu";
 import ApplyingJobsList from "../../components/jobscape/AppliedJobsList";
+import { useUserContext } from "../../context/UserContext";
 
 export default function YourJobsPage() {
   const navigate = useNavigate();
@@ -34,7 +35,7 @@ export default function YourJobsPage() {
       return prevNotifications.filter((_, index) => index !== indexToRemove);
     });
   };
-
+  const { user } = useUserContext();
   return (
     <>
       <Container className="your-jobs-container">

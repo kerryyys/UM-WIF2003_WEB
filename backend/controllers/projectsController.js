@@ -6,7 +6,7 @@ import { FakeUser } from "../models/fakeUserModel.js";
 
 export const getAllProjects = async (req, res) => {
   try {
-    let query = {};
+    let query = { taken: false };
     if (req.query.q) {
       const searchQuery = req.query.q;
       const regex = new RegExp(searchQuery, "i");
@@ -214,6 +214,9 @@ export const getCompletedProjects = async (req, res) => {
 
 export const uploadCompletedWorks = async (req, res) => {
   try {
+    console.log(
+      "Projectid and userid: " + req.body.projectId + "  " + req.body.userId
+    );
     console.log("Uploaded req.files: " + Array.isArray(req.files));
     const files = req.files;
     const uploadedFiles = [];
@@ -228,8 +231,12 @@ export const uploadCompletedWorks = async (req, res) => {
     const project = await Project.findByIdAndUpdate(req.body.projectId, {
       serviceProvider: req.body.userId,
       uploadedFiles: uploadedFiles,
-      completed: true,
     });
+    const user = await FakeUser.findById(req.body.userId);
+    // user.takenProjects.pull(req.body.projectId);
+    // user.completedProjects.push(req.body.projectId);
+    await user.save();
+
     return res.status(200).json(project);
   } catch (error) {
     return res
