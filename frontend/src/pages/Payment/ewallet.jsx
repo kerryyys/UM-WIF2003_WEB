@@ -1,17 +1,14 @@
 import "../../pages-css/Payment/Payment.css";
 import React, { useEffect, useState } from "react";
-import fpxPic from "../../assets/images/Payment/fpx.png";
-import ewalletPic from "../../assets/images/Payment/ewallet.png";
-import cardPic from "../../assets/images/Payment/card.png";
-import { Button } from "react-bootstrap";
-import ServiceSummary from "../../components/payment/serviceSummary";
+import BackButton from '../../components/payment/BackButton';
+import ServiceSummary from '../../components/payment/serviceSummary';
+import Reminder from '../../components/payment/Reminder';
+import ChoosePaymentMethod from "../../components/payment/ChoosePaymentMethod";
 
 function Ewallet() {
   const [projectTitle, setProjectTitle] = useState('');
   const [projectBudget, setProjectBudget] = useState('');
   const [taskData, setTaskData] = useState({});
-  const [paymentMethod, setPaymentMethod] = useState('');
-
 
   // read linked ewallet
   const [selectedService, setSelectedService] = useState(null);
@@ -36,6 +33,7 @@ function Ewallet() {
 
   const handleServiceClick = (service) => {
     setSelectedService(service);
+    localStorage.setItem('paymentMethod' , service.selectedWallet);
   };
 
   //  write choose what ewallet to pay 
@@ -71,23 +69,14 @@ function Ewallet() {
         alert('Please select an e-wallet.');
     }
 };
-
   return (
-    <><Button
-      className="BackBtn"
-      onClick={() => (window.location.href = "/ReviewProjectPage")}>
-      <p>
-        <i className="bi-chevron-left" />
-        Back
-      </p>
-    </Button>
-    
+    <>
+    <BackButton/>
     <div className="split-container">
         <div className="LeftContainer">
           <p className="PaymentBigtitle">Payment</p>
           <hr className="line"></hr>
           <p className="titleLinked">Linked payment method:</p>
-
           {services.map((service, index) => (
             <div
               key={index}
@@ -101,43 +90,7 @@ function Ewallet() {
               <p>{service.selectedWallet}</p>
             </div>
           ))}
-
-          <hr className="line"></hr>
-          <p className="titleLinked">Pay With:</p>
-
-          <div className="LeftContainerr">
-            <img className="picFpx" src={fpxPic} alt="FPX Logo" />
-            <label
-              className="choose-payment-method"
-              onClick={() => (window.location.href = "/fpx")}
-              htmlFor="creditCard"
-            >
-              Online Banking FPX
-            </label>
-          </div>
-
-          <div className="LeftContainerr">
-            <img className="picEwallet" src={ewalletPic} alt="E-Wallet Logo" />{" "}
-            <label
-              className="choose-payment-method"
-              onClick={() => (window.location.href = "/ewallet")}
-              htmlFor="debitCard"
-            >
-              E- Wallet
-            </label>
-          </div>
-
-          <div className="LeftContainerr">
-            <img className="picCard" src={cardPic} alt="Credit / Debit Card Logo" />
-            <label
-              onClick={() => (window.location.href = "/card")}
-              className="choose-payment-method"
-              htmlFor="paypal"
-            >
-              Credit / Debit Card
-            </label>
-          </div>
-
+          <ChoosePaymentMethod/>
           <div>
             <p className="titleLinked">Choose Preferred E-Wallet</p>
             <select
@@ -158,19 +111,13 @@ function Ewallet() {
               <p className="selectedEwallet">You selected: {selectedWallet}</p>
             )}
           </div>
-
           <button
             className="buttonPay"
             onClick={handleSubmit}>
             Pay Now
           </button>
-          <div className="reminder">
-            <p>Your personal data will be used to process your order, support your experience</p>
-            <p>experience throughout this website, and for other purposes described</p>
-            <p>in our privacy policy.</p>
-          </div>
+          <Reminder/>
         </div>
-
         <ServiceSummary 
         projectTitle={projectTitle} 
         projectBudget={projectBudget} 
