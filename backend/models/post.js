@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 
-const { Schema } = mongoose; // Destructure Schema from mongoose
+const { Schema } = mongoose;
 
 const postSchema = new Schema(
   {
-    // author: { type: Schema.Types.ObjectId, ref: "User", required: true },
+    author: { type: Schema.Types.ObjectId, ref: "User", required: true },
     title: { type: String, required: true },
     content: { type: String, required: true },
     image: { type: String },
@@ -14,5 +14,4 @@ const postSchema = new Schema(
   { timestamps: true }
 );
 
-const Post = mongoose.model("Post", postSchema);
-export default Post;
+export const Post = mongoose.model("Post", postSchema);

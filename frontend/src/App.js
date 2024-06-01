@@ -61,6 +61,7 @@ function App() {
         <NavBar loggedIn={loggedIn} />
         <Routes>
           <Route path="/" element={<Home />} />
+
           <Route
             path="/Login"
             element={
