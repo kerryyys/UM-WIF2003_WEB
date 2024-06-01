@@ -1,5 +1,5 @@
 import bcrypt from "bcryptjs";
-import { User } from "../models/userModel.js";
+import User from "../models/userModel.js";
 import { StatusCodes } from "http-status-codes";
 import {
   createSecretToken,

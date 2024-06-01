@@ -1,5 +1,5 @@
-import { Comment } from "../models/comment.js";
-import { Post } from "../models/post.js";
+import Comment from "../models/comment.js";
+import Post from "../models/post.js";
 import { handleNotFound } from "../utils/errorHandler.js";
 
 class CommentService {

@@ -16,4 +16,3 @@ const postSchema = new Schema(
 
 const Post = mongoose.model("Post", postSchema);
 export default Post;
-

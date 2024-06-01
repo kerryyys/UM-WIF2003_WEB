@@ -1,16 +1,17 @@
-import { User } from "../models/userModel.js";
-import { Post } from "../models/post.js";
-import { Comment } from "../models/comment.js";
+import User from "../models/userModel.js";
+import Post from "../models/post.js";
+import Comment from "../models/comment.js";
 import { handleNotFound } from "../utils/errorHandler.js";
 
 class PostService {
-  async postNewPost(userId, title, content) {
+  async postNewPost(userId, title, content, images) {
     const user = await User.findById(userId);
     handleNotFound(user, "User");
     const post = await Post.create({
       author: userId,
       title,
       content,
+      images,
     });
     return post;
   }
@@ -25,10 +26,10 @@ class PostService {
     return posts;
   }
 
-  async modifyPost(postId, title, content) {
+  async modifyPost(postId, title, content, images) {
     const post = await Post.findByIdAndUpdate(
       postId,
-      { title, content },
+      { title, content, images },
       { new: true }
     );
     handleNotFound(post, "Post");

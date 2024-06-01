@@ -23,13 +23,17 @@ class PostController extends BaseController {
 
   async postNewPost(req, res) {
     validateRequest(addPostSchema)(req, res, async () => {
+      const { title, content, userId } = req.body;
+      const images = req.files;
+
       await this.handleRequest(
         req,
         res,
         PostService.postNewPost,
-        req.body.id, // Assuming you are now using req.user._id
-        req.body.title,
-        req.body.content
+        userId,
+        title,
+        content,
+        images // Pass images to the service layer
       );
     });
   }
@@ -51,13 +55,17 @@ class PostController extends BaseController {
 
   async modifyPost(req, res) {
     validateRequest(modifyPostSchema)(req, res, async () => {
+      const { title, content } = req.body;
+      const images = req.files;
+
       await this.handleRequest(
         req,
         res,
         PostService.modifyPost,
         req.params.postId,
-        req.body.title,
-        req.body.content
+        title,
+        content,
+        images // Pass images to the service layer
       );
     });
   }
@@ -80,7 +88,6 @@ class PostController extends BaseController {
         res,
         PostService.likePost,
         req.params.postId,
-        // req.user._id
         req.body.userId
       );
     });
@@ -93,7 +100,6 @@ class PostController extends BaseController {
         res,
         PostService.unlikePost,
         req.params.postId,
-        // req.user._id
         req.body.userId
       );
     });
