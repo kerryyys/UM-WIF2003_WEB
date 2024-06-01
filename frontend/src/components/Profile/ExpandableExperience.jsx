@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import CancelIcon from '../../assets/icons/profile/cancel.svg';
-import WorkCaseIcon from '../../assets/icons/profile/work-case-svgrepo-com 1.svg'
-import '../../components-css/Profile/EditProfileCSS.css'
+import WorkCaseIcon from '../../assets/icons/profile/work-case-svgrepo-com 1.svg';
+import '../../components-css/Profile/EditProfileCSS.css';
 
 function ExpandableExperience({ defaultWords = [], onChange, userId }) {
     const [inputs, setInputs] = useState([]);
@@ -40,41 +40,42 @@ function ExpandableExperience({ defaultWords = [], onChange, userId }) {
         <div className="w-100">
             <div className="d-flex flex-column gap-3">
                 {inputs.map((experience, index) => (
-                    <div>
-                    <div key={index} className="d-flex position-relative">
-                        <div key={index} className="experience-item">
-                            <div className="title-and-icon justify-item-center">
-                                <img src={WorkCaseIcon} alt="Work Case Icon" className="work-case-icon" />
-                                <h6>{experience.value.title}</h6>
+                    <div key={index}>
+                        <div className="d-flex position-relative">
+                            <div className="experience-item">
+                                <div className="title-and-icon justify-item-center">
+                                    <img src={WorkCaseIcon} alt="Work Case Icon" className="work-case-icon" />
+                                    <p>
+                                        {experience.value.title}
+                                        {experience.value.current && <span > (Current)</span>}
+                                    </p>
+                                </div>
+                                <div className="details">
+                                    <p>
+                                        {experience.value.company} | {experience.value.location} <br />
+                                        {experience.value.employmentType} | {experience.value.locationType} <br />
+                                        {experience.value.description}
+                                    </p>
+                                </div>
                             </div>
-                            <div className="details">
-                                <p>
-                                    {experience.value.company} | {experience.value.location} <br />
-                                    {experience.value.employmentType} | {experience.value.locationType} <br />
-                                    {experience.value.description}
-                                </p>
-                            </div>
+                            <button
+                                onClick={() => handleEditExperience(experience.value._id)}
+                                className="position-absolute end-0 top-0 translate-middle edit-button"
+                            >
+                                Edit
+                            </button>
+                            <img
+                                onClick={() => handleCancel(experience.id)}
+                                src={CancelIcon}
+                                alt="Cancel Icon"
+                                style={{ width: '30px', height: '30px' }}
+                                className="position-absolute end-0 top-50 translate-middle"
+                            />
                         </div>
-
-                        <button
-                            onClick={() => handleEditExperience(experience.value._id)}
-                            className="position-absolute end-0 top-0 translate-middle edit-button"
-                        >
-                            Edit
-                        </button>
-
-                        <img
-                            onClick={() => handleCancel(experience.id)}
-                            src={CancelIcon}
-                            style={{ width: '30px', height: '30px' }}
-                            className="position-absolute end-0 top-50 translate-middle"
-                        />
-                    </div>
-                    <div className="border" />
+                        <div className="border" />
                     </div>
                 ))}
             </div>
-
             <p onClick={handleAddExperience} style={{ color: '#2D4777' }}>+ Add new experience</p>
         </div>
     );
