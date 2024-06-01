@@ -116,6 +116,22 @@ router.put("/posted/:projectId/remove", async (req, res) => {
   }
 });
 
+router.delete("/posted/:projectId", async (req, res) => {
+  const { projectId } = req.params;
+
+  try {
+    const project = await Project.findByIdAndDelete(projectId);
+    if (!project) {
+      return res.status(404).json({ message: "Project not found" });
+    }
+    res.status(200).json({ message: "Project deleted successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+
 // Route to accept the file for a project
 router.post("/:projectId/accept-file", async (req, res) => {
   const { projectId } = req.params;
