@@ -49,6 +49,10 @@ const ReviewProjectPage = () => {
     setInProgressProjects((prev) => [...prev, project]);
   };
 
+   const deleteProject = (projectId) => {
+     setProjectPosted((prev) => prev.filter((p) => p._id !== projectId));
+   };
+
   return (
     <div className="ReviewProjectPage">
       <div className="ReviewBackBtn">
@@ -89,6 +93,7 @@ const ReviewProjectPage = () => {
                 budget={project.projectBudget}
                 postedDate={project.createdAt}
                 onMoveToInProgress={moveToInProgress}
+                onDeleteProject={deleteProject} // Pass the delete function
               />
             ))
           )}

@@ -12,14 +12,16 @@ const ProjectPostedTab = ({
   budget,
   postedDate,
   onMoveToInProgress,
+  onDeleteProject, // New prop for handling project deletion
 }) => {
   const [showModal, setShowModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false); // State for delete confirmation modal
   const [applicants, setApplicants] = useState([]);
 
   const formatPostedDate = (dateString) => {
     const date = new Date(dateString);
     const day = date.getDate().toString().padStart(2, "0");
-    const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Month is zero-indexed
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
     const year = date.getFullYear();
     return `${day}/${month}/${year}`;
   };
@@ -73,6 +75,25 @@ const ProjectPostedTab = ({
     setShowModal(false);
   };
 
+  const handleShowDeleteModal = () => {
+    setShowDeleteModal(true);
+  };
+
+  const handleCloseDeleteModal = () => {
+    setShowDeleteModal(false);
+  };
+
+  const handleDeleteProject = async () => {
+    try {
+      await axios.delete(`http://localhost:5050/recruite/posted/${projectId}`);
+      onDeleteProject(projectId);
+      setShowDeleteModal(false);
+      setShowModal(false);
+    } catch (error) {
+      console.error("Error deleting project:", error);
+    }
+  };
+
   return (
     <div className="ProjectPostedTab">
       <div className="projectDetails">
@@ -109,8 +130,26 @@ const ProjectPostedTab = ({
           ))}
         </Modal.Body>
         <Modal.Footer>
+          <Button variant="danger" onClick={handleShowDeleteModal} style={{backgroundColor:"red"}}>
+            Delete Project
+          </Button>
           <Button variant="secondary" onClick={handleCloseModal}>
             Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={showDeleteModal} onHide={handleCloseDeleteModal} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirm Delete</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure you want to delete this project?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="danger" onClick={handleDeleteProject} style={{backgroundColor:"red"}}>
+            Delete
+          </Button>
+          <Button variant="secondary" onClick={handleCloseDeleteModal}>
+            Cancel
           </Button>
         </Modal.Footer>
       </Modal>
