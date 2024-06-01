@@ -14,6 +14,7 @@ import {
 import { API_URL } from "../../api/projectApi";
 import axios from "axios";
 import moment from "moment";
+import { useUserContext } from "../../context/UserContext";
 
 export default function JobDetailsPage(props) {
   const { projectId } = useParams();
@@ -27,11 +28,14 @@ export default function JobDetailsPage(props) {
   const [projectDetails, setProjectDetails] = useState({
     filters: [],
     requiredSkills: [],
+    uploadedFiles: [],
   });
 
   // Fake user id just for testing
   // NEED TO BE MODIFIED ONCE USER SESSION IS IMPLEMENTED
   const userId = "664a0e34bc1a43dbcb1f6d74";
+  const { user } = useUserContext();
+  console.log(user);
 
   const navigate = useNavigate();
 
@@ -48,6 +52,7 @@ export default function JobDetailsPage(props) {
     try {
       if (files.length > 0) {
         await uploadCompletedWorks(files, projectId, userId);
+        await fetchProjectDetails();
       }
     } catch (error) {
       console.error("Error upload works, frontend: ", error);
@@ -67,39 +72,38 @@ export default function JobDetailsPage(props) {
   const onFileChange = (files) => {
     // console.log(files);
   };
+  const fetchProjectDetails = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/${projectId}`);
 
+      const project = response.data;
+      const fetchedProject = {
+        companyLogo: project.companyLogo,
+        projectName: project.projectTitle,
+        projectDesc: project.projectDescription,
+        duration: project.projectDuration,
+        contactInfo: project.contactInformation,
+        additionalInfo: project.additionalNotes,
+        deadline: moment(project.deadline).format("DD-MM-YYYY"),
+        requiredSkills: project.requiredSkills,
+        companyName: project.companyName,
+        category: project.projectCategory,
+        filters: project.filters,
+        budget: project.projectBudget,
+        fileAccepted: project.fileAccepted,
+        timePosted: calculateTimePosted(project.createdAt),
+        uploadedFiles: project.uploadedFiles,
+      };
+      console.log("Fetched project details: " + JSON.stringify(fetchedProject));
+      setProjectDetails(fetchedProject);
+      setLoading(false);
+    } catch (error) {
+      console.log("Error occured: " + error.message);
+      setLoading(false);
+    }
+  };
   // UseEffect to get current project's details
   useEffect(() => {
-    const fetchProjectDetails = async () => {
-      try {
-        const response = await axios.get(`${API_URL}/${projectId}`);
-
-        const project = response.data;
-        const fetchedProject = {
-          companyLogo: project.companyLogo,
-          projectName: project.projectTitle,
-          projectDesc: project.projectDescription,
-          duration: project.projectDuration,
-          contactInfo: project.contactInformation,
-          additionalInfo: project.additionalNotes,
-          deadline: moment(project.deadline).format("DD-MM-YYYY"),
-          requiredSkills: project.requiredSkills,
-          companyName: project.companyName,
-          category: project.projectCategory,
-          filters: project.filters,
-          budget: project.projectBudget,
-          timePosted: calculateTimePosted(project.createdAt),
-        };
-        console.log(
-          "Fetched project details: " + JSON.stringify(fetchedProject)
-        );
-        setProjectDetails(fetchedProject);
-        setLoading(false);
-      } catch (error) {
-        console.log("Error occured: " + error.message);
-        setLoading(false);
-      }
-    };
     fetchProjectDetails();
   }, []);
 
@@ -126,12 +130,15 @@ export default function JobDetailsPage(props) {
         if (Array.isArray(tknProjects) && tknProjects.includes(projectId)) {
           setApplicationStatus("applied");
         }
+        if (projectDetails.uploadedFiles.length > 0) {
+          setApplicationStatus("pendingApproval");
+        }
       } catch (error) {
         console.error("Error fetching user favorite projects: ", error);
       }
     };
     checkUserTakenProjects();
-  }, []);
+  }, [projectDetails.uploadedFiles]);
 
   const renderApplyButton = () => {
     switch (applicationStatus) {
@@ -149,6 +156,14 @@ export default function JobDetailsPage(props) {
             Upload Work
           </Button>
         );
+      case "pendingApproval":
+        return (
+          <Button className="accept" disabled={true}>
+            Pending
+          </Button>
+        );
+      default:
+        return null;
     }
   };
   const calculateTimePosted = (createdAt) => {
@@ -168,6 +183,13 @@ export default function JobDetailsPage(props) {
       return `${diffInDays} days ago`;
     }
   };
+  function getOriginalFileName(fileName) {
+    // Split the file name at the first hyphen
+    const parts = fileName.split("-", 2);
+
+    // Return the second part, which is the original file name
+    return parts[1];
+  }
   if (loading) {
     return <div>Loading...</div>; // Render loading indicator
   }
@@ -257,6 +279,29 @@ export default function JobDetailsPage(props) {
           Additional Information: <br />
           <span className="additional">{projectDetails.additionalInfo}</span>
         </p>
+        {applicationStatus === "applied" ||
+        applicationStatus === "pendingApproval" ? (
+          <div>
+            <h5>Uploaded Files:</h5>
+            {projectDetails.uploadedFiles.length > 0 ? (
+              <ul className="uploaded-files-list">
+                {projectDetails.uploadedFiles.map((file, index) => (
+                  <li key={index}>
+                    <a
+                      href={`${API_URL}/uploads/${file.fileName}`}
+                      download
+                      className="downloadable"
+                    >
+                      {getOriginalFileName(file.fileName)}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p>No files uploaded yet.</p>
+            )}
+          </div>
+        ) : null}
         <Container className="button-group">
           <Row className="button-row">
             <Col></Col>
@@ -273,6 +318,7 @@ export default function JobDetailsPage(props) {
                 </>
               )} */}
               {renderApplyButton()}
+
               <Button className="chat">
                 <i className="bi bi-chat-dots" /> Chat with Requester
               </Button>

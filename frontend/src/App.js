@@ -52,6 +52,8 @@ function ScrollToTopOnNavigation() {
 }
 
 function App() {
+  // These states are passed into Login
+  // They will be set after login is valid
   const [loggedIn, setLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
   return (
