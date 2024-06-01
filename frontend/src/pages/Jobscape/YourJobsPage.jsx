@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { text } from "@fortawesome/fontawesome-svg-core";
 import NotificationMenu from "../../components/jobscape/NotificationMenu";
-import ApplyingJobsList from "../../components/jobscape/AppliedJobsList";
+import ApplyingJobsList from "../../components/jobscape/ApplyingJobsList";
 import { useUserContext } from "../../context/UserContext";
 import useAuth from "../../hooks/useAuth";
 
@@ -69,11 +69,11 @@ export default function YourJobsPage() {
           </div>
         </div>
         <h3 className="completed-jobs-title">Applying Jobs</h3>
-        <ApplyingJobsList></ApplyingJobsList>
+        <ApplyingJobsList userId={user._id} />
         <h3 className="completed-jobs-title">Taken Jobs</h3>
-        <InProgressJobsList></InProgressJobsList>
+        <InProgressJobsList userId={user._id} />
         <h3 className="completed-jobs-title">Completed Jobs</h3>
-        <CompletedJobsList></CompletedJobsList>
+        <CompletedJobsList userId={user._id} />
       </Container>
     </>
   );

@@ -1,7 +1,7 @@
 // Will include backend api functions for "project/" in this file
 // For better code separation
 
-import axios from "axios";
+import axios from "../utils/customAxios";
 export const API_URL = "http://localhost:5050/projects";
 
 export const favoriteProject = async (userId, projectId) => {
@@ -43,9 +43,7 @@ export const setApplyingProject = async (userId, projectId) => {
 export const getApplyingProjects = async (userId) => {
   try {
     console.log("I'm in projectApi getApplyingProjects");
-    const response = await axios.get(`${API_URL}/applying-project/${userId}`, {
-      withCredentials: true,
-    });
+    const response = await axios.get(`${API_URL}/applying-project/${userId}`);
     return response.data;
   } catch (error) {
     console.error("Error get applying project: " + error);
@@ -53,14 +51,10 @@ export const getApplyingProjects = async (userId) => {
 };
 export const setTakenProject = async (userId, projectId) => {
   try {
-    const response = await axios.post(
-      `${API_URL}/taken-project`,
-      {
-        userId,
-        projectId,
-      },
-      { withCredentials: true }
-    );
+    const response = await axios.post(`${API_URL}/taken-project`, {
+      userId,
+      projectId,
+    });
     return response.data;
   } catch (error) {
     console.error("Error set taken project: " + error);
@@ -69,9 +63,7 @@ export const setTakenProject = async (userId, projectId) => {
 export const getTakenProjects = async (userId) => {
   try {
     console.log("I'm in projectApi getTakenProjects");
-    const response = await axios.get(`${API_URL}/taken-project/${userId}`, {
-      withCredentials: true,
-    });
+    const response = await axios.get(`${API_URL}/taken-project/${userId}`);
     return response.data;
   } catch (error) {
     console.error("Error get taken project: " + error);
@@ -79,14 +71,10 @@ export const getTakenProjects = async (userId) => {
 };
 export const setCompletedProject = async (userId, projectId) => {
   try {
-    const response = await axios.post(
-      `${API_URL}/completed-project`,
-      {
-        userId,
-        projectId,
-      },
-      { withCredentials: true }
-    );
+    const response = await axios.post(`${API_URL}/completed-project`, {
+      userId,
+      projectId,
+    });
     return response.data;
   } catch (error) {
     console.error("Error set completed project: " + error);
@@ -95,9 +83,7 @@ export const setCompletedProject = async (userId, projectId) => {
 export const getCompletedProjects = async (userId) => {
   try {
     console.log("I'm in projectApi getCompletedProjects");
-    const response = await axios.get(`${API_URL}/completed-project/${userId}`, {
-      withCredentials: true,
-    });
+    const response = await axios.get(`${API_URL}/completed-project/${userId}`);
     return response.data;
   } catch (error) {
     console.error("Error get completed project: " + error);
@@ -123,7 +109,6 @@ export const uploadCompletedWorks = async (files, projectId, userId) => {
       headers: {
         "Content-Type": "multipart/form-data",
       },
-      withCredentials: true,
     });
     console.log(
       "File uploaded successfully from frontend api: " + response.data
@@ -140,7 +125,6 @@ export const downloadFile = async (files) => {
         const response = await axios.get(`${API_URL}/download`, {
           params: { fileName: file.fileName },
           responseType: "blob",
-          withCredentials: true,
         });
         // Create a link element, set the href to the blob URL, and trigger a click to download
         const url = window.URL.createObjectURL(new Blob([response.data]));

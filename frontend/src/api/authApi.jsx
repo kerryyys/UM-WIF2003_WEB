@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../utils/customAxios";
 
 export const postRegistration = async (email, username, password, navigate) => {
   try {
