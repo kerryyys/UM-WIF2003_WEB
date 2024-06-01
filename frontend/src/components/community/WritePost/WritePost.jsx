@@ -23,9 +23,8 @@ function WritePost() {
 
         <Form.Control
           as="textarea"
-          className="tw-flex-grow tw-ml-3 tw-border-none tw-resize-none tw-outline-none tw-p-3"
-          placeholder="Start a post, try writing with AI"
-          rows={1}
+          className="tw-resize-none tw-p-3 tw-h-2 hover:tw-bg-slate-200 hover:tw-transition tw-overflow-hidden"
+          placeholder="Start a post..."
           readOnly
         />
       </div>
