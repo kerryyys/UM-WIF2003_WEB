@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
-import "../../pages-css/Payment/Payment.css";
 import { Button } from "react-bootstrap";
+import "../../pages-css/Payment/Payment.css";
 import Tnc from "../../components/payment/tnc";
-// import { useInvoice } from '../../context/UserContext';
 
 function InvoiceList() {
   const [invoices, setInvoices] = useState([]);
