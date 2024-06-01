@@ -12,10 +12,6 @@ router.post("/", upload.single("profilePic"), async (req, res) => {
   try {
    
     const newUser = {
-     email:req.body.email,
-     password:req.body.password,
-      username:req.body.username,
-      role: req.body.role,
       profilePic: req.file
         ? { data: req.file.buffer, contentType: req.file.mimetype }
         : undefined,

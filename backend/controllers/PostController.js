@@ -1,6 +1,7 @@
 import BaseController from "./BaseController.js";
 import PostService from "../services/PostService.js";
-import { validateRequest } from "../middlewares/validateRequest.js";
+import { validateRequest } from "../middlewares/validate.js";
+
 import {
   addPostSchema,
   modifyPostSchema,
