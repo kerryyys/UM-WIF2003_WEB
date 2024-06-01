@@ -1,9 +1,7 @@
-
 import React, { useEffect, useState } from "react";
-import fpxPic from "../../assets/images/Payment/fpx.png";
-import ewalletPic from "../../assets/images/Payment/ewallet.png";
-import cardPic from "../../assets/images/Payment/card.png";
-import { Button } from "react-bootstrap";
+import BackButton from '../../components/payment/BackButton';
+import Reminder from '../../components/payment/Reminder';
+import ChoosePaymentMethod from "../../components/payment/ChoosePaymentMethod";
 
 const Card = () => {
 
@@ -41,6 +39,7 @@ const Card = () => {
 
   const handleServiceClick = (service) => {
     setSelectedService(service);
+    localStorage.setItem('paymentMethod' , service.cardNumber);
     window.location.href = "/redirect";
   };
 
@@ -111,14 +110,8 @@ const Card = () => {
   };
 
   return (
-    <><Button
-      className="BackBtn"
-      onClick={() => (window.location.href = "/ReviewProjectPage")}>
-      <p>
-        <i className="bi-chevron-left" />
-        Back
-      </p>
-    </Button>
+    <> 
+    <BackButton/>
     
     <div className="split-container">
         <div className="LeftContainer">
@@ -141,42 +134,7 @@ const Card = () => {
               </div>
             ))}
           </div>
-
-          <hr className="line" />
-          <p className="titleLinked">Pay With:</p>
-
-          <div className="LeftContainerr">
-            <img className="picFpx" src={fpxPic} alt="FPX Logo" />
-            <label
-              className="choose-payment-method"
-              onClick={() => (window.location.href = "/fpx")}
-            >
-              Online Banking FPX
-            </label>
-          </div>
-
-          <div className="LeftContainerr">
-            <img className="picEwallet" src={ewalletPic} alt="E-Wallet Logo" />
-            <label
-              className="choose-payment-method"
-              onClick={() => (window.location.href = "/ewallet")}
-            >
-              E- Wallet
-            </label>
-          </div>
-
-          <div className="LeftContainerr">
-            <img
-              className="picCard"
-              src={cardPic}
-              alt="Credit / Debit Card Logo" />
-            <label
-              onClick={() => (window.location.href = "/card")}
-              className="choose-payment-method"
-            >
-              Credit / Debit Card
-            </label>
-          </div>
+          <ChoosePaymentMethod/>
           <form onSubmit={handleSubmit}>
             <p className="titleLinked">Card Number</p>
             <input
@@ -235,13 +193,7 @@ const Card = () => {
               Pay Now
             </button>
           </form>
-          <div className="reminder">
-            <p>
-              Your personal data will be used to process your order, support your
-              experience throughout this website, and for other purposes described
-              in our privacy policy.
-            </p>
-          </div>
+          <Reminder/>
         </div>
 
         <div className="RightContainer">
@@ -284,5 +236,4 @@ const Card = () => {
       </>
   );
 }
-
 export default Card;
