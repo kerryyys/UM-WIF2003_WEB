@@ -14,6 +14,10 @@ function EditProfile() {
 
     const [profileData, setProfileData] = useState(null);
     const [showModal, setShowModal] = useState(false);
+    const [showConfirmSaveModal, setShowConfirmSaveModal] = useState(false);
+    const [showConfirmCancelModal, setShowConfirmCancelModal] = useState(false);
+    const [showLoading, setShowLoading] = useState(false);
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
 
     const getProfileData = async () => {
         try {
@@ -34,6 +38,7 @@ function EditProfile() {
 
     const handleSave = async () => {
         try {
+            setShowLoading(true);
             console.log("hi", profileData)
             const response = await fetch(`http://localhost:5050/users/${userId}`, {
                 method: 'PUT',
@@ -44,17 +49,20 @@ function EditProfile() {
             });
 
             if (response.ok) {
-                navigate(`/Profile/${userId}`);
+                setShowLoading(false);
+                setShowSuccessModal(true);
             } else {
                 console.error('Error updating profile data');
+                setShowLoading(false);
             }
         } catch (error) {
             console.error('Error updating profile data:', error);
+            setShowLoading(false);
         }
     };
 
     const handleCancel = () => {
-        navigate(`/Profile/${userId}`);
+        setShowConfirmCancelModal(true);
     };
 
     const handleFileUpload = (e) => {
@@ -64,17 +72,12 @@ function EditProfile() {
             reader.onloadend = () => {
                 setProfileData({
                     ...profileData, profilePic: reader.result.split(',')[1],
-                    // profilePic: {
-                    //     data: reader.result.split(',')[1], // Extracting base64 string from Data URL
-                    //     contentType: file.type
-                    // }
                 });
                 setShowModal(false);
             };
             reader.readAsDataURL(file);
         }
     };
-
 
     const handleRemovePicture = async () => {
         try {
@@ -113,6 +116,25 @@ function EditProfile() {
         setProfileData({ ...profileData, experience: newExperiences });
     };
 
+    const confirmSave = () => {
+        setShowConfirmSaveModal(true);
+    };
+
+    const handleConfirmSave = () => {
+        setShowConfirmSaveModal(false);
+        handleSave();
+    };
+
+    const handleConfirmCancel = () => {
+        setShowConfirmCancelModal(false);
+        navigate(`/Profile/${userId}`);
+    };
+
+    const handleSuccessModalClose = () => {
+        setShowSuccessModal(false);
+        navigate(`/Profile/${userId}`);
+    };
+
     if (!profileData) {
         return <div>Loading...</div>;
     }
@@ -124,13 +146,10 @@ function EditProfile() {
                 <Container className="text-center">
                     <div className="profile-pic-container position-relative d-inline-flex justify-content-center">
                         <Image
-
                             src={profileData.profilePic ? `data:${profileData.profilePic};base64,${profileData.profilePic}` : default_avatar}
                             roundedCircle
                             style={{ width: '150px', height: '150px' }}
                         />
-
-
                         <input
                             type="file"
                             ref={fileInputRef}
@@ -146,19 +165,17 @@ function EditProfile() {
                         />
                     </div>
                 </Container>
-
-                <div className="d-flex gap-5 w-100" style={{ marginTop: '20px' }}>
-                    <div style={{ width: '50%' }}>
+                <div className="w-100" style={{ marginTop: '30px' }}>
+                    <div>
                         <p style={{ fontWeight: '700' }}>First Name</p>
                         <input
                             className="bigInput"
                             type="text"
-                            name="headline"
+                            name="firstName"
                             value={profileData.firstName || ''}
                             onChange={handleInputChange}
                         />
                     </div>
-
                 </div>
                 <div>
                     <p style={{ fontWeight: '700', marginTop: '10px' }}>Headline</p>
@@ -202,7 +219,6 @@ function EditProfile() {
                         onChange={handleInputChange}
                     />
                 </div>
-
                 <div className="mt-3">
                     <p style={{ fontWeight: '700' }}>Category</p>
                     <ExpandableInput
@@ -212,22 +228,21 @@ function EditProfile() {
                     />
                 </div>
                 <div>
-                    <p style={{ fontWeight: '700', marginTop: '20px' }}>Skills</p>
+                    <p style={{ fontWeight: '700', marginTop: '20px' }}>Skill</p>
                     <ExpandableInput
                         defaultWords={profileData.skill || []}
-                        title="skills"
+                        title="skill"
                         onChange={handleSkillChange}
                     />
                 </div>
                 <div>
-                    <p style={{ fontWeight: '700', marginTop: '20px' }}>Experiences</p>
+                    <p style={{ fontWeight: '700', marginTop: '20px' }}>Experience</p>
                     <ExpandableExperience
                         defaultWords={profileData.experience || []}
                         userId={userId}
                         onChange={handleExperienceChange}
                     />
                 </div>
-
                 <Modal show={showModal} onHide={() => setShowModal(false)} centered>
                     <Modal.Header closeButton>
                         <Modal.Title>Upload Profile Picture</Modal.Title>
@@ -237,9 +252,51 @@ function EditProfile() {
                         <Button style={{ background: '#898989', border: "none", padding: '10px', marginTop: '10px' }} onClick={handleRemovePicture}>Remove Picture</Button>
                     </Modal.Body>
                 </Modal>
-
+                <Modal show={showConfirmSaveModal} onHide={() => setShowConfirmSaveModal(false)} centered>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Confirm Save</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <p>Are you sure you want to save the changes?</p>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button style={{ background: '#2D4777', width: '100px', border: "none" }} onClick={handleConfirmSave}>Save</Button>
+                        <Button style={{ color: '#2D4777', background: '#FFFFFF', width: '100px', border: "1px solid #2D4877" }} onClick={() => setShowConfirmSaveModal(false)}>Cancel</Button>
+                    </Modal.Footer>
+                </Modal>
+                <Modal show={showConfirmCancelModal} onHide={() => setShowConfirmCancelModal(false)} centered>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Confirm Cancel</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <p>Are you sure you want to discard the changes?</p>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button style={{ background: '#2D4777', width: '100px', border: "none" }} onClick={handleConfirmCancel}>Yes</Button>
+                        <Button style={{ color: '#2D4777', background: '#FFFFFF', width: '100px', border: "1px solid #2D4877" }} onClick={() => setShowConfirmCancelModal(false)}>No</Button>
+                    </Modal.Footer>
+                </Modal>
+                <Modal show={showLoading} centered>
+                    <Modal.Body className="text-center">
+                        <div className="spinner-border text-primary" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                        </div>
+                    </Modal.Body>
+                </Modal>
+                <Modal show={showSuccessModal} onHide={handleSuccessModalClose} centered>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Success</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body className="text-center">
+                        <i className="bi bi-check-circle" style={{ fontSize: '5rem', color: 'green' }}></i>
+                        <p>Info is successfully saved</p>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button  onClick={handleSuccessModalClose} style={{ background: '#2D4777' }}>OK</Button>
+                    </Modal.Footer>
+                </Modal>
                 <div style={{ display: 'flex', marginBottom: '50px' }} className='gap-5 justify-content-center mt-5'>
-                    <Button onClick={handleSave} style={{ background: '#2D4777', width: '100px', border: "none" }}>Save</Button>
+                    <Button onClick={confirmSave} style={{ background: '#2D4777', width: '100px', border: "none" }}>Save</Button>
                     <Button onClick={handleCancel} style={{ color: '#2D4777', background: '#FFFFFF', width: '100px', border: "1px solid #2D4877" }}>Cancel</Button>
                 </div>
             </div>

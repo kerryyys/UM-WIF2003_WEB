@@ -29,7 +29,7 @@ app.use(bodyParser.json());
 app.use("/recruite", projectDetailsRoute);
 app.use("/recruite", reviewProjectRoute);
 app.use("/projects", projectsRouter);
-app.use("/community", postRoute);
+app.use("/api/community", postRoute);
 app.use("/users", usersRoute);
 app.use("/payment", paymentRoute);
 app.use("/auth", authRoute);

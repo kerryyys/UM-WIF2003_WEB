@@ -4,7 +4,7 @@ import { StatusCodes } from "http-status-codes";
 import {
   createSecretToken,
   setTokenCookie,
-} from "../middleware/tokenMiddleware.js";
+} from "../middlewares/tokenMiddleware.js";
 import {
   handleBadRequest,
   handleInternalServerError,
@@ -22,7 +22,6 @@ export const signUp = async (req, res) => {
 
     // Encrypt the password
     const hashedPassword = await bcrypt.hash(password, 10);
-    console.log(await bcrypt.compare(password, hashedPassword));
 
     const user = await User.create({
       email: email,
@@ -48,7 +47,6 @@ export const login = async (req, res) => {
     const user = await User.findOne({ email });
 
     if (!user) {
-      console.log("User not found");
       return handleBadRequest(res, "Incorrect password or email");
     }
 
@@ -57,7 +55,6 @@ export const login = async (req, res) => {
     const auth = await bcrypt.compare(password, user.password);
 
     if (!auth) {
-      console.log("Password comparison failed");
       return handleBadRequest(res, "Incorrect password");
     }
 

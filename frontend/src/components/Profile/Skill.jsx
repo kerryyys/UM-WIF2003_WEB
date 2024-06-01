@@ -1,17 +1,14 @@
 import React from "react";
 
-function Skill({ skills=[] }) {
+function Skill({ skills = [] }) {
   return (
-    <>
-      
+    <ul style={{ listStyleType: 'disc', paddingLeft: '20px' }}>
       {skills.map((skill, index) => (
-        <div key={index} >
-          <ul style={{margin:'0'}}>
-            <li>{skill}</li>
-          </ul>
-        </div>
+        <li key={index} style={{ margin: '0' }}>
+          {skill}
+        </li>
       ))}
-    </>
+    </ul>
   );
 }
 
