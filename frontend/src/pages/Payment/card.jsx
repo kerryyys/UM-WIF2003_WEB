@@ -16,7 +16,8 @@ const Card = () => {
   const [country, setCountry] = useState("Malaysia");
   const [projectTitle, setProjectTitle] = useState(null);
   const [projectBudget, setProjectBudget] = useState(null);
-  const [taskData, setTaskData] = useState({});
+  const [paymentMethod, setPaymentMethod] = useState('');
+
 
   useEffect(() => {
     const title = localStorage.getItem('projectTitle');
@@ -88,6 +89,7 @@ const Card = () => {
   const handleCardNumberChange = (e) => {
     const formattedCardNumber = formatCardNumber(e.target.value);
     setCardNumber(formattedCardNumber);
+    localStorage.setItem('paymentMethod' , e.target.value);
   };
 
   // Format expiration date input
