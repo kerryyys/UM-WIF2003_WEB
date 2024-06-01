@@ -29,11 +29,11 @@ function ExpandableExperience({ defaultWords = [], onChange, userId }) {
     };
 
     const handleAddExperience = () => {
-        navigate(`/AddNewExperience/${userId}`); // Navigate to AddNewExperience page
+        navigate(`/AddNewExperience/${userId}`);
     };
 
     const handleEditExperience = (experienceId) => {
-        navigate(`/EditExperience/${userId}/${experienceId}`); // Navigate to EditExperiences page
+        navigate(`/EditExperience/${userId}/${experienceId}`);
     };
 
     return (
@@ -47,9 +47,12 @@ function ExpandableExperience({ defaultWords = [], onChange, userId }) {
                                     <img src={WorkCaseIcon} alt="Work Case Icon" className="work-case-icon" />
                                     <p>
                                         {experience.value.title}
-                                        {experience.value.current && <span > (Current)</span>}
                                     </p>
-                                </div>
+
+                                </div> <p className="details">
+                                    {new Date(experience.value.from).toLocaleString('default', { month: 'long', year: 'numeric' })} -
+                                    {experience.value.current ? ' Present' : ` ${new Date(experience.value.until).toLocaleString('default', { month: 'long', year: 'numeric' })}`}
+                                </p>
                                 <div className="details">
                                     <p>
                                         {experience.value.company} | {experience.value.location} <br />
@@ -69,10 +72,9 @@ function ExpandableExperience({ defaultWords = [], onChange, userId }) {
                                 src={CancelIcon}
                                 alt="Cancel Icon"
                                 style={{ width: '30px', height: '30px' }}
-                                className="position-absolute end-0 top-50 translate-middle"
+                                className="position-absolute end-0 top-50 translate-middle-y"
                             />
                         </div>
-                        <div className="border" />
                     </div>
                 ))}
             </div>

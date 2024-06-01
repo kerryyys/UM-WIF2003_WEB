@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button, Container } from 'react-bootstrap';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import '../../components-css/Profile/EditProfileCSS.css';
 
 function EditExperience() {
@@ -14,7 +16,9 @@ function EditExperience() {
         location: '',
         locationType: '',
         description: '',
-        current: false
+        current: false,
+        from: new Date(),
+        until: null
     });
 
     useEffect(() => {
@@ -29,7 +33,6 @@ function EditExperience() {
 
                 if (response.ok) {
                     const experience = await response.json();
-                    console.log(experience)
                     setInfo({
                         title: experience.title,
                         employmentType: experience.employmentType,
@@ -37,7 +40,9 @@ function EditExperience() {
                         location: experience.location,
                         locationType: experience.locationType,
                         description: experience.description,
-                        current: experience.current
+                        current: experience.current,
+                        from: experience.from ? new Date(experience.from) : new Date(),
+                        until: experience.until ? new Date(experience.until) : null
                     });
                 } else {
                     console.error('Error fetching experience data');
@@ -51,7 +56,6 @@ function EditExperience() {
     }, [userId, experienceId]);
 
     const handleSave = async () => {
-        console.log("Info", JSON.stringify(info));
         try {
             const response = await fetch(`http://localhost:5050/users/${userId}/editExperience/${experienceId}`, {
                 method: 'PUT',
@@ -95,6 +99,13 @@ function EditExperience() {
         setInfo(prevInfo => ({
             ...prevInfo,
             [name]: type === 'checkbox' ? checked : value
+        }));
+    };
+
+    const handleDateChange = (name, date) => {
+        setInfo(prevInfo => ({
+            ...prevInfo,
+            [name]: date
         }));
     };
 
@@ -190,6 +201,26 @@ function EditExperience() {
                             I am currently working in this role
                         </label>
                     </div>
+
+                    <div style={{ display: 'flex'}} className='gap-5 mt-3'>
+                    <div>
+                        <p>From</p>
+                        <DatePicker
+                            selected={info.from}
+                            onChange={date => handleDateChange('from', date)}
+                            className="bigInput"
+                        />
+                    </div>
+
+                    <div>
+                        <p>Until</p>
+                        <DatePicker
+                            selected={info.until}
+                            onChange={date => handleDateChange('until', date)}
+                            className="bigInput"
+                            disabled={info.current}
+                        />
+                    </div></div>
                 </div>
 
                 <div style={{ display: 'flex', marginBottom: '50px' }} className='gap-5 justify-content-center mt-5'>

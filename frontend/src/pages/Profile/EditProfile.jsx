@@ -292,7 +292,7 @@ function EditProfile() {
                         <p>Info is successfully saved</p>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button style={{ background: '#2D4777', width: '100px', border: "none" }}  onClick={handleSuccessModalClose}>OK</Button>
+                        <Button  onClick={handleSuccessModalClose} style={{ background: '#2D4777' }}>OK</Button>
                     </Modal.Footer>
                 </Modal>
                 <div style={{ display: 'flex', marginBottom: '50px' }} className='gap-5 justify-content-center mt-5'>
