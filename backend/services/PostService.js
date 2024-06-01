@@ -1,6 +1,6 @@
-import User from "../models/user.js";
-import Post from "../models/post.js";
-import Comment from "../models/comment.js";
+import { User } from "../models/userModel.js";
+import { Post } from "../models/post.js";
+import { Comment } from "../models/comment.js";
 import { handleNotFound } from "../utils/errorHandler.js";
 
 class PostService {

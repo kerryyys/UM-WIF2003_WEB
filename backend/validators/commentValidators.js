@@ -1,18 +1,18 @@
 import Joi from "joi";
 
-const postIdSchema = Joi.object({
+export const postIdSchema = Joi.object({
   postId: Joi.string().required(),
 });
 
-const userIdSchema = Joi.object({
+export const userIdSchema = Joi.object({
   userId: Joi.string().required(),
 });
 
-const commentIdSchema = Joi.object({
+export const commentIdSchema = Joi.object({
   commentId: Joi.string().required(),
 });
 
-const contentSchema = Joi.object({
+export const contentSchema = Joi.object({
   content: Joi.string().min(1).required(),
 });
 

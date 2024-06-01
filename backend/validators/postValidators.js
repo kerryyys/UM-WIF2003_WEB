@@ -1,11 +1,13 @@
 import Joi from "joi";
 
-const titleSchema = Joi.string().required();
-const contentSchema = Joi.string().required();
-const postIdSchema = Joi.string().required();
-const userIdSchema = Joi.string().required();
+export const titleSchema = Joi.string().required();
+export const contentSchema = Joi.string().required();
+export const postIdSchema = Joi.string().required();
+export const userIdSchema = Joi.string().required();
 
 export const addPostSchema = Joi.object({
+  // ! Should be removed for production
+  id: Joi.string().required(),
   title: titleSchema,
   content: contentSchema,
 });

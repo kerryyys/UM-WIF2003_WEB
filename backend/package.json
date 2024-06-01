@@ -20,6 +20,7 @@
     "express-validator": "^7.1.0",
     "formidable": "^3.5.1",
     "http-status-codes": "^2.3.0",
+    "joi": "^17.13.1",
     "jsonwebtoken": "^9.0.2",
     "jtest": "^0.0.1",
     "mongoose": "^8.3.4",
