@@ -12,12 +12,15 @@ module.exports = {
         primary: "#2d4877",
         secondary: "#fdfaf3",
       },
+      height: {
+        24: "6rem",
+      },
     },
   },
   variants: {
     extend: {
-      backgroundColor: ["hover"],
-      scale: ["active"],
+      backgroundColor: ["hover", "active"],
+      scale: ["hover", "active"],
     },
   },
   plugins: [],

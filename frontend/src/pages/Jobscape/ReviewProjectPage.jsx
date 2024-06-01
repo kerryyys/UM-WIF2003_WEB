@@ -15,6 +15,7 @@ const ReviewProjectPage = () => {
   const [inProgressProjects, setInProgressProjects] = useState([]);
   const [completedProjects, setCompletedProjects] = useState([]);
   const [showNotification, setShowNotification] = useState(false);
+  const [isProjectPostedFetched, setIsProjectPostedFetched] = useState(false); // Add state to track if projects are fetched
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,6 +24,7 @@ const ReviewProjectPage = () => {
           "http://localhost:5050/recruite/posted"
         );
         setProjectPosted(postedResponse.data);
+        setIsProjectPostedFetched(true); // Set isProjectPostedFetched to true when projects are fetched
 
         const inProgressResponse = await axios.get(
           "http://localhost:5050/recruite/in-progress"
@@ -40,12 +42,16 @@ const ReviewProjectPage = () => {
 
     fetchData();
   }, []);
-  
+
+  const moveToInProgress = (project) => {
+    setProjectPosted((prev) => prev.filter((p) => p._id !== project._id));
+    setInProgressProjects((prev) => [...prev, project]);
+  };
+
   return (
     <div className="ReviewProjectPage">
-      {/* Back button */}
       <div className="ReviewBackBtn">
-        <Button className="BackBtn" onClick={() => navigate(-1)}>
+        <Button className="BackBtn" onClick={() => navigate("/SeekTalentPage")}>
           <p>
             <i className="bi-chevron-left" />
             Back
@@ -53,7 +59,6 @@ const ReviewProjectPage = () => {
         </Button>
       </div>
 
-      {/* Review header */}
       <div className="Reviewheader">
         <SmallTitle
           className="ReviewTitle"
@@ -63,55 +68,73 @@ const ReviewProjectPage = () => {
         />
       </div>
 
-      {/* Project Posted section */}
       <div className="ProjectPosted">
         <SmallTitle title="Project Posted" fontWeight="400" fontSize="32px" />
         <div className="ProjectPostedList">
-          {ProjectPosted.map((project) => (
-            <ProjectPostedTab
-              key={project._id}
-              projectId={project._id}
-              projectTitle={project.projectTitle}
-              due={new Date(project.deadline).toLocaleDateString("en-GB")}
-              budget={project.projectBudget}
-              postedDate={project.createdAt}
-            />
-          ))}
+          {isProjectPostedFetched && ProjectPosted.length === 0 ? (
+            <p
+              style={{ fontWeight: "500", fontSize: "24px", color: "red" }}
+              className="nothing"
+            >
+              No projects posted
+            </p>
+          ) : (
+            ProjectPosted.map((project) => (
+              <ProjectPostedTab
+                key={project._id}
+                projectId={project._id}
+                projectTitle={project.projectTitle}
+                due={new Date(project.deadline).toLocaleDateString("en-GB")}
+                budget={project.projectBudget}
+                postedDate={project.createdAt}
+                onMoveToInProgress={moveToInProgress}
+              />
+            ))
+          )}
         </div>
       </div>
 
-      {/* In Progress section */}
       <div className="InProgress">
         <SmallTitle title="In Progress" fontWeight="400" fontSize="32px" />
         <div className="InProgressList">
-          {inProgressProjects.map((project) => (
-            <InProgressProjectTab
-              key={project._id}
-              projectId={project._id}
-              projectTitle={project.projectTitle}
-              due={new Date(project.deadline).toLocaleDateString("en-GB")}
-              budget={project.projectBudget}
-              collaborator={project.PIC}
-            />
-          ))}
+          {inProgressProjects.length === 0 ? (
+            <p
+              style={{ fontWeight: "500", fontSize: "24px", color: "red" }}
+              className="nothing"
+            >
+              No projects in progress
+            </p>
+          ) : (
+            inProgressProjects.map((project) => (
+              <InProgressProjectTab key={project._id} />
+            ))
+          )}
         </div>
       </div>
 
-      {/* Completed section */}
       <div>
         <SmallTitle title="Completed" fontWeight="400" fontSize="32px" />
         <div className="CompletedProjectList">
-          {completedProjects.map((project) => (
-            <CompletedProjectTab
-              key={project._id}
-              projectId={project._id}
-              projectTitle={project.projectTitle}
-              due={new Date(project.deadline).toLocaleDateString("en-GB")}
-              budget={project.projectBudget}
-              collaborator={project.PIC}
-              setShowNotification={setShowNotification}
-            />
-          ))}
+          {inProgressProjects.length === 0 ? (
+            <p
+              style={{ fontWeight: "500", fontSize: "24px", color: "red" }}
+              className="nothing"
+            >
+              No projects completed
+            </p>
+          ) : (
+            completedProjects.map((project) => (
+              <CompletedProjectTab
+                key={project._id}
+                projectId={project._id}
+                projectTitle={project.projectTitle}
+                due={new Date(project.deadline).toLocaleDateString("en-GB")}
+                budget={project.projectBudget}
+                collaborator={project.PIC}
+                setShowNotification={setShowNotification}
+              />
+            ))
+          )}
         </div>
       </div>
 

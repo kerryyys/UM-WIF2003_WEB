@@ -18,7 +18,7 @@ export default function JobsListItem({
   _id,
   companyName,
   projectTitle,
-  budget,
+  projectBudget,
   deadline,
 }) {
   JobsListItem.defaultProps = {
@@ -51,12 +51,12 @@ export default function JobsListItem({
             <Row>
               <Col>
                 <p>Due:</p>
-                <p>Budget:</p>
+                <p>projectB:</p>
                 <p>Requester:</p>
               </Col>
               <Col>
                 <p>{moment(deadline).format("DD-MM-YYYY")}</p>
-                <p>RM{budget}</p>
+                <p>RM{projectBudget}</p>
                 <p className="company-name">DELL Technology</p>
               </Col>
             </Row>

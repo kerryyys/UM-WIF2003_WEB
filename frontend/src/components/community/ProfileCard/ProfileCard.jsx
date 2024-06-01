@@ -4,15 +4,17 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import IconLabelPair from "./IconLabelPair";
 
 function ProfileCard({ name, title }) {
-    const bookmarkIcon = <i className="bi bi-bookmark profile-card-icon"></i>;
-    const bookmarkFilledIcon = <i className="bi bi-bookmark-fill profile-card-icon"></i>;
+  const bookmarkIcon = <i className="bi bi-bookmark profile-card-icon"></i>;
+  const bookmarkFilledIcon = (
+    <i className="bi bi-bookmark-fill profile-card-icon"></i>
+  );
 
   return (
     <div className="profile-card">
       <img
         src="https://www.w3schools.com/howto/img_avatar.png"
         alt="profile"
-        class="img-fluid rounded-circle mx-auto d-block profile-img"
+        className="img-fluid rounded-circle mx-auto d-block profile-img"
       ></img>
       <p className="profile-name">{name}</p>
       <p className="profile-title">{title}</p>

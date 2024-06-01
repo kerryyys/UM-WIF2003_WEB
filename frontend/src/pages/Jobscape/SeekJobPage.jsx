@@ -17,6 +17,13 @@ import searchbtn from "../../assets/icons/icon_search.svg";
 const SeekJobPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedFilters, setSelectedFilters] = useState([]);
+
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+ 
   const [projectTabs, setProjectTabs] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -70,9 +77,6 @@ const SeekJobPage = () => {
       return `${diffInDays} days ago`;
     }
   };
-  const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
   const handleSearchChange = (event) => {
     setSearchValue(event.target.value);
     console.log("event target" + event.target.value);
@@ -114,6 +118,7 @@ const SeekJobPage = () => {
     }
   };
 
+
   const handleFilterChange = (name, checked) => {
     // Will add to selectedFilters if checked
     if (checked) {
@@ -128,25 +133,19 @@ const SeekJobPage = () => {
   };
 
   const projectPerPage = 7;
-
-  const categories = [
-    "Web Developer",
-    "Graphic Designer",
-    "Content Creation",
-    "Photographic",
-    "Project Management",
-  ];
-  const duration = ["Short Term", "Long Term", "OnGoing"];
-
+  
   const filterTabs = [
     {
       filterTitle: "PROJECT CATEGORY",
       filterTypes: [
-        "Web Development",
-        "Graphic & Design",
+        "Tech & IT",
+        "Creative & Design",
         "Content Writing",
-        "Photographic",
-        "Audit",
+        "Education & Training",
+        "Marketing",
+        "Finance",
+        "Healthcare",
+        "Engineering",
       ],
     },
     {
@@ -155,17 +154,19 @@ const SeekJobPage = () => {
     },
 
     {
-      filterTitle: "BUDGET RANGE",
-      filterTypes: [
-        "1,000-3,000",
-        "3,001-5,000",
-        "5,001-8,000",
-        "8,001-10,000",
-      ],
-    },
-    {
       filterTitle: "LOCATION",
-      filterTypes: ["Kuala Lumpur", "Selangor", "Johor Bahru", "Remote"],
+      filterTypes: [
+        "Kuala Lumpur",
+        "Selangor",
+        "Negeri Sembilan",
+        "Melaka",
+        "Johore",
+        "Kelantan",
+        "Terengganu",
+        "Perak",
+        "Pahang",
+        "Remote",
+      ],
     },
     // Add more FilterTab objects as needed
   ];

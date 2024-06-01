@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import google from "../../assets/images/General/logos_facebook.png";
 import facebook from "../../assets/images/General/flat-color-icons_google.png";
 import sideBackground from "../../assets/images/General/LOGIN.png";
+import { postRegistration } from "../../api/authApi";
 
 function Register() {
   const [fullName, setFullName] = useState("");
@@ -32,6 +33,12 @@ function Register() {
       console.log("Registration successful!");
     }
   };
+
+  const handleRegistration = () => {
+    postRegistration(email, fullName, password);
+    window.location.href = "/Login";
+  };
+
   // Generate JSX code for error message
   const renderErrorMessage = (name) =>
     name === errorMessages.name && (
@@ -39,7 +46,11 @@ function Register() {
     );
   return (
     <div className="login-background">
-      <img className="login-flower-pic" src={sideBackground}></img>
+      <img
+        alt="decoration"
+        className="login-flower-pic"
+        src={sideBackground}
+      ></img>
       <form onSubmit={handleSubmit} className="login-form2-container">
         <h2 className="login-title">Create Account</h2>
         <div className="login-options">
@@ -123,9 +134,10 @@ function Register() {
           <input
             type="submit"
             value="Create Account"
-            onClick={() => (window.location.href = "/Login")}
+            onClick={handleRegistration}
           />
         </div>
+
         <div className="login-normal-text">
           Already a member?{" "}
           <span

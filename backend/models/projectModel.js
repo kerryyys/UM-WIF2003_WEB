@@ -4,10 +4,11 @@ import { Schema } from "mongoose";
 const getDefaultFilter = function () {
   return [this.projectCategory, this.projectDuration, this.location];
 };
+
 const projectSchema = mongoose.Schema(
   {
     companyLogo: { data: Buffer, contentType: String },
-    companyName: { type: String, required: true },
+    companyName: { type: String },
     projectTitle: { type: String, required: true },
     projectDescription: { type: String, required: true },
     location: { type: String, required: true },
@@ -26,6 +27,7 @@ const projectSchema = mongoose.Schema(
     applicants: { type: [Schema.Types.ObjectId], ref: "FakeUser" }, //should store freelancer userID
     // PIC: { type: Schema.Types.ObjectId, ref: "FakeUser" }, I renamed it to serviceProvider
     serviceProvider: { type: Schema.Types.ObjectId, ref: "FakeUser" },
+    fileAccepted: { type: Boolean, default: false },
     review: [
       {
         satisfactionRating: Number,

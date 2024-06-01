@@ -40,6 +40,15 @@ export const setApplyingProject = async (userId, projectId) => {
     console.error("Error set applying project, projectAPI: " + error);
   }
 };
+export const getApplyingProjects = async (userId) => {
+  try {
+    console.log("I'm in projectApi getApplyingProjects");
+    const response = await axios.get(`${API_URL}/applying-project/${userId}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error get applying project: " + error);
+  }
+};
 export const setTakenProject = async (userId, projectId) => {
   try {
     const response = await axios.post(`${API_URL}/taken-project`, {

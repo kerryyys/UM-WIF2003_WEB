@@ -1,33 +1,55 @@
-import React from 'react';
-import ImageItem from './ImageItem'; // Assuming ImageItem is properly imported
-import { Button } from 'react-bootstrap';
-import '../../../components-css/Community/ImageGallery.css';
+// ImageGallery.jsx
+import React, { useState } from "react";
+import ImageItem from "./ImageItem"; // Assuming ImageItem is properly imported
+import ImageModal from "./ImageModal"; // Import the new ImageModal component
 
 function ImageGallery({ images }) {
-  const scrollContainer = React.useRef(null);
+  const [showModal, setShowModal] = useState(false);
+  const [modalImages, setModalImages] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  const scroll = (direction) => {
-    const { current } = scrollContainer;
-    if (direction === 'left') {
-      current.scrollBy({ left: -300, behavior: 'smooth' });
-    } else {
-      current.scrollBy({ left: 300, behavior: 'smooth' });
-    }
+  const imageArray = Object.values(images); // Convert images object to array
+
+  const handleImageClick = (index) => {
+    setModalImages(imageArray);
+    setCurrentIndex(index);
+    setShowModal(true);
   };
 
+  const handleClose = () => setShowModal(false);
+
+  const displayedImages = imageArray.slice(0, 4);
+  const remainingImagesCount = imageArray.length - 4;
+
   return (
-    <div className="news-feed-item-gallery-container">
-      {images.length > 0 && (
-        <Button variant="secondary" onClick={() => scroll('left')} className="gallery-scroll-btn left">&#9664;</Button>
-      )}
-      <div className="news-feed-item-gallery" ref={scrollContainer}>
-        {Object.values(images).map((src, index) => (
-          <ImageItem key={index} src={src} />
+    <div className="tw-w-full tw-overflow-hidden tw-relative tw-flex tw-flex-col tw-items-center tw-my-2.5">
+      <div className="tw-w-full tw-flex tw-gap-4">
+        {displayedImages.map((src, index) => (
+          <div
+            key={index}
+            className="tw-w-1/4 tw-h-40 tw-relative hover:tw-bg-opacity-75 cursor-pointer"
+            onClick={() => handleImageClick(index)}
+          >
+            <ImageItem src={src} />
+            {remainingImagesCount > 0 && index === 3 && (
+              <div
+                className="tw-absolute tw-inset-0 tw-bg-black tw-bg-opacity-50 tw-flex tw-items-center tw-justify-center tw-text-white tw-text-lg hover:tw-bg-opacity-75 cursor-pointer"
+                onClick={() => handleImageClick(index)}
+              >
+                +{remainingImagesCount}
+              </div>
+            )}
+          </div>
         ))}
       </div>
-      {images.length > 0 && (
-        <Button variant="secondary" onClick={() => scroll('right')} className="gallery-scroll-btn right">&#9654;</Button>
-      )}
+
+      <ImageModal
+        show={showModal}
+        images={modalImages}
+        currentIndex={currentIndex}
+        onClose={handleClose}
+        setCurrentIndex={setCurrentIndex}
+      />
     </div>
   );
 }

@@ -34,9 +34,3 @@
 .gallery-scroll-btn.right {
   right: 10px;
 }
-
-div.image-item > img {
-  width: 300px; /* Fixed width for all images */
-  height: 300px; /* Fixed height for all images */
-  object-fit: cover; /* Ensure images cover the space without distorting */
-}

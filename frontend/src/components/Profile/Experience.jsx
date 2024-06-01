@@ -2,14 +2,16 @@ import React from "react";
 import WorkCaseIcon from '../../assets/icons/profile/work-case-svgrepo-com 1.svg'
 import '../../components-css/Profile/ExperienceCSS.css'
 
-function Experience({ experiences }) {
+function Experience({ experiences = [] }) {
   return (
     <>
       {experiences.map((experience, index) => (
         <div key={index} className="experience-item">
           <div className="title-and-icon justify-item-center" >
             <img src={WorkCaseIcon} alt="Work Case Icon" className="work-case-icon" />
-            <h6>{experience.title}</h6>
+            <h6>{experience.title}
+              {experience.current && <span className="current-badge"> (Current)</span>}
+            </h6>
           </div>
           <div className="details">
             <p>

@@ -1,96 +1,117 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
-import FileUploader from "./FileUploader"; // Adjust the path as needed
-import EmojiPickerComponent from "./EmojiPickerComponent"; // Adjust the path as needed
-import LocationButton from "./LocationButton"; // Adjust the path as needed
-import LocationSearchModal from "./LocationSearchModal"; // Adjust the path as needed
-import MarkdownEditor from "./MarkdownEditor";
-import TagPeople from "./TagPeople"; // Adjust the path as needed
+import axios from "axios";
+import FileUploader from "./FileUploader";
+import LocationButton from "./LocationButton";
+import LocationSearchModal from "./LocationSearchModal";
+import TagPeople from "./TagPeople";
+import RequiredField from "./RequiredField";
+import { handleInputChange, validateFields } from "./Util";
 
 const WritePostModal = ({ show, handleClose }) => {
+  const [title, setTitle] = useState("");
   const [files, setFiles] = useState([]);
   const [content, setContent] = useState("");
   const [taggedUsers, setTaggedUsers] = useState([]);
-  const [placeTag, setPlaceTag] = useState(""); // Define the placeTag state
-  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const [placeTag, setPlaceTag] = useState("");
   const [showLocationModal, setShowLocationModal] = useState(false);
+  const [errors, setErrors] = useState({});
 
-  const handleAddEmoji = (emojiObject) => {
-    setContent((prevContent) => prevContent + emojiObject.emoji);
-  };
+  const titleRef = useRef(null);
+  const contentRef = useRef(null);
 
   const handleShowLocationModal = () => setShowLocationModal(true);
   const handleCloseLocationModal = () => setShowLocationModal(false);
 
-  const handleSaveChanges = async () => {
-    const postData = new FormData();
-    postData.append("content", content);
-    postData.append("placeTag", placeTag);
-    taggedUsers.forEach((user, index) => {
-      postData.append(`taggedUser${index}`, user.id);
-    });
-    files.forEach((file, index) => {
-      postData.append(`image${index}`, file);
-    });
+  const resetFields = () => {
+    setTitle("");
+    setFiles([]);
+    setContent("");
+    setTaggedUsers([]);
+    setPlaceTag("");
+    setShowLocationModal(false);
+    setErrors({});
+  };
 
-    try {
-      const response = await fetch("http://localhost/community/post", {
-        method: "POST",
-        body: postData,
-      });
-
-      if (response.ok) {
-        console.log("Post submitted successfully");
-        handleClose(); // Close the modal after successful submission
-      } else {
-        console.error("Failed to submit post");
-      }
-    } catch (error) {
-      console.error("Error submitting post:", error);
+  useEffect(() => {
+    if (!show) {
+      resetFields();
     }
+  }, [show]);
+
+  const handleSaveChanges = async () => {
+    const fields = { title, content };
+    const newErrors = validateFields(fields);
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length > 0) {
+      if (newErrors.title) titleRef.current.focus();
+      else if (newErrors.content) contentRef.current.focus();
+      return;
+    }
+
+    const postData = { title, content, taggedUsers, placeTag, images: files };
+
+    
   };
 
   return (
-    <Modal show={show} onHide={handleClose}>
-      <Modal.Header closeButton>
-        <Modal.Title>Write a Post</Modal.Title>
+    <Modal show={show} onHide={handleClose} className="tw-m-4">
+      <Modal.Header closeButton className="tw-bg-gray-100">
+        <Modal.Title className="tw-text-lg tw-font-bold">
+          Write a Post
+        </Modal.Title>
       </Modal.Header>
 
-      <Modal.Body>
+      <Modal.Body className="tw-bg-white">
         <Form>
-          <Form.Group controlId="formPostContent">
-            <Form.Label>Post Content</Form.Label>
-            <MarkdownEditor content={content} setContent={setContent} />
-          </Form.Group>
+          <RequiredField
+            label="Title"
+            value={title}
+            onChangeListener={handleInputChange(setTitle, errors, setErrors)}
+            hasError={errors.title}
+            errorTitle={errors.title}
+            controlType="text"
+            placeholder="Enter the title of your post"
+            ref={titleRef}
+          />
+
+          <RequiredField
+            label="Post Content"
+            value={content}
+            onChangeListener={handleInputChange(setContent, errors, setErrors)}
+            hasError={errors.content}
+            errorTitle={errors.content}
+            controlType="textarea"
+            placeholder="Enter the content of your post"
+            ref={contentRef}
+          />
 
           <TagPeople
             taggedUsers={taggedUsers}
             setTaggedUsers={setTaggedUsers}
           />
 
-          <Form.Group controlId="formPlaceTag">
-            <Form.Label>Place Tag</Form.Label>
+          <Form.Group controlId="formPlaceTag" className="tw-mb-4">
+            <Form.Label className="tw-text-gray-700 tw-font-semibold">
+              Place Tag
+            </Form.Label>
             <Form.Control
               type="text"
               placeholder="Tag a place"
               value={placeTag}
               onChange={(e) => setPlaceTag(e.target.value)}
+              className="tw-border tw-rounded tw-p-2 tw-w-full"
             />
           </Form.Group>
 
           <FileUploader files={files} setFiles={setFiles} />
 
-          <EmojiPickerComponent
-            showEmojiPicker={showEmojiPicker}
-            setShowEmojiPicker={setShowEmojiPicker}
-            handleAddEmoji={handleAddEmoji}
-          />
-
           <LocationButton handleShowLocationModal={handleShowLocationModal} />
         </Form>
       </Modal.Body>
 
-      <Modal.Footer>
+      <Modal.Footer className="tw-bg-gray-100">
         <Button variant="secondary" onClick={handleClose}>
           Close
         </Button>

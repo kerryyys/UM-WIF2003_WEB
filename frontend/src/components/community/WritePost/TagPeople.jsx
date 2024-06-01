@@ -2,34 +2,24 @@ import React, { useState } from "react";
 import { Form, InputGroup, Badge } from "react-bootstrap";
 import SuggestionsList from "./SuggestionsList";
 
+const DUMMY_DATA = [
+  { id: 1, name: "John Doe" },
+  { id: 2, name: "Jane Smith" },
+  { id: 3, name: "Alice Johnson" },
+];
+
 const TagPeople = ({ taggedUsers, setTaggedUsers }) => {
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
-
-  const dummyData = [
-    { id: 1, name: "John Doe" },
-    { id: 2, name: "Jane Smith" },
-    { id: 3, name: "Alice Johnson" },
-  ];
-
-  // const fetchSuggestions = async (input) => {
-  //   try {
-  //     const response = await axios.get(
-  //       `http://localhost/community/users?query=${input}`
-  //     );
-  //     setSuggestions(response.data);
-  //   } catch (error) {
-  //     console.error("Error fetching user suggestions:", error);
-  //   }
-  // };
 
   const handleInputChange = (e) => {
     const input = e.target.value;
     setQuery(input);
     if (input) {
-      // fetchSuggestions(input);
-      const filteredSuggestions = dummyData.filter((user) =>
-        user.name.toLowerCase().includes(input.toLowerCase())
+      const filteredSuggestions = DUMMY_DATA.filter(
+        (user) =>
+          user.name.toLowerCase().includes(input.toLowerCase()) &&
+          !taggedUsers.some((taggedUser) => taggedUser.id === user.id)
       );
       setSuggestions(filteredSuggestions);
     } else {
@@ -48,33 +38,37 @@ const TagPeople = ({ taggedUsers, setTaggedUsers }) => {
   };
 
   return (
-    <Form.Group controlId="formPeopleTag" className="relative">
+    <Form.Group controlId="formPeopleTag" className="tw-relative">
       <Form.Label>Tag People</Form.Label>
-      <InputGroup>
-        <Form.Control
-          type="text"
-          placeholder="Type a name..."
-          value={query}
-          onChange={handleInputChange}
-          className="border border-gray-300 p-2 rounded w-full"
-        />
-        {suggestions.length > 0 && (
-          <SuggestionsList suggestions={suggestions} onSelectUser={handleSelectUser} />
-        )}
-      </InputGroup>
-      <div className="mt-2 flex flex-wrap">
+      <div className="tw-relative tw-flex tw-items-center tw-flex-wrap tw-border tw-border-gray-300 tw-rounded tw-p-2 tw-w-full">
         {taggedUsers.map((user) => (
           <Badge
             key={user.id}
             pill
             variant="primary"
             onClick={() => handleRemoveUser(user)}
-            className="bg-blue-500 text-white m-1 p-2 rounded cursor-pointer"
+            className="tw-bg-blue-500 tw-text-white tw-m-1 tw-p-2 tw-rounded-md tw-cursor-pointer"
           >
             {user.name} <span>&times;</span>
           </Badge>
         ))}
+        <InputGroup className="tw-flex-grow">
+          <Form.Control
+            type="text"
+            placeholder="Type a name..."
+            value={query}
+            onChange={handleInputChange}
+            className="tw-border-none tw-outline-none tw-p-0 tw-m-0 tw-w-full tw-flex-grow"
+            style={{ flex: "1 0 auto" }}
+          />
+        </InputGroup>
       </div>
+      {suggestions.length > 0 && (
+        <SuggestionsList
+          suggestions={suggestions}
+          onSelectUser={handleSelectUser}
+        />
+      )}
     </Form.Group>
   );
 };

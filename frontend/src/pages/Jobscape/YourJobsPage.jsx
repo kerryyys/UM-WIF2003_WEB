@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { text } from "@fortawesome/fontawesome-svg-core";
 import NotificationMenu from "../../components/jobscape/NotificationMenu";
+import ApplyingJobsList from "../../components/jobscape/AppliedJobsList";
 
 export default function YourJobsPage() {
   const navigate = useNavigate();
@@ -63,7 +64,9 @@ export default function YourJobsPage() {
             />
           </div>
         </div>
-
+        <h3 className="completed-jobs-title">Applying Jobs</h3>
+        <ApplyingJobsList></ApplyingJobsList>
+        <h3 className="completed-jobs-title">Taken Jobs</h3>
         <InProgressJobsList></InProgressJobsList>
         <h3 className="completed-jobs-title">Completed Jobs</h3>
         <CompletedJobsList></CompletedJobsList>

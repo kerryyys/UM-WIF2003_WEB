@@ -45,6 +45,7 @@ const PositionTab = ({
           background: "none",
           width: "25%",
           padding: "10px",
+          marginTop: "20px",
           transition: "color 0.3s",
           cursor: "pointer",
         }}
