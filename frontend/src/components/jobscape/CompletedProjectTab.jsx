@@ -96,22 +96,22 @@ const CompletedProjectTab = ({
 
   const handlePayBtnClick = async () => {
     // if (isProjectAccepted) {
-      try {
-        const response = await fetch(
-          `http://localhost:5050/projects/${projectId}`
-        );
-        const data = await response.json();
-        const { projectTitle, projectBudget } = data;
+    try {
+      const response = await fetch(
+        `http://localhost:5050/projects/${projectId}`
+      );
+      const data = await response.json();
+      const { projectTitle, projectBudget } = data;
 
-        localStorage.setItem("projectTitle", projectTitle);
-        localStorage.setItem("projectBudget", projectBudget);
+      localStorage.setItem("projectTitle", projectTitle);
+      localStorage.setItem("projectBudget", projectBudget);
 
-        navigate("/ewallet", {
-          state: { projectTitle, projectBudget },
-        });
-      } catch (error) {
-        console.error("Error fetching project data:", error);
-      }
+      navigate("/ewallet", {
+        state: { projectTitle, projectBudget },
+      });
+    } catch (error) {
+      console.error("Error fetching project data:", error);
+    }
     // }
   };
 
@@ -163,11 +163,7 @@ const CompletedProjectTab = ({
           >
             Rate
           </div>
-          <button
-            className="PayBtn"
-            onClick={handlePayBtnClick}
-            // disabled={isProjectAccepted}
-          >
+          <button className="PayBtn" onClick={handlePayBtnClick}>
             Pay
           </button>
         </div>

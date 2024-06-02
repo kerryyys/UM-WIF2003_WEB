@@ -3,11 +3,8 @@ import JobsListItem from "./JobsListItem";
 import { useEffect, useState } from "react";
 import { getCompletedProjects } from "../../api/projectApi";
 
-export default function CompletedJobsList() {
+export default function CompletedJobsList({ userId }) {
   const [completedProjects, setCompletedProject] = useState([]);
-  // Fake user id just for testing
-  // NEED TO BE MODIFIED ONCE USER SESSION IS IMPLEMENTED
-  const userId = "665ae5b6a6b3bf91769e6d6e";
   useEffect(() => {
     const fetchCompletedProjects = async () => {
       try {

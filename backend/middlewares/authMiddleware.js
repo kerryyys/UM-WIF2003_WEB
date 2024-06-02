@@ -9,16 +9,20 @@ dotenv.config();
 // To verify client's token is valid or not, then decode it to extract userid
 export const userVerification = (req, res) => {
   const token = req.cookies.token;
+  console.log("received token in backend: " + token);
   if (!token) {
+    console.log("no token!!");
     return res.json({ status: false });
   }
   jwt.verify(token, process.env.TOKEN_KEY, async (err, data) => {
     if (err) {
+      console.log("wrong token!!");
       return res.json({ status: false });
     } else {
-      const user = await User.findById(data.id);
+      console.log("correct token");
+      const user = await User.findById(data._id);
       // Sends back user's username if token is valid
-      if (user) return res.json({ status: true, user: user.username });
+      if (user) return res.json({ status: true, user: user });
       else return res.json({ status: false });
     }
   });

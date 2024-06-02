@@ -4,6 +4,7 @@ import { signUp, login } from "../controllers/authController.js";
 import {
   validateSignUp,
   validateLogin,
+  userVerification,
 } from "../middlewares/authMiddleware.js";
 import {
   handleBadRequest,
@@ -28,5 +29,5 @@ router.get("/debug", async (req, res) => {
     handleInternalServerError(res, error);
   }
 });
-
+router.get("/verify", userVerification);
 export default router;

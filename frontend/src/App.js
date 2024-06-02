@@ -5,6 +5,7 @@ import {
   Route,
   useLocation,
 } from "react-router-dom";
+import ProtectedRoute from "./components/ProtectedRoute";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import Home from "./pages/General/Home";
@@ -55,9 +56,8 @@ function App() {
   // These states are passed into Login
   // They will be set after login is valid
   const [loggedIn, setLoggedIn] = useState(false);
-  const [user, setUser] = useState(null);
   return (
-    <UserProvider user={user}>
+    <UserProvider>
       <Router>
         <ScrollToTopOnNavigation />
         <NavBar loggedIn={loggedIn} />
@@ -66,12 +66,7 @@ function App() {
 
           <Route
             path="/Login"
-            element={
-              <Login
-                setLoggedIn={(boolean) => setLoggedIn(boolean)}
-                setUser={setUser}
-              />
-            }
+            element={<Login setLoggedIn={(boolean) => setLoggedIn(boolean)} />}
           />
           <Route path="/Register" element={<Register />} />
           <Route path="/ForgotP" element={<ForgotP />} />
@@ -82,7 +77,9 @@ function App() {
           <Route path="/SeekTalentPage" element={<SeekTalentPage />} />
           <Route path="/PostProjectPage" element={<PostProjectPage />} />
           <Route path="/ReviewProjectPage" element={<ReviewProjectPage />} />
-          <Route path="/YourJobs" element={<YourJobsPage />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path="/YourJobs" element={<YourJobsPage />} />
+          </Route>
           <Route
             path="/SeekJobPage/job-details/:projectId"
             element={<JobDetailsPage />}

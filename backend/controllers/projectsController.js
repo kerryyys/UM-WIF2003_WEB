@@ -2,7 +2,7 @@
 // For better code separation
 import e, { json } from "express";
 import { Project } from "../models/projectModel.js";
-import { FakeUser } from "../models/fakeUserModel.js";
+import User from "../models/userModel.js";
 
 export const getAllProjects = async (req, res) => {
   try {
@@ -67,7 +67,7 @@ export const saveFavoriteProject = async (req, res) => {
   console.log(req.body);
   const { userId, projectId } = req.body;
   try {
-    const user = await FakeUser.findById(userId);
+    const user = await User.findById(userId);
     if (!user) {
       return res.status(404).json({ message: "User doesn't exist" });
     }
@@ -87,7 +87,7 @@ export const saveFavoriteProject = async (req, res) => {
 export const removeFavoriteProject = async (req, res) => {
   const { userId, projectId } = req.body;
   try {
-    const user = await FakeUser.findById(userId);
+    const user = await User.findById(userId);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -108,7 +108,7 @@ export const addApplyingProject = async (req, res) => {
   console.log(req.body);
   const { userId, projectId } = req.body;
   try {
-    const user = await FakeUser.findById(userId);
+    const user = await User.findById(userId);
     if (!user) {
       return res.status(404).json({ message: "User doesn't exist" });
     }
@@ -131,7 +131,7 @@ export const addApplyingProject = async (req, res) => {
 export const getApplyingProjects = async (req, res) => {
   const userId = req.params.userId;
   try {
-    const user = await FakeUser.findById(userId).populate("applyingProjects");
+    const user = await User.findById(userId).populate("applyingProjects");
     if (!user) {
       return res.status(404).json({ message: "User doesn't exist" });
     }
@@ -146,7 +146,7 @@ export const saveTakenProject = async (req, res) => {
   console.log(req.body);
   const { userId, projectId } = req.body;
   try {
-    const user = await FakeUser.findById(userId);
+    const user = await User.findById(userId);
     if (!user) {
       return res.status(404).json({ message: "User doesn't exist" });
     }
@@ -163,10 +163,9 @@ export const saveTakenProject = async (req, res) => {
 };
 
 export const getTakenProjects = async (req, res) => {
-  console.log("getTakenProjects: ", req.params.userId);
   const userId = req.params.userId;
   try {
-    const user = await FakeUser.findById(userId).populate("takenProjects");
+    const user = await User.findById(userId).populate("takenProjects");
     if (!user) {
       return res.status(404).json({ message: "User doesn't exist" });
     }
@@ -181,7 +180,7 @@ export const getTakenProjects = async (req, res) => {
 export const saveCompletedProject = async (req, res) => {
   const { userId, projectId } = req.body;
   try {
-    const user = await FakeUser.findById(userId);
+    const user = await User.findById(userId);
     if (!user) {
       return res.status(404).json({ message: "User doesn't exist" });
     }
@@ -200,7 +199,7 @@ export const saveCompletedProject = async (req, res) => {
 export const getCompletedProjects = async (req, res) => {
   const userId = req.params.userId;
   try {
-    const user = await FakeUser.findById(userId).populate("completedProjects");
+    const user = await User.findById(userId).populate("completedProjects");
     if (!user) {
       return res.status(404).json({ message: "User doesn't exist" });
     }
@@ -232,7 +231,7 @@ export const uploadCompletedWorks = async (req, res) => {
       serviceProvider: req.body.userId,
       uploadedFiles: uploadedFiles,
     });
-    const user = await FakeUser.findById(req.body.userId);
+    const user = await User.findById(req.body.userId);
     // user.takenProjects.pull(req.body.projectId);
     // user.completedProjects.push(req.body.projectId);
     await user.save();
