@@ -76,14 +76,6 @@ const SeekJobPage = () => {
     console.log("event target" + event.target.value);
   };
 
-  const handleCategoryChange = (event) => {
-    setSelectedCategory(event.target.value);
-  };
-
-  const handleDurationChange = (event) => {
-    setSelectedDuration(event.target.value);
-  };
-
   // Send GET request to backend with search query
   const handleClick = async () => {
     console.log("Search value: " + searchValue);
