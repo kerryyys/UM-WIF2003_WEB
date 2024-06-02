@@ -62,6 +62,7 @@ function InvoiceList() {
 
         <div className="card-wenhao">
           <p className="INV-title-name">Invoice List</p>
+
           {invoices.map((invoice, index) => (
         <div key={index} className="INV" onClick={() => handleInvClick(invoice)}>
           <p className="INVName">Completed</p>

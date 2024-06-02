@@ -21,9 +21,9 @@ function Invoice() {
           } else {
             throw new Error('Failed to fetch invoices.');
           }
-      } catch (error) {
-        console.error('Error fetching invoices:', error);
-      }
+        } catch (error) {
+          console.error('Error fetching invoices:', error);
+        }
       }
     };
     fetchInvoices();

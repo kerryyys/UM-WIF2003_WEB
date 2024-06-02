@@ -123,10 +123,11 @@ function App() {
             <Route path="/fpx" element={<Fpx />} />
             <Route path="/invoiceList" element={<InvoiceList />} />
             <Route path="/paymentHis" element={<PaymentHis />} />
+            <Route path="/redirect" element={<Redirect />} />
+            <Route path="/successful" element={<Successful />} />
           </Route>
           
-          <Route path="/redirect" element={<Redirect />} />
-          <Route path="/successful" element={<Successful />} />
+          
           
       
           <Route path="/AboutUs" element={<AboutUs />} />
