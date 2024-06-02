@@ -5,6 +5,14 @@ import "../../../components-css/Community/NewsFeed.css";
 import WritePost from "../WritePost/WritePost";
 
 function NewsFeed({ newsFeedList }) {
+  if (!Array.isArray(newsFeedList)) {
+    return <div>No posts available</div>;
+  }
+
+  newsFeedList.forEach((post) => {
+    console.log(post);
+  });
+
   return (
     <div>
       <WritePost />
@@ -12,15 +20,18 @@ function NewsFeed({ newsFeedList }) {
         {newsFeedList.length === 0 ? (
           <p>No news feed available</p>
         ) : (
-          newsFeedList.map((data, index) => (
+          newsFeedList.map((post, index) => (
             <NewsFeedItem
               key={index}
-              img={data.img}
-              name={data.name}
-              title={data.title}
-              time={data.time}
-              content={data.content}
-              images={data.images}
+              authorImage={null}
+              authorName={post.author.username}
+              postId={post._id}
+              postTitle={post.title}
+              postContent={post.content}
+              postImages={post.images || []}
+              postCreatedTime={post.createdAt}
+              numberOfLikes={post.likes.length}
+              numberOfComments={post.comments.length}
             />
           ))
         )}
