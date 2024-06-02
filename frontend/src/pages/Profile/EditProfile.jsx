@@ -39,7 +39,6 @@ function EditProfile() {
     const handleSave = async () => {
         try {
             setShowLoading(true);
-            console.log("hi", profileData)
             const response = await fetch(`http://localhost:5050/users/${userId}`, {
                 method: 'PUT',
                 headers: {
@@ -167,12 +166,12 @@ function EditProfile() {
                 </Container>
                 <div className="w-100" style={{ marginTop: '30px' }}>
                     <div>
-                        <p style={{ fontWeight: '700' }}>First Name</p>
+                        <p style={{ fontWeight: '700' }}>Username</p>
                         <input
                             className="bigInput"
                             type="text"
-                            name="firstName"
-                            value={profileData.firstName || ''}
+                            name="username"
+                            value={profileData.username || ''}
                             onChange={handleInputChange}
                         />
                     </div>
