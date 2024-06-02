@@ -78,8 +78,8 @@ function AddNewExperience() {
     return (
         <Container className='d-flex justify-content-center align-items-center'>
             <div className='mt-5 w-50'>
-                <h5>Add Experience</h5>
-                <div style={{ marginLeft: '3px' }}>
+                <p style={{ fontSize:'20px' }}>Add Experience</p>
+                <div style={{ marginLeft: '3px',marginTop:'10px' }}>
                     <div>
                         <p>Title</p>
                         <input

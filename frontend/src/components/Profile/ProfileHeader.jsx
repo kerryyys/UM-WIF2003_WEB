@@ -21,8 +21,8 @@ function ProfileHeader(props) {
 
         </Col>
         <Col xs={12} md={5}>
-          <p style={{ marginTop: '10px',fontSize:'23px' }}>{name}</p>
-          <div style={{ display: 'flex' ,marginTop:'10px'}}>
+          <p style={{ marginTop: '10px',fontSize:'25px',fontWeight:'bold' }}>{name}</p>
+          <div style={{ display: 'flex' ,marginTop:'5px'}}>
             <p style={{ marginRight: '50px', color: '#2D4777' }}>{university}</p>
             <p style={{ color: '#858585' }}>{location}</p>
           </div>
