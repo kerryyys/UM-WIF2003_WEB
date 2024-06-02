@@ -17,7 +17,7 @@ class PostService {
   }
 
   async getAllPosts() {
-    return await Post.find().populate("comments");
+    return await Post.find().populate("author").populate("comments");
   }
 
   async getAllPostsByUserId(userId) {
