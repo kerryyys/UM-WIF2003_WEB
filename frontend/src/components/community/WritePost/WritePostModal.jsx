@@ -16,8 +16,6 @@ const WritePostModal = ({ show, handleClose }) => {
   const initialValues = {
     title: "",
     content: "",
-    taggedUsers: [],
-    placeTag: "",
   };
 
   const validationSchema = Yup.object({
@@ -31,8 +29,8 @@ const WritePostModal = ({ show, handleClose }) => {
     postData.append("content", values.content);
     postData.append("userId", user ? user._id : null);
 
-    files.forEach((file, index) => {
-      postData.append(`images[${index}]`, file);
+    files.forEach((file) => {
+      postData.append("images", file);
     });
 
     try {

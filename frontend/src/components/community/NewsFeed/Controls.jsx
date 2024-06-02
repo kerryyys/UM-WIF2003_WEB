@@ -10,11 +10,46 @@ import {
 import CommentSection from "./CommentSection";
 import ShareModal from "./ShareModal";
 import { AnimatePresence, motion } from "framer-motion";
+import { likePost, unlikePost } from "../../../api/postApi"; // Adjust the import according to your project structure
+import { useUserContext } from "../../../context/UserContext";
+import { usePostContext } from "../../../context/PostContext";
+import { fetchPostStats } from "../../../api/postApi";
 
-function Controls() {
+function Controls({ setNumberOfLikes, setNumberOfComments }) {
+  const { user } = useUserContext();
   const [activeItem, setActiveItem] = useState(null);
   const [isLikeActive, setIsLikeActive] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { postId } = usePostContext();
+
+  const fetchAndUpdateStats = async () => {
+    try {
+      const stats = await fetchPostStats(postId);
+      setNumberOfLikes(stats.numberOfLikes);
+      setNumberOfComments(stats.numberOfComments);
+    } catch (error) {
+      console.error("Error fetching post stats:", error);
+    }
+  };
+
+  const handleLike = async () => {
+    setIsLikeActive(!isLikeActive);
+    if (!isLikeActive) {
+      try {
+        await likePost(postId, user._id);
+        fetchAndUpdateStats();
+      } catch (error) {
+        console.error("Error liking post:", error);
+      }
+    } else {
+      try {
+        await unlikePost(postId, user._id);
+        fetchAndUpdateStats();
+      } catch (error) {
+        console.error("Error un-liking post:", error);
+      }
+    }
+  };
 
   const items = [
     {
@@ -22,7 +57,7 @@ function Controls() {
       label: "Like",
       color: "#ff7eb3", // Pink color
       isActive: isLikeActive,
-      onClick: () => setIsLikeActive(!isLikeActive),
+      onClick: handleLike,
     },
     {
       icon: <FontAwesomeIcon icon={faCommentDots} className="tw-mr-4" />,

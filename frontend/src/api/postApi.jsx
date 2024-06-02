@@ -4,32 +4,31 @@ import { readAndLog, readAndReturn } from "../utils/responseHandler.tsx";
 // Use environment variable for API URL
 const API_URL = "http://localhost:5050/api/community";
 
+export const fetchPostStats = async (postId) => {
+  try {
+    const res = await axios.get(`${API_URL}/posts/${postId}/stats`);
+    return res.data;
+  } catch (error) {
+    console.error("Failed to get post stats:", error);
+  }
+};
+
 // Function to submit a new post
 export const postPost = async (postData, action) => {
   try {
-    console.log("Posting data:", postData);
+    // Log FormData content
+    for (let pair of postData.entries()) {
+      console.log(`${pair[0]}: ${pair[1]}`);
+    }
     const res = await axios.post(`${API_URL}/posts`, postData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
     });
-
     const data = readAndReturn(res, "Failed to submit post");
     action(data);
   } catch (error) {
     console.error("Error submitting post:", error);
-  }
-};
-
-// Function to like a post
-export const postLikes = async (postId, userId) => {
-  try {
-    const res = await axios.post(`${API_URL}/posts/${postId}/likes`, {
-      userId,
-    });
-    readAndLog(res, "Post liked successfully", "Failed to like post");
-  } catch (err) {
-    console.error("Error liking post:", err);
   }
 };
 
@@ -78,11 +77,23 @@ export const deletePost = async (postId) => {
   }
 };
 
+// Function to like a post
+export const likePost = async (postId, userId) => {
+  try {
+    const res = await axios.post(`${API_URL}/posts/${postId}/likes`, {
+      userId,
+    });
+    readAndLog(res, "Post liked successfully", "Failed to like post");
+  } catch (err) {
+    console.error("Error liking post:", err);
+  }
+};
+
 // Function to unlike a post
 export const unlikePost = async (postId, userId) => {
   try {
-    const res = await axios.post(`${API_URL}/posts/${postId}/unlikes`, {
-      userId,
+    const res = await axios.delete(`${API_URL}/posts/${postId}/likes`, {
+      data: { userId },
     });
     readAndLog(res, "Post unliked successfully", "Failed to unlike post");
   } catch (err) {

@@ -4,14 +4,22 @@ import Comment from "../models/comment.js";
 import { handleNotFound } from "../utils/errorHandler.js";
 
 class PostService {
+  async fetchPostStats(postId) {
+    const post = await Post.findById(postId);
+    handleNotFound(post, "Post");
+    return {
+      numberOfLikes: post.likes.length,
+      numberOfComments: post.comments.length,
+    };
+  }
   async postNewPost(userId, title, content, images) {
     const user = await User.findById(userId);
     handleNotFound(user, "User");
     const post = await Post.create({
       author: userId,
-      title,
-      content,
-      images,
+      title: title,
+      content: content,
+      images: images,
     });
     return post;
   }

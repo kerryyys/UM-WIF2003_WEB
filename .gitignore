@@ -6,3 +6,5 @@ node_modules
 /backend/node_modules
 /backend/public
 .gitignore
+
+backend/public/uploads/

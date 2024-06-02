@@ -6,12 +6,14 @@ import { StatusCodes } from "http-status-codes";
  */
 export const validateRequest = (schema) => {
   return (req, res, next) => {
+    console.log("Body: ", req.body.images);
     const { error } = schema.validate(
       { ...req.params, ...req.body },
       { abortEarly: false }
     );
 
     if (error) {
+      console.log(error);
       const errorMessage = error.details
         .map((detail) => detail.message)
         .join(", ");
