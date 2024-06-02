@@ -38,7 +38,7 @@ import PaymentHis from "./pages/Payment/paymentHis";
 import Invoice from "./pages/Payment/invoice";
 import Footer from "./components/Footer";
 import CommunityPage from "./pages/Community/CommunityPage";
-import NavBar from "./components/NavBar";
+import NavBar from "./components/navbar/NavBar";
 import "./App.css";
 import { UserProvider } from "./context/UserContext";
 
