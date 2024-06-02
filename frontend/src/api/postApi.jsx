@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../utils/customAxios";
 import { readAndLog, readAndReturn } from "../utils/responseHandler.tsx";
 
 // Use environment variable for API URL

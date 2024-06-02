@@ -77,6 +77,7 @@ function App() {
           <Route path="/SeekTalentPage" element={<SeekTalentPage />} />
           <Route path="/PostProjectPage" element={<PostProjectPage />} />
           <Route path="/ReviewProjectPage" element={<ReviewProjectPage />} />
+
           <Route element={<ProtectedRoute />}>
             <Route path="/YourJobs" element={<YourJobsPage />} />
             <Route
@@ -110,7 +111,10 @@ function App() {
           <Route path="/paymentHis" element={<PaymentHis />} />
           <Route path="/invoice" element={<Invoice />} />
           <Route path="/AboutUs" element={<AboutUs />} />
-          <Route path="/Community" element={<CommunityPage />} />
+
+          <Route element={<ProtectedRoute />}>
+            <Route path="/Community" element={<CommunityPage />} />
+          </Route>
         </Routes>
         <Footer />
       </Router>
