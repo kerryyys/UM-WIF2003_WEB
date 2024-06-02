@@ -7,6 +7,8 @@ import { motion } from "framer-motion";
 import { useUserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import { logoutUser } from "../api/authApi";
+import default_avatar from "../assets/icons/profile/avatar-default-symbolic-svgrepo-com.svg"; // Your default avatar path
+
 
 export default function NavBar() {
   const { user, updateUser } = useUserContext();
@@ -67,11 +69,15 @@ export default function NavBar() {
         <div className="tw-flex tw-items-center tw-gap-3">
           {user && (
             <>
-              <Link to={`/Profile/${user._id}`}>
+             <Link to={`/Profile/${user._id}`}>
                 <img
-                  src={ProfilePic}
+                  src={
+                    user.profilePic
+                      ? `data:${user.profilePicContentType};base64,${user.profilePic}`
+                      : default_avatar
+                  }
                   alt="Profile"
-                  className="tw-cursor-pointer tw-w-[50px]"
+                  className="tw-cursor-pointer tw-w-[50px] tw-h-[50px] tw-rounded-full"
                 />
               </Link>
               <Button onClick={handleSignOut} className="navbar-sign-out-btn">
