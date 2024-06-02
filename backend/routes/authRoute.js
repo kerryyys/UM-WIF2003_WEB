@@ -1,6 +1,6 @@
 import express from "express";
 import { asyncHandler } from "../middlewares/asyncMiddleware.js";
-import { signUp, login } from "../controllers/authController.js";
+import { signUp, login, logout } from "../controllers/authController.js";
 import {
   validateSignUp,
   validateLogin,
@@ -29,5 +29,7 @@ router.get("/debug", async (req, res) => {
     handleInternalServerError(res, error);
   }
 });
+
 router.get("/verify", userVerification);
+router.get("/logout", logout);
 export default router;

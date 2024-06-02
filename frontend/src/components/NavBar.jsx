@@ -4,14 +4,30 @@ import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import ProfilePic from "../assets/images/profile_pic.svg";
 import { motion } from "framer-motion";
+import { useUserContext } from "../context/UserContext";
+import { useNavigate } from "react-router-dom";
+import { logoutUser } from "../api/authApi";
 
-export default function NavBar({ loggedIn }) {
+export default function NavBar() {
+  const { user, updateUser } = useUserContext();
+  const navigate = useNavigate();
+
   const linkProps = [
     { label: "Jobscape", link: "/JobscapeMainPage", isActive: true },
     { label: "Seek Jobs", link: "/SeekJobPage", isActive: false },
     { label: "Community", link: "/Community", isActive: false },
     { label: "About Us", link: "/AboutUs", isActive: false },
   ];
+
+  const handleSignOut = async () => {
+    const result = await logoutUser();
+    if (result.status) {
+      updateUser(null); // Clear the user context
+      navigate("/Login"); // Redirect to the login page
+    } else {
+      console.error("Sign out failed");
+    }
+  };
 
   return (
     <div className="navbar-style tw-p-2">
@@ -32,8 +48,8 @@ export default function NavBar({ loggedIn }) {
                   scale: 1.3,
                   textShadow: "0px 0px 10px rgba(255, 255, 255, 1)",
                   color: "#d4d4d8",
-                  "padding-left": "10px",
-                  "padding-right": "10px",
+                  paddingLeft: "10px",
+                  paddingRight: "10px",
                 }}
                 whileTap={{
                   scale: 1,
@@ -49,21 +65,20 @@ export default function NavBar({ loggedIn }) {
         </div>
 
         <div className="tw-flex tw-items-center tw-gap-3">
-          <Link to="/Profile">
-            <img
-              src={ProfilePic}
-              alt="Profile"
-              className={`tw-cursor-pointer tw-w-[50px] ${
-                loggedIn ? "" : "tw-hidden"
-              }`}
-            />
-          </Link>
-          <Button
-            onClick={() => (window.location.href = "/Login")}
-            className={`navbar-sign-out-btn ${loggedIn ? "" : "tw-hidden"}`}
-          >
-            Sign out <i className="bi bi-box-arrow-right" />
-          </Button>
+          {user && (
+            <>
+              <Link to="/Profile">
+                <img
+                  src={ProfilePic}
+                  alt="Profile"
+                  className="tw-cursor-pointer tw-w-[50px]"
+                />
+              </Link>
+              <Button onClick={handleSignOut} className="navbar-sign-out-btn">
+                Sign out <i className="bi bi-box-arrow-right" />
+              </Button>
+            </>
+          )}
         </div>
       </nav>
     </div>

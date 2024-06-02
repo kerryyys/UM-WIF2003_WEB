@@ -2,12 +2,20 @@ import React from "react";
 import { motion } from "framer-motion";
 import Button from "react-bootstrap/Button";
 
-function ControlItem({ icon, label, onClick, isActive }) {
+function ControlItem({
+  icon,
+  label,
+  onClickFunction,
+  isActive,
+  whileTapAnimation,
+  inActiveClassName,
+}) {
   return (
     <motion.div
       whileHover={{ scale: 0.9 }}
       className="tw-flex-grow tw-flex tw-justify-center tw-items-center"
-      onClick={onClick}
+      onClick={onClickFunction}
+      whileTapAnimation={whileTapAnimation}
     >
       <Button
         variant="light"
@@ -15,17 +23,11 @@ function ControlItem({ icon, label, onClick, isActive }) {
       >
         {React.cloneElement(icon, {
           className: `${icon.props.className} ${
-            isActive
-              ? "tw-bg-gradient-to-t tw-from-pink-500 tw-to-pink-300 tw-bg-clip-text"
-              : ""
+            isActive ? inActiveClassName : ""
           }`,
         })}
         <span
-          className={`tw-m-0 tw-text-md ${
-            isActive
-              ? "tw-font-bold tw-bg-gradient-to-t tw-from-pink-500 tw-to-pink-300 tw-text-transparent tw-bg-clip-text"
-              : ""
-          }`}
+          className={`tw-m-0 tw-text-md ${isActive ? inActiveClassName : ""}`}
         >
           {label}
         </span>

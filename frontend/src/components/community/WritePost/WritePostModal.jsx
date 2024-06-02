@@ -8,16 +8,16 @@ import { useUserContext } from "../../../context/UserContext";
 import TitleField from "./TitleField";
 import ContentField from "./ContentField";
 import SubmitButtons from "./SubmitButton";
+import { useNewsFeedContext } from "../../../context/NewsFeedContext";
 
 const WritePostModal = ({ show, handleClose }) => {
   const { user } = useUserContext();
   const [files, setFiles] = useState([]);
+  const { fetchPosts } = useNewsFeedContext();
 
   const initialValues = {
     title: "",
     content: "",
-    taggedUsers: [],
-    placeTag: "",
   };
 
   const validationSchema = Yup.object({
@@ -31,8 +31,8 @@ const WritePostModal = ({ show, handleClose }) => {
     postData.append("content", values.content);
     postData.append("userId", user ? user._id : null);
 
-    files.forEach((file, index) => {
-      postData.append(`images[${index}]`, file);
+    files.forEach((file) => {
+      postData.append("images", file);
     });
 
     try {
@@ -40,6 +40,7 @@ const WritePostModal = ({ show, handleClose }) => {
         console.log(successMessage);
         resetForm();
         setFiles([]);
+        fetchPosts();
         handleClose();
       });
     } catch (error) {
