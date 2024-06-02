@@ -111,8 +111,11 @@ export default function JobDetailsPage(props) {
       console.log("checkUserTaken Projects UseEffect has been executed");
       try {
         const user = await axios.get(`http://localhost:5050/users/${userId}`);
-        const tknProjects = user.data.takenProjects;
-        const applyingProjects = user.data.applyingProjects;
+        console.log(
+          "Fetched user.data.data._id in jobdetailspage: " + user.data.data._id
+        );
+        const tknProjects = user.data.data.takenProjects;
+        const applyingProjects = user.data.data.applyingProjects;
         console.log("Fetch user from frontend, tknProjects: ", tknProjects);
         console.log(
           "Fetch user from frontend, applyingProjects : ",

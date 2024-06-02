@@ -38,35 +38,35 @@
 
 .Filters {
   display: flex;
+  flex-wrap: wrap;
+  gap: 5px; /* Add space between the badges */
 }
 
 .FilterBadge {
-  margin-right: 5px;
   background-color: #80d1d5 !important; /* Override bootstrap background color */
   color: #fdfaf3 !important; /* Override bootstrap text color */
   border-radius: 5px;
+  margin-bottom: 5px; /* Add space at the bottom of the badge */
 }
 
 .details-button {
-    background-color: #2d4877 !important;
-    color: #fdfaf3;
-    border-radius: 5px !important;
-    border: none !important;
-    padding: 5px 10px !important;
-    margin: 0 5% !important;
+  background-color: #2d4877 !important;
+  color: #fdfaf3;
+  border-radius: 5px !important;
+  border: none !important;
+  padding: 5px 10px !important;
+  margin: 0 5% !important;
+  white-space: nowrap; /* Prevent text from wrapping to a new line */
 }
 
-.button:hover {
-    background-color: #80d1d5;
-    border-color: #80d1d5;
+.details-button:hover {
+  background-color: #80d1d5;
+  border-color: #80d1d5;
 }
 
-.ViewFilters{
-    margin-top: 15px;
-}
 .Biography {
-    margin-top: 10px;
-    color: #2D4877;
-    font-size: 16px;
-    font-weight: 400;
+  margin-top: 10px;
+  color: #2D4877;
+  font-size: 16px;
+  font-weight: 400;
 }

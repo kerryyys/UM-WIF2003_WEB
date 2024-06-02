@@ -5,11 +5,9 @@ const getDefaultFilter = function () {
 };
 
 // accept input from recruiter from FORM
-//i not sure how to get the user's data, like company logo & name
 const projectDetailsSchema = mongoose.Schema(
   {
-    //maybe have to get userID
-    companyLogo: { data: Buffer, contentType: String }, // Company logo as binary data
+    companyLogo: { data: Buffer, contentType: String }, 
     companyName: String, // Company name as string
     projectTitle: { type: String, required: true },
     projectDescription: { type: String, required: true },
@@ -27,7 +25,6 @@ const projectDetailsSchema = mongoose.Schema(
     taken: { type: Boolean, default: false },
     completed: { type: Boolean, default: false },
     applicants: { type: [String] }, //should store freelancer userID
-    // PIC: { type: Schema.Types.ObjectId, ref: "FakeUser" }, I renamed it to serviceProvider
     review: [
       {
         satisfactionRating: Number,

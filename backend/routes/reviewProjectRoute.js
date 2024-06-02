@@ -1,25 +1,23 @@
 import express from "express";
 import { Project } from "../models/projectModel.js";
-import { FakeUser } from "../models/fakeUserModel.js";
+import User from "../models/userModel.js";
 
 const router = express.Router();
 
-// Route to fetch projects based on status (posted, in progress or completed)
+// Route to get projects based on status
 router.get("/:status", async (req, res) => {
   try {
     const { status } = req.params;
+    const userId = req.query.userId;
+
     let projects;
 
     if (status === "posted") {
-      projects = await Project.find({ taken: false, completed: false });
+      projects = await Project.find({ taken: false, completed: false, postedBy: userId });
     } else if (status === "in-progress") {
-      projects = await Project.find({ taken: true, completed: false }).populate(
-        "serviceProvider"
-      );
+      projects = await Project.find({ taken: true, completed: false, postedBy: userId }).populate("serviceProvider");
     } else if (status === "completed") {
-      projects = await Project.find({ completed: true }).populate(
-        "serviceProvider"
-      );
+      projects = await Project.find({ completed: true, postedBy: userId }).populate("serviceProvider");
     } else {
       return res.status(400).json({ message: "Invalid status parameter" });
     }
@@ -30,21 +28,19 @@ router.get("/:status", async (req, res) => {
   }
 });
 
+
 // Route to fetch applicants for a specific project
-router.get("/posted/:projectId/applicants", async (req, res) => {
+router.get('/posted/:projectId/applicants', async (req, res) => {
   const { projectId } = req.params;
 
   try {
-    const project = await Project.findById(projectId);
+    const project = await Project.findById(projectId).populate('applicants');
     if (!project) {
-      return res.status(404).json({ message: "Project not found" });
+      return res.status(404).json({ message: 'Project not found' });
     }
-    console.log("Project ID: ", projectId);
-    console.log("Project: ", project);
     res.json(project.applicants);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Internal server error" });
+    res.status(500).json({ message: 'Internal server error' });
   }
 });
 
@@ -52,9 +48,9 @@ router.get("/posted/:projectId/applicants", async (req, res) => {
 router.put("/posted/:projectId/confirm", async (req, res) => {
   const { projectId } = req.params;
   const { userID } = req.body;
-  console.log("userID in backend: ", userID);
+
   try {
-    const user = await FakeUser.findById(userID);
+    const user = await User.findById(userID);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -69,7 +65,6 @@ router.put("/posted/:projectId/confirm", async (req, res) => {
       return res.status(404).json({ message: "Project not found" });
     }
 
-    // Confirm the applicant by removing others and updating the project document
     project.applicants = [];
     project.serviceProvider = userID;
     project.taken = true;
@@ -77,45 +72,38 @@ router.put("/posted/:projectId/confirm", async (req, res) => {
 
     res.json({ project, user });
   } catch (error) {
-    console.error(error);
     res.status(500).json({ message: "Internal server error" });
   }
 });
 
-// Remove applicant route
+// Route to remove applicant from a project
 router.put("/posted/:projectId/remove", async (req, res) => {
   const { projectId } = req.params;
   const { userID } = req.body;
-  console.log(projectId + "   " + userID);
 
   try {
     const project = await Project.findById(projectId);
     if (!project) {
       return res.status(404).json({ message: "Project not found" });
     }
-    console.log("applicants: " + project.applicants);
-    // Remove the applicant from the applicants array
-    // project.applicants = project.applicants.filter((id) => id !== userID);
     project.applicants.pull(userID);
-    console.log(project.applicants);
     await project.save();
 
-    const user = await FakeUser.findById(userID);
+    const user = await User.findById(userID);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
     if (user.applyingProjects.includes(projectId)) {
-      //remove projectId from applyingProjects
       user.applyingProjects.pull(projectId);
       await user.save();
     }
     res.json({ project, user });
   } catch (error) {
-    console.error(error);
     res.status(500).json({ message: "Internal server error" });
   }
 });
 
+// Route to delete a project
 router.delete("/posted/:projectId", async (req, res) => {
   const { projectId } = req.params;
 
@@ -126,36 +114,32 @@ router.delete("/posted/:projectId", async (req, res) => {
     }
     res.status(200).json({ message: "Project deleted successfully" });
   } catch (error) {
-    console.error(error);
     res.status(500).json({ message: "Internal server error" });
   }
 });
-
 
 // Route to accept the file for a project
 router.post("/:projectId/accept-file", async (req, res) => {
   const { projectId } = req.params;
   const { userId } = req.body;
-  console.log(userId);
-  console.log("Accept file request received for project ID:", projectId); // Debug statement
+
   try {
     const project = await Project.findById(projectId);
     if (!project) {
-      console.log("Project not found for ID:", projectId); // Debug statement
       return res.status(404).json({ message: "Project not found" });
     }
     project.completed = true;
     project.fileAccepted = true;
     await project.save();
-    const user = await FakeUser.findById(userId);
+
+    const user = await User.findById(userId);
     user.takenProjects.pull(projectId);
     user.completedProjects.push(projectId);
     await user.save();
-    console.log("File accepted for project ID:", projectId); // Debug statement
+
     res.json({ message: "File accepted" });
   } catch (error) {
-    console.error("Error accepting file:", error);
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ message: "Internal server error" });
   }
 });
 
@@ -163,7 +147,7 @@ router.post("/:projectId/accept-file", async (req, res) => {
 router.post("/:projectId/reject-file", async (req, res) => {
   const { projectId } = req.params;
   const { userId } = req.body;
-  console.log(userId);
+
   try {
     const project = await Project.findById(projectId);
     if (!project) {
@@ -173,25 +157,17 @@ router.post("/:projectId/reject-file", async (req, res) => {
     project.completed = false;
     await project.save();
 
-    // const user = await FakeUser.findById(userId);
-    // if (!user) {
-    //   return res.status(404).json({ message: "User not found" });
-    // }
-    // user.completedProjects.pull(projectId);
-    // user.takenProjects.push(projectId);
-    // await user.save();
     res.json({ project });
   } catch (error) {
-    console.error("Error rejecting files:", error);
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ message: "Internal server error" });
   }
 });
 
+// Route to save a review for a project
 router.post("/:projectId/saveReview", async (req, res) => {
   try {
     const { projectId } = req.params;
 
-    // Extract review data from the request body
     const {
       satisfactionRating,
       projectRating,
@@ -200,15 +176,12 @@ router.post("/:projectId/saveReview", async (req, res) => {
       collaboratorFeedback,
     } = req.body;
 
-    // Find the project by its ID
     const project = await Project.findById(projectId);
 
-    // If the project is not found, return an error
     if (!project) {
       return res.status(404).json({ message: "Project not found" });
     }
 
-    // Update the project's review data
     project.review = {
       satisfactionRating,
       projectRating,
@@ -217,14 +190,9 @@ router.post("/:projectId/saveReview", async (req, res) => {
       collaboratorFeedback,
     };
 
-    // Save the updated project
     const updatedProject = await project.save();
-    console.log("review saved");
-
-    // Return the updated project with the review data
     res.json(updatedProject);
   } catch (error) {
-    console.error(error);
     res.status(500).json({ message: "Internal server error" });
   }
 });
