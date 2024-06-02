@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import { useUserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import { logoutUser } from "../api/authApi";
-import default_avatar from "../assets/icons/profile/avatar-default-symbolic-svgrepo-com.svg"; // Your default avatar path
+import default_avatar from "../assets/icons/profile/avatar-default-symbolic-svgrepo-com.svg";
 
 
 export default function NavBar() {

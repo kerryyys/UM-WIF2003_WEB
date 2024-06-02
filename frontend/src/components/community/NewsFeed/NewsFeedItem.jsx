@@ -65,6 +65,7 @@ function NewsFeedItem({
         numberOfLikes={numberOfLikes}
         numberOfComments={numberOfComments}
       />
+      
       <hr className="tw-my-4 tw-border-slate-500" />
       <PostProvider postId={postId}>
         <Controls
