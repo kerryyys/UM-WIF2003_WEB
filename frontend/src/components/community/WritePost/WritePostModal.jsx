@@ -8,10 +8,12 @@ import { useUserContext } from "../../../context/UserContext";
 import TitleField from "./TitleField";
 import ContentField from "./ContentField";
 import SubmitButtons from "./SubmitButton";
+import { useNewsFeedContext } from "../../../context/NewsFeedContext";
 
 const WritePostModal = ({ show, handleClose }) => {
   const { user } = useUserContext();
   const [files, setFiles] = useState([]);
+  const { fetchPosts } = useNewsFeedContext();
 
   const initialValues = {
     title: "",
@@ -38,6 +40,7 @@ const WritePostModal = ({ show, handleClose }) => {
         console.log(successMessage);
         resetForm();
         setFiles([]);
+        fetchPosts();
         handleClose();
       });
     } catch (error) {
