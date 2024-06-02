@@ -7,10 +7,11 @@ import Skill from "../../components/Profile/Skill";
 import JobHistory from "../../components/Profile/JobHistory";
 import "../../pages-css/Profile/Profile.css";
 import { useParams } from "react-router-dom";
+import { useUserContext } from "../../context/UserContext";
+
 
 function Profile() {
-  // const { userId } = useParams();
-  const userId = "6656f978f67566b776033a16";
+  const { userId } = useParams();
   const [profile, setProfile] = useState({});
 
   const getProfileData = async () => {
@@ -33,7 +34,7 @@ function Profile() {
     <Container fluid style={{ maxWidth: "70%" }}>
       <Container className="mt-5">
         <ProfileHeader
-          name={`${profile.firstName} ${profile.lastName}`}
+          name={profile.username}
           university={profile.university}
           location={`${profile.city}, ${profile.state}`}
           avatarSrc={profile.profilePic}  

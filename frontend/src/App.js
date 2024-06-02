@@ -84,10 +84,25 @@ function App() {
               path="/SeekJobPage/job-details/:projectId"
               element={<JobDetailsPage />}
             />
+            <Route path="/Profile/:userId" element={<Profile />} />
+            <Route path="/EditProfile/:userId" element={<EditProfile />} />
+            <Route
+              path="/AddNewExperience/:userId"
+              element={<AddNewExperience />}
+            />
+            <Route
+              path="/EditExperience/:userId/:experienceId"
+              element={<EditExperience />}
+            />
+            <Route
+              path="/JobHistoryDetails/:id"
+              element={<JobHistoryDetails />}
+            />
             {/* Add all your routes here */}
           </Route>
 
           <Route path="/Favorite" element={<FavoritePage />} />
+
           <Route path="/Profile/:userId" element={<Profile />} />
           <Route path="/EditProfile/:userId" element={<EditProfile />} />
           <Route
