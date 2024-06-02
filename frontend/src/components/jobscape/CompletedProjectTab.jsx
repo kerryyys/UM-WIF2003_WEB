@@ -22,7 +22,7 @@ const CompletedProjectTab = ({
   const [projectDetails, setProjectDetails] = useState(null);
   const [fileAccepted, setFileAccepted] = useState(false);
   const [fileRejected, setFileRejected] = useState(false);
-  const [isProjectAccepted, setIsProjectAccepted] = useState(false);
+  const [isProjectAccepted, setIsProjectAccepted] = useState(true);
   const [notificationMessage, setNotificationMessage] = useState("");
   const [showLocalNotification, setShowLocalNotification] = useState(false);
   const navigate = useNavigate();
@@ -95,7 +95,7 @@ const CompletedProjectTab = ({
   };
 
   const handlePayBtnClick = async () => {
-    // if (isProjectAccepted) {
+     if (isProjectAccepted) {
     try {
       const response = await fetch(
         `http://localhost:5050/projects/${projectId}`
@@ -112,7 +112,7 @@ const CompletedProjectTab = ({
     } catch (error) {
       console.error("Error fetching project data:", error);
     }
-    // }
+    }
   };
 
   const handleCloseProjectDetails = () => {

@@ -2,13 +2,15 @@ import mongoose from 'mongoose';
 
 // E-Wallet Schema
 const selectedWalletSchema = new mongoose.Schema({
-    selectedWallet: String
+    selectedWallet: String,
+    userId : String
 });
 const SelectedWallet = mongoose.model('SelectedWallet', selectedWalletSchema);
 
 // Bank Schema
 const selectedBankSchema = new mongoose.Schema({
     selectedBank: String,
+    userId : String
 });
 const SelectedBank = mongoose.model('SelectedBank', selectedBankSchema);
 
@@ -18,7 +20,8 @@ const cardSchema = new mongoose.Schema({
     expirationDate: String,
     cvv: String,
     ownerName: String,
-    country: String
+    country: String,
+    userId : String
 });
 const CreditOrDebitCard = mongoose.model('CreditOrDebitCard', cardSchema);
 
