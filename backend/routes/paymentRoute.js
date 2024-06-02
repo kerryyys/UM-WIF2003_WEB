@@ -128,8 +128,13 @@ router.get("/task", async (req, res) => {
 
 // Invoice
 router.get('/invoices', async (req, res) => {
+  const userId = req.query.userId;
+
+  if (!userId) {
+    return res.status(400).json({ message: "User ID is required." });
+  }
   try {
-    const projects = await Project.find({}, 'projectTitle projectBudget');
+    const projects = await Project.find({ userId: userId }, 'projectTitle projectBudget');
     res.json(projects);
   } catch (err) {
     res.status(500).json({ message: err.message });
