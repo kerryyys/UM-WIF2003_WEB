@@ -2,22 +2,31 @@ import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import "../../pages-css/Payment/Payment.css";
 import Tnc from "../../components/payment/tnc";
+import { useUserContext } from "../../context/UserContext";
+import axios from '../../utils/customAxios';
 
 function InvoiceList() {
   const [invoices, setInvoices] = useState([]);
+  const {user} = useUserContext();
+  console.log("Your jobs page userContext: " + JSON.stringify(user));
 
   useEffect(() => {
-    const fetchInvoices = async () => {
-      try {
-        const response = await fetch('http://localhost:5050/payment/invoices');
-        const data = await response.json();
-        setInvoices(data);
-      } catch (error) {
-        console.error('Error fetching invoices:', error);
+    const fetchInvoices = async (userId) => {
+      if (user._id) {
+        try {
+          const response = await axios.get(`http://localhost:5050/invoices?userId=${userId}`);
+          if (response.status === 200) {
+            setInvoices(response.data);
+          } else {
+            throw new Error('Failed to fetch invoices.');
+          }
+        } catch (error) {
+          console.error('Error fetching invoices:', error);
+        }
       }
     };
     fetchInvoices();
-  }, []);
+  }, [user]);
 
   const handleDownload = () => {
         const pdfUrl = '';

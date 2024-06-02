@@ -2,8 +2,13 @@ import React, { useEffect, useState } from "react";
 import BackButton from '../../components/payment/BackButton';
 import Reminder from '../../components/payment/Reminder';
 import ChoosePaymentMethod from "../../components/payment/ChoosePaymentMethod";
+import { useUserContext } from "../../context/UserContext";
+import axios from '../../utils/customAxios';
+
 
 const Card = () => {
+  const {user} = useUserContext();
+  console.log("Your jobs page userContext: " + JSON.stringify(user));
 
   const [cardNumbers, setCardNumbers] = useState([]);
   const [selectedService, setSelectedService] = useState(null);
@@ -15,6 +20,7 @@ const Card = () => {
   const [projectTitle, setProjectTitle] = useState(null);
   const [projectBudget, setProjectBudget] = useState(null);
   const [paymentMethod, setPaymentMethod] = useState('');
+  const [services, setServices] = useState([]);
 
 
   useEffect(() => {
@@ -27,56 +33,73 @@ const Card = () => {
     }
   }, []);
 
+  // get the linked payment method
   useEffect(() => {
-    // Fetch card numbers
-    fetch("http://localhost:5050/payment/getCardNumbers")
-      .then((response) => response.json())
-      .then((data) => setCardNumbers(data))
-      .catch((error) =>
-        console.error("Error fetching card numbers:", error)
-      );
-  }, []);
+    if (user._id) {
+      fetchPaymentMethod(user._id);
+    }
+  }, [user]);
 
-  const handleServiceClick = (service) => {
-    setSelectedService(service);
-    localStorage.setItem('paymentMethod' , service.cardNumber);
+  
+  const fetchPaymentMethod = async (userId) => {
+    try {
+      const response = await axios.get(`http://localhost:5050/payment/getCardNumbers?userId=${userId}`);
+      if (response.status === 200) {
+        setCardNumbers(response.data);
+        console.log("Selected card:", response.data);
+      } else {
+        throw new Error('Failed to fetch payment method.');
+      }
+    } catch (error) {
+      console.error("Error fetching payment method:", error);
+    }
+  };
+
+  const handleServiceClick = (services) => {
+    setSelectedService(services);
+    localStorage.setItem('paymentMethod' , services.cardNumber);
     window.location.href = "/redirect";
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const selectedCard = {
+    if (!user) {
+      alert("Please log in.");
+      return;
+    }
+
+    const CreditOrDebitCard = {
       cardNumber,
       expirationDate,
       cvv,
       ownerName,
       country,
+      userId: user._id,
     };
 
-    if (cardNumber && expirationDate && cvv && ownerName && country) {
-      fetch("http://localhost:5050/payment/submitCard", {
-        method: "POST",
+    if (!cardNumber || !expirationDate || !cvv || !ownerName || !country) {
+      alert("Please enter all the card details.");
+      return;
+    }
+
+    try {
+      const response = await axios.post("http://localhost:5050/payment/submitCard", CreditOrDebitCard, {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(selectedCard),
-      })
-        .then((response) => {
-          if (response.ok) {
-            console.log("Data saved successfully.");
-            window.location.href = "/redirect";
-          } else {
-            throw new Error("Failed to save data.");
-          }
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    } else {
-      alert("Please enter all the card details.");
+      });
+      if (response.status === 200) {
+        console.log("Data saved successfully.");
+        window.location.href = "/redirect";
+      } else {
+        throw new Error("Failed to save data.");
+      }
+    } catch (error) {
+      console.error("Error saving data:", error);
     }
-  }; 
+};
+
 
   // Format card number input
   const formatCardNumber = (value) => {
@@ -121,19 +144,19 @@ const Card = () => {
           <p className="titleLinked">Linked payment method:</p>
 
           <div>
-            {cardNumbers.map((number, index) => (
-              <div
-                key={index}
-                onClick={() => handleServiceClick(number)}
-                className={`automatedContainer ${selectedService &&
-                    selectedService.cardNumber === number.cardNumber
-                    ? "selected"
-                    : ""}`}
-              >
-                <p className="BankName">{number.cardNumber}</p>
-              </div>
-            ))}
-          </div>
+      {cardNumbers.map((number, index) => (
+        <div
+          key={index}
+          onClick={() => handleServiceClick(number)}
+          className={`automatedContainer ${selectedService &&
+              selectedService.cardNumber === number.cardNumber
+              ? "selected"
+              : ""}`}
+        >
+          <p className="BankName">{number.cardNumber}</p>
+        </div>
+      ))}
+    </div>
           <ChoosePaymentMethod/>
           <form onSubmit={handleSubmit}>
             <p className="titleLinked">Card Number</p>
