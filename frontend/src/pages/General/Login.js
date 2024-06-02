@@ -6,8 +6,10 @@ import facebook from "../../assets/images/General/flat-color-icons_google.png";
 import sideBackground from "../../assets/images/General/LOGIN.png";
 import { getUser } from "../../api/authApi";
 import { useNavigate } from "react-router-dom";
+import { useUserContext } from "../../context/UserContext";
 
 function Login({ setLoggedIn, setUser }) {
+  const { updateUser } = useUserContext();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessages, setErrorMessages] = useState({});
@@ -21,7 +23,7 @@ function Login({ setLoggedIn, setUser }) {
 
     if (user) {
       setErrorMessages({});
-      setUser(user);
+      updateUser(user);
       setShowNotification(true);
       setTimeout(() => {
         setShowNotification(false);
@@ -33,7 +35,7 @@ function Login({ setLoggedIn, setUser }) {
         name: "invalid",
         message: "Invalid username or password",
       });
-      setUser(null);
+      updateUser(null);
     }
   };
 
@@ -55,7 +57,7 @@ function Login({ setLoggedIn, setUser }) {
         <div className="login-input-container">
           <input
             className="login-usernameInput"
-            placeholder="Username"
+            placeholder="Email"
             type="text"
             name="uname"
             value={username}

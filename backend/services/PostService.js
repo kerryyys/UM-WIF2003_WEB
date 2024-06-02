@@ -1,22 +1,34 @@
-import  User  from "../models/userModel.js";
-import  Post  from "../models/post.js";
-import { Comment } from "../models/comment.js";
+import User from "../models/userModel.js";
+import Post from "../models/post.js";
+import Comment from "../models/comment.js";
 import { handleNotFound } from "../utils/errorHandler.js";
 
 class PostService {
-  async postNewPost(userId, title, content) {
+  async fetchPostStats(postId) {
+    const post = await Post.findById(postId);
+    handleNotFound(post, "Post");
+    return {
+      numberOfLikes: post.likes.length,
+      numberOfComments: post.comments.length,
+    };
+  }
+  async postNewPost(userId, title, content, images) {
     const user = await User.findById(userId);
     handleNotFound(user, "User");
     const post = await Post.create({
       author: userId,
-      title,
-      content,
+      title: title,
+      content: content,
+      images: images,
     });
     return post;
   }
 
   async getAllPosts() {
-    return await Post.find().populate("comments");
+    return await Post.find()
+      .populate("author")
+      .populate("comments")
+      .sort({ createdAt: -1 });
   }
 
   async getAllPostsByUserId(userId) {
@@ -25,10 +37,10 @@ class PostService {
     return posts;
   }
 
-  async modifyPost(postId, title, content) {
+  async modifyPost(postId, title, content, images) {
     const post = await Post.findByIdAndUpdate(
       postId,
-      { title, content },
+      { title, content, images },
       { new: true }
     );
     handleNotFound(post, "Post");

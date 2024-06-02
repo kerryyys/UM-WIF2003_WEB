@@ -18,12 +18,10 @@ const SeekJobPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedFilters, setSelectedFilters] = useState([]);
 
-
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
 
- 
   const [projectTabs, setProjectTabs] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -47,7 +45,7 @@ const SeekJobPage = () => {
             projectName: project.projectTitle,
             companyName: project.companyName,
             projectCategory: project.projectCategory,
-            filters: project.filters,
+            filters: project.filter,
             timePosted: calculateTimePosted(project.createdAt),
           };
         });
@@ -107,7 +105,7 @@ const SeekJobPage = () => {
           projectName: project.projectTitle,
           companyName: project.companyName,
           projectCategory: project.projectCategory,
-          filters: project.filters,
+          filters: project.filter,
           timePosted: calculateTimePosted(project.createdAt),
         };
       });
@@ -117,7 +115,6 @@ const SeekJobPage = () => {
       console.log(error.message);
     }
   };
-
 
   const handleFilterChange = (name, checked) => {
     // Will add to selectedFilters if checked
@@ -133,7 +130,7 @@ const SeekJobPage = () => {
   };
 
   const projectPerPage = 7;
-  
+
   const filterTabs = [
     {
       filterTitle: "PROJECT CATEGORY",

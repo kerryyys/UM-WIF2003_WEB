@@ -1,7 +1,5 @@
-
-import express from 'express';
-import { Project } from '../models/projectModel.js';
-
+import express from "express";
+import { Project } from "../models/projectModel.js";
 
 const router = express.Router();
 
@@ -29,7 +27,7 @@ router.post("/", async (req, res) => {
       applicants,
       serviceProvider,
       review,
-      uploadedFiles
+      uploadedFiles,
     } = req.body;
 
     // Create a new project details document
@@ -55,7 +53,7 @@ router.post("/", async (req, res) => {
       applicants,
       serviceProvider,
       review,
-      uploadedFiles
+      uploadedFiles,
     });
 
     // Save the project details to MongoDB

@@ -4,6 +4,7 @@ import google from "../../assets/images/General/logos_facebook.png";
 import facebook from "../../assets/images/General/flat-color-icons_google.png";
 import sideBackground from "../../assets/images/General/LOGIN.png";
 import { postRegistration } from "../../api/authApi";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
   const [fullName, setFullName] = useState("");
@@ -11,6 +12,7 @@ function Register() {
   const [password, setPassword] = useState("");
   const [errorMessages, setErrorMessages] = useState({});
   const [userType, setUserType] = useState("recruiter");
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault(); // Prevent page reload
@@ -35,8 +37,9 @@ function Register() {
   };
 
   const handleRegistration = () => {
-    postRegistration(email, fullName, password);
-    window.location.href = "/Login";
+    console.log(email + " " + fullName + " " + password + " " + userType);
+    postRegistration(email, fullName, password, userType, navigate);
+    // window.location.href = "/Login";
   };
 
   // Generate JSX code for error message
@@ -125,8 +128,8 @@ function Register() {
             id="freelance"
             name="userType"
             value="freelance"
-            checked={userType === "freelance"}
-            onChange={() => setUserType("freelance")}
+            checked={userType === "freelancer"}
+            onChange={() => setUserType("freelancer")}
           />
           <label htmlFor="freelance">Freelancer</label>
         </div>

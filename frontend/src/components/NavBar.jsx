@@ -4,8 +4,11 @@ import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import ProfilePic from "../assets/images/profile_pic.svg";
 import { motion } from "framer-motion";
+import { useUserContext } from "../context/UserContext";
 
-export default function NavBar({ loggedIn }) {
+export default function NavBar() {
+  const { user } = useUserContext();
+
   const linkProps = [
     { label: "Jobscape", link: "/JobscapeMainPage", isActive: true },
     { label: "Seek Jobs", link: "/SeekJobPage", isActive: false },
@@ -32,8 +35,8 @@ export default function NavBar({ loggedIn }) {
                   scale: 1.3,
                   textShadow: "0px 0px 10px rgba(255, 255, 255, 1)",
                   color: "#d4d4d8",
-                  "padding-left": "10px",
-                  "padding-right": "10px",
+                  paddingLeft: "10px",
+                  paddingRight: "10px",
                 }}
                 whileTap={{
                   scale: 1,
@@ -49,21 +52,23 @@ export default function NavBar({ loggedIn }) {
         </div>
 
         <div className="tw-flex tw-items-center tw-gap-3">
-          <Link to="/Profile">
-            <img
-              src={ProfilePic}
-              alt="Profile"
-              className={`tw-cursor-pointer tw-w-[50px] ${
-                loggedIn ? "" : "tw-hidden"
-              }`}
-            />
-          </Link>
-          <Button
-            onClick={() => (window.location.href = "/Login")}
-            className={`navbar-sign-out-btn ${loggedIn ? "" : "tw-hidden"}`}
-          >
-            Sign out <i className="bi bi-box-arrow-right" />
-          </Button>
+          {user && (
+            <>
+              <Link to="/Profile">
+                <img
+                  src={ProfilePic}
+                  alt="Profile"
+                  className="tw-cursor-pointer tw-w-[50px]"
+                />
+              </Link>
+              <Button
+                onClick={() => (window.location.href = "/Login")}
+                className="navbar-sign-out-btn"
+              >
+                Sign out <i className="bi bi-box-arrow-right" />
+              </Button>
+            </>
+          )}
         </div>
       </nav>
     </div>

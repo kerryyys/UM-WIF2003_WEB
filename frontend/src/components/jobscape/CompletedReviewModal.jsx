@@ -1,28 +1,45 @@
+import { useEffect, useState } from "react";
 import "../../components-css/jobscape/CompletedReviewModal.css";
 import { Modal, Button } from "react-bootstrap";
 import Rating from "react-rating-stars-component";
 
 export default function CompletedReviewModal(props) {
-  const emojiArray = [
-    { empty: "bi bi-emoji-frown", filled: "bi bi-emoji-frown-fill" },
-    { empty: "bi bi-emoji-neutral", filled: "bi bi-emoji-neutral-fill" },
-    { empty: "bi bi-emoji-smile", filled: "bi bi-emoji-smile-fill" },
-    { empty: "bi bi-emoji-heart-eyes", filled: "bi bi-emoji-heart-eyes-fill" },
-  ];
-  const colorArray = ["#E82A2A", "#EFE60E", "#B7E82A", "#17FF66"];
+  const [reviewValues, setReviewValues] = useState(null);
+
+  useEffect(() => {
+    if (Array.isArray(props.review) && props.review.length > 0) {
+      setReviewValues(props.review[0]);
+    }
+  }, [props.review]);
+  const satisfactionRating = reviewValues
+    ? reviewValues.satisfactionRating
+    : "No rating available";
+  const projectRating = reviewValues
+    ? reviewValues.projectRating
+    : "No rating available";
+  const projectFeedback = reviewValues
+    ? reviewValues.projectFeedback
+    : "No rating available";
+  const collaboratorRating = reviewValues
+    ? reviewValues.collaboratorRating
+    : "No rating available";
+  const collaboratorFeedback = reviewValues
+    ? reviewValues.collaboratorFeedback
+    : "No rating available";
+  console.log(satisfactionRating);
   const setSatisfactionText = () => {
-    switch (props.satisfaction) {
+    switch (satisfactionRating) {
       case 1:
         return (
           <span className="satisfaction-text" style={{ color: "#E82A2A" }}>
-            not satisfied
+            disappointed
           </span>
         );
         break;
       case 2:
         return (
           <span className="satisfaction-text" style={{ color: "#EFE60E" }}>
-            slightly satisfied
+            not satisfied
           </span>
         );
         break;
@@ -36,10 +53,16 @@ export default function CompletedReviewModal(props) {
       case 4:
         return (
           <span className="satisfaction-text" style={{ color: "#17FF66" }}>
-            very satisfied
+            quite satisfied
           </span>
         );
         break;
+      case 5:
+        return (
+          <span className="satisfaction-text" style={{ color: "#17FF66" }}>
+            very satisfied
+          </span>
+        );
     }
   };
   return (
@@ -48,67 +71,39 @@ export default function CompletedReviewModal(props) {
       <Modal.Body className="border-0 review-container">
         <p>Your requester is {setSatisfactionText()} with your deliverable!</p>
         <div className="emoji-row">
-          <i
-            className={
-              props.satisfaction == 1
-                ? emojiArray[0].filled
-                : emojiArray[0].empty
-            }
-          ></i>
-          <i
-            className={
-              props.satisfaction == 2
-                ? emojiArray[1].filled
-                : emojiArray[1].empty
-            }
-          ></i>
-          <i
-            className={
-              props.satisfaction == 3
-                ? emojiArray[2].filled
-                : emojiArray[2].empty
-            }
-          ></i>
-          <i
-            className={
-              props.satisfaction == 4
-                ? emojiArray[3].filled
-                : emojiArray[3].empty
-            }
-          ></i>
+          <Rating
+            value={satisfactionRating}
+            edit={false}
+            size={40}
+            activeColor="#ffd700"
+          />
         </div>
         <p>Your project ratings:</p>
         <Rating
-          value={props.projectrating}
+          value={projectRating}
           edit={false}
           size={40}
           activeColor="#ffd700"
         />
         <p>Project Feedback</p>
         <div className="project-feedback">
-          <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facere
-            voluptas, provident quo minus harum mollitia distinctio eius
-            similique voluptates labore quibusdam, voluptatibus architecto esse
-            ratione in veritatis perferendis sed iste?
-          </p>
+          <p>{projectFeedback}</p>
         </div>
         <p>Your Ratings:</p>
         <Rating
-          value={props.personrating}
+          value={collaboratorRating}
           edit={false}
           size={40}
           activeColor="#ffd700"
         />
         <div className="person-feedback">
-          <p>{props.personfeedback}</p>
+          <p>{collaboratorFeedback}</p>
         </div>
       </Modal.Body>
       <Modal.Footer className="border-0 review-footer">
         <div className="feedback-from">
           <p>Feedback from:</p>
-          <img src={props.imgurl} alt="" />
-          <p>{props.reviewname}</p>
+          <p>{"need to be replaced by companyName"}</p>
         </div>
         <Button onClick={props.onHide}>Close</Button>
       </Modal.Footer>

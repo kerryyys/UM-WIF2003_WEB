@@ -3,11 +3,9 @@ import JobsListItem from "./JobsListItem";
 import { useEffect, useState } from "react";
 import { getTakenProjects } from "../../api/projectApi";
 
-export default function JobsListItemList() {
+export default function InProgressJobsList({ userId }) {
   const [takenProjects, setTakenProjects] = useState([]);
-  // Fake user id just for testing
-  // NEED TO BE MODIFIED ONCE USER SESSION IS IMPLEMENTED
-  const userId = "664a0e34bc1a43dbcb1f6d74";
+  console.log("userId sent to inprogressjobslist: " + userId);
   useEffect(() => {
     const fetchTakenProjects = async () => {
       try {

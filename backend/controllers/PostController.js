@@ -8,10 +8,12 @@ import {
   likePostSchema,
   userIdSchema,
 } from "../validators/postValidators.js";
+import upload from "../middlewares/fileUpload.js";
 
 class PostController extends BaseController {
   constructor() {
     super();
+    this.fetchPostStats = this.fetchPostStats.bind(this);
     this.postNewPost = this.postNewPost.bind(this);
     this.getAllPosts = this.getAllPosts.bind(this);
     this.getAllPostsByUserId = this.getAllPostsByUserId.bind(this);
@@ -21,17 +23,57 @@ class PostController extends BaseController {
     this.unlikePost = this.unlikePost.bind(this);
   }
 
+  async fetchPostStats(req, res) {
+    await this.handleRequest(
+      req,
+      res,
+      PostService.fetchPostStats,
+      req.params.postId
+    );
+  }
+
   async postNewPost(req, res) {
-    validateRequest(addPostSchema)(req, res, async () => {
-      await this.handleRequest(
-        req,
-        res,
-        PostService.postNewPost,
-        req.body.id, // Assuming you are now using req.user._id
-        req.body.title,
-        req.body.content
-      );
-    });
+    console.log("Request Body:", req.body);
+    console.log("Request Files:", req.files);
+
+    const { error } = addPostSchema.validate(
+      {
+        ...req.body,
+        images: req.files.map((file) => ({
+          buffer: file.buffer,
+          originalname: file.originalname,
+          mimetype: file.mimetype,
+        })),
+      },
+      { abortEarly: false }
+    );
+
+    if (error) {
+      console.log(error);
+      const errorMessage = error.details
+        .map((detail) => detail.message)
+        .join(", ");
+      return res.status(400).json({ message: errorMessage });
+    }
+
+    const { title, content, userId } = req.body;
+    const images = req.files.map((file) => ({
+      buffer: file.buffer,
+      originalname: file.originalname,
+      mimetype: file.mimetype,
+    }));
+
+    console.log("Processed Images:", images);
+
+    await this.handleRequest(
+      req,
+      res,
+      PostService.postNewPost,
+      userId,
+      title,
+      content,
+      images
+    );
   }
 
   async getAllPosts(req, res) {
@@ -51,13 +93,17 @@ class PostController extends BaseController {
 
   async modifyPost(req, res) {
     validateRequest(modifyPostSchema)(req, res, async () => {
+      const { title, content } = req.body;
+      const images = req.files;
+
       await this.handleRequest(
         req,
         res,
         PostService.modifyPost,
         req.params.postId,
-        req.body.title,
-        req.body.content
+        title,
+        content,
+        images // Pass images to the service layer
       );
     });
   }
@@ -80,7 +126,6 @@ class PostController extends BaseController {
         res,
         PostService.likePost,
         req.params.postId,
-        // req.user._id
         req.body.userId
       );
     });
@@ -93,7 +138,6 @@ class PostController extends BaseController {
         res,
         PostService.unlikePost,
         req.params.postId,
-        // req.user._id
         req.body.userId
       );
     });

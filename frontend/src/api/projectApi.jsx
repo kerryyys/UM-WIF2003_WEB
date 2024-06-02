@@ -1,7 +1,7 @@
 // Will include backend api functions for "project/" in this file
 // For better code separation
 
-import axios from "axios";
+import axios from "../utils/customAxios";
 export const API_URL = "http://localhost:5050/projects";
 
 export const favoriteProject = async (userId, projectId) => {
@@ -115,5 +115,31 @@ export const uploadCompletedWorks = async (files, projectId, userId) => {
     );
   } catch (error) {
     console.log("Error in uploadCompletedWorks, frontend api: " + error);
+  }
+};
+
+export const downloadFile = async (files) => {
+  try {
+    await Promise.all(
+      files.map(async (file) => {
+        const response = await axios.get(`${API_URL}/download`, {
+          params: { fileName: file.fileName },
+          responseType: "blob",
+        });
+        // Create a link element, set the href to the blob URL, and trigger a click to download
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", file.fileName); // Set the desired file name
+        document.body.appendChild(link);
+        link.click();
+
+        // Clean up
+        link.parentNode.removeChild(link);
+        window.URL.revokeObjectURL(url);
+      })
+    );
+  } catch (error) {
+    console.log("Error in downloadFile, projectApi: " + error);
   }
 };
