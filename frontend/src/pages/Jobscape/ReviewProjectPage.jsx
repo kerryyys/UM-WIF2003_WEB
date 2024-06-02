@@ -22,6 +22,7 @@ const ReviewProjectPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        console.log("ReviewProjectPage user context: " + user);
         const userId = user?._id;
         const postedResponse = await axios.get(
           `http://localhost:5050/recruite/posted?userId=${userId}`
