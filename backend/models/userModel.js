@@ -53,12 +53,6 @@ const userSchema = new mongoose.Schema(
       enum: ["recruiter", "freelancer"], // Enumerate the possible roles
       default: "recruiter", // Set a default role if none is provided
     },
-    firstName: {
-      type: String,
-    },
-    lastName: {
-      type: String,
-    },
     profilePic: {
       data: Buffer,
       contentType: String,

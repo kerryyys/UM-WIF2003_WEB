@@ -174,6 +174,8 @@ function AddNewExperience() {
                             selected={info.from}
                             onChange={date => handleDateChange(date,'from' )}
                             className="bigInput"
+                            dateFormat="MMMM yyyy"
+                            showMonthYearPicker
                         />
                     </div>
 
@@ -183,6 +185,8 @@ function AddNewExperience() {
                             selected={info.until}
                             onChange={date => handleDateChange(date, 'until')}
                             className="bigInput"
+                            dateFormat="MMMM yyyy"
+                            showMonthYearPicker
                             disabled={info.current}
                         />
                     </div>
