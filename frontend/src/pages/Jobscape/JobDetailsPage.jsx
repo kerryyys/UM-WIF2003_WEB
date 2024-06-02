@@ -12,7 +12,7 @@ import {
   setApplyingProject,
 } from "../../api/projectApi";
 import { API_URL } from "../../api/projectApi";
-import axios from "axios";
+import axios from "../../utils/customAxios";
 import moment from "moment";
 import { useUserContext } from "../../context/UserContext";
 
@@ -31,11 +31,8 @@ export default function JobDetailsPage(props) {
     uploadedFiles: [],
   });
 
-  // Fake user id just for testing
-  // NEED TO BE MODIFIED ONCE USER SESSION IS IMPLEMENTED
-
   const { user } = useUserContext();
-  console.log(user._id);
+  console.log("user context id in job details page: " + user._id);
   const userId = user._id;
 
   const navigate = useNavigate();

@@ -1,10 +1,6 @@
 import { motion } from "framer-motion";
 
 const ImageComponent = ({ src, remainingImagesCount, isLast }) => {
-  if (remainingImagesCount > 0 && isLast) {
-    console.log(`+${remainingImagesCount}`);
-  }
-
   return (
     <motion.div
       className="tw-w-full tw-h-full tw-relative tw-flex tw-items-center tw-justify-center tw-cursor-pointer"

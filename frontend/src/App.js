@@ -79,11 +79,13 @@ function App() {
           <Route path="/ReviewProjectPage" element={<ReviewProjectPage />} />
           <Route element={<ProtectedRoute />}>
             <Route path="/YourJobs" element={<YourJobsPage />} />
+            <Route
+              path="/SeekJobPage/job-details/:projectId"
+              element={<JobDetailsPage />}
+            />
+            {/* Add all your routes here */}
           </Route>
-          <Route
-            path="/SeekJobPage/job-details/:projectId"
-            element={<JobDetailsPage />}
-          />
+
           <Route path="/Favorite" element={<FavoritePage />} />
           <Route path="/Profile/:userId" element={<Profile />} />
           <Route path="/EditProfile/:userId" element={<EditProfile />} />

@@ -49,7 +49,8 @@ export const getAllPostsByUserId = async (userId) => {
     const res = await axios.get(`${API_URL}/posts/user/${userId}`);
     return res.data;
   } catch (error) {
-    console.error("Failed to get posts by user:", error);
+    console.error("Failed to get posts:", error);
+    return []; // Return an empty array in case of error
   }
 };
 
