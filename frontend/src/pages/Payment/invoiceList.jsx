@@ -28,6 +28,11 @@ function InvoiceList() {
     fetchInvoices();
   }, [user]);
 
+  if (!Array.isArray(invoices)) {
+    console.error('invoices is not an array:', invoices);
+    return null;
+  }
+
   const handleDownload = () => {
         const pdfUrl = '';
         const link = document.createElement('a');
