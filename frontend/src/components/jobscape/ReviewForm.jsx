@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Rating from "react-rating";
-import { BsStarFill } from "react-icons/bs"; // Import the star icon from react-icons/bs
+import { BsStarFill } from "react-icons/bs";
 import "../../components-css/jobscape/ReviewForm.css";
 
 const ReviewForm = ({ onClose, onReviewSubmit, setShowNotification }) => {
@@ -9,7 +9,6 @@ const ReviewForm = ({ onClose, onReviewSubmit, setShowNotification }) => {
   const [projectFeedback, setProjectFeedback] = useState("");
   const [collaboratorRating, setCollaboratorRating] = useState(0);
   const [collaboratorFeedback, setCollaboratorFeedback] = useState("");
-  const [showOverlay, setShowOverlay] = useState(false); // State to control overlay
 
   const isFormComplete = () => {
     return (
@@ -30,17 +29,15 @@ const ReviewForm = ({ onClose, onReviewSubmit, setShowNotification }) => {
         collaboratorRating,
         collaboratorFeedback,
       };
-      console.log("Review Data:", reviewData); // Debugging log
       onReviewSubmit(reviewData);
       onClose();
     } else {
-      setShowNotification(true); // Display notification that form is incomplete
+      setShowNotification(true);
     }
   };
 
-  // Define custom star icons for the Rating component
-  const starIcon = <BsStarFill color="#FFD700" size={24} />; // Define a gold star icon
-  const emptyStarIcon = <BsStarFill color="#ccc" size={24} />; // Define an empty star icon
+  const starIcon = <BsStarFill color="#FFD700" size={24} />;
+  const emptyStarIcon = <BsStarFill color="#ccc" size={24} />;
 
   return (
     <>
