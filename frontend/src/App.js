@@ -123,6 +123,7 @@ function App() {
             path="/JobHistoryDetails/:id"
             element={<JobHistoryDetails />}
           />
+          
           <Route element={<ProtectedRoute />}>
             <Route path="/card" element={<Card />} />
             <Route path="/ewallet" element={<Ewallet />} />
