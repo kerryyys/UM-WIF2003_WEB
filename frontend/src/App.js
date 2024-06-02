@@ -75,8 +75,6 @@ function App() {
           <Route path="/JobscapeMainPage" element={<JobscapeMainPage />} />
           <Route path="/SeekJobPage" element={<SeekJobPage />} />
           <Route path="/SeekTalentPage" element={<SeekTalentPage />} />
-          <Route path="/PostProjectPage" element={<PostProjectPage />} />
-          <Route path="/ReviewProjectPage" element={<ReviewProjectPage />} />
 
           <Route element={<ProtectedRoute />}>
             <Route
