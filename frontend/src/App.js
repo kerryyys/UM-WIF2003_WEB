@@ -79,6 +79,14 @@ function App() {
           <Route path="/ReviewProjectPage" element={<ReviewProjectPage />} />
 
           <Route element={<ProtectedRoute />}>
+            <Route
+            path="/PostProjectPage/:userId"
+            element={<PostProjectPage />}
+          />
+          <Route
+            path="/ReviewProjectPage/:userId"
+            element={<ReviewProjectPage />}
+          />
             <Route path="/YourJobs" element={<YourJobsPage />} />
             <Route
               path="/SeekJobPage/job-details/:projectId"

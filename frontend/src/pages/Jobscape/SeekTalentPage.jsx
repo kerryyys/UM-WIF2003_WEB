@@ -7,7 +7,8 @@ import CollaboratorTab from "../../components/jobscape/CollaboratorTab";
 import PageNumberNav from "../../components/jobscape/PageNumberNav";
 import postProject from "../../assets/icons/jobscape/postProject.svg";
 import reviewProject from "../../assets/icons/jobscape/reviewProject.svg";
-import axios from "axios";
+import axios from "../../utils/customAxios";
+import { useUserContext } from "../../context/UserContext";
 
 const SeekTalentPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -33,17 +34,14 @@ const SeekTalentPage = () => {
 
   // Retrieve data from backend
   useEffect(() => {
-    // Fetch freelancer data from backend API
     axios
       .get("http://localhost:5050/users/")
       .then((response) => {
         const fetchedFreelancers = response.data.data.map((freelancer) => ({
           ...freelancer,
-          filters: [
-            ...freelancer.skill,
-            freelancer.state,
-            freelancer.rating.toString(), // Add rating as a string to the filters array
-          ],
+          skill: freelancer.skill || [], // Ensure skill is an array or default to empty array
+          state: freelancer.state || "Remote", // Ensure state is a string or default to empty string
+          rating: (freelancer.rating || 5).toString(), // Use rating if present, or default to 5
         }));
         setFreelancers(fetchedFreelancers);
         console.log(fetchedFreelancers);
@@ -88,9 +86,10 @@ const SeekTalentPage = () => {
   ];
 
   const filteredCollaborators = freelancers.filter((freelancer) => {
-    return selectedFilters.every((filter) =>
-      freelancer.filters.includes(filter)
-    );
+    return (
+      selectedFilters.every((filter) => freelancer.skill.includes(filter)) &&
+      freelancer.role === "freelancer"
+    ); // Ensure only freelancers are shown
   });
 
   const totalCollaborators = filteredCollaborators.length;
@@ -117,14 +116,14 @@ const SeekTalentPage = () => {
           backgroundImage={postProject}
           text="Post a New Project"
           borderRadius="10px 0 0 10px"
-          to="/PostProjectPage"
+          to="/PostProjectPage/:userId"
         />
         <NavBigTab
           backgroundImage={reviewProject}
           position="right"
           text="Review Collaboration"
           borderRadius="0 10px 10px 0"
-          to="/ReviewProjectPage"
+          to="/ReviewProjectPage/:userId"
         />
       </div>
 
@@ -155,28 +154,31 @@ const SeekTalentPage = () => {
             ProjectOrCollab="Collaborators"
             newOrRate="RATING"
           />
-          <div className="CollabResult">
-            {/* Display filtered and paginated collaborators */}
-            {slicedCollaborators.map((freelancer, index) => (
-              <CollaboratorTab
-                key={index}
-                profilePic={freelancer.profilePic}
-                collaboratorName={`${freelancer.firstName} ${freelancer.lastName}`}
-                ratingStar={freelancer.rating}
-                filters={freelancer.skill} // Assuming skills is an array of strings
-                biography={freelancer.about}
-                location={freelancer.state}
-              />
-            ))}
-          </div>
+          {/* Display filtered and paginated collaborators */}
+          {slicedCollaborators.map((freelancer, index) => (
+            <CollaboratorTab
+              key={index}
+              profilePic={`http://localhost:5050/images/${freelancer.profilePic}`}
+              collaboratorName={freelancer.name}
+              username={freelancer.username} // Pass username as a prop
+              ratingStar={freelancer.rating}
+              skill={freelancer.skill}
+              biography={freelancer.biography}
+              location={freelancer.state}
+            />
+          ))}
         </div>
       </div>
-
-      <PageNumberNav
-        currentPage={currentPage}
-        totalPages={Math.ceil(totalCollaborators / collaboratorsPerPage)}
-        onPageChange={handlePageChange}
-      />
+      <div
+        className="pagination"
+        style={{ textAlign: "center", justifyContent: "center" }}
+      >
+        <PageNumberNav
+          currentPage={currentPage}
+          totalPages={Math.ceil(totalCollaborators / collaboratorsPerPage)}
+          onPageChange={handlePageChange}
+        />
+      </div>
     </>
   );
 };

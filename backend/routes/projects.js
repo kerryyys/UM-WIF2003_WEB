@@ -1,6 +1,6 @@
 import e from "express";
 import { Project } from "../models/projectModel.js";
-import { FakeUser } from "../models/fakeUserModel.js";
+import User from "../models/userModel.js";
 import multer from "multer";
 import {
   getAllProjects,
@@ -93,7 +93,7 @@ router.post("/user", async (req, res) => {
       takenProjects: [],
       completedProjects: [],
     };
-    const user = await FakeUser.create(newUser).then((user) => {
+    const user = await User.create(newUser).then((user) => {
       console.log("New User created: ", user);
     });
     return res.status(201).send(user);
@@ -104,7 +104,7 @@ router.post("/user", async (req, res) => {
 
 router.get("/user/:userId", async (req, res) => {
   try {
-    const user = await FakeUser.findById(req.params.userId);
+    const user = await User.findById(req.params.userId);
     return res.status(200).json(user);
   } catch (error) {
     return res.status(500).json({ error: error.message });
