@@ -128,7 +128,7 @@ const PostProjectPage = () => {
     e.preventDefault();
 
     if (!validateFields()) {
-      return; // Stop submission if validation fails
+      return; 
     }
 
     try {
@@ -144,10 +144,8 @@ const PostProjectPage = () => {
         contactInformation,
         additionalNotes,
         agreedToTerms,
-        postedBy: user?._id, // Add the user ID here
+        postedBy: user?._id, 
       };
-
-      console.log("Request Data:", requestData); // Log the request data
 
       const response = await axios.post(
         "http://localhost:5050/recruite",
