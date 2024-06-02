@@ -1,12 +1,19 @@
 import axios from "../utils/customAxios";
 
-export const postRegistration = async (email, username, password, navigate) => {
+export const postRegistration = async (
+  email,
+  username,
+  password,
+  userType,
+  navigate
+) => {
   try {
     console.log(email + " " + password + " " + username);
     const res = await axios.post("http://localhost:5050/auth/signup", {
       email,
       username,
       password,
+      userType,
     });
     console.log(res);
     navigate("/Login");

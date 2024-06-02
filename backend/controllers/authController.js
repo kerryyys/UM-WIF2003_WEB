@@ -12,7 +12,7 @@ import {
 
 export const signUp = async (req, res) => {
   try {
-    const { email, username, password } = req.body;
+    const { email, username, password, userType } = req.body;
     //Check if user email already exists in the database
     const existingUser = await User.findOne({ email });
 
@@ -27,6 +27,7 @@ export const signUp = async (req, res) => {
       email: email,
       password: hashedPassword,
       username: username,
+      role: userType,
     });
 
     // Create a token with JWT based on _id

@@ -37,8 +37,8 @@ function Register() {
   };
 
   const handleRegistration = () => {
-    console.log(email + " " + fullName + " " + password);
-    postRegistration(email, fullName, password, navigate);
+    console.log(email + " " + fullName + " " + password + " " + userType);
+    postRegistration(email, fullName, password, userType, navigate);
     // window.location.href = "/Login";
   };
 
@@ -128,8 +128,8 @@ function Register() {
             id="freelance"
             name="userType"
             value="freelance"
-            checked={userType === "freelance"}
-            onChange={() => setUserType("freelance")}
+            checked={userType === "freelancer"}
+            onChange={() => setUserType("freelancer")}
           />
           <label htmlFor="freelance">Freelancer</label>
         </div>
