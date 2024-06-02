@@ -74,3 +74,8 @@ export const login = async (req, res) => {
     return handleInternalServerError(res, error);
   }
 };
+
+export const logout = async (req, res) => {
+  res.clearCookie("token"); // Clear the token cookie
+  res.json({ status: true, message: "Logged out successfully" });
+};
