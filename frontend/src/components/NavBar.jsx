@@ -5,9 +5,12 @@ import { Button } from "react-bootstrap";
 import ProfilePic from "../assets/images/profile_pic.svg";
 import { motion } from "framer-motion";
 import { useUserContext } from "../context/UserContext";
+import { useNavigate } from "react-router-dom";
+import { logoutUser } from "../api/authApi";
 
 export default function NavBar() {
-  const { user } = useUserContext();
+  const { user, updateUser } = useUserContext();
+  const navigate = useNavigate();
 
   const linkProps = [
     { label: "Jobscape", link: "/JobscapeMainPage", isActive: true },
@@ -15,6 +18,16 @@ export default function NavBar() {
     { label: "Community", link: "/Community", isActive: false },
     { label: "About Us", link: "/AboutUs", isActive: false },
   ];
+
+  const handleSignOut = async () => {
+    const result = await logoutUser();
+    if (result.status) {
+      updateUser(null); // Clear the user context
+      navigate("/Login"); // Redirect to the login page
+    } else {
+      console.error("Sign out failed");
+    }
+  };
 
   return (
     <div className="navbar-style tw-p-2">
@@ -61,10 +74,7 @@ export default function NavBar() {
                   className="tw-cursor-pointer tw-w-[50px]"
                 />
               </Link>
-              <Button
-                onClick={() => (window.location.href = "/Login")}
-                className="navbar-sign-out-btn"
-              >
+              <Button onClick={handleSignOut} className="navbar-sign-out-btn">
                 Sign out <i className="bi bi-box-arrow-right" />
               </Button>
             </>
