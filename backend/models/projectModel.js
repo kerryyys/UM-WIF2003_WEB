@@ -7,6 +7,7 @@ const getDefaultFilter = function () {
 
 const projectSchema = mongoose.Schema(
   {
+    postedBy: { type: Schema.Types.ObjectId, ref: "User", required: true },
     companyLogo: { data: Buffer, contentType: String },
     companyName: { type: String },
     projectTitle: { type: String, required: true },
@@ -24,9 +25,8 @@ const projectSchema = mongoose.Schema(
     posted: { type: Boolean, default: true },
     taken: { type: Boolean, default: false },
     completed: { type: Boolean, default: false },
-    applicants: { type: [Schema.Types.ObjectId], ref: "FakeUser" }, //should store freelancer userID
-    // PIC: { type: Schema.Types.ObjectId, ref: "FakeUser" }, I renamed it to serviceProvider
-    serviceProvider: { type: Schema.Types.ObjectId, ref: "FakeUser" },
+    applicants: { type: [Schema.Types.ObjectId], ref: "User" },
+    serviceProvider: { type: Schema.Types.ObjectId, ref: "User" },
     fileAccepted: { type: Boolean, default: false },
     review: [
       {
@@ -38,7 +38,6 @@ const projectSchema = mongoose.Schema(
         _id: false,
       },
     ],
-
     uploadedFiles: [
       {
         fileUrl: String,
@@ -50,4 +49,5 @@ const projectSchema = mongoose.Schema(
   },
   { timestamps: true }
 );
+
 export const Project = mongoose.model("Project", projectSchema);

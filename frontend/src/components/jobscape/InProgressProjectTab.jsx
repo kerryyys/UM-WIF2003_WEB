@@ -3,7 +3,7 @@ import PopNotification from "./PopNotification";
 import SmallTitle from "../../components/jobscape/SmallTitle";
 import "../../components-css/jobscape/InProgressProjectTab.css";
 import ProjectDetailsModal from "./ProjectDetailsModal";
-import axios from "axios";
+import axios from "../../utils/customAxios";
 
 const InProgressProjectTab = ({
   projectId,
@@ -108,6 +108,7 @@ const InProgressProjectTab = ({
           onReject={handleReject}
           fileAccepted={fileAccepted}
           fileRejected={fileRejected}
+          collaboratorName={collaborator}
         />
       )}
       {showLocalNotification && (
