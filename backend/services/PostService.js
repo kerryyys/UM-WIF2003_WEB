@@ -25,7 +25,10 @@ class PostService {
   }
 
   async getAllPosts() {
-    return await Post.find().populate("author").populate("comments");
+    return await Post.find()
+      .populate("author")
+      .populate("comments")
+      .sort({ createdAt: -1 });
   }
 
   async getAllPostsByUserId(userId) {
