@@ -16,7 +16,7 @@ function ProfileHeader({ img, name, title, time }) {
             {title}
           </span>
         </p>
-        <time className="tw-text-xs tw-text-gray-500">{time}</time>
+        <time className="tw-text-sm tw-text-gray-500">{time}</time>
       </div>
     </div>
   );

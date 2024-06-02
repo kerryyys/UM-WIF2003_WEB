@@ -6,10 +6,9 @@ export const postIdSchema = Joi.string().required();
 export const userIdSchema = Joi.string().required();
 
 export const addPostSchema = Joi.object({
-  // ! Should be removed for production
-  id: Joi.string().required(),
   title: titleSchema,
   content: contentSchema,
+  userId: userIdSchema,
 });
 
 export const modifyPostSchema = Joi.object({

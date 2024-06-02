@@ -13,9 +13,8 @@ function WritePost() {
   return (
     <div>
       <div
-        className="post-container"
+        className="tw-w-full tw-flex tw-items-center tw-p-3 tw-bg-white tw-rounded-lg tw-border tw-border-gray-300 tw-cursor-pointer"
         onClick={handleShowModal}
-        style={{ cursor: "pointer" }}
       >
         <Avatar
           src="https://www.w3schools.com/howto/img_avatar.png"
@@ -24,12 +23,12 @@ function WritePost() {
 
         <Form.Control
           as="textarea"
-          className="post-textarea"
-          placeholder="Write your post here..."
-          rows={3}
+          className="tw-resize-none tw-p-3 tw-h-2 hover:tw-bg-slate-200 hover:tw-transition tw-overflow-hidden"
+          placeholder="Start a post..."
           readOnly
         />
       </div>
+
       <WritePostModal show={showModal} handleClose={handleCloseModal} />
     </div>
   );
