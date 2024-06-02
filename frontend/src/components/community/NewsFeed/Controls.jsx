@@ -58,6 +58,8 @@ function Controls({ setNumberOfLikes, setNumberOfComments }) {
       color: "#ff7eb3", // Pink color
       isActive: isLikeActive,
       onClick: handleLike,
+      whileTapAnimation: null,
+      inActiveClassName: "tw-text-red-500",
     },
     {
       icon: <FontAwesomeIcon icon={faCommentDots} className="tw-mr-4" />,
@@ -65,6 +67,8 @@ function Controls({ setNumberOfLikes, setNumberOfComments }) {
       color: "#6fa3ef", // Blue color
       isActive: activeItem === "Comment",
       onClick: () => setActiveItem(activeItem === "Comment" ? null : "Comment"),
+      whileTapAnimation: null,
+      inActiveClassName: "tw-text-red-500",
     },
     {
       icon: <FontAwesomeIcon icon={faShare} className="tw-mr-4" />,
@@ -72,6 +76,8 @@ function Controls({ setNumberOfLikes, setNumberOfComments }) {
       color: "#76ef66", // Green color
       isActive: false,
       onClick: () => setIsModalOpen(true),
+      whileTapAnimation: null,
+      inActiveClassName: "tw-text-red-500",
     },
     {
       icon: <FontAwesomeIcon icon={faPaperPlane} className="tw-mr-4" />,
@@ -79,6 +85,8 @@ function Controls({ setNumberOfLikes, setNumberOfComments }) {
       color: "#f7d469", // Yellow color
       isActive: false,
       onClick: () => {}, // No action defined for Send
+      whileTapAnimation: null,
+      inActiveClassName: "tw-text-red-500",
     },
   ];
 
@@ -90,9 +98,10 @@ function Controls({ setNumberOfLikes, setNumberOfComments }) {
             key={idx}
             icon={item.icon}
             label={item.label}
-            color={item.color}
-            onClick={item.onClick}
             isActive={item.isActive}
+            onClickFunction={item.onClick}
+            whileTapAnimation={null}
+            inActiveClassName={item.inActiveClassName}
           />
         ))}
       </div>
