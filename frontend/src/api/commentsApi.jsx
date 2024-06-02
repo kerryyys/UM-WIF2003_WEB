@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../utils/customAxios";
 import { readAndLog, readAndReturn } from "../utils/responseHandler.tsx";
 
 const API_URL = "http://localhost:5050/community";

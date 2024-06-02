@@ -3,8 +3,10 @@ import React from "react";
 import NewsFeedItem from "./NewsFeedItem";
 import "../../../components-css/Community/NewsFeed.css";
 import WritePost from "../WritePost/WritePost";
+import { useNewsFeedContext } from "../../../context/NewsFeedContext";
 
-function NewsFeed({ newsFeedList }) {
+function NewsFeed() {
+  const newsFeedList = useNewsFeedContext().newsFeedList;
   if (!Array.isArray(newsFeedList)) {
     return <div>No posts available</div>;
   }
