@@ -1,5 +1,4 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import React, { useEffect, useState } from "react";
 import NewsFeed from "../../components/community/NewsFeed/NewsFeed";
 import ProfileCard from "../../components/community/ProfileCard/ProfileCard";
 import ExploreList from "../../components/community/NewsFeed/ExploreList/ExploreList";
