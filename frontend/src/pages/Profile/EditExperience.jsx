@@ -209,6 +209,8 @@ function EditExperience() {
                             selected={info.from}
                             onChange={date => handleDateChange('from', date)}
                             className="bigInput"
+                            dateFormat="MMMM yyyy"
+                            showMonthYearPicker
                         />
                     </div>
 
@@ -219,6 +221,8 @@ function EditExperience() {
                             onChange={date => handleDateChange('until', date)}
                             className="bigInput"
                             disabled={info.current}
+                            dateFormat="MMMM yyyy"
+                            showMonthYearPicker
                         />
                     </div></div>
                 </div>

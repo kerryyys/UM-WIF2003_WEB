@@ -8,20 +8,20 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 // Add data
-router.post("/", upload.single("profilePic"), async (req, res) => {
-  try {
-    const newUser = {
-      profilePic: req.file
-        ? { data: req.file.buffer, contentType: req.file.mimetype }
-        : undefined,
-    };
-    const user = await User.create(newUser);
-    return res.status(201).send(user);
-  } catch (error) {
-    console.log(error.message);
-    res.status(500).send({ message: error.message });
-  }
-});
+// router.post("/", upload.single("profilePic"), async (req, res) => {
+//   try {
+//     const newUser = {
+//       profilePic: req.file
+//         ? { data: req.file.buffer, contentType: req.file.mimetype }
+//         : undefined,
+//     };
+//     const user = await User.create(newUser);
+//     return res.status(201).send(user);
+//   } catch (error) {
+//     console.log(error.message);
+//     res.status(500).send({ message: error.message });
+//   }
+// });
 
 // Retrieve all data
 router.get("/", async (req, res) => {
@@ -82,13 +82,7 @@ router.get("/:userId/experience/:experienceId", async (req, res) => {
 router.put("/:id", upload.single("profilePic"), async (req, res) => {
   try {
     const { id } = req.params;
-    const updateData = {
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      city: req.body.city,
-      state: req.body.state,
-      role: req.body.role,
-    };
+    const updateData = req.body;
 
     console.log("updateData:", updateData);
 

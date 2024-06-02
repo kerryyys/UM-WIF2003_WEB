@@ -54,7 +54,7 @@ export default function NavBar() {
         <div className="tw-flex tw-items-center tw-gap-3">
           {user && (
             <>
-              <Link to="/Profile">
+              <Link to={`/Profile/${user._id}`}>
                 <img
                   src={ProfilePic}
                   alt="Profile"
