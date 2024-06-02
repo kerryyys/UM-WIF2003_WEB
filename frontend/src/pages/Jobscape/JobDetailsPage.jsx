@@ -33,9 +33,10 @@ export default function JobDetailsPage(props) {
 
   // Fake user id just for testing
   // NEED TO BE MODIFIED ONCE USER SESSION IS IMPLEMENTED
-  const userId = "665ae5b6a6b3bf91769e6d6e";
+
   const { user } = useUserContext();
-  console.log(user);
+  console.log(user._id);
+  const userId = user._id;
 
   const navigate = useNavigate();
 
@@ -112,7 +113,7 @@ export default function JobDetailsPage(props) {
     const checkUserTakenProjects = async () => {
       console.log("checkUserTaken Projects UseEffect has been executed");
       try {
-        const user = await axios.get(`${API_URL}/user/${userId}`);
+        const user = await axios.get(`http://localhost:5050/users/${userId}`);
         const tknProjects = user.data.takenProjects;
         const applyingProjects = user.data.applyingProjects;
         console.log("Fetch user from frontend, tknProjects: ", tknProjects);
@@ -134,7 +135,7 @@ export default function JobDetailsPage(props) {
           setApplicationStatus("pendingApproval");
         }
       } catch (error) {
-        console.error("Error fetching user favorite projects: ", error);
+        console.error("Error fetching user projects: ", error);
       }
     };
     checkUserTakenProjects();

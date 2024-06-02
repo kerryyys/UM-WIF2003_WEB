@@ -1,7 +1,7 @@
 // Will include backend api functions for "project/" in this file
 // For better code separation
 
-import axios from "axios";
+import axios from "../utils/customAxios";
 export const API_URL = "http://localhost:5050/projects";
 
 export const favoriteProject = async (userId, projectId) => {

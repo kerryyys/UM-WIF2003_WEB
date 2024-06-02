@@ -32,10 +32,7 @@ const InProgressProjectTab = ({
       console.error("Error fetching project details:", error);
     }
   };
-  // Refreshes the page
-  const refreshPage = () => {
-    window.location.reload();
-  };
+
   const handleCloseProjectDetails = () => {
     setShowProjectDetails(false);
   };
@@ -52,7 +49,6 @@ const InProgressProjectTab = ({
         // setIsProjectAccepted(true); Probably don't need
         setNotificationMessage("File accepted successfully.");
         setShowLocalNotification(true);
-        refreshPage();
       })
       .catch((error) => {
         console.error("Error accepting the file:", error);
