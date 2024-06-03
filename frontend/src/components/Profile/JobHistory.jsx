@@ -44,21 +44,10 @@ const JobHistory = ({ jobInfos=[] }) => {
                 <strong>Deadline for completion:</strong> {jobInfo.deadline}
               </p>
               <p>
-                <strong>Required Skills:</strong>
-              </p>
-              <ul>
-                {jobInfo.skills.map((skill, index) => (
-                  <li key={index}>{skill}</li>
-                ))}
-              </ul>
-              <p>
                 <strong>Contact Information:</strong>
                 <br /> {jobInfo.contact}
               </p>
-              <p>
-                <strong>Additional Information:</strong>
-                <br /> {jobInfo.additionalInfo}
-              </p>
+              
             </Col>
           </Row>
           <Row className="see-more" onClick={handleClick}>
