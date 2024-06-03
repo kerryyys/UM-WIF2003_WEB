@@ -50,7 +50,7 @@ export default function YourJobsPage() {
         </Button>
         <div className="your-jobs-header">
           <div style={{ textAlign: "center" }}>
-            <h3 className="your-jobs-title">Your Jobs</h3>
+            <h1 className="your-jobs-title">Your Jobs</h1>
           </div>
           <div className="notif-bell">
             <i

@@ -89,7 +89,6 @@ export default function JobDetailsPage(props) {
       const project = response.data;
       console.log("response.data: " + JSON.stringify(response.data));
       const fetchedProject = {
-        companyLogo: project.companyLogo,
         projectName: project.projectTitle,
         projectDesc: project.projectDescription,
         duration: project.projectDuration,
@@ -99,7 +98,7 @@ export default function JobDetailsPage(props) {
         requiredSkills: project.requiredSkills,
         companyName: project.postedBy.username,
         category: project.projectCategory,
-        filters: project.filters,
+        filters: project.filter,
         budget: project.projectBudget,
         fileAccepted: project.fileAccepted,
         timePosted: calculateTimePosted(project.createdAt),
@@ -164,7 +163,14 @@ export default function JobDetailsPage(props) {
           </Button>
         );
       case "applying":
-        return <span>Applying...</span>;
+        return (
+          <span
+            className="applying-text"
+            title="You have applied. Please wait for approval."
+          >
+            Applying...
+          </span>
+        );
       case "applied":
         return (
           <Button className="accept" onClick={handleUploadClick}>
@@ -173,7 +179,11 @@ export default function JobDetailsPage(props) {
         );
       case "pendingApproval":
         return (
-          <Button className="accept" disabled={true}>
+          <Button
+            className="accept"
+            disabled={true}
+            title="Please wait for file approval."
+          >
             Pending
           </Button>
         );
@@ -230,7 +240,9 @@ export default function JobDetailsPage(props) {
               </p>
             </div>
             <div className="title-right">
-              {applicationStatus == "applied" ? (
+              {applicationStatus == "applied" ||
+              applicationStatus == "applied" ||
+              applicationStatus == "pendingApproval" ? (
                 <>
                   <h5>
                     Completion deadline: <br />
@@ -291,7 +303,11 @@ export default function JobDetailsPage(props) {
         </p>
         <p>
           Additional Information: <br />
-          <span className="additional">{projectDetails.additionalInfo}</span>
+          {projectDetails.additionalInfo == null ? (
+            <span>-</span>
+          ) : (
+            <span className="additional">{projectDetails.additionalInfo}</span>
+          )}
         </p>
         {applicationStatus === "applied" ||
         applicationStatus === "pendingApproval" ? (
@@ -300,7 +316,11 @@ export default function JobDetailsPage(props) {
             {projectDetails.uploadedFiles.length > 0 ? (
               <ul className="uploaded-files-list">
                 {projectDetails.uploadedFiles.map((file, index) => (
-                  <li key={index}>
+                  <li
+                    key={index}
+                    className="uploaded-files"
+                    title="Click to download"
+                  >
                     <a
                       href={`${API_URL}/uploads/${file.fileName}`}
                       download
@@ -320,17 +340,6 @@ export default function JobDetailsPage(props) {
           <Row className="button-row">
             <Col></Col>
             <Col>
-              {/* {jobApplied ? (
-                <Button className="accept" onClick={handleUploadClick}>
-                  Upload Work
-                </Button>
-              ) : (
-                <>
-                  <Button className="accept" onClick={handleAcceptClick}>
-                    Apply Job
-                  </Button>
-                </>
-              )} */}
               {renderApplyButton()}
 
               <Button className="chat">
@@ -349,6 +358,8 @@ export default function JobDetailsPage(props) {
       </div>
       <JobAcceptedModal
         show={showAcceptedModal}
+        projectName={projectDetails.projectName}
+        deadline={projectDetails.deadline}
         onHide={() => setShowAcceptedModal(false)}
       />
       <UploadWorkModal

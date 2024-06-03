@@ -1,22 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../../components-css/jobscape/JobsListItem.css";
 import { Container, Col, Row, Button } from "react-bootstrap";
 import userImg from "../../assets/icons/jobscape/user.svg";
 import CompletedReviewModal from "./CompletedReviewModal";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
+import axios from "../../utils/customAxios";
 
 export default function JobsListItem({
   completed,
-  satisfaction,
-  projectrating,
-  projectfeedback,
-  personrating,
-  personfeedback,
-  imgurl,
-  reviewname,
   _id,
-  companyName,
+  postedBy,
   projectTitle,
   projectBudget,
   deadline,
@@ -33,6 +27,7 @@ export default function JobsListItem({
     reviewname: "None",
   };
   const [showReview, setShowReview] = useState(false);
+  const [collaboratorName, setCollaboratorName] = useState("");
   const navigate = useNavigate();
   const handleButtonClick = () => {
     if (completed) {
@@ -41,7 +36,15 @@ export default function JobsListItem({
       navigate(`/SeekJobPage/job-details/${_id}`);
     }
   };
-
+  useEffect(() => {
+    const fetchCollaboratorDetails = async () => {
+      const response = await axios.get(
+        `http://localhost:5050/users/${postedBy}`
+      );
+      setCollaboratorName(response.data.data.username);
+    };
+    fetchCollaboratorDetails();
+  }, []);
   const btnClassName = completed ? "job-more-btn completed" : "job-more-btn";
   return (
     <>
@@ -52,13 +55,13 @@ export default function JobsListItem({
             <Row>
               <Col>
                 <p>Due:</p>
-                <p>projectB:</p>
-                <p>Requester:</p>
+                <p>Budget:</p>
+                <p>Collaborator:</p>
               </Col>
               <Col>
                 <p>{moment(deadline).format("DD-MM-YYYY")}</p>
                 <p>RM{projectBudget}</p>
-                <p className="company-name">DELL Technology</p>
+                <p className="company-name">{collaboratorName}</p>
               </Col>
             </Row>
           </Container>
@@ -70,6 +73,7 @@ export default function JobsListItem({
           show={showReview}
           onHide={() => setShowReview(false)}
           review={review}
+          name={collaboratorName}
         />
       </div>
     </>

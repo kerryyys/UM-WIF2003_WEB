@@ -7,5 +7,12 @@
 .in-progress-jobs-container .jobs-list {
   display: flex;
   overflow-x: auto;
-  justify-content: space-evenly;
+  justify-content: start;
+  padding: 5px 10vw 5px 10vw;
+}
+.in-progress-jobs-container .jobs-list .no-projects {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  color: red;
 }
