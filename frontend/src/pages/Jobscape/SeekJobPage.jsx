@@ -11,10 +11,17 @@ import PageNumberNav from "../../components/jobscape/PageNumberNav";
 import WeddingLogo from "../../assets/icons/jobscape/WeddingLogo.svg";
 import DellLogo from "../../assets/icons/jobscape/DellLogo.svg";
 import searchbtn from "../../assets/icons/icon_search.svg";
+import { getFavoriteProjects } from "../../api/projectApi";
+import { useUserContext } from "../../context/UserContext";
 
 const SeekJobPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedFilters, setSelectedFilters] = useState([]);
+  const [favoritedProjects, setFavoritedProjects] = useState([]);
+
+  const { user } = useUserContext();
+  console.log("userContext in seekjobpage: " + user._id);
+  const userId = user._id;
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -26,6 +33,17 @@ const SeekJobPage = () => {
   const [sortingOption, setSortingOption] = useState("newOrRate");
 
   useEffect(() => {
+    const fetchFavoritedProjects = async () => {
+      try {
+        const response = await getFavoriteProjects(userId);
+        console.log(
+          "response from fetching fav projects: " + response.favoriteProjects
+        );
+        setFavoritedProjects(response.favoriteProjects);
+      } catch (error) {
+        console.error("Error fetching favorited projects:", error.message);
+      }
+    };
     // Asynchronous function to fetch all projects from backend
     const fetchProjects = async () => {
       try {
@@ -35,11 +53,11 @@ const SeekJobPage = () => {
         //   "Axios response.data: " + JSON.stringify(response.data.data)
         // );
         const fetchedProjects = response.data.data.map((project) => {
+          let companyName = project.postedBy.username;
           return {
             projectId: project._id,
-            companyLogo: project.companyLogo,
             projectName: project.projectTitle,
-            companyName: project.companyName,
+            companyName: companyName,
             projectCategory: project.projectCategory,
             filters: project.filter,
             timePosted: calculateTimePosted(project.createdAt),
@@ -52,7 +70,8 @@ const SeekJobPage = () => {
       }
     };
     fetchProjects();
-  }, []);
+    fetchFavoritedProjects();
+  }, [userId]);
 
   const calculateTimePosted = (createdAt) => {
     const currentTime = new Date();
@@ -87,11 +106,11 @@ const SeekJobPage = () => {
       });
       // console.log("Axios response.data: " + JSON.stringify(response.data.data));
       const fetchedProjects = response.data.data.map((project) => {
+        let companyName = project.postedBy.username;
         return {
           projectId: project._id,
-          companyLogo: project.companyLogo,
           projectName: project.projectTitle,
-          companyName: project.companyName,
+          companyName: companyName,
           projectCategory: project.projectCategory,
           filters: project.filter,
           timePosted: calculateTimePosted(project.createdAt),
@@ -230,7 +249,11 @@ const SeekJobPage = () => {
               newOrRate="NEWEST"
             />
             {slicedProjects.map((projectTab, index) => (
-              <ProjectTab key={index} {...projectTab} />
+              <ProjectTab
+                key={index}
+                {...projectTab}
+                favorited={favoritedProjects.includes(projectTab.projectId)}
+              />
             ))}
           </div>
         </div>

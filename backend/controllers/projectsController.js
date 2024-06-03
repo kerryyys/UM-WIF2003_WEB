@@ -12,7 +12,7 @@ export const getAllProjects = async (req, res) => {
       const regex = new RegExp(searchQuery, "i");
       query = { projectTitle: regex };
     }
-    const projects = await Project.find(query);
+    const projects = await Project.find(query).populate("postedBy");
     // console.log("Backend - projects: " + projects);
     return res.status(200).json({
       count: projects.length,
@@ -55,7 +55,7 @@ export const postNewProject = async (req, res) => {
 export const getProjectDetails = async (req, res) => {
   try {
     const projectId = req.params.projectId;
-    const project = await Project.findById(projectId);
+    const project = await Project.findById(projectId).populate("postedBy");
     return res.status(200).json(project);
   } catch (error) {
     console.log(error.message);
@@ -101,6 +101,22 @@ export const removeFavoriteProject = async (req, res) => {
   } catch (error) {
     res.status(400).json({
       error: "Inside POST /remove-favorite-project endpoint " + error.message,
+    });
+  }
+};
+
+export const getFavoriteProjects = async (req, res) => {
+  const userId = req.params.userId;
+  console.log("getfavprojects req.body: " + userId);
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.status(200).json({ favoriteProjects: user.favoriteProjects });
+  } catch (error) {
+    res.status(400).json({
+      error: "Inside GET /favorite-project endpoint " + error.message,
     });
   }
 };

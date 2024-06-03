@@ -73,20 +73,20 @@ function App() {
           <Route path="/EnterCode" element={<EnterCode />} />
           <Route path="/NewPass" element={<NewPass />} />
           <Route path="/JobscapeMainPage" element={<JobscapeMainPage />} />
-          <Route path="/SeekJobPage" element={<SeekJobPage />} />
+
           <Route path="/SeekTalentPage" element={<SeekTalentPage />} />
           <Route path="/PostProjectPage" element={<PostProjectPage />} />
           <Route path="/ReviewProjectPage" element={<ReviewProjectPage />} />
 
           <Route element={<ProtectedRoute />}>
             <Route
-            path="/PostProjectPage/:userId"
-            element={<PostProjectPage />}
-          />
-          <Route
-            path="/ReviewProjectPage/:userId"
-            element={<ReviewProjectPage />}
-          />
+              path="/PostProjectPage/:userId"
+              element={<PostProjectPage />}
+            />
+            <Route
+              path="/ReviewProjectPage/:userId"
+              element={<ReviewProjectPage />}
+            />
             <Route path="/YourJobs" element={<YourJobsPage />} />
             <Route
               path="/SeekJobPage/job-details/:projectId"
@@ -106,6 +106,7 @@ function App() {
               path="/JobHistoryDetails/:id"
               element={<JobHistoryDetails />}
             />
+            <Route path="/SeekJobPage" element={<SeekJobPage />} />
             {/* Add all your routes here */}
           </Route>
 
@@ -132,11 +133,10 @@ function App() {
             <Route path="/invoiceList" element={<InvoiceList />} />
             <Route path="/paymentHis" element={<PaymentHis />} />
           </Route>
-          
+
           <Route path="/redirect" element={<Redirect />} />
           <Route path="/successful" element={<Successful />} />
-          
-      
+
           <Route path="/AboutUs" element={<AboutUs />} />
 
           <Route element={<ProtectedRoute />}>

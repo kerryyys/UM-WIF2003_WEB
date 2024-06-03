@@ -10,6 +10,8 @@ import {
   setTakenProject,
   uploadCompletedWorks,
   setApplyingProject,
+  favoriteProject,
+  removeFavoriteProject,
 } from "../../api/projectApi";
 import { API_URL } from "../../api/projectApi";
 import axios from "../../utils/customAxios";
@@ -37,8 +39,18 @@ export default function JobDetailsPage(props) {
 
   const navigate = useNavigate();
 
-  const toggleBookmark = () => {
-    setSaved(!saved);
+  const toggleBookmark = async (event) => {
+    event.stopPropagation(); // Prevent event from bubbling up to parent (ProjectTab)
+    try {
+      if (saved) {
+        await removeFavoriteProject(userId, projectId);
+      } else {
+        await favoriteProject(userId, projectId);
+      }
+      setSaved(!saved);
+    } catch (error) {
+      console.error("Error fav/remove fav project: ", error);
+    }
   };
 
   const handleUploadClick = () => {
@@ -75,6 +87,7 @@ export default function JobDetailsPage(props) {
       const response = await axios.get(`${API_URL}/${projectId}`);
 
       const project = response.data;
+      console.log("response.data: " + JSON.stringify(response.data));
       const fetchedProject = {
         companyLogo: project.companyLogo,
         projectName: project.projectTitle,
@@ -84,7 +97,7 @@ export default function JobDetailsPage(props) {
         additionalInfo: project.additionalNotes,
         deadline: moment(project.deadline).format("DD-MM-YYYY"),
         requiredSkills: project.requiredSkills,
-        companyName: project.companyName,
+        companyName: project.postedBy.username,
         category: project.projectCategory,
         filters: project.filters,
         budget: project.projectBudget,
@@ -116,12 +129,13 @@ export default function JobDetailsPage(props) {
         );
         const tknProjects = user.data.data.takenProjects;
         const applyingProjects = user.data.data.applyingProjects;
+        const favoritedProjects = user.data.data.favoriteProjects;
         console.log("Fetch user from frontend, tknProjects: ", tknProjects);
         console.log(
           "Fetch user from frontend, applyingProjects : ",
           applyingProjects
         );
-
+        setSaved(favoritedProjects.includes(projectId));
         if (
           Array.isArray(applyingProjects) &&
           applyingProjects.includes(projectId)
@@ -203,7 +217,6 @@ export default function JobDetailsPage(props) {
       </Button>
       <div className="job-details-body">
         <div className="job-title-block">
-          <img src={projectDetails.companyLogo} alt="logo here" />
           <div className="title-texts">
             <div className="title-left">
               <h3>{projectDetails.projectName}</h3>
