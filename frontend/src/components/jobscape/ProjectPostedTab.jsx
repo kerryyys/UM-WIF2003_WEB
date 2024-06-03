@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Button } from "react-bootstrap";
+import { Modal, Button, Badge } from "react-bootstrap";
 import SmallTitle from "./SmallTitle";
-import axios from "axios";
+import axios from "../../utils/customAxios";
 import ProjectPostedUser from "./ProjectPostedUser";
 import "../../components-css/jobscape/ProjectPostedTab.css";
+import Rating from "react-rating-stars-component";
 
 const ProjectPostedTab = ({
   projectId,
@@ -12,10 +13,11 @@ const ProjectPostedTab = ({
   budget,
   postedDate,
   onMoveToInProgress,
-  onDeleteProject, // New prop for handling project deletion
+  onDeleteProject,
 }) => {
   const [showModal, setShowModal] = useState(false);
-  const [showDeleteModal, setShowDeleteModal] = useState(false); // State for delete confirmation modal
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [selectedApplicant, setSelectedApplicant] = useState(null); // Track selected applicant for details view
   const [applicants, setApplicants] = useState([]);
 
   const formatPostedDate = (dateString) => {
@@ -57,7 +59,7 @@ const ProjectPostedTab = ({
 
   const handleRemove = async (userID) => {
     try {
-      const response = await axios.put(
+      await axios.put(
         `http://localhost:5050/recruite/posted/${projectId}/remove`,
         { userID }
       );
@@ -68,11 +70,16 @@ const ProjectPostedTab = ({
   };
 
   const handleShowModal = () => {
+    setSelectedApplicant(null); // Reset to applicant list view
     setShowModal(true);
   };
 
   const handleCloseModal = () => {
-    setShowModal(false);
+    if (selectedApplicant) {
+      setSelectedApplicant(null); // Reset to applicant list view
+    } else {
+      setShowModal(false);
+    }
   };
 
   const handleShowDeleteModal = () => {
@@ -92,6 +99,10 @@ const ProjectPostedTab = ({
     } catch (error) {
       console.error("Error deleting project:", error);
     }
+  };
+
+  const showDetails = (applicant) => {
+    setSelectedApplicant(applicant);
   };
 
   return (
@@ -116,23 +127,63 @@ const ProjectPostedTab = ({
       </button>
       <Modal show={showModal} onHide={handleCloseModal} centered size="lg">
         <Modal.Header closeButton>
-          <Modal.Title>Applicant List</Modal.Title>
+          <Modal.Title>
+            {selectedApplicant ? "Applicant Details" : "Applicant List"}
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {applicants.map((applicant, index) => (
-            <ProjectPostedUser
-              key={`${projectId}-${index}`}
-              applicant={applicant}
-              projectId={projectId}
-              onConfirm={handleConfirm}
-              onRemove={handleRemove}
-            />
-          ))}
+          {selectedApplicant ? (
+            <div className="ModalContent">
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                <img
+                  src={selectedApplicant.profilePic}
+                  alt="Profile Picture"
+                  className="ProfilePic"
+                />
+                <div>
+                  <Rating
+                    value={selectedApplicant.ratingStar || 5}
+                    edit={false}
+                    size={30}
+                    activeColor="#ffd700"
+                  />
+                  <div className="Filters">
+                    {Array.isArray(selectedApplicant.filters) &&
+                      selectedApplicant.filters.map((filter, index) => (
+                        <Badge key={index} className="FilterBadge">
+                          {filter}
+                        </Badge>
+                      ))}
+                    <Badge className="FilterBadge LocationBadge">
+                      {selectedApplicant.location || "Remote"}
+                    </Badge>
+                  </div>
+                </div>
+              </div>
+              <p className="Biography">{selectedApplicant.biography}</p>
+            </div>
+          ) : (
+            applicants.map((applicant, index) => (
+              <ProjectPostedUser
+                key={`${projectId}-${index}`}
+                applicant={applicant}
+                onConfirm={handleConfirm}
+                onRemove={handleRemove}
+                showDetails={showDetails}
+              />
+            ))
+          )}
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="danger" onClick={handleShowDeleteModal} style={{backgroundColor:"red"}}>
-            Delete Project
-          </Button>
+          {!selectedApplicant && (
+            <Button
+              variant="danger"
+              onClick={handleShowDeleteModal}
+              style={{ backgroundColor: "red" }}
+            >
+              Delete Project
+            </Button>
+          )}
           <Button variant="secondary" onClick={handleCloseModal}>
             Close
           </Button>
@@ -145,7 +196,11 @@ const ProjectPostedTab = ({
         </Modal.Header>
         <Modal.Body>Are you sure you want to delete this project?</Modal.Body>
         <Modal.Footer>
-          <Button variant="danger" onClick={handleDeleteProject} style={{backgroundColor:"red"}}>
+          <Button
+            variant="danger"
+            onClick={handleDeleteProject}
+            style={{ backgroundColor: "red" }}
+          >
             Delete
           </Button>
           <Button variant="secondary" onClick={handleCloseDeleteModal}>

@@ -112,6 +112,12 @@ const userSchema = new mongoose.Schema(
         ref: "Project",
       },
     ],
+    postedProjects: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Project",
+      },
+    ], // new field to store posted projects
   },
   [
     {

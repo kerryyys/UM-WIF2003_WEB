@@ -75,10 +75,16 @@ function App() {
           <Route path="/JobscapeMainPage" element={<JobscapeMainPage />} />
           <Route path="/SeekJobPage" element={<SeekJobPage />} />
           <Route path="/SeekTalentPage" element={<SeekTalentPage />} />
-          <Route path="/PostProjectPage" element={<PostProjectPage />} />
-          <Route path="/ReviewProjectPage" element={<ReviewProjectPage />} />
 
           <Route element={<ProtectedRoute />}>
+            <Route
+            path="/PostProjectPage/:userId"
+            element={<PostProjectPage />}
+          />
+          <Route
+            path="/ReviewProjectPage/:userId"
+            element={<ReviewProjectPage />}
+          />
             <Route path="/YourJobs" element={<YourJobsPage />} />
             <Route
               path="/SeekJobPage/job-details/:projectId"

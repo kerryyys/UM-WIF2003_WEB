@@ -9,6 +9,7 @@ const ProjectDetailsModal = ({
   onReject,
   fileAccepted,
   fileRejected,
+  collaboratorName
 }) => {
   const [isFileAccepted, setIsFileAccepted] = useState(fileAccepted);
   const [isFileRejected, setIsFileRejected] = useState(fileRejected);
@@ -32,9 +33,9 @@ const ProjectDetailsModal = ({
         </span>
         <h2>{project.projectTitle}</h2>
         <p>
-          <strong>Company:</strong>
+          <strong>Collaborator:</strong>
         </p>
-        <p className="details-content">{project.companyName}</p>
+        <p className="details-content">{collaboratorName}</p>
         <p>
           <strong>Description:</strong>
         </p>

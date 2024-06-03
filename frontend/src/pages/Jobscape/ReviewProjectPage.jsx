@@ -5,34 +5,39 @@ import SmallTitle from "../../components/jobscape/SmallTitle";
 import InProgressProjectTab from "../../components/jobscape/InProgressProjectTab";
 import CompletedProjectTab from "../../components/jobscape/CompletedProjectTab";
 import ProjectPostedTab from "../../components/jobscape/ProjectPostedTab";
-import axios from "axios";
+import axios from "../../utils/customAxios";
 import "../../components-css/jobscape/Notification.css";
 import "../../pages-css/Jobscape/ReviewProjectPage.css";
+import { useUserContext } from "../../context/UserContext";
 
 const ReviewProjectPage = () => {
   const navigate = useNavigate();
+  const { user } = useUserContext(); // Get the user from context
   const [ProjectPosted, setProjectPosted] = useState([]);
   const [inProgressProjects, setInProgressProjects] = useState([]);
   const [completedProjects, setCompletedProjects] = useState([]);
   const [showNotification, setShowNotification] = useState(false);
-  const [isProjectPostedFetched, setIsProjectPostedFetched] = useState(false); // Add state to track if projects are fetched
+  const [isProjectPostedFetched, setIsProjectPostedFetched] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        console.log("ReviewProjectPage user context: " + user);
+        const userId = user?._id;
         const postedResponse = await axios.get(
-          "http://localhost:5050/recruite/posted"
+          `http://localhost:5050/recruite/posted?userId=${userId}`
         );
         setProjectPosted(postedResponse.data);
-        setIsProjectPostedFetched(true); // Set isProjectPostedFetched to true when projects are fetched
+        setIsProjectPostedFetched(true);
 
         const inProgressResponse = await axios.get(
-          "http://localhost:5050/recruite/in-progress"
+          `http://localhost:5050/recruite/in-progress?userId=${userId}`
         );
         setInProgressProjects(inProgressResponse.data);
         console.log(inProgressResponse.data);
+
         const completedResponse = await axios.get(
-          "http://localhost:5050/recruite/completed"
+          `http://localhost:5050/recruite/completed?userId=${userId}`
         );
         setCompletedProjects(completedResponse.data);
         console.log(completedResponse.data);
@@ -42,16 +47,16 @@ const ReviewProjectPage = () => {
     };
 
     fetchData();
-  }, []);
+  }, [user]);
 
   const moveToInProgress = (project) => {
     setProjectPosted((prev) => prev.filter((p) => p._id !== project._id));
     setInProgressProjects((prev) => [...prev, project]);
   };
 
-   const deleteProject = (projectId) => {
-     setProjectPosted((prev) => prev.filter((p) => p._id !== projectId));
-   };
+  const deleteProject = (projectId) => {
+    setProjectPosted((prev) => prev.filter((p) => p._id !== projectId));
+  };
 
   return (
     <div className="ReviewProjectPage">

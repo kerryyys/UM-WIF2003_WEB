@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { Badge, Button, Modal } from "react-bootstrap";
-import Rating from "react-rating-stars-component"; // Import the Rating component
+import Rating from "react-rating-stars-component";
 import "../../components-css/jobscape/CollaboratorTab.css";
 
 const CollaboratorTab = ({
   profilePic,
   collaboratorName,
+  username,
   ratingStar,
   filters,
   biography,
@@ -23,20 +24,17 @@ const CollaboratorTab = ({
 
   return (
     <div className="CollaboratorTab">
-      {/* Left side content */}
       <div className="LeftContent">
         <img src={profilePic} alt="Profile Picture" className="ProfilePic" />
         <div>
-          <p className="CollaboratorName">{collaboratorName}</p>
-          {/* Rating star */}
+          <p className="CollaboratorName">{collaboratorName || username}</p>
           <Rating
             classNames="ratingStar"
-            value={ratingStar}
-            edit={false} // Disable editing
-            size={20} // Set the size of the stars
-            activeColor="#ffd700" // Set the color of the active stars
+            value={ratingStar || "5"} // Default rating to 5 if not provided
+            edit={false}
+            size={20}
+            activeColor="#ffd700"
           />
-          {/* Filter types */}
           <div className="Filters">
             {Array.isArray(filters) &&
               filters.map((filter, index) => (
@@ -44,27 +42,22 @@ const CollaboratorTab = ({
                   {filter}
                 </Badge>
               ))}
-            {/* Location */}
             <Badge className="FilterBadge LocationBadge">{location}</Badge>
           </div>
         </div>
       </div>
-      {/* Button to view details */}
       <Button className="details-button" onClick={handleShowModal}>
         View Details
       </Button>
-
-      {/* Modal for displaying collaborator details */}
       <Modal show={showModal} onHide={handleCloseModal} centered size="lg">
         <Modal.Header closeButton>
           <Modal.Title
             style={{ color: "#2D4877", textAlign: "center", width: "100%" }}
           >
-            {collaboratorName}
+            {collaboratorName || username}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {/* Collaborator details */}
           <div className="ModalContent">
             <div style={{ display: "flex" }}>
               <img
@@ -73,29 +66,25 @@ const CollaboratorTab = ({
                 className="ProfilePic"
               />
               <div>
-                {/* Rating star */}
                 <Rating
-                  value={ratingStar}
+                  value={ratingStar || 5} // Default rating to 5 if not provided
                   edit={false}
                   size={30}
                   activeColor="#ffd700"
                 />
-                {/* Filter types */}
-                <div className="ViewFilters">
+                <div className="Filters">
                   {Array.isArray(filters) &&
                     filters.map((filter, index) => (
                       <Badge key={index} className="FilterBadge">
                         {filter}
                       </Badge>
                     ))}
-                  {/* Location */}
                   <Badge className="FilterBadge LocationBadge">
                     {location}
                   </Badge>
                 </div>
               </div>
             </div>
-            {/* Biography */}
             <p className="Biography">{biography}</p>
           </div>
         </Modal.Body>
