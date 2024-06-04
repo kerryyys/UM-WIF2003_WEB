@@ -79,4 +79,23 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/completed-projects/:userId", async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    // Find the user and populate the completed projects
+    const user = await User.findById(userId).populate("completedProjects");
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json({ completedProjects: user.completedProjects });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+
 export default router;

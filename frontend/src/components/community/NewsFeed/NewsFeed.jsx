@@ -4,16 +4,13 @@ import NewsFeedItem from "./NewsFeedItem";
 import "../../../components-css/Community/NewsFeed.css";
 import WritePost from "../WritePost/WritePost";
 import { useNewsFeedContext } from "../../../context/NewsFeedContext";
+import { PostProvider } from "../../../context/PostContext";
 
 function NewsFeed() {
   const newsFeedList = useNewsFeedContext().newsFeedList;
   if (!Array.isArray(newsFeedList)) {
     return <div>No posts available</div>;
   }
-
-  newsFeedList.forEach((post) => {
-    console.log(post);
-  });
 
   return (
     <div>
@@ -23,18 +20,20 @@ function NewsFeed() {
           <p>No news feed available</p>
         ) : (
           newsFeedList.map((post, index) => (
-            <NewsFeedItem
-              key={index}
-              authorImage={null}
-              authorName={post.author.username}
-              postId={post._id}
-              postTitle={post.title}
-              postContent={post.content}
-              postImages={post.images || []}
-              postCreatedTime={post.createdAt}
-              numberOfLikes={post.likes.length}
-              numberOfComments={post.comments.length}
-            />
+            <PostProvider postId={post._id} post={post}>
+              <NewsFeedItem
+                key={index}
+                authorImage={null}
+                authorName={post.author.username}
+                postId={post._id}
+                postTitle={post.title}
+                postContent={post.content}
+                postImages={post.images || []}
+                postCreatedTime={post.createdAt}
+                numberOfLikes={post.likes.length}
+                numberOfComments={post.comments.length}
+              />
+            </PostProvider>
           ))
         )}
       </div>

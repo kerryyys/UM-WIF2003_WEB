@@ -26,7 +26,6 @@ export const getAllProjects = async (req, res) => {
 
 export const postNewProject = async (req, res) => {
   try {
-    console.log(req.body);
     const newProject = {
       companyName: req.body.companyName,
       projectTitle: req.body.projectTitle,
@@ -40,6 +39,7 @@ export const postNewProject = async (req, res) => {
       deadline: new Date(req.body.deadline),
       projectBudget: req.body.projectBudget,
       requiredSkills: req.body.requiredSkills,
+      agreedToTerms: req.body.agreedToTerms
     };
     const project = await Project.create(newProject).then((project) =>
       console.log("project created: ", project)

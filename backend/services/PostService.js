@@ -37,6 +37,12 @@ class PostService {
     return posts;
   }
 
+  async getPostById(postId) {
+    const post = await Post.findOne({ _id: postId });
+    handleNotFound(post, "Post");
+    return post;
+  }
+
   async modifyPost(postId, title, content, images) {
     const post = await Post.findByIdAndUpdate(
       postId,

@@ -1,6 +1,8 @@
 import React from "react";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import IconLabelPair from "./IconLabelPair";
+import { useUserContext } from "../../../context/UserContext";
+import ProfileImage from "../ProfileImage";
 
 function ProfileCard({ name, title }) {
   const bookmarks = [
@@ -8,13 +10,15 @@ function ProfileCard({ name, title }) {
     { label: "Jobs", icon: "bi bi-bookmark", link: "/" },
   ];
 
+  const { user } = useUserContext();
+
   return (
     <div className="tw-w-4/5 tw-p-3 tw-border tw-border-gray-300 tw-rounded-lg tw-shadow-md tw-bg-white">
       <div className="tw-bg-gradient-to-tr tw-from-primary tw-to-cyan-600 tw-rounded-lg tw-flex tw-justify-center tw-items-center tw-py-5">
-        <img
-          src="https://www.w3schools.com/howto/img_avatar.png"
-          alt="profile"
-          className="tw-w-24 tw-h-24 tw-rounded-full tw-border-4 tw-border-white"
+        <ProfileImage
+          user={user}
+          alt="profile-image"
+          className="tw-w-24 tw-h-24 tw-border-4 tw-border-white"
         />
       </div>
       <div className="tw-px-5 tw-text-center">
