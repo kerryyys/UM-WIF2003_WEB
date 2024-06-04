@@ -9,7 +9,7 @@ const CollaboratorTab = ({
   profilePic,
   username,
   ratingStar,
-  filters,
+  skill,
   location,
 }) => {
   const [showModal, setShowModal] = useState(false);
@@ -33,16 +33,16 @@ const CollaboratorTab = ({
           <p className="CollaboratorName">{username}</p>
           <Rating
             classNames="ratingStar"
-            value={ratingStar || "5"} // Default rating to 5 if not provided
+            value={ratingStar}
             edit={false}
             size={20}
             activeColor="#ffd700"
           />
           <div className="Filters">
-            {Array.isArray(filters) &&
-              filters.map((filter, index) => (
+            {Array.isArray(skill) &&
+              skill.map((skills, index) => (
                 <Badge key={index} className="FilterBadge">
-                  {filter}
+                  {skills}
                 </Badge>
               ))}
             <Badge className="FilterBadge LocationBadge">{location}</Badge>
@@ -70,16 +70,16 @@ const CollaboratorTab = ({
               />
               <div>
                 <Rating
-                  value={ratingStar || 5} // Default rating to 5 if not provided
+                  value={ratingStar} 
                   edit={false}
                   size={30}
                   activeColor="#ffd700"
                 />
                 <div className="Filters">
-                  {Array.isArray(filters) &&
-                    filters.map((filter, index) => (
+                  {Array.isArray(skill) &&
+                    skill.map((skills, index) => (
                       <Badge key={index} className="FilterBadge">
-                        {filter}
+                        {skills}
                       </Badge>
                     ))}
                   <Badge className="FilterBadge LocationBadge">
