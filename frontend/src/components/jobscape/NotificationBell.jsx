@@ -42,9 +42,7 @@ export default function NotificationBell(props) {
     // Now the socket in this component is listening to sendNotif event
     socket.on("sendNotif", (notification) => {
       // notification is the notification schema object here
-      console.log(
-        "notification from socket.on: " + JSON.stringify(notification)
-      );
+      console.log("notification received!: " + JSON.stringify(notification));
       setNotifications((prevNotifications) => [
         ...prevNotifications,
         notification,

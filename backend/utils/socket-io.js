@@ -2,8 +2,8 @@ import { Socket, Server } from "socket.io";
 import { createServer } from "http";
 
 let io;
-let userSockets = {};
-
+const userSockets = {};
+console.log(userSockets);
 export const socketConnection = (httpServer) => {
   io = new Server(httpServer, {
     cors: {
@@ -16,13 +16,16 @@ export const socketConnection = (httpServer) => {
     console.log("Client connected to socket.");
     socket.on("register", (userId) => {
       userSockets[userId] = socket.id;
+      console.log(userId + ": " + userSockets[userId]);
       socket.join(userId);
       console.log("Added new user into socket:" + userId);
     });
 
     socket.on("disconnect", () => {
+      console.log(userSockets);
       for (const userId in userSockets) {
-        if (userSockets[userId] === socket.id) {
+        if (userSockets[userId] == socket.id) {
+          console.log("doesn't match with socket: " + socket.id);
           delete userSockets[userId];
           console.log("User disconnected from socket: " + userId);
           break;
@@ -34,9 +37,12 @@ export const socketConnection = (httpServer) => {
 };
 
 export const sendNotif = (userId, notification) => {
+  console.log("userid before sending: " + userId);
   console.log("Current socket users: " + JSON.stringify(userSockets));
   const socketId = userSockets[userId];
+  console.log("socketId before sending: " + socketId);
   if (socketId) {
+    console.log("notif sent to: " + userId);
     io.to(socketId).emit("sendNotif", notification);
   } else {
     console.log(`User ${userId} not connected.`);

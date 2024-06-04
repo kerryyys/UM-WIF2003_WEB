@@ -5,7 +5,11 @@ import { Project } from "../models/projectModel.js";
 import User from "../models/userModel.js";
 import { Notification } from "../models/notificationModel.js";
 import { saveNotification } from "./notificationController.js";
-import { buildApplyingMessage } from "../helpers/notificationMessageBuilder.js";
+import {
+  buildApplyingMessage,
+  buildFileUploadedMessage,
+} from "../helpers/notificationMessageBuilder.js";
+import { sendNotif } from "../utils/socket-io.js";
 
 export const getAllProjects = async (req, res) => {
   try {
@@ -140,7 +144,7 @@ export const addApplyingProject = async (req, res) => {
       project.applicants.push(userId);
       await project.save();
     }
-    const notif = buildApplyingMessage(user, project.postedBy, project);
+    const notif = buildApplyingMessage(project.postedBy, userId, project);
     await saveNotification(notif);
     res.status(200).json({ user, project });
   } catch (error) {
@@ -251,12 +255,15 @@ export const uploadCompletedWorks = async (req, res) => {
     const project = await Project.findByIdAndUpdate(req.body.projectId, {
       serviceProvider: req.body.userId,
       uploadedFiles: uploadedFiles,
-    });
+    })
+      .populate("postedBy")
+      .exec();
     const user = await User.findById(req.body.userId);
     // user.takenProjects.pull(req.body.projectId);
     // user.completedProjects.push(req.body.projectId);
     await user.save();
-
+    const notif = buildFileUploadedMessage(user, project);
+    await saveNotification(notif);
     return res.status(200).json(project);
   } catch (error) {
     return res
