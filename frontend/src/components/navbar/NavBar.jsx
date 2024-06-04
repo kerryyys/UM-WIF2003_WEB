@@ -45,22 +45,24 @@ export default function NavBar() {
         </div>
 
         <div className="tw-hidden lg:tw-inline">
-          <ul className="tw-flex tw-gap-4">
-            {linkProps.map((linkProp) => (
-              <li
-                key={linkProp.label}
-                className={activeTab === linkProp.link ? styles.active : ""}
-              >
-                <Link
-                  to={linkProp.link}
-                  className={`${styles.navLink} tw-text-secondary`}
-                  onClick={() => handleClick(linkProp.link)}
+          {user && (
+            <ul className="tw-flex tw-gap-4">
+              {linkProps.map((linkProp) => (
+                <li
+                  key={linkProp.label}
+                  className={activeTab === linkProp.link ? styles.active : ""}
                 >
-                  {linkProp.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
+                  <Link
+                    to={linkProp.link}
+                    className={`${styles.navLink} tw-text-secondary`}
+                    onClick={() => handleClick(linkProp.link)}
+                  >
+                    {linkProp.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
 
         <div>
