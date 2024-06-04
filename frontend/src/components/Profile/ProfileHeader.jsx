@@ -7,11 +7,11 @@ import { Link } from 'react-router-dom';
 import { useUserContext } from '../../context/UserContext';
 
 function ProfileHeader(props) {
-  const { name, university, location, avatarSrc, headline, tags = [], userId } = props;
+  const { name, university, location, avatarSrc, headline, tags = [], userId, role } = props;
   const { user } = useUserContext();
 
   const renderValue = (value, fieldName) => {
-    if (value !== undefined && value !== null && value !== ''&& value!=='undefined, undefined') {
+    if (value !== undefined && value !== null && value !== '' && value !== 'undefined, undefined') {
       return value;
     } else {
       return (
@@ -40,9 +40,13 @@ function ProfileHeader(props) {
             <p style={{ color: '#858585', marginRight: '50px' }}>
               {renderValue(location, 'Location')}
             </p>
-            <p style={{ color: '#2D4777' }}>
+            {role === 'recruiter' ? (
+              null
+            ) : (<p style={{ color: '#2D4777' }}>
               {renderValue(university, 'University')}
             </p>
+            )}
+
           </div>
           <p style={{ marginTop: '5px' }}>
             {renderValue(headline, 'Headline')}
