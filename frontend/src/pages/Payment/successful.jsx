@@ -14,7 +14,7 @@ function Successful() {
           <div className="cardSuccessful">
           <Button
       className="BackBtn-In-Successful"
-      onClick={() => (window.location.href = "/ReviewProjectPage")}>
+      onClick={() => (window.location.href = "/ReviewProjectPage/:userId")}>
       <p>
         <i className="bi-chevron-left" />
         Back
