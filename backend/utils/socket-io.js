@@ -2,19 +2,7 @@ import { Socket, Server } from "socket.io";
 import { createServer } from "http";
 
 let io;
-let onlineUsers = [];
-
-const addNewUser = (userId, socketId) => {
-  !onlineUsers.some((user) => user.userId === userId) &&
-    onlineUsers.push({ userId, socketId });
-};
-const removeUser = (socketId) => {
-  onlineUsers = onlineUsers.filter((user) => user.socketId !== socketId);
-};
-
-const getUser = (userId) => {
-  return onlineUsers.find((user) => user.userId === userId);
-};
+let userSockets = {};
 
 export const socketConnection = (httpServer) => {
   io = new Server(httpServer, {
@@ -25,14 +13,32 @@ export const socketConnection = (httpServer) => {
   io.on("connection", (socket) => {
     // io.emit for sending out events. First args is the event name, second args is the message or function
     // io.emit("firstEvent", "Hello this is from socket server!");
-
-    socket.on("newUser", (userId) => {
-      addNewUser(userId, socket.id);
+    console.log("Client connected to socket.");
+    socket.on("register", (userId) => {
+      userSockets[userId] = socket.id;
+      socket.join(userId);
+      console.log("Added new user into socket:" + userId);
     });
 
     socket.on("disconnect", () => {
+      for (const userId in userSockets) {
+        if (userSockets[userId] === socket.id) {
+          delete userSockets[userId];
+          console.log("User disconnected from socket: " + userId);
+          break;
+        }
+      }
       console.log("Someone has disconnected from the socket.");
-      removeUser(socket.id);
     });
   });
+};
+
+export const sendNotif = (userId, notification) => {
+  console.log("Current socket users: " + JSON.stringify(userSockets));
+  const socketId = userSockets[userId];
+  if (socketId) {
+    io.to(socketId).emit("sendNotif", notification);
+  } else {
+    console.log(`User ${userId} not connected.`);
+  }
 };

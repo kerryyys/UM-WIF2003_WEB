@@ -199,7 +199,7 @@ export default function JobDetailsPage(props) {
     const diffInMinutes = Math.floor(diffInSeconds / 60); // Difference in minutes
     const diffInHours = Math.floor(diffInMinutes / 60); // Difference in hours
 
-    if (diffInHours < 1) {
+    if (diffInHours <= 1) {
       return "Less than an hour ago";
     } else if (diffInHours < 24) {
       return `${diffInHours} hours ago`;

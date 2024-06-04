@@ -3,6 +3,9 @@
 import e, { json } from "express";
 import { Project } from "../models/projectModel.js";
 import User from "../models/userModel.js";
+import { Notification } from "../models/notificationModel.js";
+import { saveNotification } from "./notificationController.js";
+import { buildApplyingMessage } from "../helpers/notificationMessageBuilder.js";
 
 export const getAllProjects = async (req, res) => {
   try {
@@ -39,7 +42,7 @@ export const postNewProject = async (req, res) => {
       deadline: new Date(req.body.deadline),
       projectBudget: req.body.projectBudget,
       requiredSkills: req.body.requiredSkills,
-      agreedToTerms: req.body.agreedToTerms
+      agreedToTerms: req.body.agreedToTerms,
     };
     const project = await Project.create(newProject).then((project) =>
       console.log("project created: ", project)
@@ -132,11 +135,13 @@ export const addApplyingProject = async (req, res) => {
       user.applyingProjects.push(projectId);
       await user.save();
     }
-    const project = await Project.findById(projectId);
+    const project = await Project.findById(projectId).populate("postedBy");
     if (!project.applicants.includes(userId)) {
       project.applicants.push(userId);
       await project.save();
     }
+    const notif = buildApplyingMessage(user, project.postedBy, project);
+    await saveNotification(notif);
     res.status(200).json({ user, project });
   } catch (error) {
     return res.status(400).json({

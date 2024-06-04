@@ -12,6 +12,7 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
+import notificationRoute from "./routes/notificationRoute.js";
 import { createServer } from "http";
 import { socketConnection } from "./utils/socket-io.js";
 
@@ -40,6 +41,7 @@ app.use("/api/community", postRoute);
 app.use("/users", usersRoute);
 app.use("/payment", paymentRoute);
 app.use("/auth", authRoute);
+app.use("/notification", notificationRoute);
 
 app.get("*", (req, res) => {
   console.log(req);

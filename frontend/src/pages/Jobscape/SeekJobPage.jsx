@@ -54,6 +54,7 @@ const SeekJobPage = () => {
         // );
         const fetchedProjects = response.data.data.map((project) => {
           let companyName = project.postedBy.username;
+          console.log("Company Name: " + JSON.stringify(project));
           return {
             projectId: project._id,
             projectName: project.projectTitle,
