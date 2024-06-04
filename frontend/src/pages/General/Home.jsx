@@ -1,27 +1,39 @@
-import React from "react";
+import { useEffect } from "react";
 import Button from "react-bootstrap/Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../../pages-css/General/General.css";
 import logo from "./../../assets/images/General/logo.png";
+import { useUserContext } from "../../context/UserContext";
 
 function Home() {
+  const navigate = useNavigate();
+  const { user } = useUserContext();
+
+  useEffect(() => {
+    if (user) {
+      navigate("/JobscapeMainPage");
+    }
+  }, []);
+
   return (
     <div className="login-background1">
       <div className="login-hi">
         <p className="login-welcome-text">Welcome to</p>
         <p className="login-logo-text">UniJobs</p>
-        <p className="login-welcome-text">Best Platform for University Freelancers</p>
+        <p className="login-welcome-text">
+          Best Platform for University Freelancers
+        </p>
         <div className="login-options">
           <div className="login-button-container3">
             <input
-              onClick={() => (window.location.href = "/Login")}
+              onClick={() => navigate("/Login")}
               type="submit"
               value="Login"
             />
           </div>
           <div className="login-button-container3">
             <input
-              onClick={() => (window.location.href = "/Register")}
+              onClick={() => navigate("/Register")}
               type="submit"
               value="Register"
             />
