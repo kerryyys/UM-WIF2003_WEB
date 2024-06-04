@@ -68,7 +68,7 @@ export default function UserProfileMenu({ profilePic, handleSignOut }) {
       >
         <motion.li variants={itemVariants}>
           <Link
-            to="/Profile"
+             to={`/Profile/${user._id}`}
             className="tw-block tw-px-4 tw-py-2 tw-text-gray-700 hover:tw-bg-slate-300 tw-transition"
           >
             <FontAwesomeIcon icon={faUser} className="mr-10" />
