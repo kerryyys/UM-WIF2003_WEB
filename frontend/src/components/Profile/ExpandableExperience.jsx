@@ -78,7 +78,14 @@ function ExpandableExperience({ defaultWords = [], onChange, userId }) {
                     </div>
                 ))}
             </div>
-            <p onClick={handleAddExperience} style={{ color: '#2D4777' }}>+ Add new experience</p>
+            <p onClick={handleAddExperience} className="edit-button"
+                style={{
+                    color: '#2D4777',
+                    border: 'none',
+                    padding: '5px 10px',
+                    cursor: 'pointer',
+                    marginRight: '10px'
+                }}>+ Add new experience</p>
         </div>
     );
 }
