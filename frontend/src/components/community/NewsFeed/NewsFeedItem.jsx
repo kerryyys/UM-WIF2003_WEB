@@ -6,11 +6,7 @@ import ProfileHeader from "./ProfileHeader";
 import moment from "moment";
 import NewsFeedStats from "./NewsFeedStats";
 import { fetchPostStats } from "../../../api/postApi";
-
-const getRandomAvatar = (authorName) => {
-  // Using DiceBear Avatars for random avatars
-  return `https://api.dicebear.com/8.x/lorelei/svg?seed=${authorName}`;
-};
+import { getRandomAvatar } from "../../../utils/tools";
 
 function NewsFeedItem({
   authorImage,

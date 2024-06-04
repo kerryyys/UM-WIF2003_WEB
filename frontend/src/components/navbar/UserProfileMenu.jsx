@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import { useUserContext } from "../../context/UserContext";
 
+import ProfileImage from "../community/ProfileImage";
+
 const itemVariants = {
   open: {
     opacity: 1,
@@ -31,14 +33,10 @@ export default function UserProfileMenu({ profilePic, handleSignOut }) {
         onClick={toggleMenu}
         whileTap={{ scale: 0.85 }}
       >
-        <img
-          src={
-            user.profilePic
-              ? `data:${user.profilePicContentType};base64,${user.profilePic}`
-              : default_avatar
-          }
-          alt="Profile"
-          className="tw-h-12 tw-rounded-full tw-border-4 tw-border-gray-300"
+        <ProfileImage
+          user={user}
+          alt="profile-image"
+          className="tw-h-12 tw-w-12 tw-border-4 tw-border-gray-300"
         />
       </motion.div>
 
