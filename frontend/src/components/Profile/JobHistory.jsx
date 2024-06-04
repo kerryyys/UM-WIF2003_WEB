@@ -2,43 +2,48 @@ import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Image } from "react-bootstrap";
 import "../../components-css/Profile/JobHistoryCSS.css";
 import { useNavigate } from "react-router-dom";
-// import axios from "../utils/customAxios";
+import { getCompletedProjects } from "../../api/projectApi";
 
 const JobHistory = ({ userId }) => {
-  const [jobInfos, setJobInfos] = useState([]);
+  const [completedProjects, setCompletedProject] = useState([]);
+  const [error, setError] = useState(null); 
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCompletedProjects = async () => {
       try {
-        // const response = await axios.get(`/api/completed-projects/${userId}`);
-        // setJobInfos(response.data.completedProjects);
+        const response = await getCompletedProjects(userId);
+        setCompletedProject(response.completedProjects);
       } catch (error) {
-        console.error("Error fetching completed projects:", error);
+        console.error("Error: " + error.message);
       }
     };
-
     fetchCompletedProjects();
-  }, [userId]);
+  }, []);
 
+  useEffect(() => {
+    console.log("Current completed projects: ", completedProjects);
+  }, [completedProjects]);
+  
   const handleClick = (projectId) => {
     navigate(`/JobDetailsPage/${projectId}`);
   };
 
+  if (error) {
+    return <p>{error}</p>; 
+  }
+
+  if (completedProjects.length === 0) {
+    return <p>No completed projects found.</p>; 
+  }
+
   return (
     <>
-      {jobInfos.map((jobInfo, index) => (
+      {completedProjects.map((jobInfo, index) => (
         <div key={index} className="job-history-card">
           <Row className="header">
-            <Col xs={2} className="avatar-column">
-              <Image
-                src={`data:${jobInfo.companyLogo.contentType};base64,${jobInfo.companyLogo.data}`}
-                roundedCircle
-                style={{ width: "70px" }}
-              />
-            </Col>
             <Col xs={7} className="info-column">
-              <h3 className="fs-5">{jobInfo.projectTitle}</h3>
+              <h3 className="fs-5"><strong>{jobInfo.projectTitle}</strong></h3>
               <p>{jobInfo.companyName}</p>
             </Col>
             <Col xs={3} className="status-column fs-6">
@@ -52,21 +57,21 @@ const JobHistory = ({ userId }) => {
                 <br />
                 {jobInfo.projectDescription}
               </p>
-              <p>
+              <p className="mt-2">
                 <strong>Project Duration:</strong> {jobInfo.projectDuration}
               </p>
-              <p>
-                <strong>Deadline for completion:</strong> {jobInfo.deadline}
+              <p className="mt-2">
+                <strong>Deadline for completion:</strong> {new Date(jobInfo.deadline).toLocaleDateString()}
               </p>
-              <p>
-                <strong>Contact Information:</strong>
-                <br /> {jobInfo.contactInformation}
+              <p className="mt-2">
+                <strong>Contact Information: </strong>
+                {jobInfo.contactInformation}
               </p>
             </Col>
           </Row>
           <Row className="see-more" onClick={() => handleClick(jobInfo._id)}>
             <Col>
-              <p>See More...</p>
+              <p className="mt-3">See More...</p>
             </Col>
           </Row>
         </div>
@@ -76,69 +81,3 @@ const JobHistory = ({ userId }) => {
 };
 
 export default JobHistory;
-
-// import React from "react";
-// import { Container, Row, Col, Image } from "react-bootstrap";
-// import "../../components-css/Profile/JobHistoryCSS.css";
-// import { useNavigate } from "react-router-dom";
-// import JobDetailsPage from "../../pages/Jobscape/JobDetailsPage";
-
-// const JobHistory = ({ jobInfos=[] }) => {
-//   const navigate = useNavigate();
-
-//   const handleClick = () => {
-//     navigate("/JobDetailsPage");
-//   };
-
-//   return (
-//     <>
-//       {jobInfos.map((jobInfo, index) => (
-//         <div key={index} className="job-history-card">
-//           <Row className="header">
-//             <Col xs={2} className="avatar-column">
-//               <Image
-//                 src={jobInfo.avatar}
-//                 roundedCircle
-//                 style={{ width: "70px" }}
-//               />
-//             </Col>
-//             <Col xs={7} className="info-column">
-//               <h3 className="fs-5">{jobInfo.jobTitle}</h3>
-//               <p>{jobInfo.company}</p>
-//             </Col>
-//             <Col xs={3} className="status-column fs-6">
-//               <p>{jobInfo.status}</p>
-//             </Col>
-//           </Row>
-//           <Row className="JobHistoryContent">
-//             <Col>
-//               <p>
-//                 <strong>Job Description:</strong>
-//                 <br />
-//                 {jobInfo.description}
-//               </p>
-//               <p>
-//                 <strong>Project Duration:</strong> {jobInfo.duration}
-//               </p>
-//               <p>
-//                 <strong>Deadline for completion:</strong> {jobInfo.deadline}
-//               </p>
-//               <p>
-//                 <strong>Contact Information:</strong>
-//                 <br /> {jobInfo.contact}
-//               </p>
-              
-//             </Col>
-//           </Row>
-//           <Row className="see-more" onClick={handleClick}>
-//             <Col>
-//               <p>See More...</p>
-//             </Col>
-//           </Row>
-//         </div>
-//       ))}
-//     </>
-//   );
-// };
-
-// export default JobHistory;

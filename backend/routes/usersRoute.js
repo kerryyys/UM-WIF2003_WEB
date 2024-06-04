@@ -1,7 +1,7 @@
 import express from "express";
 import User from "../models/userModel.js";
 import multer from "multer";
-import Project from "../models/projectModel.js";
+// import Project from "../models/projectModel.js";
 
 const router = express.Router();
 
