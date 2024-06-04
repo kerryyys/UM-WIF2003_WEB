@@ -3,6 +3,7 @@ import { Container, Row, Col, Image } from "react-bootstrap";
 import "../../components-css/Profile/JobHistoryCSS.css";
 import { useNavigate } from "react-router-dom";
 import { getCompletedProjects } from "../../api/projectApi";
+import noJob from "../../assets/profile/no_job.svg";
 
 const JobHistory = ({ userId }) => {
   const [completedProjects, setCompletedProject] = useState([]);
@@ -34,7 +35,11 @@ const JobHistory = ({ userId }) => {
   }
 
   if (completedProjects.length === 0) {
-    return <p>No completed projects found.</p>; 
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <img style={{ width: '150px', height: '150px' }} src={noJob} alt="No Job" />
+      </div>
+    );
   }
 
   return (

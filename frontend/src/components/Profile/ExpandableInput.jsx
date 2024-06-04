@@ -13,7 +13,7 @@ function ExpandableInput({ defaultWords, title, onChange }) {
         }));
         setInputs(initialInputs);
         if (initialInputs.length > 0) {
-          setNextId(initialInputs[initialInputs.length - 1].id + 1);
+            setNextId(initialInputs[initialInputs.length - 1].id + 1);
         } else {
             setNextId(1);
         }
@@ -31,13 +31,13 @@ function ExpandableInput({ defaultWords, title, onChange }) {
     };
 
     const handleInputChange = (id, value) => {
-      const updatedInputs = inputs.map(input =>
-          input.id === id ? { ...input, value: value } : input
-      );
-      setInputs(updatedInputs);
-      console.log(updatedInputs);
-      onChange(updatedInputs.map(input => input.value));
-  };
+        const updatedInputs = inputs.map(input =>
+            input.id === id ? { ...input, value: value } : input
+        );
+        setInputs(updatedInputs);
+        console.log(updatedInputs);
+        onChange(updatedInputs.map(input => input.value));
+    };
 
     return (
         <div className="w-100">
@@ -60,7 +60,14 @@ function ExpandableInput({ defaultWords, title, onChange }) {
                     </div>
                 ))}
             </div>
-            <p onClick={handleAdd} style={{ color: '#2D4777' }}>
+            <p onClick={handleAdd} className="edit-button"
+                style={{
+                    color: '#2D4777',
+                    border: 'none',
+                    padding: '5px 10px',
+                    cursor: 'pointer',
+                    marginRight: '10px'
+                }}>
                 + Add new {title}
             </p>
         </div>

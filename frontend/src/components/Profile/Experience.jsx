@@ -3,6 +3,14 @@ import WorkCaseIcon from '../../assets/icons/profile/work-case-svgrepo-com 1.svg
 import '../../components-css/Profile/ExperienceCSS.css'
 
 function Experience({ experiences = [] }) {
+  if (experiences.length === 0) {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center',margin:'20px',fontStyle: 'italic', color: '#858585' }}>
+          <p>Experience hasn't been set</p>
+        </div>
+    );
+  }
+
   return (
     <>
       {experiences.map((experience, index) => (
