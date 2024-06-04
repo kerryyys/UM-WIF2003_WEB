@@ -75,10 +75,16 @@ function App() {
           <Route path="/JobscapeMainPage" element={<JobscapeMainPage />} />
           <Route path="/SeekJobPage" element={<SeekJobPage />} />
           <Route path="/SeekTalentPage" element={<SeekTalentPage />} />
-          <Route path="/PostProjectPage" element={<PostProjectPage />} />
-          <Route path="/ReviewProjectPage" element={<ReviewProjectPage />} />
 
           <Route element={<ProtectedRoute />}>
+            <Route
+            path="/PostProjectPage/:userId"
+            element={<PostProjectPage />}
+          />
+          <Route
+            path="/ReviewProjectPage/:userId"
+            element={<ReviewProjectPage />}
+          />
             <Route path="/YourJobs" element={<YourJobsPage />} />
             <Route
               path="/SeekJobPage/job-details/:projectId"
@@ -103,14 +109,34 @@ function App() {
 
           <Route path="/Favorite" element={<FavoritePage />} />
 
-          <Route path="/card" element={<Card />} />
-          <Route path="/ewallet" element={<Ewallet />} />
-          <Route path="/fpx" element={<Fpx />} />
-          <Route path="/redirect" element={<Redirect />} />
-          <Route path="/successful" element={<Successful />} />
-          <Route path="/invoiceList" element={<InvoiceList />} />
-          <Route path="/paymentHis" element={<PaymentHis />} />
-          <Route path="/invoice" element={<Invoice />} />
+          <Route path="/Profile/:userId" element={<Profile />} />
+          <Route path="/EditProfile/:userId" element={<EditProfile />} />
+          <Route
+            path="/AddNewExperience/:userId"
+            element={<AddNewExperience />}
+          />
+          <Route
+            path="/EditExperience/:userId/:experienceId"
+            element={<EditExperience />}
+          />
+          <Route
+            path="/JobHistoryDetails/:id"
+            element={<JobHistoryDetails />}
+          />
+          
+          <Route element={<ProtectedRoute />}>
+            <Route path="/card" element={<Card />} />
+            <Route path="/ewallet" element={<Ewallet />} />
+            <Route path="/fpx" element={<Fpx />} />
+            <Route path="/invoiceList" element={<InvoiceList />} />
+            <Route path="/paymentHis" element={<PaymentHis />} />
+            <Route path="/redirect" element={<Redirect />} />
+            <Route path="/successful" element={<Successful />} />
+          </Route>
+          
+          
+          
+      
           <Route path="/AboutUs" element={<AboutUs />} />
 
           <Route element={<ProtectedRoute />}>

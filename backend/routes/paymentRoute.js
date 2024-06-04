@@ -3,32 +3,41 @@ import {
   SelectedWallet,
   SelectedBank,
   CreditOrDebitCard,
-  Task,
 } from "../models/payment.js";
 import { Project } from "../models/projectModel.js";
+import User from "../models/userModel.js";
 
 const router = express.Router();
 
-// E-Wallet
+// E Wallet
 router.post("/submit", async (req, res) => {
   try {
-    const newSelectedWallet = new SelectedWallet({
-      selectedWallet: req.body.selectedWallet,
-    });
+    const { selectedWallet , userId } = req.body;
 
+    if (!selectedWallet || !userId) {
+      return res.status(400).send("Both e wallet and user information are required");
+    }
+
+    const newSelectedWallet = new SelectedWallet({ selectedWallet, userId });
     await newSelectedWallet.save();
 
     res.status(200).send("Data saved successfully.");
   } catch (error) {
-    console.error(error);
+    console.error("Error saving selected e wallet:", error);
     res.status(500).send("Internal server error.");
   }
 });
 
 router.get("/selectedWallets", async (req, res) => {
   try {
-    const selectedWallets = await SelectedWallet.find();
-    res.status(200).json(selectedWallets);
+    const { userId } = req.query;
+    if (!userId) {
+      return res.status(400).send("User ID is required");
+    }
+
+    const selectedWallets = await SelectedWallet.find({ userId });
+    const selectedWalletNames = selectedWallets.map(selectedWallet => selectedWallet.selectedWallet);
+    res.status(200).json(selectedWalletNames);
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal server error.");
@@ -38,13 +47,13 @@ router.get("/selectedWallets", async (req, res) => {
 // Bank
 router.post("/submitBank", async (req, res) => {
   try {
-    const { selectedBank } = req.body;
+    const { selectedBank , userId } = req.body;
 
-    if (!selectedBank) {
-      return res.status(400).send("No bank selected");
+    if (!selectedBank || !userId) { // Check if both selectedBank and userId are provided
+      return res.status(400).send("Both bank and user information are required");
     }
 
-    const newSelectedBank = new SelectedBank({ selectedBank });
+    const newSelectedBank = new SelectedBank({ selectedBank, userId }); // Associate userId with selectedBank
     await newSelectedBank.save();
 
     res.status(200).send("Data saved successfully.");
@@ -56,16 +65,20 @@ router.post("/submitBank", async (req, res) => {
 
 router.get("/selectedBanks", async (req, res) => {
   try {
-    const selectedBanks = await SelectedBank.find();
-    const selectedBankNames = selectedBanks.map(
-      (selectedBank) => selectedBank.selectedBank
-    );
+    const { userId } = req.query;
+    if (!userId) {
+      return res.status(400).send("User ID is required");
+    }
+
+    const selectedBanks = await SelectedBank.find({ userId });
+    const selectedBankNames = selectedBanks.map(selectedBank => selectedBank.selectedBank);
     res.status(200).json(selectedBankNames);
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal server error.");
   }
 });
+
 
 // Card
 router.post("/submitCard", async (req, res) => {
@@ -80,16 +93,22 @@ router.post("/submitCard", async (req, res) => {
   }
 });
 
+
 router.get("/getCardNumbers", async (req, res) => {
   try {
-    const cards = await CreditOrDebitCard.find({}, "cardNumber -_id");
+    const { userId } = req.query;
+    if (!userId) {
+      return res.status(400).send("User ID is required");
+    }
+
+    const cards = await CreditOrDebitCard.find({ userId }, "cardNumber -_id");
     res.status(200).json(cards);
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal server error.");
   }
 });
-
+  
 // Task
 router.get("/task", async (req, res) => {
   try {
@@ -109,13 +128,35 @@ router.get("/task", async (req, res) => {
 });
 
 // Invoice
+// router.get('/invoices', async (req, res) => {
+//   try {
+//     const { postedBy } = req.query; // Destructuring postedBy from req.query
+//     if (!postedBy) {
+//       return res.status(400).json({ message: "User ID is required." });
+//     }
+  
+//     const projects = await Project.find({ postedBy: postedBy }, 'projectTitle projectBudget');
+//     res.json(projects);
+//    catch (err) {
+//     res.status(500).json({ message: err.message });
+//   }
+// });
+
 router.get('/invoices', async (req, res) => {
+  const userId = req.query.userId;
   try {
-    const projects = await Project.find({}, 'projectTitle projectBudget');
-    res.json(projects);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+    const { postedBy } = req.query;
+    if (!postedBy) {
+      return res.status(400).json({ message: "User ID is required." });
+    }
+
+    let projects = await Project.find({ postedBy: postedBy }, 'projectTitle projectBudget');
+    res.status(200).json(projects);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error." });
   }
 });
+
 
 export default router;

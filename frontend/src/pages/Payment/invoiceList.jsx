@@ -2,22 +2,38 @@ import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import "../../pages-css/Payment/Payment.css";
 import Tnc from "../../components/payment/tnc";
+import { useUserContext } from "../../context/UserContext";
+import axios from '../../utils/customAxios';
 
 function InvoiceList() {
+  
   const [invoices, setInvoices] = useState([]);
+  const { user } = useUserContext();
+
+  // console.log("Your jobs page userContext: " + JSON.stringify(user));
 
   useEffect(() => {
-    const fetchInvoices = async () => {
-      try {
-        const response = await fetch('http://localhost:5050/payment/invoices');
-        const data = await response.json();
-        setInvoices(data);
-      } catch (error) {
-        console.error('Error fetching invoices:', error);
+    const fetchInvoices = async (userId) => {
+      if (userId) {
+        try {
+          const response = await axios.get(`http://localhost:5050/payment/invoices?postedBy=${userId}`);
+          console.log("API Response:", response.data);
+          if (response.status === 200) {
+            setInvoices(response.data);
+          } else {
+            throw new Error('Failed to fetch invoices.');
+          }
+        } catch (error) {
+          console.error('Error fetching invoices:', error);
+        }
       }
     };
-    fetchInvoices();
-  }, []);
+    
+    if (user._id) {
+      fetchInvoices(user._id);
+    }
+  }, [user]);
+
 
   const handleDownload = () => {
         const pdfUrl = '';
@@ -48,6 +64,7 @@ function InvoiceList() {
 
         <div className="card-wenhao">
           <p className="INV-title-name">Invoice List</p>
+
           {invoices.map((invoice, index) => (
         <div key={index} className="INV" onClick={() => handleInvClick(invoice)}>
           <p className="INVName">Completed</p>

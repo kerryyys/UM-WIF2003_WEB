@@ -1,10 +1,11 @@
-import axios from "axios";
+import axios from "../../utils/customAxios";
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import "../../pages-css/Jobscape/PostProjectPage.css";
 import SmallTitle from "../../components/jobscape/SmallTitle";
 import "../../components-css/jobscape/Notification.css";
+import { useUserContext } from "../../context/UserContext";
 
 const Notification = ({ message, onClose }) => (
   <div className="overlay">
@@ -44,6 +45,8 @@ const PostProjectPage = () => {
     additionalNotes: "",
     agreedToTerms: "",
   });
+
+  const { user } = useUserContext(); // Retrieve the user object from context
 
   const validateFields = () => {
     const messages = {};
@@ -125,11 +128,11 @@ const PostProjectPage = () => {
     e.preventDefault();
 
     if (!validateFields()) {
-      return; // Stop submission if validation fails
+      return; 
     }
 
     try {
-      const response = await axios.post("http://localhost:5050/recruite", {
+      const requestData = {
         projectTitle,
         projectDescription,
         location,
@@ -141,7 +144,13 @@ const PostProjectPage = () => {
         contactInformation,
         additionalNotes,
         agreedToTerms,
-      });
+        postedBy: user?._id, 
+      };
+
+      const response = await axios.post(
+        "http://localhost:5050/recruite",
+        requestData
+      );
 
       if (response.status === 201) {
         // Clear form fields and show notification
@@ -162,7 +171,6 @@ const PostProjectPage = () => {
       }
     } catch (error) {
       console.error("Error:", error.message);
-      // Display a generic error message to the user
       alert("An error occurred. Please try again later.");
     }
   };
@@ -173,6 +181,15 @@ const PostProjectPage = () => {
       setIsFormSubmitted(false);
       navigate("/SeekTalentPage");
     }
+  };
+
+  // Get today's date in YYYY-MM-DD format
+  const getCurrentDate = () => {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, "0"); // Months are zero-indexed
+    const dd = String(today.getDate()).padStart(2, "0");
+    return `${yyyy}-${mm}-${dd}`;
   };
 
   return (
@@ -266,15 +283,22 @@ const PostProjectPage = () => {
               value={projectCategory}
               onChange={(e) => setProjectCategory(e.target.value)}
             >
-              <option value="">Select category</option>
-              <option value="Tech & IT">Tech & IT</option>
-              <option value="Creative & Design">Creative & Design</option>
-              <option value="Content Writing">Content Writing</option>
-              <option value="Education & Training">Education & Training</option>
-              <option value="Marketing">Marketing</option>
-              <option value="Finance">Finance</option>
-              <option value="Healthcare">Healthcare</option>
-              <option value="Engineering">Engineering</option>
+              <option value="">Select Project Category</option>
+              <option value="Software Development">Software Development</option>
+              <option value="Mobile App Development">
+                Mobile App Development
+              </option>
+              <option value="Web Development">Web Development</option>
+              <option value="Graphics Design">Graphics Design</option>
+              <option value="Video Editing">Video Editing</option>
+              <option value="Translation Services">Translation Services</option>
+              <option value="Social Media Marketing">
+                Social Media Marketing
+              </option>
+              <option value="SEO Optimization">SEO Optimization</option>
+              <option value="Customer Support">Customer Support</option>
+              <option value="Data Entry">Data Entry</option>
+              <option value="Others">Others</option>
             </select>
             {validationMessages.projectCategory && (
               <span className="ErrorMessage">
@@ -334,7 +358,7 @@ const PostProjectPage = () => {
           <div className="FormRow">
             <label htmlFor="projectBudget">Project Budget:</label>
             <input
-              type="text"
+              type="number"
               id="projectBudget"
               value={projectBudget}
               onChange={(e) => setProjectBudget(e.target.value)}
@@ -351,6 +375,7 @@ const PostProjectPage = () => {
               type="date"
               id="deadline"
               value={deadline}
+              min={getCurrentDate()}
               onChange={(e) => setDeadline(e.target.value)}
             />
             {validationMessages.deadline && (
@@ -366,7 +391,7 @@ const PostProjectPage = () => {
               id="contactInformation"
               value={contactInformation}
               onChange={(e) => setContactInformation(e.target.value)}
-              pattern="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$|^[\d\s()-]+$"
+              placeholder="Phone number or email"
             />
             {validationMessages.contactInformation && (
               <span className="ErrorMessage">
@@ -381,21 +406,15 @@ const PostProjectPage = () => {
               value={additionalNotes}
               onChange={(e) => setAdditionalNotes(e.target.value)}
             />
-            {validationMessages.additionalNotes && (
-              <span className="ErrorMessage">
-                {validationMessages.additionalNotes}
-              </span>
-            )}
           </div>
           <div className="FormRow">
-            <label htmlFor="termsCheckbox">
+            <label className="CheckboxContainer">
               <input
                 type="checkbox"
-                id="termsCheckbox"
                 checked={agreedToTerms}
                 onChange={(e) => setAgreedToTerms(e.target.checked)}
               />
-              By selecting this, you agree to our terms and conditions.
+              I agree to the terms and conditions
             </label>
             {validationMessages.agreedToTerms && (
               <span className="ErrorMessage">
@@ -403,18 +422,19 @@ const PostProjectPage = () => {
               </span>
             )}
           </div>
-          <button type="submit" className="SubmitButton">
-            Submit
-          </button>
+          <div className="FormRow">
+            <button type="submit" className="SubmitButton">
+              Submit
+            </button>
+          </div>
         </form>
-        {/* Notification */}
-        {showNotification && (
-          <Notification
-            message="Your project details have been successfully submitted!"
-            onClose={handleNotificationClose}
-          />
-        )}
       </div>
+      {showNotification && (
+        <Notification
+          message="Form submitted successfully!"
+          onClose={handleNotificationClose}
+        />
+      )}
     </div>
   );
 };

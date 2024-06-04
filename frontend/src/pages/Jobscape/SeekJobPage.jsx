@@ -3,8 +3,6 @@ import "../../App.css";
 import axios from "axios";
 import SmallTitle from "../../components/jobscape/SmallTitle";
 import SearchBar from "../../components/jobscape/SearchBar";
-import CategoryBar from "../../components/jobscape/CategoryBar";
-import DurationBar from "../../components/jobscape/DurationBar";
 import SearchButton from "../../components/jobscape/SearchButton";
 import FilterTab from "../../components/jobscape/FilterTab";
 import SearchResultTab from "../../components/jobscape/SearchResultTab";
@@ -24,8 +22,6 @@ const SeekJobPage = () => {
 
   const [projectTabs, setProjectTabs] = useState([]);
   const [searchValue, setSearchValue] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedDuration, setSelectedDuration] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [sortingOption, setSortingOption] = useState("newOrRate");
 
@@ -78,14 +74,6 @@ const SeekJobPage = () => {
   const handleSearchChange = (event) => {
     setSearchValue(event.target.value);
     console.log("event target" + event.target.value);
-  };
-
-  const handleCategoryChange = (event) => {
-    setSelectedCategory(event.target.value);
-  };
-
-  const handleDurationChange = (event) => {
-    setSelectedDuration(event.target.value);
   };
 
   // Send GET request to backend with search query
@@ -203,16 +191,6 @@ const SeekJobPage = () => {
             value={searchValue}
             handleChange={handleSearchChange}
           />
-          {/* <CategoryBar
-            categories={categories}
-            value={selectedCategory}
-            onChange={handleCategoryChange}
-          />
-          <DurationBar
-            duration={duration}
-            value={selectedDuration}
-            onChange={handleDurationChange}
-          /> */}
           <SearchButton
             handleClick={handleClick}
             bgColor={"#2D4877"}
@@ -261,7 +239,6 @@ const SeekJobPage = () => {
           totalPages={Math.ceil(totalProjects / projectPerPage)}
           onPageChange={handlePageChange}
         />
-        {/* Footer */}
       </div>
     </>
   );

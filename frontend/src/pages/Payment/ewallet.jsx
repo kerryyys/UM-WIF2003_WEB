@@ -4,8 +4,13 @@ import BackButton from '../../components/payment/BackButton';
 import ServiceSummary from '../../components/payment/serviceSummary';
 import Reminder from '../../components/payment/Reminder';
 import ChoosePaymentMethod from "../../components/payment/ChoosePaymentMethod";
+import { useUserContext } from "../../context/UserContext";
+import axios from '../../utils/customAxios';
 
 function Ewallet() {
+  const {user} = useUserContext();
+  console.log("Your jobs page userContext: " + JSON.stringify(user));
+
   const [projectTitle, setProjectTitle] = useState('');
   const [projectBudget, setProjectBudget] = useState('');
   const [taskData, setTaskData] = useState({});
@@ -14,26 +19,33 @@ function Ewallet() {
   const [selectedService, setSelectedService] = useState(null);
   const [services, setServices] = useState([]);
 
-  useEffect(() => {
-    fetchSelectedBanks();
-  }, []);
+  // get the linked payment method
 
-  const fetchSelectedBanks = async () => {
+  
+  useEffect(() => {
+    if (user._id) {
+      fetchPaymentMethod(user._id);
+    }
+  }, [user]);
+
+  
+  const fetchPaymentMethod = async (userId) => {
     try {
-      const response = await fetch('http://localhost:5050/payment/selectedWallets');
-      if (!response.ok) {
-        throw new Error('Failed to fetch selected e wallet');
+      const response = await axios.get(`http://localhost:5050/payment/selectedWallets?userId=${userId}`);
+      if (response.status === 200) {
+        setServices(response.data);
+        console.log("Selected e wallets:", response.data);
+      } else {
+        throw new Error('Failed to fetch payment method.');
       }
-      const data = await response.json();
-      setServices(data);
     } catch (error) {
-      console.error('Error fetching selected e wallet:', error);
+      console.error("Error fetching payment method:", error);
     }
   };
-
-  const handleServiceClick = (service) => {
-    setSelectedService(service);
-    localStorage.setItem('paymentMethod' , service.selectedWallet);
+  
+  const handleServiceClick = (services) => {
+    setSelectedService(services);
+    localStorage.setItem('paymentMethod' , services);
   };
 
   //  write choose what ewallet to pay 
@@ -44,20 +56,23 @@ function Ewallet() {
   };
 
   const handleSubmit = () => {
-    const selectedWallet = document.querySelector('.ewallet').value;
-
-    if (selectedWallet) {
-        fetch('http://localhost:5050/payment/submit', {
-            method: 'POST',
+    if (!selectedWallet) {
+        alert('Please select an e-wallet.');
+    } else if (!user) {
+        alert('Please ensure user is logged in.');
+    } else {
+        axios.post('http://localhost:5050/payment/submit', {
+            selectedWallet,
+            userId: user._id
+        }, {
             headers: {
                 'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ selectedWallet })
+            }
         })
         .then(response => {
-            if (response.ok) {
+            if (response.status === 200) {
                 console.log('Data saved successfully.');
-                window.location.href = "/redirect"
+                window.location.href = "/redirect";
             } else {
                 throw new Error('Failed to save data.');
             }
@@ -65,10 +80,9 @@ function Ewallet() {
         .catch(error => {
             console.error(error);
         });
-    } else {
-        alert('Please select an e-wallet.');
     }
 };
+
   return (
     <>
     <BackButton/>
@@ -77,7 +91,8 @@ function Ewallet() {
           <p className="PaymentBigtitle">Payment</p>
           <hr className="line"></hr>
           <p className="titleLinked">Linked payment method:</p>
-          {services.map((service, index) => (
+
+          {/* {services.map((service, index) => (
             <div
               key={index}
               onClick={() => {
@@ -89,7 +104,23 @@ function Ewallet() {
               <p className="BankName"></p>
               <p>{service.selectedWallet}</p>
             </div>
-          ))}
+          ))} */}
+
+<div>
+      {services.map((service, index) => (
+        <div
+          key={index}
+          onClick={() => {
+            handleServiceClick(service);
+            window.location.href = "/redirect";
+          }}
+          className={`automatedContainer ${selectedService === service ? 'selected' : ''}`}
+        >
+          <p className="BankName">{service}</p>
+        </div>
+      ))}
+    </div>
+
           <ChoosePaymentMethod/>
           <div>
             <p className="titleLinked">Choose Preferred E-Wallet</p>

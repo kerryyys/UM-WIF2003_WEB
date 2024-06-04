@@ -1,8 +1,12 @@
 import { useState } from "react";
 import React  from "react";
 import "../../pages-css/Payment/Payment.css";
+import { useUserContext } from "../../context/UserContext";
+import axios from '../../utils/customAxios';
 
 const ChoosePaymentMethod = () => {
+  const {user} = useUserContext();
+  console.log("Your jobs page userContext: " + JSON.stringify(user));
 
   const [selectedBank, setSelectedBank] = useState("");
 
@@ -11,32 +15,45 @@ const ChoosePaymentMethod = () => {
     localStorage.setItem('paymentMethod' , event.target.value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     const selectedBank = document.querySelector('.ewallet').value;
 
-    if (selectedBank) {
-        fetch('http://localhost:5050/payment/submitBank', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ selectedBank })
-        })
-        .then(response => {
-            if (response.ok) {
-                console.log('Data saved successfully.');
-                window.location.href = "/redirect"
-            } else {
-                throw new Error('Failed to save data.');
-            }
-        })
-        .catch(error => {
-            console.error(error);
-        });
-    } else {
-        alert('Please select a bank to proceed.');
+    if (!user) {
+      alert('Please log in before submitting the bank details.');
+      return;
     }
-};
+
+    if (!selectedBank) {
+      alert('Please select a bank to proceed.');
+      return;
+    }
+
+    const payload = {
+      selectedBank,
+      userId: user._id
+    };
+
+    console.log(payload);
+
+    try {
+      const response = await axios.post('http://localhost:5050/payment/submitBank', payload, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      if (response.status === 200) {
+        console.log('Data saved successfully.');
+        window.location.href = "/redirect";
+      } else {
+        throw new Error('Failed to save data.');
+      }
+    } catch (error) {
+      console.error("Error saving data:", error);
+    }
+  };
+
   
   return (
     <>
