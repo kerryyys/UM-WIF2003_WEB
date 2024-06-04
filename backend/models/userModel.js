@@ -100,6 +100,10 @@ const userSchema = new mongoose.Schema(
     about: {
       type: String,
     },
+    rating: {
+      type: String,
+      default: "5",
+    },
     favoriteProjects: [
       {
         type: Schema.Types.ObjectId,
