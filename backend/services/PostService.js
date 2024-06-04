@@ -38,7 +38,7 @@ class PostService {
   }
 
   async getPostById(postId) {
-    const post = await Post.findOne({ _id: postId });
+    const post = await Post.findOne({ _id: postId }).populate("author");
     handleNotFound(post, "Post");
     return post;
   }

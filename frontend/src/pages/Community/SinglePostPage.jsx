@@ -33,6 +33,8 @@ function SinglePostPage() {
     return <div>Post Not Found</div>;
   }
 
+  console.log("SinglePostPage: ", post);
+
   return (
     <div className="tw-px-12">
       {post ? (
