@@ -14,25 +14,24 @@ const SeekTalentPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedFilters, setSelectedFilters] = useState([]);
   const [freelancers, setFreelancers] = useState([]);
+  const { user } = useUserContext();
+  const userRole = user?.role;
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
-
+//WHY CANNOT FILTER RATING?
   const handleFilterChange = (name, checked) => {
-    // Will add to selectedFilters if checked
-    if (checked) {
-      setSelectedFilters((prevFilters) => [...prevFilters, name]);
-    } else {
-      // Remove from selectedFilters if unchecked
-      setSelectedFilters((prevFilters) =>
-        prevFilters.filter((filter) => filter !== name)
-      );
-    }
-    setCurrentPage(1); // Reset to the first page when filters change
-  };
+  if (checked) {
+    setSelectedFilters((prevFilters) => [...prevFilters, name]);
+  } else {
+    setSelectedFilters((prevFilters) =>
+      prevFilters.filter((filter) => filter !== name)
+    );
+  }
+  setCurrentPage(1); 
+};
 
-  // Retrieve data from backend
   useEffect(() => {
     axios
       .get("http://localhost:5050/users/")
@@ -40,8 +39,8 @@ const SeekTalentPage = () => {
         const fetchedFreelancers = response.data.data.map((freelancer) => ({
           ...freelancer,
           skill: freelancer.skill || [], // Ensure skill is an array or default to empty array
-          state: freelancer.state || "Remote", // Ensure state is a string or default to empty string
-          rating: (freelancer.rating || 5).toString(), // Use rating if present, or default to 5
+          state: freelancer.state, // Ensure state is a string or default to empty string
+          rating: freelancer.rating, 
         }));
         setFreelancers(fetchedFreelancers);
         console.log(fetchedFreelancers);
@@ -49,8 +48,8 @@ const SeekTalentPage = () => {
       .catch((error) => {
         console.error("Error fetching freelancer data:", error);
       });
-  }, []); // Empty dependency array to fetch data only once when the component mounts
-
+  }, []); 
+  
   const collaboratorsPerPage = 6;
 
   const filters = [
@@ -87,8 +86,9 @@ const SeekTalentPage = () => {
 
   const filteredCollaborators = freelancers.filter((freelancer) => {
     return (
-      selectedFilters.every((filter) => freelancer.skill.includes(filter)) &&
-      freelancer.role === "freelancer"
+      selectedFilters.every((selectedFilter) =>
+        freelancer.skill.includes(selectedFilter)
+      ) && freelancer.role === "freelancer"
     ); // Ensure only freelancers are shown
   });
 
@@ -108,24 +108,30 @@ const SeekTalentPage = () => {
           fontSize="36px"
         />
       </div>
-      <div
-        className="NavBigTab"
-        style={{ display: "flex", justifyContent: "center", marginLeft: "11%" }}
-      >
-        <NavBigTab
-          backgroundImage={postProject}
-          text="Post a New Project"
-          borderRadius="10px 0 0 10px"
-          to="/PostProjectPage/:userId"
-        />
-        <NavBigTab
-          backgroundImage={reviewProject}
-          position="right"
-          text="Review Collaboration"
-          borderRadius="0 10px 10px 0"
-          to="/ReviewProjectPage/:userId"
-        />
-      </div>
+      {userRole === "recruiter" && (
+        <div
+          className="NavBigTab"
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginLeft: "11%",
+          }}
+        >
+          <NavBigTab
+            backgroundImage={postProject}
+            text="Post a New Project"
+            borderRadius="10px 0 0 10px"
+            to="/PostProjectPage/:userId"
+          />
+          <NavBigTab
+            backgroundImage={reviewProject}
+            position="right"
+            text="Review Collaboration"
+            borderRadius="0 10px 10px 0"
+            to="/ReviewProjectPage/:userId"
+          />
+        </div>
+      )}
 
       <div className="FilterAndResult" style={{ display: "flex" }}>
         <div
@@ -158,12 +164,11 @@ const SeekTalentPage = () => {
           {slicedCollaborators.map((freelancer, index) => (
             <CollaboratorTab
               key={index}
+              freelancerID={freelancer._id}
               profilePic={`http://localhost:5050/images/${freelancer.profilePic}`}
-              collaboratorName={freelancer.name}
               username={freelancer.username} // Pass username as a prop
               ratingStar={freelancer.rating}
               skill={freelancer.skill}
-              biography={freelancer.biography}
               location={freelancer.state}
             />
           ))}

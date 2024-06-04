@@ -88,6 +88,10 @@ const userSchema = new mongoose.Schema(
       type: [String],
       default: [],
     },
+    rating: {
+      type: String,
+      default: "5",
+    },
     favoriteProjects: [
       {
         type: Schema.Types.ObjectId,
