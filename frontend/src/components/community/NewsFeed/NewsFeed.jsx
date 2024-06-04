@@ -12,10 +12,6 @@ function NewsFeed() {
     return <div>No posts available</div>;
   }
 
-  newsFeedList.forEach((post) => {
-    console.log(post);
-  });
-
   return (
     <div>
       <WritePost />

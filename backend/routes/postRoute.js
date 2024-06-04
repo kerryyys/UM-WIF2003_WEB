@@ -36,6 +36,7 @@ router.put(
 );
 router.get("/posts/:postId/stats", PostController.fetchPostStats);
 router.get("/posts", PostController.getAllPosts);
+router.get("/posts/:postId", PostController.getPostById);
 router.get("/posts/user/:userId", PostController.getAllPostsByUserId);
 router.delete("/posts/:postId", PostController.deletePost);
 router.post("/posts/:postId/likes", PostController.likePost);

@@ -42,6 +42,15 @@ export const getAllPosts = async () => {
   }
 };
 
+export const getPostById = async (postId) => {
+  try {
+    const res = await axios.get(`${API_URL}/posts/${postId}`);
+    return res.data;
+  } catch (error) {
+    console.error("Failed to get single post at Post API:", error);
+  }
+};
+
 // Function to get all posts by a specific user
 export const getAllPostsByUserId = async (userId) => {
   try {

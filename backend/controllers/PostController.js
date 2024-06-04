@@ -7,6 +7,7 @@ import {
   deletePostSchema,
   likePostSchema,
   userIdSchema,
+  postIdSchema,
 } from "../validators/postValidators.js";
 import upload from "../middlewares/fileUpload.js";
 
@@ -21,6 +22,7 @@ class PostController extends BaseController {
     this.deletePost = this.deletePost.bind(this);
     this.likePost = this.likePost.bind(this);
     this.unlikePost = this.unlikePost.bind(this);
+    this.getPostById = this.getPostById.bind(this);
   }
 
   async fetchPostStats(req, res) {
@@ -141,6 +143,15 @@ class PostController extends BaseController {
         req.body.userId
       );
     });
+  }
+
+  async getPostById(req, res) {
+    await this.handleRequest(
+      req,
+      res,
+      PostService.getPostById,
+      req.params.postId
+    );
   }
 }
 

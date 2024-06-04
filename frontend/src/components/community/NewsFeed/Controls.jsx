@@ -24,10 +24,10 @@ function Controls({ setNumberOfLikes, setNumberOfComments }) {
   const { postId, post } = usePostContext();
 
   useEffect(() => {
-    if (post.likes.includes(user._id)) {
+    if (post && user && post.likes.includes(user._id)) {
       setIsLikeActive(true);
     }
-  }, []);
+  }, [post, user]);
 
   const fetchAndUpdateStats = async () => {
     try {

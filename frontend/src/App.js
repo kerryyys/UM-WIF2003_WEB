@@ -41,6 +41,7 @@ import CommunityPage from "./pages/Community/CommunityPage";
 import NavBar from "./components/navbar/NavBar";
 import "./App.css";
 import { UserProvider } from "./context/UserContext";
+import SinglePostPage from "./pages/Community/SinglePostPage";
 
 function ScrollToTopOnNavigation() {
   const { pathname } = useLocation();
@@ -78,13 +79,13 @@ function App() {
 
           <Route element={<ProtectedRoute />}>
             <Route
-            path="/PostProjectPage/:userId"
-            element={<PostProjectPage />}
-          />
-          <Route
-            path="/ReviewProjectPage/:userId"
-            element={<ReviewProjectPage />}
-          />
+              path="/PostProjectPage/:userId"
+              element={<PostProjectPage />}
+            />
+            <Route
+              path="/ReviewProjectPage/:userId"
+              element={<ReviewProjectPage />}
+            />
             <Route path="/YourJobs" element={<YourJobsPage />} />
             <Route
               path="/SeekJobPage/job-details/:projectId"
@@ -123,7 +124,7 @@ function App() {
             path="/JobHistoryDetails/:id"
             element={<JobHistoryDetails />}
           />
-          
+
           <Route element={<ProtectedRoute />}>
             <Route path="/card" element={<Card />} />
             <Route path="/ewallet" element={<Ewallet />} />
@@ -133,11 +134,10 @@ function App() {
             <Route path="/redirect" element={<Redirect />} />
             <Route path="/successful" element={<Successful />} />
           </Route>
-          
-          
-          
-      
+
           <Route path="/AboutUs" element={<AboutUs />} />
+
+          <Route path="/Community/posts/:postId" element={<SinglePostPage />} />
 
           <Route element={<ProtectedRoute />}>
             <Route path="/Community" element={<CommunityPage />} />
