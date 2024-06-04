@@ -287,7 +287,7 @@ function EditProfile() {
                             <p style={{ fontWeight: '700', marginTop: '20px' }}>Product</p>
                         </div>
                         <div>
-                            <p onClick={handleProductModalShow} style={{ color: '#2D4777' }}>+ Add new product</p>
+                            <p onClick={handleProductModalShow} style={{ cursor: 'pointer',color: '#2D4777' }}>+ Add new product</p>
                         </div>
                         {profileData.product?.map((product, index) => (
                             <>
