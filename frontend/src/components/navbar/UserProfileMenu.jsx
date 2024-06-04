@@ -3,6 +3,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import { useUserContext } from "../../context/UserContext";
 
 const itemVariants = {
   open: {
@@ -15,6 +16,7 @@ const itemVariants = {
 
 export default function UserProfileMenu({ profilePic, handleSignOut }) {
   const [isOpen, setIsOpen] = useState(false);
+  const { user } = useUserContext();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -30,7 +32,11 @@ export default function UserProfileMenu({ profilePic, handleSignOut }) {
         whileTap={{ scale: 0.85 }}
       >
         <img
-          src={profilePic}
+          src={
+            user.profilePic
+              ? `data:${user.profilePicContentType};base64,${user.profilePic}`
+              : default_avatar
+          }
           alt="Profile"
           className="tw-h-12 tw-rounded-full tw-border-4 tw-border-gray-300"
         />
