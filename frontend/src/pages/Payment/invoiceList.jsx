@@ -10,8 +10,6 @@ function InvoiceList() {
   const [invoices, setInvoices] = useState([]);
   const { user } = useUserContext();
 
-  // console.log("Your jobs page userContext: " + JSON.stringify(user));
-
   useEffect(() => {
     const fetchInvoices = async (userId) => {
       if (userId) {
