@@ -42,6 +42,7 @@ function Profile() {
           headline={profile.headline}
           tags={profile.categories}
           userId={userId}
+          role={profile.role}
         />
       </Container>
       <Container className="mt-5">
