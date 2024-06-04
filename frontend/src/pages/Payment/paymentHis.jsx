@@ -1,29 +1,37 @@
 import React , { useEffect, useState } from "react";
 import "../../pages-css/Payment/Payment.css";
 import { Button } from "react-bootstrap";
+import { useUserContext } from "../../context/UserContext";
+import axios from '../../utils/customAxios';
 
 function Invoice() {
   const [invoices, setInvoices] = useState([]);
-  const [paymentMethod, setPaymentMethod] = useState('');
+  const {user} = useUserContext();
+  console.log("Your jobs page userContext: " + JSON.stringify(user));
 
   const PaymentMethod = localStorage.getItem('paymentMethod');
 
   useEffect(() => {
-    setPaymentMethod(PaymentMethod);
-  }, []);
-
-  useEffect(() => {
-    const fetchInvoices = async () => {
-      try {
-        const response = await fetch('http://localhost:5050/payment/invoices');
-        const data = await response.json();
-        setInvoices(data);
-      } catch (error) {
-        console.error('Error fetching invoices:', error);
+    const fetchInvoices = async (userId) => {
+      if (userId) {
+        try {
+          const response = await axios.get(`http://localhost:5050/payment/invoices?postedBy=${userId}`);
+          console.log("API Response:", response.data);
+          if (response.status === 200) {
+            setInvoices(response.data);
+          } else {
+            throw new Error('Failed to fetch invoices.');
+          }
+        } catch (error) {
+          console.error('Error fetching invoices:', error);
+        }
       }
     };
-    fetchInvoices();
-  }, []);
+    
+    if (user._id) {
+      fetchInvoices(user._id);
+    }
+  }, [user]);
 
   return (
     <div className="invoice-containerner">
@@ -44,7 +52,7 @@ function Invoice() {
 
           {invoices.map((invoice, index) => (
             <div key={index} className="INV">
-              <p className="INVName">{paymentMethod}</p>
+              <p className="INVName">{PaymentMethod}</p>
               <p className="INVPrice">{invoice.projectTitle}</p>
               <p className="INVDesc">RM {parseFloat(invoice.projectBudget) + 10}</p>
             </div>
