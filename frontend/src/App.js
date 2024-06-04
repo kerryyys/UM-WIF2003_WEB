@@ -90,8 +90,6 @@ function App() {
           <Route path="/JobscapeMainPage" element={<JobscapeMainPage />} />
 
           <Route path="/SeekTalentPage" element={<SeekTalentPage />} />
-          <Route path="/PostProjectPage" element={<PostProjectPage />} />
-          <Route path="/ReviewProjectPage" element={<ReviewProjectPage />} />
 
           <Route element={<ProtectedRoute />}>
             <Route
@@ -141,16 +139,16 @@ function App() {
             path="/JobHistoryDetails/:id"
             element={<JobHistoryDetails />}
           />
+
           <Route element={<ProtectedRoute />}>
             <Route path="/card" element={<Card />} />
             <Route path="/ewallet" element={<Ewallet />} />
             <Route path="/fpx" element={<Fpx />} />
             <Route path="/invoiceList" element={<InvoiceList />} />
             <Route path="/paymentHis" element={<PaymentHis />} />
+            <Route path="/redirect" element={<Redirect />} />
+            <Route path="/successful" element={<Successful />} />
           </Route>
-
-          <Route path="/redirect" element={<Redirect />} />
-          <Route path="/successful" element={<Successful />} />
 
           <Route path="/AboutUs" element={<AboutUs />} />
 

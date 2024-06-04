@@ -33,6 +33,18 @@ const experience = new mongoose.Schema({
   }
 });
 
+const product = new Schema({
+  title: {
+    type: String,
+  },
+  date: {
+    type: Date,
+  },
+  description: {
+    type: String,
+  },
+});
+
 const userSchema = new mongoose.Schema(
   {
     email: {
@@ -84,9 +96,13 @@ const userSchema = new mongoose.Schema(
     about: {
       type: String,
     },
-    product: {
-      type: [String],
-      default: [],
+    product: [product],
+    about: {
+      type: String,
+    },
+    rating: {
+      type: String,
+      default: "5",
     },
     favoriteProjects: [
       {

@@ -14,13 +14,20 @@ import { likePost, unlikePost } from "../../../api/postApi"; // Adjust the impor
 import { useUserContext } from "../../../context/UserContext";
 import { usePostContext } from "../../../context/PostContext";
 import { fetchPostStats } from "../../../api/postApi";
+import { useEffect } from "react";
 
 function Controls({ setNumberOfLikes, setNumberOfComments }) {
   const { user } = useUserContext();
   const [activeItem, setActiveItem] = useState(null);
   const [isLikeActive, setIsLikeActive] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { postId } = usePostContext();
+  const { postId, post } = usePostContext();
+
+  useEffect(() => {
+    if (post.likes.includes(user._id)) {
+      setIsLikeActive(true);
+    }
+  }, []);
 
   const fetchAndUpdateStats = async () => {
     try {

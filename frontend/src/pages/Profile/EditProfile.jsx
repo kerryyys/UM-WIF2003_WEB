@@ -1,23 +1,30 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Button, Container, Image, Modal } from 'react-bootstrap';
+import { Button, Container, Image, Modal, Form } from 'react-bootstrap';
 import ExpandableInput from '../../components/Profile/ExpandableInput';
 import ExpandableExperience from '../../components/Profile/ExpandableExperience';
 import default_avatar from '../../assets/icons/profile/avatar-default-symbolic-svgrepo-com.svg';
 import UploadPicIcon from '../../assets/icons/profile/upload_pic.svg';
+import CancelIcon from '../../assets/icons/profile/cancel.svg';
+import WorkCaseIcon from '../../assets/icons/profile/work-case-svgrepo-com 1.svg';
 import { useNavigate, useParams } from 'react-router-dom';
 import '../../components-css/Profile/EditProfileCSS.css';
+
 
 function EditProfile() {
     const { userId } = useParams();
     const navigate = useNavigate();
     const fileInputRef = useRef(null);
-
     const [profileData, setProfileData] = useState(null);
     const [showModal, setShowModal] = useState(false);
+    const [showProductModal, setShowProductModal] = useState(false);
     const [showConfirmSaveModal, setShowConfirmSaveModal] = useState(false);
     const [showConfirmCancelModal, setShowConfirmCancelModal] = useState(false);
     const [showLoading, setShowLoading] = useState(false);
     const [showSuccessModal, setShowSuccessModal] = useState(false);
+    const [isRecruiter, setIsRecruiter] = useState(false);
+    const [currentProduct, setCurrentProduct] = useState({ title: '', date: '', description: '' });
+    const [isEditingProduct, setIsEditingProduct] = useState(false);
+    const [productIndex, setProductIndex] = useState(-1);
 
     const getProfileData = async () => {
         try {
@@ -25,8 +32,8 @@ function EditProfile() {
                 method: 'GET'
             });
             const result = await response.json();
-            console.log(result);
             setProfileData(result.data || {});
+            setIsRecruiter(result.data.role === "recruiter");
         } catch (error) {
             console.error('Error fetching profile data:', error);
         }
@@ -115,6 +122,10 @@ function EditProfile() {
         setProfileData({ ...profileData, experience: newExperiences });
     };
 
+    const handleProductChange = (newProducts) => {
+        setProfileData({ ...profileData, product: newProducts });
+    };
+
     const confirmSave = () => {
         setShowConfirmSaveModal(true);
     };
@@ -132,6 +143,40 @@ function EditProfile() {
     const handleSuccessModalClose = () => {
         setShowSuccessModal(false);
         navigate(`/Profile/${userId}`);
+    };
+
+    const handleProductModalShow = (product = { title: '', date: '', description: '' }, index = -1) => {
+        setCurrentProduct(product);
+        setProductIndex(index);
+        setIsEditingProduct(index !== -1);
+        setShowProductModal(true);
+    };
+
+    const handleProductModalClose = () => {
+        setShowProductModal(false);
+        setCurrentProduct({ title: '', date: '', description: '' });
+    };
+
+    const handleProductInputChange = (e) => {
+        const { name, value } = e.target;
+        setCurrentProduct({ ...currentProduct, [name]: value });
+    };
+
+    const handleSaveProduct = () => {
+        const updatedProducts = [...(profileData.product || [])];
+        if (isEditingProduct && productIndex !== -1) {
+            updatedProducts[productIndex] = currentProduct;
+        } else {
+            updatedProducts.push(currentProduct);
+        }
+        handleProductChange(updatedProducts);
+        handleProductModalClose();
+    };
+
+    const handleDeleteProduct = (index) => {
+        const updatedProducts = [...(profileData.product || [])];
+        updatedProducts.splice(index, 1);
+        handleProductChange(updatedProducts);
     };
 
     if (!profileData) {
@@ -208,16 +253,18 @@ function EditProfile() {
                         />
                     </div>
                 </div>
-                <div>
-                    <p style={{ fontWeight: '700', marginTop: '10px' }}>University</p>
-                    <input
-                        className="bigInput"
-                        type="text"
-                        name="university"
-                        value={profileData.university || ''}
-                        onChange={handleInputChange}
-                    />
-                </div>
+                {!isRecruiter && (
+                    <div>
+                        <p style={{ fontWeight: '700', marginTop: '10px' }}>University</p>
+                        <input
+                            className="bigInput"
+                            type="text"
+                            name="university"
+                            value={profileData.university || ''}
+                            onChange={handleInputChange}
+                        />
+                    </div>
+                )}
                 <div className="mt-3">
                     <p style={{ fontWeight: '700' }}>Category</p>
                     <ExpandableInput
@@ -226,22 +273,108 @@ function EditProfile() {
                         onChange={handleCategoryChange}
                     />
                 </div>
-                <div>
-                    <p style={{ fontWeight: '700', marginTop: '20px' }}>Skill</p>
-                    <ExpandableInput
-                        defaultWords={profileData.skill || []}
-                        title="skill"
-                        onChange={handleSkillChange}
-                    />
-                </div>
-                <div>
-                    <p style={{ fontWeight: '700', marginTop: '20px' }}>Experience</p>
-                    <ExpandableExperience
-                        defaultWords={profileData.experience || []}
-                        userId={userId}
-                        onChange={handleExperienceChange}
-                    />
-                </div>
+                {isRecruiter ? (
+                    <div>
+                        <p style={{ fontWeight: '700', marginTop: '20px' }}>About Us</p>
+                        <textarea
+                            rows={5}
+                            className="w-100"
+                            name="about"
+                            value={profileData.about}
+                            onChange={handleInputChange}
+                        />
+                        <div>
+                            <p style={{ fontWeight: '700', marginTop: '20px' }}>Product</p>
+                        </div>
+                        <div>
+                            <p onClick={handleProductModalShow} style={{ color: '#2D4777' }}>+ Add new product</p>
+                        </div>
+                        {profileData.product?.map((product, index) => (
+                            <>
+                            <div key={index} className="product-item" style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                position: 'relative',
+                                padding: '10px',
+                                border: '1px solid #ddd',
+                                marginBottom: '10px',
+                                borderRadius: '5px'
+                            }}>
+                                <div className="title-and-icon" style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'space-between'
+                                }}>
+                                    <img src={WorkCaseIcon} alt="Work Case Icon" className="work-case-icon" style={{
+                                        width: '30px',
+                                        height: '30px',
+                                        marginRight: '10px'
+                                    }} />
+                                    <p className="product-title" style={{
+                                        flexGrow: 1,
+                                        marginRight: '10px',
+                                        fontWeight:'bold'
+                                    }}>
+                                        {product.title}
+                                    </p>
+                                    <button
+                                        onClick={() => handleProductModalShow(product, index)}
+                                        className="edit-button"
+                                        style={{
+                                            color: '#2D4777',
+                                            border: 'none',
+                                            padding: '5px 10px',
+                                            cursor: 'pointer',
+                                            marginRight: '10px'
+                                        }}
+                                    >
+                                        Edit
+                                    </button>
+                                </div>
+                                <div className="details" >
+                                {new Date(product.date).toLocaleString('default', { day:'numeric', month: 'long', year: 'numeric' })} 
+                                </div>
+                                <div className="details">
+                                    <p>{product.description}</p>
+                                </div>
+                                <img
+                                    onClick={() => handleDeleteProduct(index)}
+                                    src={CancelIcon}
+                                    alt="Cancel Icon"
+                                    className="cancel-icon mt-3"
+                                    style={{
+                                        position: 'absolute',
+                                        right: '10px',
+                                        top: '50%',
+                                        transform: 'translateY(-50%)',
+                                        width: '30px',
+                                        height: '30px',
+                                        cursor: 'pointer'
+                                    }}
+                                />
+                            </div>
+                        </>
+                        
+                        ))}
+                    </div>
+                ) : (
+                    <div>
+                        <p style={{ fontWeight: '700', marginTop: '20px' }}>Skill</p>
+                        <ExpandableInput
+                            defaultWords={profileData.skill || []}
+                            title="skill"
+                            onChange={handleSkillChange}
+                        />
+                        <div>
+                            <p style={{ fontWeight: '700', marginTop: '20px' }}>Experience</p>
+                            <ExpandableExperience
+                                defaultWords={profileData.experience || []}
+                                userId={userId}
+                                onChange={handleExperienceChange}
+                            />
+                        </div>
+                    </div>
+                )}
                 <Modal show={showModal} onHide={() => setShowModal(false)} centered>
                     <Modal.Header closeButton>
                         <Modal.Title>Upload Profile Picture</Modal.Title>
@@ -291,7 +424,51 @@ function EditProfile() {
                         <p>Info is successfully saved</p>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button  onClick={handleSuccessModalClose} style={{ background: '#2D4777' }}>OK</Button>
+                        <Button onClick={handleSuccessModalClose} style={{ background: '#2D4777' }}>OK</Button>
+                    </Modal.Footer>
+                </Modal>
+                <Modal show={showProductModal} onHide={handleProductModalClose} centered>
+                    <Modal.Header closeButton>
+                        <Modal.Title>{isEditingProduct ? 'Edit Product' : 'Add Product'}</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Form>
+                            <Form.Group controlId="formProductTitle">
+                                <Form.Label>Title</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    name="title"
+                                    value={currentProduct.title}
+                                    onChange={handleProductInputChange}
+                                    placeholder="Enter product title"
+                                />
+                            </Form.Group>
+                            <Form.Group controlId="formProductDate" className="mt-3">
+                                <Form.Label>Date</Form.Label>
+                                <Form.Control
+                                    type="date"
+                                    name="date"
+                                    value={currentProduct.date}
+                                    onChange={handleProductInputChange}
+                                    placeholder="Enter product date"
+                                />
+                            </Form.Group>
+                            <Form.Group controlId="formProductDescription" className="mt-3">
+                                <Form.Label>Description</Form.Label>
+                                <Form.Control
+                                    as="textarea"
+                                    name="description"
+                                    value={currentProduct.description}
+                                    onChange={handleProductInputChange}
+                                    rows={3}
+                                    placeholder="Enter product description"
+                                />
+                            </Form.Group>
+                        </Form>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button style={{ background: '#2D4777', width: '125px', border: "none" }} onClick={handleSaveProduct}>{isEditingProduct ? 'Save Changes' : 'Add Product'}</Button>
+                        <Button style={{ color: '#2D4777', background: '#FFFFFF', width: '100px', border: "1px solid #2D4877" }} onClick={handleProductModalClose}>Cancel</Button>
                     </Modal.Footer>
                 </Modal>
                 <div style={{ display: 'flex', marginBottom: '50px' }} className='gap-5 justify-content-center mt-5'>
@@ -299,7 +476,7 @@ function EditProfile() {
                     <Button onClick={handleCancel} style={{ color: '#2D4777', background: '#FFFFFF', width: '100px', border: "1px solid #2D4877" }}>Cancel</Button>
                 </div>
             </div>
-        </Container>
+        </Container >
     );
 }
 

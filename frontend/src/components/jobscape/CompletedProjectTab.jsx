@@ -25,7 +25,21 @@ const CompletedProjectTab = ({
   const [isProjectAccepted, setIsProjectAccepted] = useState(true);
   const [notificationMessage, setNotificationMessage] = useState("");
   const [showLocalNotification, setShowLocalNotification] = useState(false);
+  const [hasSubmittedReview, setHasSubmittedReview] = useState(false);
+  const [showReviewNotification, setShowReviewNotification] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const isAccepted = localStorage.getItem(`project_${projectId}_accepted`);
+    const isReviewed = localStorage.getItem(`project_${projectId}_reviewed`);
+    if (isAccepted) {
+      setFileAccepted(true);
+      setIsProjectAccepted(true);
+    }
+    if (isReviewed) {
+      setHasSubmittedReview(true);
+    }
+  }, [projectId]);
 
   const handleProjectClick = async () => {
     try {
@@ -41,15 +55,13 @@ const CompletedProjectTab = ({
   };
 
   const handleAccept = () => {
-    console.log("Accept button clicked");
     axios
       .post(`http://localhost:5050/recruite/${projectId}/accept-file`, {
         userId: collaboratorId,
       })
       .then((response) => {
-        console.log("Accept response: ", response);
         setFileAccepted(true);
-        localStorage.setItem(`project_${projectId}_accepted`, true); // Store accepted state in localStorage
+        localStorage.setItem(`project_${projectId}_accepted`, true);
         setIsProjectAccepted(true);
         setNotificationMessage("File accepted successfully.");
         setShowLocalNotification(true);
@@ -59,29 +71,15 @@ const CompletedProjectTab = ({
       });
   };
 
-  // Check if the project has been accepted before
-  useEffect(() => {
-    const isAccepted = localStorage.getItem(`project_${projectId}_accepted`);
-    if (isAccepted) {
-      setFileAccepted(true);
-      setIsProjectAccepted(true);
-    }
-  }, [projectId]);
-
   const handleReject = () => {
-    console.log(
-      "Reject button clicked, this is the collaborator id: " + collaboratorId
-    );
     axios
       .post(`http://localhost:5050/recruite/${projectId}/reject-file`, {
         userId: collaboratorId,
       })
       .then((response) => {
-        console.log("Reject response: ", response);
         setFileRejected(true);
         setFileAccepted(false);
         localStorage.removeItem(`project_${projectId}_accepted`);
-        setFileRejected(true);
         setNotificationMessage("File rejected successfully.");
         setShowLocalNotification(true);
         setProjectDetails((prevProjectDetails) => ({
@@ -95,28 +93,40 @@ const CompletedProjectTab = ({
   };
 
   const handlePayBtnClick = async () => {
-     if (isProjectAccepted) {
-    try {
-      const response = await fetch(
-        `http://localhost:5050/projects/${projectId}`
-      );
-      const data = await response.json();
-      const { projectTitle, projectBudget } = data;
+    if (isProjectAccepted) {
+      try {
+        const response = await fetch(
+          `http://localhost:5050/projects/${projectId}`
+        );
+        const data = await response.json();
+        const { projectTitle, projectBudget } = data;
 
-      localStorage.setItem("projectTitle", projectTitle);
-      localStorage.setItem("projectBudget", projectBudget);
+        localStorage.setItem("projectTitle", projectTitle);
+        localStorage.setItem("projectBudget", projectBudget);
 
-      navigate("/ewallet", {
-        state: { projectTitle, projectBudget },
-      });
-    } catch (error) {
-      console.error("Error fetching project data:", error);
-    }
+        navigate("/ewallet", {
+          state: { projectTitle, projectBudget },
+        });
+      } catch (error) {
+        console.error("Error fetching project data:", error);
+      }
     }
   };
 
   const handleCloseProjectDetails = () => {
     setShowProjectDetails(false);
+  };
+
+  const handleRateClick = (e) => {
+    e.stopPropagation();
+    if (hasSubmittedReview) {
+      setShowReviewNotification(true);
+      setTimeout(() => {
+        setShowReviewNotification(false);
+      }, 3000); // Hide notification after 3 seconds
+    } else {
+      setShowReviewForm(true);
+    }
   };
 
   const handleSubmitReview = async (reviewData) => {
@@ -129,7 +139,9 @@ const CompletedProjectTab = ({
           body: JSON.stringify(reviewData),
         }
       );
-      setShowLocalNotification(true);
+      localStorage.setItem(`project_${projectId}_reviewed`, true);
+      setHasSubmittedReview(true);
+      setShowNotification(true);
     } catch (error) {
       console.error("Error saving review:", error);
     }
@@ -154,13 +166,7 @@ const CompletedProjectTab = ({
           </div>
         </div>
         <div className="TabBtn">
-          <div
-            className="RateBtn"
-            onClick={(e) => {
-              setShowReviewForm(true);
-              e.stopPropagation();
-            }}
-          >
+          <div className="RateBtn" onClick={handleRateClick}>
             Rate
           </div>
           <button className="PayBtn" onClick={handlePayBtnClick}>
@@ -187,13 +193,11 @@ const CompletedProjectTab = ({
           fileRejected={fileRejected}
         />
       )}
-      {showLocalNotification && (
-        <PopNotification
-          message={notificationMessage}
-          onClose={() => setShowLocalNotification(false)}
-        />
+      {showReviewNotification && (
+        <div className="RateNotification">You have rated the project!</div>
       )}
     </>
   );
 };
+
 export default CompletedProjectTab;

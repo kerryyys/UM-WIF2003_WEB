@@ -4,15 +4,15 @@ import { Container, Row, Col } from "react-bootstrap";
 import ProfileHeader from "../../components/Profile/ProfileHeader";
 import Experience from "../../components/Profile/Experience";
 import Skill from "../../components/Profile/Skill";
+import Product from "../../components/Profile/Product";
 import JobHistory from "../../components/Profile/JobHistory";
 import "../../pages-css/Profile/Profile.css";
 import { useParams } from "react-router-dom";
-import { useUserContext } from "../../context/UserContext";
-
 
 function Profile() {
   const { userId } = useParams();
   const [profile, setProfile] = useState({});
+  const [isRecruiter, setIsRecruiter] = useState(false);
 
   const getProfileData = async () => {
     try {
@@ -21,6 +21,7 @@ function Profile() {
       });
       const result = await response.json();
       setProfile(result.data);
+      setIsRecruiter(result.data.role === "recruiter");
     } catch (error) {
       console.error('Error fetching profile data:', error);
     }
@@ -28,14 +29,14 @@ function Profile() {
 
   useEffect(() => {
     getProfileData();
-  }, []);
+  }, [userId]);
 
   return (
     <Container fluid style={{ maxWidth: "70%" }}>
       <Container className="mt-5">
         <ProfileHeader
           name={profile.username}
-          university={profile.university}
+          university={isRecruiter ? null : profile.university}
           location={`${profile.city}, ${profile.state}`}
           avatarSrc={profile.profilePic}  
           headline={profile.headline}
@@ -47,22 +48,30 @@ function Profile() {
         <Row className="justify-content-center">
           <Col md={5} xs={12}>
             <div className="section-header">
-              <h6 className="text-center">EXPERIENCE</h6>
+              <h6 className="text-center">{isRecruiter ? "ABOUT US" : "EXPERIENCE"}</h6>
               <hr />
             </div>
-            <Experience experiences={profile.experience} />
+            {isRecruiter ? (
+              <p>{profile.about}</p>
+            ) : (
+              <Experience experiences={profile.experience} />
+            )}
             <div className="section-header">
-              <h6 className="text-center mt-8">SKILL</h6>
+              <h6 className="text-center mt-10">{isRecruiter ? "PRODUCT" : "SKILL"}</h6>
               <hr />
             </div>
-            <Skill skills={profile.skill} />
+            {isRecruiter ? (
+              <Product products={profile.product} />
+            ) : (
+              <Skill skills={profile.skill} />
+            )}
           </Col>
           <Col md={7} xs={12}>
             <div className="section-header">
               <h6 className="text-center">JOB HISTORY</h6>
               <hr />
             </div>
-            <JobHistory jobInfos={profile.jobHistory} />
+            <JobHistory userId={userId} />
           </Col>
         </Row>
       </Container>

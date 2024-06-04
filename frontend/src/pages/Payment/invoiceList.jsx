@@ -6,15 +6,18 @@ import { useUserContext } from "../../context/UserContext";
 import axios from '../../utils/customAxios';
 
 function InvoiceList() {
+  
   const [invoices, setInvoices] = useState([]);
-  const {user} = useUserContext();
-  console.log("Your jobs page userContext: " + JSON.stringify(user));
+  const { user } = useUserContext();
+
+  // console.log("Your jobs page userContext: " + JSON.stringify(user));
 
   useEffect(() => {
     const fetchInvoices = async (userId) => {
-      if (user._id) {
+      if (userId) {
         try {
-          const response = await axios.get(`http://localhost:5050/invoices?userId=${userId}`);
+          const response = await axios.get(`http://localhost:5050/payment/invoices?postedBy=${userId}`);
+          console.log("API Response:", response.data);
           if (response.status === 200) {
             setInvoices(response.data);
           } else {
@@ -25,8 +28,12 @@ function InvoiceList() {
         }
       }
     };
-    fetchInvoices();
+    
+    if (user._id) {
+      fetchInvoices(user._id);
+    }
   }, [user]);
+
 
   const handleDownload = () => {
         const pdfUrl = '';
@@ -57,6 +64,7 @@ function InvoiceList() {
 
         <div className="card-wenhao">
           <p className="INV-title-name">Invoice List</p>
+
           {invoices.map((invoice, index) => (
         <div key={index} className="INV" onClick={() => handleInvClick(invoice)}>
           <p className="INVName">Completed</p>

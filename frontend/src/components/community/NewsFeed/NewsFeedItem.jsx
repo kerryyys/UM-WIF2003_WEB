@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import Controls from "./Controls";
 import ImageGallery from "./ImageGallery";
 import ProfileHeader from "./ProfileHeader";
-import { PostProvider } from "../../../context/PostContext";
 import moment from "moment";
 import NewsFeedStats from "./NewsFeedStats";
 import { fetchPostStats } from "../../../api/postApi";
@@ -65,15 +64,14 @@ function NewsFeedItem({
         numberOfLikes={numberOfLikes}
         numberOfComments={numberOfComments}
       />
-      
+
       <hr className="tw-my-4 tw-border-slate-500" />
-      <PostProvider postId={postId}>
-        <Controls
-          postId={postId}
-          setNumberOfLikes={setNumberOfLikes}
-          setNumberOfComments={setNumberOfComments}
-        />
-      </PostProvider>
+
+      <Controls
+        postId={postId}
+        setNumberOfLikes={setNumberOfLikes}
+        setNumberOfComments={setNumberOfComments}
+      />
     </div>
   );
 }
