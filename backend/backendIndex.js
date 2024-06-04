@@ -12,6 +12,8 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
+import { createServer } from "http";
+import { socketConnection } from "./utils/socket-io.js";
 
 dotenv.config();
 const app = express();
@@ -61,7 +63,11 @@ mongoose
     console.log(error);
   });
 
+// Create socket io server
+const httpServer = createServer(app);
+socketConnection(httpServer);
+
 // Start the server
-app.listen(PORT || 5050, () => {
+httpServer.listen(PORT || 5050, () => {
   console.log(`Server is listening on port ${PORT}`);
 });

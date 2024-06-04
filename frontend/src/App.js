@@ -56,6 +56,21 @@ function App() {
   // These states are passed into Login
   // They will be set after login is valid
   const [loggedIn, setLoggedIn] = useState(false);
+  // const [socketConnected, setSocketConnected] = useState(socket.connected);
+  // useEffect(() => {
+  //   const onConnect = () => {
+  //     setSocketConnected(true);
+  //   };
+  //   const onDisconnect = () => {
+  //     setSocketConnected(false);
+  //   };
+  //   socket.on("connect", onConnect);
+  //   socket.on("disconnect", onDisconnect);
+  //   return () => {
+  //     socket.off("connect", onConnect);
+  //     socket.off("disconnect", onDisconnect);
+  //   };
+  // }, []);
   return (
     <UserProvider>
       <Router>
