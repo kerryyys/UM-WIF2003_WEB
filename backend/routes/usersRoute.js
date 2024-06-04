@@ -1,6 +1,7 @@
 import express from "express";
 import User from "../models/userModel.js";
 import multer from "multer";
+import Project from "../models/projectModel.js";
 
 const router = express.Router();
 
@@ -153,6 +154,22 @@ router.put("/:userId/editExperience/:experienceId", async (req, res) => {
   } catch (error) {
     console.error("Error updating experience:", error);
     res.status(500).send("Internal server error");
+  }
+});
+
+router.get("/completed-projects/:userId", async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const user = await User.findById(userId).populate("completedProjects").exec();
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    return res.json({ completedProjects: user.completedProjects });
+  } catch (error) {
+    console.error("Error fetching completed projects:", error);
+    return res.status(500).json({ message: "Internal server error" });
   }
 });
 
