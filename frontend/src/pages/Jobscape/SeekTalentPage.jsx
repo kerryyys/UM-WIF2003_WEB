@@ -12,7 +12,9 @@ import { useUserContext } from "../../context/UserContext";
 
 const SeekTalentPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedFilters, setSelectedFilters] = useState([]);
+  const [selectedSkillFilters, setSelectedSkillFilters] = useState([]);
+  const [selectedRatingFilters, setSelectedRatingFilters] = useState([]);
+  const [selectedLocationFilters, setSelectedLocationFilters] = useState([]);
   const [freelancers, setFreelancers] = useState([]);
   const { user } = useUserContext();
   const userRole = user?.role;
@@ -20,17 +22,29 @@ const SeekTalentPage = () => {
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
-//WHY CANNOT FILTER RATING?
-  const handleFilterChange = (name, checked) => {
-  if (checked) {
-    setSelectedFilters((prevFilters) => [...prevFilters, name]);
-  } else {
-    setSelectedFilters((prevFilters) =>
-      prevFilters.filter((filter) => filter !== name)
-    );
-  }
-  setCurrentPage(1); 
-};
+
+  const handleFilterChange = (name, checked, filterType) => {
+    if (filterType === "skills") {
+      setSelectedSkillFilters((prevFilters) =>
+        checked
+          ? [...prevFilters, name]
+          : prevFilters.filter((filter) => filter !== name)
+      );
+    } else if (filterType === "location") {
+      setSelectedLocationFilters((prevFilters) =>
+        checked
+          ? [...prevFilters, name]
+          : prevFilters.filter((filter) => filter !== name)
+      );
+    } else if (filterType === "rating") {
+      setSelectedRatingFilters((prevFilters) =>
+        checked
+          ? [...prevFilters, name]
+          : prevFilters.filter((filter) => filter !== name)
+      );
+    }
+    setCurrentPage(1);
+  };
 
   useEffect(() => {
     axios
@@ -39,8 +53,8 @@ const SeekTalentPage = () => {
         const fetchedFreelancers = response.data.data.map((freelancer) => ({
           ...freelancer,
           skill: freelancer.skill || [], // Ensure skill is an array or default to empty array
-          state: freelancer.state, // Ensure state is a string or default to empty string
-          rating: freelancer.rating, 
+          state: freelancer.state || "", // Ensure state is a string or default to empty string
+          rating: freelancer.rating,
         }));
         setFreelancers(fetchedFreelancers);
         console.log(fetchedFreelancers);
@@ -48,11 +62,11 @@ const SeekTalentPage = () => {
       .catch((error) => {
         console.error("Error fetching freelancer data:", error);
       });
-  }, []); 
+  }, []);
 
   const collaboratorsPerPage = 6;
 
-  const filters = [
+  const filterTabs = [
     {
       filterTitle: "SKILLS",
       filterTypes: [
@@ -85,12 +99,32 @@ const SeekTalentPage = () => {
   ];
 
   const filteredCollaborators = freelancers.filter((freelancer) => {
-    return (
-      selectedFilters.every((selectedFilter) =>
+    const skillFilterMatch =
+      selectedSkillFilters.length === 0 ||
+      selectedSkillFilters.every((selectedFilter) =>
         freelancer.skill.includes(selectedFilter)
-      ) && freelancer.role === "freelancer"
-    ); // Ensure only freelancers are shown
+      );
+
+    const ratingFilterMatch =
+      selectedRatingFilters.length === 0 ||
+      selectedRatingFilters.includes(freelancer.rating);
+
+    const locationFilterMatch =
+      selectedLocationFilters.length === 0 ||
+      selectedLocationFilters.includes(freelancer.state);
+
+    return (
+      skillFilterMatch &&
+      ratingFilterMatch &&
+      locationFilterMatch &&
+      freelancer.role === "freelancer"
+    );
   });
+
+  console.log("Selected Skill Filters: ", selectedSkillFilters);
+  console.log("Selected Rating Filters: ", selectedRatingFilters);
+  console.log("Selected Location Filters: ", selectedLocationFilters);
+  console.log("Filtered Collaborators: ", filteredCollaborators);
 
   const totalCollaborators = filteredCollaborators.length;
 
@@ -141,12 +175,17 @@ const SeekTalentPage = () => {
           <p style={{ fontSize: "16px", fontWeight: "700", paddingLeft: "4%" }}>
             FILTER
           </p>
-          {filters.map((filter, index) => (
+          {filterTabs.map((filterTab, index) => (
             <FilterTab
               key={index}
-              filterTitle={filter.filterTitle}
-              filterTypes={filter.filterTypes}
-              onFilterChange={handleFilterChange}
+              {...filterTab}
+              onFilterChange={(name, checked) =>
+                handleFilterChange(
+                  name,
+                  checked,
+                  filterTab.filterTitle.toLowerCase()
+                )
+              }
             />
           ))}
         </div>
@@ -160,13 +199,13 @@ const SeekTalentPage = () => {
             ProjectOrCollab="Collaborators"
             newOrRate="RATING"
           />
-          {/* Display filtered and paginated collaborators */}
+
           {slicedCollaborators.map((freelancer, index) => (
             <CollaboratorTab
               key={index}
               freelancerID={freelancer._id}
               profilePic={freelancer.profilePic}
-              username={freelancer.username} // Pass username as a prop
+              username={freelancer.username}
               ratingStar={freelancer.rating}
               skill={freelancer.skill}
               location={freelancer.state}
