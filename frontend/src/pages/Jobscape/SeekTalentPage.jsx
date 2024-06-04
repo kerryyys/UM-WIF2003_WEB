@@ -49,7 +49,7 @@ const SeekTalentPage = () => {
         console.error("Error fetching freelancer data:", error);
       });
   }, []); 
-  
+
   const collaboratorsPerPage = 6;
 
   const filters = [
@@ -165,7 +165,7 @@ const SeekTalentPage = () => {
             <CollaboratorTab
               key={index}
               freelancerID={freelancer._id}
-              profilePic={`http://localhost:5050/images/${freelancer.profilePic}`}
+              profilePic={freelancer.profilePic}
               username={freelancer.username} // Pass username as a prop
               ratingStar={freelancer.rating}
               skill={freelancer.skill}
