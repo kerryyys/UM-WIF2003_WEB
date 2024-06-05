@@ -150,15 +150,6 @@ export const uploadCompletedWorks = async (files, projectId, userId) => {
   }
 };
 
-export const getPostedProjects = async (userId) => {
-  try {
-    const response = await axios.get(`${API_URL}/posted-project/${userId}`);
-    return response.data;
-  } catch (error) {
-    console.error("Error get posted project: " + error);
-  }
-};
-
 export const downloadFile = async (files) => {
   try {
     await Promise.all(
