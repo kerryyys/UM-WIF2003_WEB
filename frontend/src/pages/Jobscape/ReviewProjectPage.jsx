@@ -79,7 +79,7 @@ const ReviewProjectPage = () => {
       </div>
 
       <div className="ProjectPosted">
-        <SmallTitle title="Project Posted" fontWeight="400" fontSize="32px" />
+        <SmallTitle title="Project Posted" fontWeight="400" fontSize="28px" />
         <div className="ProjectPostedList">
           {isProjectPostedFetched && ProjectPosted.length === 0 ? (
             <p
