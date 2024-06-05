@@ -5,7 +5,6 @@ import {
   CreditOrDebitCard,
 } from "../models/payment.js";
 import { Project } from "../models/projectModel.js";
-import User from "../models/userModel.js";
 
 const router = express.Router();
 
