@@ -49,6 +49,17 @@ export const getFavoriteProjects = async (userId) => {
     throw error;
   }
 };
+export const getFavoriteProjectsDetails = async (userId) => {
+  try {
+    const response = await axios.get(
+      `${API_URL}/favorite-project-details/${userId}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error getting favorite projects: " + error);
+    throw error;
+  }
+};
 export const setApplyingProject = async (userId, projectId) => {
   try {
     const response = await axios.post(`${API_URL}/applying-project`, {
