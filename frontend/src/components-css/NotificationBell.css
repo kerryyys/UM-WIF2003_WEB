@@ -1,0 +1,8 @@
+.notif-bell {
+  position: absolute;
+  right: 8vw;
+}
+.bell {
+  cursor: pointer;
+  font-size: 24px;
+}
