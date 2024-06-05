@@ -5,6 +5,7 @@ import Tnc from "../../components/payment/tnc";
 import { useUserContext } from "../../context/UserContext";
 import axios from '../../utils/customAxios';
 import jsPDF from 'jspdf';
+import BackButton from "../../components/payment/BackButton";
 
 function InvoiceList() {
   
@@ -119,25 +120,18 @@ function InvoiceList() {
     <><div className="invoice-list-containerner">
       <div className="invoice-listing">
 
-        <Button
-          className="BackBtn"
-          onClick={() => (window.location.href = "/successful")}>
-          <p>
-            <i className="bi-chevron-left" />
-            Back
-          </p>
-        </Button>
+        <BackButton/>
 
         <div className="card-wenhao">
           <p className="INV-title-name">Invoice List</p>
 
           {invoices.map((invoice, index) => (
-        <div key={index} className="INV" onClick={() => handleInvClick(invoice)}>
-          <p className="INVName">Completed</p>
-          <p className="INVPrice">{invoice.projectTitle}</p>
-          <p className="INVDesc">RM {parseFloat(invoice.projectBudget) + 10}</p>
-        </div>
-      ))}
+            <div key={index} className="INV" onClick={() => handleInvClick(invoice)}>
+              <p className="INVName">Completed</p>
+              <p className="INVPrice">{invoice.projectTitle}</p>
+              <p className="INVDesc">RM {parseFloat(invoice.projectBudget) + 10}</p>
+            </div>
+          ))}
         </div>
       </div>
     </div>

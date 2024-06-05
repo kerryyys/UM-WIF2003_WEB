@@ -29,7 +29,7 @@ const CompletedProjectTab = ({
   const [showReviewNotification, setShowReviewNotification] = useState(false);
   const [buttonText, setButtonText] = useState('Pay');
   const [buttonDisabled, setButtonDisabled] = useState(false);
-  const [buttonColor, setButtonColor] = useState("green");
+  const [buttonColor, setButtonColor] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -101,7 +101,7 @@ const CompletedProjectTab = ({
     if (paymentStatus === "Paid") {
       setButtonText("Paid");
       setButtonDisabled(true); 
-      setButtonColor("red");
+      setButtonColor("#d3d3d3");
     }
   }, []);
 
