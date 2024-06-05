@@ -74,11 +74,11 @@ function App() {
           <Route path="/ForgotP" element={<ForgotP />} />
           <Route path="/EnterCode" element={<EnterCode />} />
           <Route path="/NewPass" element={<NewPass />} />
-          <Route path="/JobscapeMainPage" element={<JobscapeMainPage />} />
 
           <Route path="/SeekTalentPage" element={<SeekTalentPage />} />
 
           <Route element={<ProtectedRoute />}>
+            <Route path="/JobscapeMainPage" element={<JobscapeMainPage />} />
             <Route
               path="/PostProjectPage/:userId"
               element={<PostProjectPage />}
