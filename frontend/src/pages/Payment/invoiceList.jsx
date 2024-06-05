@@ -60,14 +60,14 @@ function InvoiceList() {
   const handleDownload = async () => {
     try {
       if (invoiceContent && invoiceContent.length > 0) {
-        const doc = new jsPDF();
-    
-  
         invoiceContent.forEach((invoiceContent, index) => {
+          const doc = new jsPDF();
+  
+          // Add project details
           doc.setFontSize(14);
           doc.setFont('helvetica', 'bold');
           doc.text(`Project ${index + 1} Details`, 20, 20);
-
+  
           // Add page number
           doc.setFontSize(12);
           doc.setFont('helvetica', 'normal');
@@ -104,13 +104,9 @@ function InvoiceList() {
           doc.text(`Additional Notes: ${invoiceContent.additionalNotes || ''}`, 20, currentY);
           currentY += 20; // Add extra space after each project
   
-          // Add a new page for the next project
-          if (index < invoiceContent.length - 1) {
-            doc.addPage();
-          }
+          // Save the PDF with numbered filename
+          doc.save(`Invoice_${index + 1}.pdf`);
         });
-  
-        doc.save('Invoice.pdf');
       } else {
         console.error('No project details available.');
       }
