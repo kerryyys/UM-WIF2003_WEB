@@ -17,7 +17,7 @@ const ProjectPostedTab = ({
 }) => {
   const [showModal, setShowModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [selectedApplicant, setSelectedApplicant] = useState(null); // Track selected applicant for details view
+  const [selectedApplicant, setSelectedApplicant] = useState(null);
   const [applicants, setApplicants] = useState([]);
 
   const formatPostedDate = (dateString) => {
@@ -70,13 +70,13 @@ const ProjectPostedTab = ({
   };
 
   const handleShowModal = () => {
-    setSelectedApplicant(null); // Reset to applicant list view
+    setSelectedApplicant(null);
     setShowModal(true);
   };
 
   const handleCloseModal = () => {
     if (selectedApplicant) {
-      setSelectedApplicant(null); // Reset to applicant list view
+      setSelectedApplicant(null);
     } else {
       setShowModal(false);
     }
@@ -105,6 +105,10 @@ const ProjectPostedTab = ({
     setSelectedApplicant(applicant);
   };
 
+  const navigateToFreelancerProfilePage = () => {
+    window.location.href = `http://localhost:5050/users/${selectedApplicant._id}`;
+  };
+
   return (
     <div className="ProjectPostedTab">
       <div className="projectDetails">
@@ -128,7 +132,7 @@ const ProjectPostedTab = ({
       <Modal show={showModal} onHide={handleCloseModal} centered size="lg">
         <Modal.Header closeButton>
           <Modal.Title>
-            {selectedApplicant ? "Applicant Details" : "Applicant List"}
+            {selectedApplicant ? selectedApplicant.username : "Applicant List"}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -136,31 +140,31 @@ const ProjectPostedTab = ({
             <div className="ModalContent">
               <div style={{ display: "flex", flexDirection: "column" }}>
                 <img
-                  src={selectedApplicant.profilePic}
+                  src={`data:image/jpeg;base64,${selectedApplicant.profilePic}`}
                   alt="Profile Picture"
                   className="ProfilePic"
                 />
                 <div>
                   <Rating
-                    value={selectedApplicant.ratingStar || 5}
+                    value={selectedApplicant.rating}
                     edit={false}
                     size={30}
                     activeColor="#ffd700"
                   />
                   <div className="Filters">
                     {Array.isArray(selectedApplicant.filters) &&
-                      selectedApplicant.filters.map((filter, index) => (
+                      selectedApplicant.skill.map((skills, index) => (
                         <Badge key={index} className="FilterBadge">
-                          {filter}
+                          {skills}
                         </Badge>
                       ))}
                     <Badge className="FilterBadge LocationBadge">
-                      {selectedApplicant.location || "Remote"}
+                      {selectedApplicant.state}
                     </Badge>
                   </div>
                 </div>
               </div>
-              <p className="Biography">{selectedApplicant.biography}</p>
+              <p className="Biography">{selectedApplicant.headline}</p>
             </div>
           ) : (
             applicants.map((applicant, index) => (
@@ -170,6 +174,9 @@ const ProjectPostedTab = ({
                 onConfirm={handleConfirm}
                 onRemove={handleRemove}
                 showDetails={showDetails}
+                navigateToFreelancerProfilePage={
+                  navigateToFreelancerProfilePage
+                }
               />
             ))
           )}
@@ -182,6 +189,15 @@ const ProjectPostedTab = ({
               style={{ backgroundColor: "red" }}
             >
               Delete Project
+            </Button>
+          )}
+          {selectedApplicant && (
+            <Button
+              className="details-button"
+              onClick={navigateToFreelancerProfilePage}
+              style={{justifyContent:"center"}}
+            >
+              View Profile
             </Button>
           )}
           <Button variant="secondary" onClick={handleCloseModal}>
