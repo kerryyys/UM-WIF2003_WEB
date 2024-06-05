@@ -1378,3 +1378,35 @@
   margin-bottom: 20px;
   font-family: "Lato", sans-serif;
 }
+
+.payment-btn-container-in-profile {
+  display: flex;
+  justify-content: center;
+  margin-left: 8vh;
+}
+
+.view-invoice-btn-in-profile {
+  padding: 6px;
+  border: none;
+  border-radius: 6px;
+  background-color: #2d4777;
+  color: white;
+  margin-right: 1vh;
+  font-size: 13px;
+}
+
+.view-payment-history-btn-in-profile {
+  padding: 6px;
+  border: none;
+  border-radius: 6px;
+  background-color: #2d4777;
+  color: white;
+  font-size: 13px;
+}
+
+.view-payment-history-btn-in-profile:hover,
+.view-invoice-btn-in-profile:hover {
+  background-color: #80d1d5;
+  color: black;
+  border: none;
+}

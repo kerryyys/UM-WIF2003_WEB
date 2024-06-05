@@ -5,6 +5,7 @@ import Tnc from "../../components/payment/tnc";
 import { useUserContext } from "../../context/UserContext";
 import axios from '../../utils/customAxios';
 import jsPDF from 'jspdf';
+import BackButton from "../../components/payment/BackButton";
 
 function InvoiceList() {
   
@@ -62,17 +63,14 @@ function InvoiceList() {
       if (invoiceContent && invoiceContent.length > 0) {
         invoiceContent.forEach((invoiceContent, index) => {
           const doc = new jsPDF();
-  
-          // Add project details
+
           doc.setFontSize(14);
           doc.setFont('helvetica', 'bold');
           doc.text(`Project ${index + 1} Details`, 20, 20);
   
-          // Add page number
           doc.setFontSize(12);
           doc.setFont('helvetica', 'normal');
   
-          // Add project details
           let currentY = 40;
           doc.setFontSize(12);
           doc.setFont('helvetica', 'normal');
@@ -102,9 +100,8 @@ function InvoiceList() {
           currentY += 10;
   
           doc.text(`Additional Notes: ${invoiceContent.additionalNotes || ''}`, 20, currentY);
-          currentY += 20; // Add extra space after each project
+          currentY += 20;
   
-          // Save the PDF with numbered filename
           doc.save(`Invoice_${index + 1}.pdf`);
         });
       } else {
@@ -123,25 +120,18 @@ function InvoiceList() {
     <><div className="invoice-list-containerner">
       <div className="invoice-listing">
 
-        <Button
-          className="BackBtn"
-          onClick={() => (window.location.href = "/successful")}>
-          <p>
-            <i className="bi-chevron-left" />
-            Back
-          </p>
-        </Button>
+        <BackButton/>
 
         <div className="card-wenhao">
           <p className="INV-title-name">Invoice List</p>
 
           {invoices.map((invoice, index) => (
-        <div key={index} className="INV" onClick={() => handleInvClick(invoice)}>
-          <p className="INVName">Completed</p>
-          <p className="INVPrice">{invoice.projectTitle}</p>
-          <p className="INVDesc">RM {parseFloat(invoice.projectBudget) + 10}</p>
-        </div>
-      ))}
+            <div key={index} className="INV" onClick={() => handleInvClick(invoice)}>
+              <p className="INVName">Completed</p>
+              <p className="INVPrice">{invoice.projectTitle}</p>
+              <p className="INVDesc">RM {parseFloat(invoice.projectBudget) + 10}</p>
+            </div>
+          ))}
         </div>
       </div>
     </div>
