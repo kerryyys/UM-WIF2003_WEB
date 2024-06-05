@@ -57,6 +57,7 @@ function App() {
   // These states are passed into Login
   // They will be set after login is valid
   const [loggedIn, setLoggedIn] = useState(false);
+
   return (
     <UserProvider>
       <Router>
@@ -74,7 +75,7 @@ function App() {
           <Route path="/EnterCode" element={<EnterCode />} />
           <Route path="/NewPass" element={<NewPass />} />
           <Route path="/JobscapeMainPage" element={<JobscapeMainPage />} />
-          <Route path="/SeekJobPage" element={<SeekJobPage />} />
+
           <Route path="/SeekTalentPage" element={<SeekTalentPage />} />
 
           <Route element={<ProtectedRoute />}>
@@ -105,6 +106,7 @@ function App() {
               path="/JobHistoryDetails/:id"
               element={<JobHistoryDetails />}
             />
+            <Route path="/SeekJobPage" element={<SeekJobPage />} />
             {/* Add all your routes here */}
           </Route>
 

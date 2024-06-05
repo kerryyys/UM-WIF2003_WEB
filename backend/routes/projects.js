@@ -15,6 +15,7 @@ import {
   uploadCompletedWorks,
   addApplyingProject,
   getApplyingProjects,
+  getFavoriteProjects,
 } from "../controllers/projectsController.js";
 import mongoose, { mongo } from "mongoose";
 import { downloadFile } from "../middlewares/downloadMiddleware.js";
@@ -41,12 +42,11 @@ router.post("/", postNewProject);
 router.get("/", getAllProjects);
 // GET /download - Downloads file that is saved in 'public/uploads'
 router.get("/download", downloadFile);
-// GET /projects/:projectId - Retrieves project details of projectId
-router.get("/:projectId", getProjectDetails);
 
 // POST /favorite-project - Saves projectId into current user's favoriteProjects
 router.post("/favorite-project", saveFavoriteProject);
-
+// GET /favorite-project - Get user's favoriteProjects
+router.get("/favorite-project/:userId", getFavoriteProjects);
 // POST /remove-favorite-project - Removes projectId into current user's favoriteProjects
 router.post("/remove-favorite-project", removeFavoriteProject);
 
@@ -70,6 +70,8 @@ router.get("/completed-project/:userId", getCompletedProjects);
 
 // POST /upload-work - Saves service provider's uploaded works into server
 router.post("/upload-works", upload.array("files"), uploadCompletedWorks);
+// GET /projects/:projectId - Retrieves project details of projectId
+router.get("/:projectId", getProjectDetails);
 
 //GET /posted-project - Retrieves all posted project of current user
 router.get("/posted-project/:userId",getPostedProjects);
