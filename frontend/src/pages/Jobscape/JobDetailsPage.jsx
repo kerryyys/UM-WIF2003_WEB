@@ -348,25 +348,29 @@ export default function JobDetailsPage(props) {
             )}
           </div>
         ) : null}
-        <Container className="button-group">
-          <Row className="button-row">
-            <Col></Col>
-            <Col>
-              {renderApplyButton()}
+        {user.role == "freelancer" ? (
+          <Container className="button-group">
+            <Row className="button-row">
+              <Col></Col>
+              <Col>
+                {renderApplyButton()}
 
-              <Button className="chat">
-                <i className="bi bi-chat-dots" /> Chat with Requester
-              </Button>
-            </Col>
-            <Col className="to-job-list">
-              <Link to="/YourJobs">
-                <Button className="to-job-list-btn">
-                  Go to Job List <i className="bi bi-chevron-double-right" />
+                <Button className="chat">
+                  <i className="bi bi-chat-dots" /> Chat with Requester
                 </Button>
-              </Link>
-            </Col>
-          </Row>
-        </Container>
+              </Col>
+              <Col className="to-job-list">
+                <Link to="/YourJobs">
+                  <Button className="to-job-list-btn">
+                    Go to Job List <i className="bi bi-chevron-double-right" />
+                  </Button>
+                </Link>
+              </Col>
+            </Row>
+          </Container>
+        ) : (
+          <></>
+        )}
       </div>
       <JobAcceptedModal
         show={showAcceptedModal}

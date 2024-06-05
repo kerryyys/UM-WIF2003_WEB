@@ -107,10 +107,9 @@ function App() {
               element={<JobHistoryDetails />}
             />
             <Route path="/SeekJobPage" element={<SeekJobPage />} />
+            <Route path="/Favorite" element={<FavoritePage />} />
             {/* Add all your routes here */}
           </Route>
-
-          <Route path="/Favorite" element={<FavoritePage />} />
 
           <Route path="/Profile/:userId" element={<Profile />} />
           <Route path="/EditProfile/:userId" element={<EditProfile />} />

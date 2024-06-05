@@ -54,9 +54,9 @@ export default function JobsListItem({
           <Container className="job-details-text">
             <Row>
               <Col>
-                <p>Due:</p>
-                <p>Budget:</p>
-                <p>Collaborator:</p>
+                <p className="detail-type">Due:</p>
+                <p className="detail-type">Budget:</p>
+                <p className="detail-type">Collaborator:</p>
               </Col>
               <Col>
                 <p>{moment(deadline).format("DD-MM-YYYY")}</p>
