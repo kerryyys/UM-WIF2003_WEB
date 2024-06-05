@@ -7,7 +7,6 @@ import axios from '../../utils/customAxios';
 function Invoice() {
   const [invoices, setInvoices] = useState([]);
   const {user} = useUserContext();
-  console.log("Your jobs page userContext: " + JSON.stringify(user));
 
   const PaymentMethod = localStorage.getItem('paymentMethod');
 
