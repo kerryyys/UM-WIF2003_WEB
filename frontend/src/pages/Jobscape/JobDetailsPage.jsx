@@ -12,11 +12,13 @@ import {
   setApplyingProject,
   favoriteProject,
   removeFavoriteProject,
+  removeApplyingProjects,
 } from "../../api/projectApi";
 import { API_URL } from "../../api/projectApi";
 import axios from "../../utils/customAxios";
 import moment from "moment";
 import { useUserContext } from "../../context/UserContext";
+import CancelApplicationModal from "../../components/jobscape/CancelApplicationModal";
 
 export default function JobDetailsPage(props) {
   const { projectId } = useParams();
@@ -26,6 +28,7 @@ export default function JobDetailsPage(props) {
   const [applicationStatus, setApplicationStatus] = useState("notApplied");
   const [showAcceptedModal, setShowAcceptedModal] = useState(false);
   const [showUploadModal, setShowUploadModal] = useState(false);
+  const [showCancelModal, setShowCancelModal] = useState(false);
 
   const [projectDetails, setProjectDetails] = useState({
     filters: [],
@@ -55,6 +58,18 @@ export default function JobDetailsPage(props) {
 
   const handleUploadClick = () => {
     setShowUploadModal(true);
+  };
+  const handleApplyingButtonClick = () => {
+    setShowCancelModal(true);
+  };
+  const handleCancelApplicationClick = async () => {
+    setShowCancelModal(false);
+    try {
+      await removeApplyingProjects(userId, projectId);
+      console.log("Application canceled!");
+    } catch (error) {
+      console.error("Error remove applying project: ", error);
+    }
   };
   const handleSubmitClick = async (files) => {
     setShowUploadModal(false);
@@ -164,12 +179,9 @@ export default function JobDetailsPage(props) {
         );
       case "applying":
         return (
-          <span
-            className="applying-text"
-            title="You have applied. Please wait for approval."
-          >
-            Applying...
-          </span>
+          <Button className="applying-text" onClick={handleApplyingButtonClick}>
+            Applying
+          </Button>
         );
       case "applied":
         return (
@@ -367,6 +379,11 @@ export default function JobDetailsPage(props) {
         onHide={() => setShowUploadModal(false)}
         onFileChange={onFileChange}
         onSubmitClick={handleSubmitClick}
+      />
+      <CancelApplicationModal
+        show={showCancelModal}
+        onHide={() => setShowCancelModal(false)}
+        onCancelClick={handleCancelApplicationClick}
       />
     </Container>
   );
