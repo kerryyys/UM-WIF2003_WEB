@@ -21,6 +21,7 @@ function CommentSection() {
 
   const handleCommentSubmit = async (text) => {
     const newComment = await postComments(postId, user._id, text);
+    console.log("newComment in CommentSection.jsx: ", newComment);
     setComments((prevComments) => [...prevComments, newComment]);
   };
 

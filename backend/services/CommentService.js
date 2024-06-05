@@ -10,7 +10,11 @@ class CommentService {
       content,
     });
     await Post.findByIdAndUpdate(postId, { $push: { comments: comment._id } });
-    return comment;
+    const populatedComment = await Comment.findById(comment._id).populate(
+      "author"
+    );
+
+    return populatedComment;
   }
 
   async deleteComment(commentId) {

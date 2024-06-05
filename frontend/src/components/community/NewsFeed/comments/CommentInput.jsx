@@ -4,10 +4,40 @@ import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion";
 import ProfileImage from "../../ProfileImage";
 import { useUserContext } from "../../../../context/UserContext";
+import { useNavigate } from "react-router-dom";
+import LoginModal from "../modals/LoginModal";
 
 function CommentInput({ onSubmit }) {
+  const [showLoginModal, setShowLoginModal] = useState(false);
   const [comment, setComment] = useState("");
   const { user } = useUserContext();
+  const navigate = useNavigate();
+
+  if (!user) {
+    return (
+      <div className="tw-w-full tw-flex tw-justify-center tw-gap-[6px]">
+        <span className="tw-text-center">For more content, please </span>
+        <span
+          className="tw-text-center tw-underline tw-text-blue-600 tw-cursor-pointer"
+          onClick={() => setShowLoginModal(!showLoginModal)}
+        >
+          {" "}
+          Sign In{" "}
+        </span>{" "}
+        or{" "}
+        <span
+          className="tw-text-center tw-underline tw-text-blue-600 tw-cursor-pointer"
+          onClick={() => navigate("/Register")}
+        >
+          {" "}
+          Sign Up{" "}
+        </span>
+        {showLoginModal && (
+          <LoginModal onClose={() => setShowLoginModal(false)} />
+        )}
+      </div>
+    );
+  }
 
   const handleCommentChange = (e) => {
     setComment(e.target.value);

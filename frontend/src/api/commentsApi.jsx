@@ -20,6 +20,7 @@ export const postComments = async (postId, userId, comment) => {
       userId,
       comment,
     });
+    console.log("res data in commentsApi.jsx, ", res.data);
     readAndLog(res, "Comment posted successfully", "Failed to post comment");
     return res.data;
   } catch (err) {
