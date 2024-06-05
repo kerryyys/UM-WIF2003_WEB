@@ -1,6 +1,6 @@
 import BaseController from "./BaseController.js";
 import CommentService from "../services/CommentService.js";
-import { validateRequest } from "../middlewares/validateRequest.js";
+import { validateRequest } from "../middlewares/validate.js";
 import {
   addCommentSchema,
   commentIdSchema,
@@ -8,6 +8,16 @@ import {
 } from "../validators/commentValidators.js";
 
 class CommentController extends BaseController {
+  constructor() {
+    super();
+    this.addComment = this.addComment.bind(this);
+    this.deleteComment = this.deleteComment.bind(this);
+    this.modifyComment = this.modifyComment.bind(this);
+    this.likeComment = this.likeComment.bind(this);
+    this.unlikeComment = this.unlikeComment.bind(this);
+    this.getCommentsByPostId = this.getCommentsByPostId.bind(this);
+  }
+
   async addComment(req, res) {
     validateRequest(addCommentSchema)(req, res, async () => {
       const { content } = req.body;
@@ -65,6 +75,15 @@ class CommentController extends BaseController {
         req.params.commentId
       );
     });
+  }
+
+  async getCommentsByPostId(req, res) {
+    await this.handleRequest(
+      req,
+      res,
+      CommentService.getCommentsByPostId,
+      req.params.postId
+    );
   }
 }
 

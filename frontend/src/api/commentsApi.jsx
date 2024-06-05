@@ -1,12 +1,13 @@
 import axios from "../utils/customAxios";
-import { readAndLog, readAndReturn } from "../utils/responseHandler.tsx";
+import { readAndLog } from "../utils/responseHandler.tsx";
 
-const API_URL = "http://localhost:5050/community";
+const API_URL = "http://localhost:5050/api/community";
 
 export const fetchComments = async (postId) => {
   try {
-    const res = await axios.get(API_URL + `/posts/${postId}/comments`);
-    readAndReturn(res, "Failed to fetch data");
+    const res = await axios.get(`${API_URL}/posts/${postId}/comments`);
+    readAndLog(res, "Failed to fetch comments");
+    return res.data;
   } catch (err) {
     console.error(err);
   }
@@ -25,6 +26,8 @@ export const postComments = async (postId, userId, comment) => {
     console.error(err);
   }
 };
+
+export const likeComment = async (postId, commentId, userId) => {};
 
 export const postLikes = async (postId, userId) => {
   try {

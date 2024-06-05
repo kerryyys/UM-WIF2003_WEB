@@ -51,6 +51,12 @@ class CommentService {
     handleNotFound(comment, "Comment");
     return comment;
   }
+
+  async getCommentsByPostId(postId) {
+    const comments = await Comment.find({ post: postId });
+    handleNotFound(comments, "Comments");
+    return comments;
+  }
 }
 
 export default new CommentService();
