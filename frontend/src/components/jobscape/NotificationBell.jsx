@@ -1,6 +1,6 @@
 import NotificationMenu from "./NotificationMenu";
 import { useEffect, useState } from "react";
-import "../../pages-css/Jobscape/YourJobsPage.css";
+import "../../components-css/NotificationBell.css";
 import { socket } from "../../api/socketApi";
 import { useUserContext } from "../../context/UserContext";
 import {

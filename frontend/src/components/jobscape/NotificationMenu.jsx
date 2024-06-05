@@ -1,7 +1,7 @@
 import "../../components-css/jobscape/NotificationMenu.css";
 import { useState } from "react";
 import { Button, Pagination } from "react-bootstrap";
-import NotificationItem from "./NotificationItem";
+import NotificationItem from "./notificationItem";
 
 export default function NotificationMenu({
   isOpen,

@@ -104,7 +104,7 @@ router.put("/posted/:projectId/confirm", async (req, res) => {
     project.serviceProvider = userID;
     project.taken = true;
     await project.save();
-    const notif = buildApplicationSuccessMessage(userID, project);
+    const notif = buildApplicationSuccessMessage(user, project);
     await saveNotification(notif);
     res.json({ project, user });
   } catch (error) {
@@ -158,7 +158,7 @@ router.delete("/posted/:projectId", async (req, res) => {
 router.post("/:projectId/accept-file", async (req, res) => {
   const { projectId } = req.params;
   const { userId } = req.body;
-
+  console.log("userid in accept file: " + userId);
   try {
     const project = await Project.findById(projectId);
     if (!project) {
@@ -178,7 +178,9 @@ router.post("/:projectId/accept-file", async (req, res) => {
 
     res.json({ message: "File accepted" });
   } catch (error) {
-    res.status(500).json({ message: "Internal server error" });
+    res.status(500).json({
+      error: "Inside accept-file endpoint " + error.message,
+    });
   }
 });
 
