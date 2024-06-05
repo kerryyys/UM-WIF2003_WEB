@@ -5,7 +5,6 @@ import {
   CreditOrDebitCard,
 } from "../models/payment.js";
 import { Project } from "../models/projectModel.js";
-import User from "../models/userModel.js";
 
 const router = express.Router();
 
@@ -135,7 +134,7 @@ router.get("/task", async (req, res) => {
         return res.status(400).json({ message: "User ID is required." });
       }
 
-      let projects = await Project.find({ postedBy : postedBy }, 'projectTitle projectBudget');
+      let projects = await Project.find({ postedBy : postedBy , completed : true }, 'projectTitle projectBudget');
       res.status(200).json(projects);
     } catch (error) {
       console.error(error);
