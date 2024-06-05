@@ -15,13 +15,13 @@ export const fetchComments = async (postId) => {
 
 export const postComments = async (postId, userId, comment) => {
   try {
-    const res = await axios.post(API_URL + `/posts/${postId}/comments`, {
+    const res = await axios.post(`${API_URL}/posts/${postId}/comments`, {
       postId,
       userId,
       comment,
     });
     readAndLog(res, "Comment posted successfully", "Failed to post comment");
-    return res.data.data;
+    return res.data;
   } catch (err) {
     console.error(err);
   }

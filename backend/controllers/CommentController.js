@@ -20,14 +20,13 @@ class CommentController extends BaseController {
 
   async addComment(req, res) {
     validateRequest(addCommentSchema)(req, res, async () => {
-      const { content } = req.body;
       await this.handleRequest(
         req,
         res,
         CommentService.addComment,
         req.params.postId,
-        req.user._id,
-        content
+        req.body.userId,
+        req.body.comment
       );
     });
   }

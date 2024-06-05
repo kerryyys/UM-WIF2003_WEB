@@ -53,7 +53,7 @@ class CommentService {
   }
 
   async getCommentsByPostId(postId) {
-    const comments = await Comment.find({ post: postId });
+    const comments = await Comment.find({ post: postId }).populate("author");
     handleNotFound(comments, "Comments");
     return comments;
   }

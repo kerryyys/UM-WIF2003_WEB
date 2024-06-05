@@ -4,7 +4,6 @@ import Comment from "./Comment";
 import { fetchComments, postComments } from "../../../../api/commentsApi";
 import { usePostContext } from "../../../../context/PostContext";
 import { useUserContext } from "../../../../context/UserContext";
-import { getAvatar } from "../../../../utils/tools";
 
 function CommentSection() {
   const { postId } = usePostContext();
@@ -15,24 +14,14 @@ function CommentSection() {
     const loadComments = async () => {
       const data = await fetchComments(postId);
       setComments(data);
-      console.log("data from useEffect in CommentSection: ", data);
     };
 
     loadComments();
   }, [postId]);
 
   const handleCommentSubmit = async (text) => {
-    const newComment = postComments(postId, user._id, text);
-
-    const formattedComment = {
-      text: newComment.content,
-      author: user.username,
-      avatar: getAvatar(user.username),
-      timestamp: new Date(newComment.timestamp),
-      likes: newComment.likes.length,
-    };
-
-    setComments((prevComments) => [...prevComments, formattedComment]);
+    const newComment = await postComments(postId, user._id, text);
+    setComments((prevComments) => [...prevComments, newComment]);
   };
 
   const handleLike = (index) => {

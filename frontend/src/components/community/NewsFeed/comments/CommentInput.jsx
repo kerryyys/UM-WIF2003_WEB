@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
-import { Image } from "react-bootstrap";
 import { motion } from "framer-motion";
+import ProfileImage from "../../ProfileImage";
+import { useUserContext } from "../../../../context/UserContext";
 
 function CommentInput({ onSubmit }) {
   const [comment, setComment] = useState("");
+  const { user } = useUserContext();
 
   const handleCommentChange = (e) => {
     setComment(e.target.value);
@@ -21,17 +23,12 @@ function CommentInput({ onSubmit }) {
 
   return (
     <form onSubmit={handleCommentSubmit} className="tw-flex tw-items-center">
-      <Image
-        src="https://www.w3schools.com/howto/img_avatar.png"
-        alt="profile"
-        roundedCircle
-        className="tw-w-10 tw-h-10 tw-rounded-full tw-object-cover tw-mr-2"
-      />
+      <ProfileImage user={user} className="tw-w-10 tw-h-10 tw-mr-2" />
       <input
         type="text"
         value={comment}
         onChange={handleCommentChange}
-        className="tw-flex-grow tw-p-2 tw-rounded-l-lg tw-border-none tw-bg-gray-100 focus:tw-outline-none"
+        className="tw-flex-grow tw-p-2 tw-rounded-l-lg tw-border-none tw-bg-gray-100 "
         placeholder="Write a comment..."
       />
 
