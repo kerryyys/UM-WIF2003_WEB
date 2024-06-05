@@ -167,6 +167,30 @@ export const getApplyingProjects = async (req, res) => {
     });
   }
 };
+
+export const removeApplyingProject = async (req, res) => {
+  const { userId, projectId } = req.body;
+  try {
+    const user = await User.findById(userId);
+    if (user.applyingProjects.includes(projectId)) {
+      user.applyingProjects.pull(projectId);
+      await user.save();
+    } else {
+      return res.status(200).json({ message: "no error" });
+    }
+    const project = await Project.findById(projectId);
+    if (project.applicants.includes(userId)) {
+      project.applicants.pull(userId);
+      await project.save();
+    } else {
+      return res.status(200).json({ message: "no error" });
+    }
+  } catch (error) {
+    return res.status(400).json({
+      error: "Inside PUT /applying-project endpoint " + error.message,
+    });
+  }
+};
 export const saveTakenProject = async (req, res) => {
   console.log(req.body);
   const { userId, projectId } = req.body;

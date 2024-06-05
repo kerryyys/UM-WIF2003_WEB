@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { Button, Container, Row, Col } from "react-bootstrap";
+import { useNavigate, Link } from "react-router-dom";
 import "../../App.css";
 import axios from "axios";
 import SmallTitle from "../../components/jobscape/SmallTitle";
@@ -13,6 +15,7 @@ import DellLogo from "../../assets/icons/jobscape/DellLogo.svg";
 import searchbtn from "../../assets/icons/icon_search.svg";
 import { getFavoriteProjects } from "../../api/projectApi";
 import { useUserContext } from "../../context/UserContext";
+import "../../pages-css/Jobscape/SeekJobPage.css";
 
 const SeekJobPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -22,7 +25,7 @@ const SeekJobPage = () => {
   const { user } = useUserContext();
   console.log("userContext in seekjobpage: " + user._id);
   const userId = user._id;
-
+  const navigate = useNavigate();
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -191,7 +194,20 @@ const SeekJobPage = () => {
 
   return (
     <>
-      <div style={{ margin: "80px 0 10px" }}>
+      <div className="seekjob-top-container">
+        <Button className="seekjob-back-btn" onClick={() => navigate(-1)}>
+          <p>
+            <i className="bi bi-chevron-left"></i>Back
+          </p>
+        </Button>
+        <Link to="/Favorite">
+          <Button className="to-job-list-btn">
+            My saved projects <i className="bi bi-chevron-double-right" />
+          </Button>
+        </Link>
+      </div>
+
+      <div style={{ margin: "20px 0 10px" }}>
         <SmallTitle
           title="Find Your Dream Project"
           fontWeight="700"
