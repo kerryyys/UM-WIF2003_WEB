@@ -19,6 +19,7 @@ import {
 } from "../controllers/projectsController.js";
 import mongoose, { mongo } from "mongoose";
 import { downloadFile } from "../middlewares/downloadMiddleware.js";
+import { getPostedProjects } from "../../frontend/src/api/projectApi.jsx";
 const router = e.Router();
 // Configure storage for multer
 const storage = multer.diskStorage({
@@ -71,6 +72,10 @@ router.get("/completed-project/:userId", getCompletedProjects);
 router.post("/upload-works", upload.array("files"), uploadCompletedWorks);
 // GET /projects/:projectId - Retrieves project details of projectId
 router.get("/:projectId", getProjectDetails);
+
+//GET /posted-project - Retrieves all posted project of current user
+router.get("/posted-project/:userId",getPostedProjects);
+
 // router.post("/get-applicants", async (req, res) => {
 //   try {
 //     const project = await Project.findById("6651b3b082ee377a3e8d6a91").populate(

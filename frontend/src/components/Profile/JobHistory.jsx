@@ -3,28 +3,34 @@ import { Container, Row, Col, Image } from "react-bootstrap";
 import "../../components-css/Profile/JobHistoryCSS.css";
 import { useNavigate } from "react-router-dom";
 import { getCompletedProjects } from "../../api/projectApi";
+import { getPostedProjects } from "../../api/projectApi";
 import noJob from "../../assets/profile/no_job.svg";
 
-const JobHistory = ({ userId }) => {
-  const [completedProjects, setCompletedProject] = useState([]);
+const JobHistory = ({ userId,role }) => {
+  const [projects, setProject] = useState([]);
   const [error, setError] = useState(null); 
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchCompletedProjects = async () => {
+    const fetchProjects = async () => {
       try {
-        const response = await getCompletedProjects(userId);
-        setCompletedProject(response.completedProjects);
+        if (role === "recruiter") {
+          const response = await getPostedProjects(userId);
+          setProject(response.postedProjects);
+        } else if (role === "freelancer") {
+          const response = await getCompletedProjects(userId);
+          setProject(response.completedProjects);
+        } else {
+          console.error("Invalid user role:", role);
+        }
       } catch (error) {
-        console.error("Error: " + error.message);
+        console.error("Error: ", error.message);
+        setError(error);
       }
     };
-    fetchCompletedProjects();
-  }, []);
 
-  useEffect(() => {
-    console.log("Current completed projects: ", completedProjects);
-  }, [completedProjects]);
+    fetchProjects();
+  }, [userId, role]);
   
   const handleClick = (projectId) => {
     navigate(`/JobDetailsPage/${projectId}`);
@@ -34,7 +40,7 @@ const JobHistory = ({ userId }) => {
     return <p>{error}</p>; 
   }
 
-  if (completedProjects.length === 0) {
+  if (projects.length === 0) {
     return (
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <img style={{ width: '150px', height: '150px' }} src={noJob} alt="No Job" />
@@ -44,7 +50,7 @@ const JobHistory = ({ userId }) => {
 
   return (
     <>
-      {completedProjects.map((jobInfo, index) => (
+      {projects.map((jobInfo, index) => (
         <div key={index} className="job-history-card">
           <Row className="header">
             <Col xs={7} className="info-column">
