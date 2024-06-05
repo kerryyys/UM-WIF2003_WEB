@@ -5,6 +5,10 @@ import axios from "../../utils/customAxios";
 import ProjectPostedUser from "./ProjectPostedUser";
 import "../../components-css/jobscape/ProjectPostedTab.css";
 import Rating from "react-rating-stars-component";
+import { useNavigate } from 'react-router-dom';
+import default_avatar from "../../assets/icons/profile/avatar-default-symbolic-svgrepo-com.svg";
+
+
 
 const ProjectPostedTab = ({
   projectId,
@@ -15,6 +19,7 @@ const ProjectPostedTab = ({
   onMoveToInProgress,
   onDeleteProject,
 }) => {
+  const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedApplicant, setSelectedApplicant] = useState(null);
@@ -106,7 +111,7 @@ const ProjectPostedTab = ({
   };
 
   const navigateToFreelancerProfilePage = () => {
-    window.location.href = `http://localhost:5050/users/${selectedApplicant._id}`;
+    navigate(`/Profile/${selectedApplicant._id}`);
   };
 
   return (
@@ -138,9 +143,9 @@ const ProjectPostedTab = ({
         <Modal.Body>
           {selectedApplicant ? (
             <div className="ModalContent">
-              <div style={{ display: "flex", flexDirection: "column" }}>
+              <div style={{ display: "flex", flexDirection: "row" }}>
                 <img
-                  src={`data:image/jpeg;base64,${selectedApplicant.profilePic}`}
+                  src={selectedApplicant.profilePic ? `data:${selectedApplicant.profilePic};base64,${selectedApplicant.profilePic}` : default_avatar}
                   alt="Profile Picture"
                   className="ProfilePic"
                 />
@@ -162,9 +167,9 @@ const ProjectPostedTab = ({
                       {selectedApplicant.state}
                     </Badge>
                   </div>
+                  <p className="Biography">{selectedApplicant.headline}</p>
                 </div>
               </div>
-              <p className="Biography">{selectedApplicant.headline}</p>
             </div>
           ) : (
             applicants.map((applicant, index) => (
@@ -186,7 +191,7 @@ const ProjectPostedTab = ({
             <Button
               variant="danger"
               onClick={handleShowDeleteModal}
-              style={{ backgroundColor: "red" }}
+              className="deleteprojectbtn"
             >
               Delete Project
             </Button>
@@ -195,7 +200,7 @@ const ProjectPostedTab = ({
             <Button
               className="details-button"
               onClick={navigateToFreelancerProfilePage}
-              style={{justifyContent:"center"}}
+              style={{ justifyContent: "center" }}
             >
               View Profile
             </Button>

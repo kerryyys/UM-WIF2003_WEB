@@ -36,8 +36,8 @@ function ProfileHeader(props) {
           <p style={{ marginTop: '10px', fontSize: '25px', fontWeight: 'bold' }}>
             {renderValue(name, 'Name')}
           </p>
-          <div style={{ display: 'flex', marginTop: '5px' }}>
-            <p style={{ color: '#858585', marginRight: '50px' }}>
+          <div style={{ display: 'flex', marginTop: '5px', gap: "25px" }}>
+            <p style={{ color: '#858585', marginRight: '' }}>
               {renderValue(location, 'Location')}
             </p>
             {role === 'recruiter' ? (
