@@ -138,7 +138,7 @@ const ProjectPostedTab = ({
         <Modal.Body>
           {selectedApplicant ? (
             <div className="ModalContent">
-              <div style={{ display: "flex", flexDirection: "column" }}>
+              <div style={{ display: "flex", flexDirection: "row" }}>
                 <img
                   src={`data:image/jpeg;base64,${selectedApplicant.profilePic}`}
                   alt="Profile Picture"
@@ -162,9 +162,9 @@ const ProjectPostedTab = ({
                       {selectedApplicant.state}
                     </Badge>
                   </div>
+                  <p className="Biography">{selectedApplicant.headline}</p>
                 </div>
               </div>
-              <p className="Biography">{selectedApplicant.headline}</p>
             </div>
           ) : (
             applicants.map((applicant, index) => (
@@ -186,7 +186,7 @@ const ProjectPostedTab = ({
             <Button
               variant="danger"
               onClick={handleShowDeleteModal}
-              style={{ backgroundColor: "red" }}
+              className="deleteprojectbtn"
             >
               Delete Project
             </Button>
@@ -195,7 +195,7 @@ const ProjectPostedTab = ({
             <Button
               className="details-button"
               onClick={navigateToFreelancerProfilePage}
-              style={{justifyContent:"center"}}
+              style={{ justifyContent: "center" }}
             >
               View Profile
             </Button>
