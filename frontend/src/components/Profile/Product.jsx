@@ -2,7 +2,17 @@ import React from "react";
 import WorkCaseIcon from '../../assets/icons/profile/work-case-svgrepo-com 1.svg'
 import '../../components-css/Profile/ExperienceCSS.css'
 
+
+
 function Product({ products = [] }) {
+  
+  if (products.length === 0) {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center',margin:'20px',fontStyle: 'italic', color: '#858585' }}>
+          <p>Product hasn't been set</p>
+        </div>
+    );
+  }
   return (
     <>
       {products.map((product, index) => (

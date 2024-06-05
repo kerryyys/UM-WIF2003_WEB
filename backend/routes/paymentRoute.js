@@ -127,23 +127,7 @@ router.get("/task", async (req, res) => {
   }
 });
 
-// Invoice
-// router.get('/invoices', async (req, res) => {
-//   try {
-//     const { postedBy } = req.query; // Destructuring postedBy from req.query
-//     if (!postedBy) {
-//       return res.status(400).json({ message: "User ID is required." });
-//     }
-  
-//     const projects = await Project.find({ postedBy: postedBy }, 'projectTitle projectBudget');
-//     res.json(projects);
-//    catch (err) {
-//     res.status(500).json({ message: err.message });
-//   }
-// });
-
 router.get('/invoices', async (req, res) => {
-  const userId = req.query.userId;
   try {
     const { postedBy } = req.query;
     if (!postedBy) {
@@ -157,6 +141,25 @@ router.get('/invoices', async (req, res) => {
     res.status(500).json({ message: "Internal server error." });
   }
 });
+
+// router.get('/invoices', async (req, res) => {
+//   try {
+//     const { postedBy } = req.query;
+
+//     if (!postedBy || !ObjectId.isValid(postedBy)) {
+//       return res.status(400).json({ message: "Invalid or missing user ID." });
+//     }
+
+//     const postedByString = postedBy.toString();
+
+//     let projects = await Project.find({ postedBy: postedByString }, 'projectTitle projectBudget');
+//     res.status(200).json(projects);
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ message: "Internal server error." });
+//   }
+// });
+
 
 
 export default router;

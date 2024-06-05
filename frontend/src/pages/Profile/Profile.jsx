@@ -38,10 +38,11 @@ function Profile() {
           name={profile.username}
           university={isRecruiter ? null : profile.university}
           location={`${profile.city}, ${profile.state}`}
-          avatarSrc={profile.profilePic}  
+          avatarSrc={profile.profilePic}
           headline={profile.headline}
           tags={profile.categories}
           userId={userId}
+          role={profile.role}
         />
       </Container>
       <Container className="mt-5">
@@ -52,10 +53,27 @@ function Profile() {
               <hr />
             </div>
             {isRecruiter ? (
-              <p>{profile.about}</p>
+              
+                profile.about ? (
+                  <p>{profile.about}</p>
+                ) : (
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      margin: '20px',
+                      fontStyle: 'italic',
+                      color: '#858585'
+                    }}
+                  >
+                    About Us hasn't been set
+                  </div>
+                )
+              
             ) : (
               <Experience experiences={profile.experience} />
             )}
+
             <div className="section-header">
               <h6 className="text-center mt-10">{isRecruiter ? "PRODUCT" : "SKILL"}</h6>
               <hr />
