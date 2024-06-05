@@ -50,7 +50,7 @@ const LoginModal = ({ onClose }) => {
             />
           </div>
 
-          <div className="tw-w-full md:tw-w-1/2 tw-p-8 tw-text-start">
+          <div className="tw-w-full md:tw-w-1/2 tw-p-8">
             <h2 className="tw-text-3xl tw-font-lato tw-font-bold tw-mb-7">
               Login
             </h2>

@@ -16,6 +16,8 @@ import dotenv from "dotenv";
 import notificationRoute from "./routes/notificationRoute.js";
 import { createServer } from "http";
 import { socketConnection } from "./utils/socket-io.js";
+import { fileURLToPath } from "url";
+import path from "path";
 
 dotenv.config();
 const app = express();
@@ -35,6 +37,10 @@ app.use(cors(corsOptions));
 // Use body-parser
 app.use(bodyParser.json());
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+app.use("/uploads", express.static(path.join(__dirname, "public/uploads")));
+console.log(path.join(__dirname, "public/uploads"));
 app.use("/recruite", projectDetailsRoute);
 app.use("/recruite", reviewProjectRoute);
 app.use("/projects", projectsRouter);

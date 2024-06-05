@@ -17,6 +17,7 @@
     "@uiw/react-markdown-preview": "^5.1.1",
     "@uiw/react-md-editor": "^4.0.4",
     "axios": "^1.7.2",
+    "base64-arraybuffer": "^1.0.2",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
     "builtin-modules": "^4.0.0",
