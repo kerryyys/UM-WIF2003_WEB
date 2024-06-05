@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Container, Row, Col } from "react-bootstrap";
 import { useNavigate, Link } from "react-router-dom";
 import "../../App.css";
-import axios from "axios";
+import axios from "../../utils/customAxios";
 import SmallTitle from "../../components/jobscape/SmallTitle";
 import SearchBar from "../../components/jobscape/SearchBar";
 import SearchButton from "../../components/jobscape/SearchButton";
@@ -10,8 +10,6 @@ import FilterTab from "../../components/jobscape/FilterTab";
 import SearchResultTab from "../../components/jobscape/SearchResultTab";
 import ProjectTab from "../../components/jobscape/ProjectTab";
 import PageNumberNav from "../../components/jobscape/PageNumberNav";
-import WeddingLogo from "../../assets/icons/jobscape/WeddingLogo.svg";
-import DellLogo from "../../assets/icons/jobscape/DellLogo.svg";
 import searchbtn from "../../assets/icons/icon_search.svg";
 import { getFavoriteProjects } from "../../api/projectApi";
 import { useUserContext } from "../../context/UserContext";
@@ -32,8 +30,6 @@ const SeekJobPage = () => {
 
   const [projectTabs, setProjectTabs] = useState([]);
   const [searchValue, setSearchValue] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
-  const [sortingOption, setSortingOption] = useState("newOrRate");
 
   useEffect(() => {
     const fetchFavoritedProjects = async () => {
@@ -51,10 +47,6 @@ const SeekJobPage = () => {
     const fetchProjects = async () => {
       try {
         const response = await axios.get("http://localhost:5050/projects");
-        // response is an array of Objects
-        // console.log(
-        //   "Axios response.data: " + JSON.stringify(response.data.data)
-        // );
         const fetchedProjects = response.data.data.map((project) => {
           let companyName = project.postedBy.username;
           console.log("Company Name: " + JSON.stringify(project));
