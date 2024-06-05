@@ -4,7 +4,7 @@ import { ShareButton, SendButton, CommentButton } from "./buttons/CustomButton";
 import CommentSection from "./CommentSection";
 import { usePostContext } from "../../../context/PostContext";
 
-function Controls() {
+function ActionButtons() {
   const { isCommentActive } = usePostContext();
 
   return (
@@ -33,4 +33,4 @@ function Controls() {
   );
 }
 
-export default Controls;
+export default ActionButtons;
