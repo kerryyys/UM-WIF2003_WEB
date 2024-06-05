@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import LikeButton from "./buttons/LikeButton";
 import { ShareButton, SendButton, CommentButton } from "./buttons/CustomButton";
-import CommentSection from "./CommentSection";
+import CommentSection from "./comments/CommentSection";
 import { usePostContext } from "../../../context/PostContext";
 
 function ActionButtons() {

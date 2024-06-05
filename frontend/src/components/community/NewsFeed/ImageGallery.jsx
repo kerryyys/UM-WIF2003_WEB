@@ -1,7 +1,7 @@
 // ImageGallery.jsx
 import React, { useState } from "react";
 import ImageItem from "./ImageComponent"; // Assuming ImageItem is properly imported
-import ImageModal from "./ImageModal"; // Import the new ImageModal component
+import ImageModal from "./modals/ImageModal"; // Import the new ImageModal component
 
 function ImageGallery({ images }) {
   const [showModal, setShowModal] = useState(false);
