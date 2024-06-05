@@ -27,7 +27,7 @@ const JobHistory = ({ userId }) => {
   }, [completedProjects]);
   
   const handleClick = (projectId) => {
-    navigate(`/JobDetailsPage/${projectId}`);
+    navigate(`/SeekJobPage/job-details/${projectId}`);
   };
 
   if (error) {
