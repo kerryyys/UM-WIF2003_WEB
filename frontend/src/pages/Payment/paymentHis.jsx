@@ -14,7 +14,7 @@ function Invoice() {
     const fetchInvoices = async (userId) => {
       if (userId) {
         try {
-          const response = await axios.get(`http://localhost:5050/payment/invoices?postedBy=${userId}`);
+          const response = await axios.get(`http://localhost:5050/payment/invoices/${userId}`);
           console.log("API Response:", response.data);
           if (response.status === 200) {
             setInvoices(response.data);
