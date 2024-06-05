@@ -120,7 +120,7 @@ const JobscapeMainPage = () => {
             marginTop: "20px",
           }}
         >
-          {user.role == "freelancer" && (
+          {user.role == "freelancer" ? (
             <Link to="/YourJobs">
               <Button
                 className="floating-your-jobs-btn"
@@ -133,6 +133,8 @@ const JobscapeMainPage = () => {
                 Your Jobs <i className="bi bi-exclamation-circle-fill" />
               </Button>
             </Link>
+          ) : (
+            <></>
           )}
         </div>
       </div>

@@ -98,7 +98,7 @@ const ReviewProjectPage = () => {
                 budget={project.projectBudget}
                 postedDate={project.createdAt}
                 onMoveToInProgress={moveToInProgress}
-                onDeleteProject={deleteProject} // Pass the delete function
+                onDeleteProject={deleteProject} 
               />
             ))
           )}

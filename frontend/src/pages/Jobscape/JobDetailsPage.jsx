@@ -1,9 +1,7 @@
 import "../../pages-css/Jobscape/JobDetailsPage.css";
 import { Button, Container, Row, Col, Badge } from "react-bootstrap";
-import dellImg from "../../assets/icons/jobscape/DellLogo.svg";
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import SeekJobPage from "./SeekJobPage";
 import JobAcceptedModal from "../../components/jobscape/JobAcceptedModal";
 import UploadWorkModal from "../../components/jobscape/UploadWorkModal";
 import {
